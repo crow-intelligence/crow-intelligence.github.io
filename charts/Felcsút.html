@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Felcs\u00fat"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector831": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Felcs\u00fat"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector831"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Felcs\u00fat"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector831"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Felcs\u00fat", "selection": "selector831"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Felcs\u00fat"}}}], "data": {"name": "data-069ff5f9140cbfccc12a7bf93a1275d0"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-069ff5f9140cbfccc12a7bf93a1275d0": [{"date": 1986, "Felcs\u00fat": 1520}, {"date": 1987, "Felcs\u00fat": 1520}, {"date": 1988, "Felcs\u00fat": 1525}, {"date": 1989, "Felcs\u00fat": 1522}, {"date": 1990, "Felcs\u00fat": 1546}, {"date": 1991, "Felcs\u00fat": 1575}, {"date": 1992, "Felcs\u00fat": 1575}, {"date": 1993, "Felcs\u00fat": 1584}, {"date": 1994, "Felcs\u00fat": 1576}, {"date": 1995, "Felcs\u00fat": 1579}, {"date": 1996, "Felcs\u00fat": 1592}, {"date": 1997, "Felcs\u00fat": 1621}, {"date": 1998, "Felcs\u00fat": 1619}, {"date": 1999, "Felcs\u00fat": 1648}, {"date": 2000, "Felcs\u00fat": 1674}, {"date": 2001, "Felcs\u00fat": 1673}, {"date": 2002, "Felcs\u00fat": 1690}, {"date": 2003, "Felcs\u00fat": 1700}, {"date": 2004, "Felcs\u00fat": 1710}, {"date": 2005, "Felcs\u00fat": 1727}, {"date": 2006, "Felcs\u00fat": 1737}, {"date": 2007, "Felcs\u00fat": 1747}, {"date": 2008, "Felcs\u00fat": 1780}, {"date": 2009, "Felcs\u00fat": 1797}, {"date": 2010, "Felcs\u00fat": 1815}, {"date": 2011, "Felcs\u00fat": 1831}, {"date": 2012, "Felcs\u00fat": 1866}, {"date": 2013, "Felcs\u00fat": 1894}, {"date": 2014, "Felcs\u00fat": 1889}, {"date": 2015, "Felcs\u00fat": 1891}, {"date": 2016, "Felcs\u00fat": 1888}, {"date": 2017, "Felcs\u00fat": 1862}, {"date": 2018, "Felcs\u00fat": 1892}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyaregregy"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector264": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Magyaregregy"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector264"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyaregregy"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector264"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Magyaregregy", "selection": "selector264"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyaregregy"}}}], "data": {"name": "data-54f84153b85a970c23215cea46abac6f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-54f84153b85a970c23215cea46abac6f": [{"date": 1986, "Magyaregregy": 1035}, {"date": 1987, "Magyaregregy": 1023}, {"date": 1988, "Magyaregregy": 1013}, {"date": 1989, "Magyaregregy": 1032}, {"date": 1990, "Magyaregregy": 1012}, {"date": 1991, "Magyaregregy": 1008}, {"date": 1992, "Magyaregregy": 1008}, {"date": 1993, "Magyaregregy": 1004}, {"date": 1994, "Magyaregregy": 981}, {"date": 1995, "Magyaregregy": 958}, {"date": 1996, "Magyaregregy": 957}, {"date": 1997, "Magyaregregy": 939}, {"date": 1998, "Magyaregregy": 916}, {"date": 1999, "Magyaregregy": 908}, {"date": 2000, "Magyaregregy": 894}, {"date": 2001, "Magyaregregy": 887}, {"date": 2002, "Magyaregregy": 873}, {"date": 2003, "Magyaregregy": 864}, {"date": 2004, "Magyaregregy": 850}, {"date": 2005, "Magyaregregy": 853}, {"date": 2006, "Magyaregregy": 868}, {"date": 2007, "Magyaregregy": 833}, {"date": 2008, "Magyaregregy": 799}, {"date": 2009, "Magyaregregy": 790}, {"date": 2010, "Magyaregregy": 788}, {"date": 2011, "Magyaregregy": 791}, {"date": 2012, "Magyaregregy": 781}, {"date": 2013, "Magyaregregy": 766}, {"date": 2014, "Magyaregregy": 767}, {"date": 2015, "Magyaregregy": 763}, {"date": 2016, "Magyaregregy": 748}, {"date": 2017, "Magyaregregy": 745}, {"date": 2018, "Magyaregregy": 761}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

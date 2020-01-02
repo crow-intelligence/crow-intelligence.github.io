@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Orfalu"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2208": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Orfalu"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2208"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Orfalu"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2208"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Orfalu", "selection": "selector2208"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Orfalu"}}}], "data": {"name": "data-317434baa12f845b74ef079c535c66a5"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-317434baa12f845b74ef079c535c66a5": [{"date": 1986, "Orfalu": 83}, {"date": 1987, "Orfalu": 83}, {"date": 1988, "Orfalu": 84}, {"date": 1989, "Orfalu": 83}, {"date": 1990, "Orfalu": 81}, {"date": 1991, "Orfalu": 74}, {"date": 1992, "Orfalu": 71}, {"date": 1993, "Orfalu": 67}, {"date": 1994, "Orfalu": 65}, {"date": 1995, "Orfalu": 65}, {"date": 1996, "Orfalu": 67}, {"date": 1997, "Orfalu": 67}, {"date": 1998, "Orfalu": 63}, {"date": 1999, "Orfalu": 63}, {"date": 2000, "Orfalu": 58}, {"date": 2001, "Orfalu": 60}, {"date": 2002, "Orfalu": 68}, {"date": 2003, "Orfalu": 70}, {"date": 2004, "Orfalu": 64}, {"date": 2005, "Orfalu": 64}, {"date": 2006, "Orfalu": 62}, {"date": 2007, "Orfalu": 63}, {"date": 2008, "Orfalu": 60}, {"date": 2009, "Orfalu": 65}, {"date": 2010, "Orfalu": 69}, {"date": 2011, "Orfalu": 71}, {"date": 2012, "Orfalu": 71}, {"date": 2013, "Orfalu": 70}, {"date": 2014, "Orfalu": 70}, {"date": 2015, "Orfalu": 72}, {"date": 2016, "Orfalu": 69}, {"date": 2017, "Orfalu": 66}, {"date": 2018, "Orfalu": 70}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

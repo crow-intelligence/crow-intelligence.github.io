@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szuhaf\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector712": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szuhaf\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector712"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szuhaf\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector712"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szuhaf\u0151", "selection": "selector712"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szuhaf\u0151"}}}], "data": {"name": "data-9d2e92f9e5aefd2fa40df358fbff669c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-9d2e92f9e5aefd2fa40df358fbff669c": [{"date": 1986, "Szuhaf\u0151": 264}, {"date": 1987, "Szuhaf\u0151": 260}, {"date": 1988, "Szuhaf\u0151": 259}, {"date": 1989, "Szuhaf\u0151": 254}, {"date": 1990, "Szuhaf\u0151": 252}, {"date": 1991, "Szuhaf\u0151": 248}, {"date": 1992, "Szuhaf\u0151": 238}, {"date": 1993, "Szuhaf\u0151": 233}, {"date": 1994, "Szuhaf\u0151": 232}, {"date": 1995, "Szuhaf\u0151": 233}, {"date": 1996, "Szuhaf\u0151": 233}, {"date": 1997, "Szuhaf\u0151": 230}, {"date": 1998, "Szuhaf\u0151": 232}, {"date": 1999, "Szuhaf\u0151": 235}, {"date": 2000, "Szuhaf\u0151": 225}, {"date": 2001, "Szuhaf\u0151": 221}, {"date": 2002, "Szuhaf\u0151": 212}, {"date": 2003, "Szuhaf\u0151": 207}, {"date": 2004, "Szuhaf\u0151": 199}, {"date": 2005, "Szuhaf\u0151": 202}, {"date": 2006, "Szuhaf\u0151": 192}, {"date": 2007, "Szuhaf\u0151": 177}, {"date": 2008, "Szuhaf\u0151": 180}, {"date": 2009, "Szuhaf\u0151": 176}, {"date": 2010, "Szuhaf\u0151": 175}, {"date": 2011, "Szuhaf\u0151": 170}, {"date": 2012, "Szuhaf\u0151": 166}, {"date": 2013, "Szuhaf\u0151": 166}, {"date": 2014, "Szuhaf\u0151": 161}, {"date": 2015, "Szuhaf\u0151": 165}, {"date": 2016, "Szuhaf\u0151": 150}, {"date": 2017, "Szuhaf\u0151": 152}, {"date": 2018, "Szuhaf\u0151": 149}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

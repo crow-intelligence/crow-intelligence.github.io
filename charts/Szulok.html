@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szulok"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1722": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szulok"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1722"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szulok"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1722"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szulok", "selection": "selector1722"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szulok"}}}], "data": {"name": "data-24af406cb1408157cb1bd496888ab708"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-24af406cb1408157cb1bd496888ab708": [{"date": 1986, "Szulok": 894}, {"date": 1987, "Szulok": 874}, {"date": 1988, "Szulok": 868}, {"date": 1989, "Szulok": 840}, {"date": 1990, "Szulok": 835}, {"date": 1991, "Szulok": 820}, {"date": 1992, "Szulok": 811}, {"date": 1993, "Szulok": 815}, {"date": 1994, "Szulok": 806}, {"date": 1995, "Szulok": 806}, {"date": 1996, "Szulok": 802}, {"date": 1997, "Szulok": 803}, {"date": 1998, "Szulok": 766}, {"date": 1999, "Szulok": 749}, {"date": 2000, "Szulok": 748}, {"date": 2001, "Szulok": 743}, {"date": 2002, "Szulok": 731}, {"date": 2003, "Szulok": 724}, {"date": 2004, "Szulok": 718}, {"date": 2005, "Szulok": 707}, {"date": 2006, "Szulok": 701}, {"date": 2007, "Szulok": 702}, {"date": 2008, "Szulok": 677}, {"date": 2009, "Szulok": 665}, {"date": 2010, "Szulok": 649}, {"date": 2011, "Szulok": 651}, {"date": 2012, "Szulok": 647}, {"date": 2013, "Szulok": 652}, {"date": 2014, "Szulok": 654}, {"date": 2015, "Szulok": 645}, {"date": 2016, "Szulok": 643}, {"date": 2017, "Szulok": 623}, {"date": 2018, "Szulok": 609}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

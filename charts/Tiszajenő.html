@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszajen\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1972": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszajen\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1972"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszajen\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1972"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszajen\u0151", "selection": "selector1972"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszajen\u0151"}}}], "data": {"name": "data-8513fe66377e7b65ee7564387a07a6a9"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-8513fe66377e7b65ee7564387a07a6a9": [{"date": 1986, "Tiszajen\u0151": 1707}, {"date": 1987, "Tiszajen\u0151": 1726}, {"date": 1988, "Tiszajen\u0151": 1703}, {"date": 1989, "Tiszajen\u0151": 1697}, {"date": 1990, "Tiszajen\u0151": 1688}, {"date": 1991, "Tiszajen\u0151": 1707}, {"date": 1992, "Tiszajen\u0151": 1709}, {"date": 1993, "Tiszajen\u0151": 1696}, {"date": 1994, "Tiszajen\u0151": 1688}, {"date": 1995, "Tiszajen\u0151": 1681}, {"date": 1996, "Tiszajen\u0151": 1683}, {"date": 1997, "Tiszajen\u0151": 1686}, {"date": 1998, "Tiszajen\u0151": 1680}, {"date": 1999, "Tiszajen\u0151": 1692}, {"date": 2000, "Tiszajen\u0151": 1686}, {"date": 2001, "Tiszajen\u0151": 1659}, {"date": 2002, "Tiszajen\u0151": 1633}, {"date": 2003, "Tiszajen\u0151": 1636}, {"date": 2004, "Tiszajen\u0151": 1640}, {"date": 2005, "Tiszajen\u0151": 1641}, {"date": 2006, "Tiszajen\u0151": 1639}, {"date": 2007, "Tiszajen\u0151": 1625}, {"date": 2008, "Tiszajen\u0151": 1641}, {"date": 2009, "Tiszajen\u0151": 1648}, {"date": 2010, "Tiszajen\u0151": 1655}, {"date": 2011, "Tiszajen\u0151": 1643}, {"date": 2012, "Tiszajen\u0151": 1625}, {"date": 2013, "Tiszajen\u0151": 1619}, {"date": 2014, "Tiszajen\u0151": 1622}, {"date": 2015, "Tiszajen\u0151": 1605}, {"date": 2016, "Tiszajen\u0151": 1605}, {"date": 2017, "Tiszajen\u0151": 1577}, {"date": 2018, "Tiszajen\u0151": 1556}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

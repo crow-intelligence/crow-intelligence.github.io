@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szabadbatty\u00e1n"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2790": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szabadbatty\u00e1n"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2790"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szabadbatty\u00e1n"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2790"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szabadbatty\u00e1n", "selection": "selector2790"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szabadbatty\u00e1n"}}}], "data": {"name": "data-d53795a2d9b286faafc99d26f7438682"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d53795a2d9b286faafc99d26f7438682": [{"date": 1986, "Szabadbatty\u00e1n": 3894}, {"date": 1987, "Szabadbatty\u00e1n": 3886}, {"date": 1988, "Szabadbatty\u00e1n": 3959}, {"date": 1989, "Szabadbatty\u00e1n": 3991}, {"date": 1990, "Szabadbatty\u00e1n": 4007}, {"date": 1991, "Szabadbatty\u00e1n": 4130}, {"date": 1992, "Szabadbatty\u00e1n": 4199}, {"date": 1993, "Szabadbatty\u00e1n": 4166}, {"date": 1994, "Szabadbatty\u00e1n": 4252}, {"date": 1995, "Szabadbatty\u00e1n": 4298}, {"date": 1996, "Szabadbatty\u00e1n": 4332}, {"date": 1997, "Szabadbatty\u00e1n": 4328}, {"date": 1998, "Szabadbatty\u00e1n": 4392}, {"date": 1999, "Szabadbatty\u00e1n": 4481}, {"date": 2000, "Szabadbatty\u00e1n": 4484}, {"date": 2001, "Szabadbatty\u00e1n": 4501}, {"date": 2002, "Szabadbatty\u00e1n": 4565}, {"date": 2003, "Szabadbatty\u00e1n": 4632}, {"date": 2004, "Szabadbatty\u00e1n": 4612}, {"date": 2005, "Szabadbatty\u00e1n": 4594}, {"date": 2006, "Szabadbatty\u00e1n": 4604}, {"date": 2007, "Szabadbatty\u00e1n": 4606}, {"date": 2008, "Szabadbatty\u00e1n": 4641}, {"date": 2009, "Szabadbatty\u00e1n": 4684}, {"date": 2010, "Szabadbatty\u00e1n": 4668}, {"date": 2011, "Szabadbatty\u00e1n": 4665}, {"date": 2012, "Szabadbatty\u00e1n": 4644}, {"date": 2013, "Szabadbatty\u00e1n": 4644}, {"date": 2014, "Szabadbatty\u00e1n": 4616}, {"date": 2015, "Szabadbatty\u00e1n": 4621}, {"date": 2016, "Szabadbatty\u00e1n": 4648}, {"date": 2017, "Szabadbatty\u00e1n": 4669}, {"date": 2018, "Szabadbatty\u00e1n": 4704}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

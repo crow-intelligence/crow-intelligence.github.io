@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszan\u00e1na"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1207": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszan\u00e1na"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1207"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszan\u00e1na"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1207"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszan\u00e1na", "selection": "selector1207"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszan\u00e1na"}}}], "data": {"name": "data-c4432a8c9124fb0fb534a67bb8dfed3a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c4432a8c9124fb0fb534a67bb8dfed3a": [{"date": 1986, "Tiszan\u00e1na": 3032}, {"date": 1987, "Tiszan\u00e1na": 2979}, {"date": 1988, "Tiszan\u00e1na": 2930}, {"date": 1989, "Tiszan\u00e1na": 2909}, {"date": 1990, "Tiszan\u00e1na": 2907}, {"date": 1991, "Tiszan\u00e1na": 2861}, {"date": 1992, "Tiszan\u00e1na": 2838}, {"date": 1993, "Tiszan\u00e1na": 2802}, {"date": 1994, "Tiszan\u00e1na": 2799}, {"date": 1995, "Tiszan\u00e1na": 2783}, {"date": 1996, "Tiszan\u00e1na": 2782}, {"date": 1997, "Tiszan\u00e1na": 2791}, {"date": 1998, "Tiszan\u00e1na": 2759}, {"date": 1999, "Tiszan\u00e1na": 2756}, {"date": 2000, "Tiszan\u00e1na": 2721}, {"date": 2001, "Tiszan\u00e1na": 2706}, {"date": 2002, "Tiszan\u00e1na": 2705}, {"date": 2003, "Tiszan\u00e1na": 2678}, {"date": 2004, "Tiszan\u00e1na": 2648}, {"date": 2005, "Tiszan\u00e1na": 2656}, {"date": 2006, "Tiszan\u00e1na": 2617}, {"date": 2007, "Tiszan\u00e1na": 2616}, {"date": 2008, "Tiszan\u00e1na": 2611}, {"date": 2009, "Tiszan\u00e1na": 2583}, {"date": 2010, "Tiszan\u00e1na": 2581}, {"date": 2011, "Tiszan\u00e1na": 2548}, {"date": 2012, "Tiszan\u00e1na": 2531}, {"date": 2013, "Tiszan\u00e1na": 2495}, {"date": 2014, "Tiszan\u00e1na": 2472}, {"date": 2015, "Tiszan\u00e1na": 2479}, {"date": 2016, "Tiszan\u00e1na": 2470}, {"date": 2017, "Tiszan\u00e1na": 2500}, {"date": 2018, "Tiszan\u00e1na": 2477}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

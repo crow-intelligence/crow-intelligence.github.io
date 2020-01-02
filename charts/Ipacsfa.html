@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipacsfa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector215": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Ipacsfa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector215"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipacsfa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector215"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Ipacsfa", "selection": "selector215"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipacsfa"}}}], "data": {"name": "data-928970128dc8e5a2812200e1ec8f5387"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-928970128dc8e5a2812200e1ec8f5387": [{"date": 1986, "Ipacsfa": 276}, {"date": 1987, "Ipacsfa": 246}, {"date": 1988, "Ipacsfa": 240}, {"date": 1989, "Ipacsfa": 247}, {"date": 1990, "Ipacsfa": 250}, {"date": 1991, "Ipacsfa": 257}, {"date": 1992, "Ipacsfa": 257}, {"date": 1993, "Ipacsfa": 260}, {"date": 1994, "Ipacsfa": 252}, {"date": 1995, "Ipacsfa": 244}, {"date": 1996, "Ipacsfa": 241}, {"date": 1997, "Ipacsfa": 241}, {"date": 1998, "Ipacsfa": 229}, {"date": 1999, "Ipacsfa": 234}, {"date": 2000, "Ipacsfa": 228}, {"date": 2001, "Ipacsfa": 228}, {"date": 2002, "Ipacsfa": 229}, {"date": 2003, "Ipacsfa": 231}, {"date": 2004, "Ipacsfa": 246}, {"date": 2005, "Ipacsfa": 255}, {"date": 2006, "Ipacsfa": 252}, {"date": 2007, "Ipacsfa": 238}, {"date": 2008, "Ipacsfa": 238}, {"date": 2009, "Ipacsfa": 238}, {"date": 2010, "Ipacsfa": 229}, {"date": 2011, "Ipacsfa": 228}, {"date": 2012, "Ipacsfa": 218}, {"date": 2013, "Ipacsfa": 218}, {"date": 2014, "Ipacsfa": 209}, {"date": 2015, "Ipacsfa": 215}, {"date": 2016, "Ipacsfa": 216}, {"date": 2017, "Ipacsfa": 204}, {"date": 2018, "Ipacsfa": 200}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

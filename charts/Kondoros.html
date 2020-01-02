@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kondoros"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2898": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kondoros"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2898"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kondoros"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2898"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kondoros", "selection": "selector2898"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kondoros"}}}], "data": {"name": "data-fc52c7255e5e1fd5eaa78f617d52ceb2"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-fc52c7255e5e1fd5eaa78f617d52ceb2": [{"date": 1986, "Kondoros": 6991}, {"date": 1987, "Kondoros": 6985}, {"date": 1988, "Kondoros": 6882}, {"date": 1989, "Kondoros": 6783}, {"date": 1990, "Kondoros": 6729}, {"date": 1991, "Kondoros": 6677}, {"date": 1992, "Kondoros": 6654}, {"date": 1993, "Kondoros": 6583}, {"date": 1994, "Kondoros": 6531}, {"date": 1995, "Kondoros": 6480}, {"date": 1996, "Kondoros": 6412}, {"date": 1997, "Kondoros": 6371}, {"date": 1998, "Kondoros": 6306}, {"date": 1999, "Kondoros": 6249}, {"date": 2000, "Kondoros": 6137}, {"date": 2001, "Kondoros": 6066}, {"date": 2002, "Kondoros": 2479}, {"date": 2003, "Kondoros": 5956}, {"date": 2004, "Kondoros": 5917}, {"date": 2005, "Kondoros": 5829}, {"date": 2006, "Kondoros": 5767}, {"date": 2007, "Kondoros": 5677}, {"date": 2008, "Kondoros": 5577}, {"date": 2009, "Kondoros": 5500}, {"date": 2010, "Kondoros": 5444}, {"date": 2011, "Kondoros": 5388}, {"date": 2012, "Kondoros": 5360}, {"date": 2013, "Kondoros": 5296}, {"date": 2014, "Kondoros": 5251}, {"date": 2015, "Kondoros": 5193}, {"date": 2016, "Kondoros": 5125}, {"date": 2017, "Kondoros": 5085}, {"date": 2018, "Kondoros": 5015}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

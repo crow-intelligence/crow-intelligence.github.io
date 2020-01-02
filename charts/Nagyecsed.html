@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyecsed"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3099": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nagyecsed"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3099"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyecsed"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3099"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nagyecsed", "selection": "selector3099"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyecsed"}}}], "data": {"name": "data-158df945f4c751ea9f600f54bca245ce"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-158df945f4c751ea9f600f54bca245ce": [{"date": 1986, "Nagyecsed": 7824}, {"date": 1987, "Nagyecsed": 7817}, {"date": 1988, "Nagyecsed": 7834}, {"date": 1989, "Nagyecsed": 7840}, {"date": 1990, "Nagyecsed": 7731}, {"date": 1991, "Nagyecsed": 7614}, {"date": 1992, "Nagyecsed": 7553}, {"date": 1993, "Nagyecsed": 7514}, {"date": 1994, "Nagyecsed": 7449}, {"date": 1995, "Nagyecsed": 7435}, {"date": 1996, "Nagyecsed": 7427}, {"date": 1997, "Nagyecsed": 7422}, {"date": 1998, "Nagyecsed": 7429}, {"date": 1999, "Nagyecsed": 7395}, {"date": 2000, "Nagyecsed": 7390}, {"date": 2001, "Nagyecsed": 7362}, {"date": 2002, "Nagyecsed": 18920}, {"date": 2003, "Nagyecsed": 7245}, {"date": 2004, "Nagyecsed": 7172}, {"date": 2005, "Nagyecsed": 7124}, {"date": 2006, "Nagyecsed": 7072}, {"date": 2007, "Nagyecsed": 6995}, {"date": 2008, "Nagyecsed": 6967}, {"date": 2009, "Nagyecsed": 6904}, {"date": 2010, "Nagyecsed": 6864}, {"date": 2011, "Nagyecsed": 6812}, {"date": 2012, "Nagyecsed": 6778}, {"date": 2013, "Nagyecsed": 6747}, {"date": 2014, "Nagyecsed": 6693}, {"date": 2015, "Nagyecsed": 6665}, {"date": 2016, "Nagyecsed": 6653}, {"date": 2017, "Nagyecsed": 6591}, {"date": 2018, "Nagyecsed": 6539}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

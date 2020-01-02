@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hajd\u00fadorog"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2977": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Hajd\u00fadorog"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2977"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hajd\u00fadorog"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2977"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Hajd\u00fadorog", "selection": "selector2977"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hajd\u00fadorog"}}}], "data": {"name": "data-6918b12b78035f9509879d1293a998bd"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-6918b12b78035f9509879d1293a998bd": [{"date": 1986, "Hajd\u00fadorog": 10171}, {"date": 1987, "Hajd\u00fadorog": 10069}, {"date": 1988, "Hajd\u00fadorog": 10001}, {"date": 1989, "Hajd\u00fadorog": 9981}, {"date": 1990, "Hajd\u00fadorog": 9988}, {"date": 1991, "Hajd\u00fadorog": 9920}, {"date": 1992, "Hajd\u00fadorog": 9908}, {"date": 1993, "Hajd\u00fadorog": 9869}, {"date": 1994, "Hajd\u00fadorog": 9887}, {"date": 1995, "Hajd\u00fadorog": 9840}, {"date": 1996, "Hajd\u00fadorog": 9814}, {"date": 1997, "Hajd\u00fadorog": 9735}, {"date": 1998, "Hajd\u00fadorog": 9678}, {"date": 1999, "Hajd\u00fadorog": 9687}, {"date": 2000, "Hajd\u00fadorog": 9639}, {"date": 2001, "Hajd\u00fadorog": 9599}, {"date": 2002, "Hajd\u00fadorog": 9555}, {"date": 2003, "Hajd\u00fadorog": 9499}, {"date": 2004, "Hajd\u00fadorog": 9451}, {"date": 2005, "Hajd\u00fadorog": 9463}, {"date": 2006, "Hajd\u00fadorog": 9366}, {"date": 2007, "Hajd\u00fadorog": 9281}, {"date": 2008, "Hajd\u00fadorog": 9226}, {"date": 2009, "Hajd\u00fadorog": 9194}, {"date": 2010, "Hajd\u00fadorog": 9159}, {"date": 2011, "Hajd\u00fadorog": 9085}, {"date": 2012, "Hajd\u00fadorog": 9078}, {"date": 2013, "Hajd\u00fadorog": 9025}, {"date": 2014, "Hajd\u00fadorog": 9028}, {"date": 2015, "Hajd\u00fadorog": 8987}, {"date": 2016, "Hajd\u00fadorog": 8995}, {"date": 2017, "Hajd\u00fadorog": 8992}, {"date": 2018, "Hajd\u00fadorog": 8970}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

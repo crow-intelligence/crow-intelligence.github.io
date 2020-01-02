@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csopak"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2324": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Csopak"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2324"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csopak"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2324"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Csopak", "selection": "selector2324"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csopak"}}}], "data": {"name": "data-694192dfd891920f01b1c0495b5355c5"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-694192dfd891920f01b1c0495b5355c5": [{"date": 1986, "Csopak": 1425}, {"date": 1987, "Csopak": 1409}, {"date": 1988, "Csopak": 1434}, {"date": 1989, "Csopak": 1447}, {"date": 1990, "Csopak": 1430}, {"date": 1991, "Csopak": 1435}, {"date": 1992, "Csopak": 1503}, {"date": 1993, "Csopak": 1542}, {"date": 1994, "Csopak": 1558}, {"date": 1995, "Csopak": 1573}, {"date": 1996, "Csopak": 1632}, {"date": 1997, "Csopak": 1666}, {"date": 1998, "Csopak": 1673}, {"date": 1999, "Csopak": 1717}, {"date": 2000, "Csopak": 1748}, {"date": 2001, "Csopak": 1745}, {"date": 2002, "Csopak": 1783}, {"date": 2003, "Csopak": 1813}, {"date": 2004, "Csopak": 1870}, {"date": 2005, "Csopak": 1872}, {"date": 2006, "Csopak": 1882}, {"date": 2007, "Csopak": 1905}, {"date": 2008, "Csopak": 1940}, {"date": 2009, "Csopak": 1979}, {"date": 2010, "Csopak": 2016}, {"date": 2011, "Csopak": 2057}, {"date": 2012, "Csopak": 2062}, {"date": 2013, "Csopak": 2083}, {"date": 2014, "Csopak": 2101}, {"date": 2015, "Csopak": 2109}, {"date": 2016, "Csopak": 2126}, {"date": 2017, "Csopak": 2138}, {"date": 2018, "Csopak": 2147}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

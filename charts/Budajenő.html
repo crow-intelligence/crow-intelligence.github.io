@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budajen\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1409": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Budajen\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1409"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budajen\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1409"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Budajen\u0151", "selection": "selector1409"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budajen\u0151"}}}], "data": {"name": "data-bc5c4ae67394a94d298f1f4a4450127d"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-bc5c4ae67394a94d298f1f4a4450127d": [{"date": 1986, "Budajen\u0151": 776}, {"date": 1987, "Budajen\u0151": 769}, {"date": 1988, "Budajen\u0151": 758}, {"date": 1989, "Budajen\u0151": 744}, {"date": 1990, "Budajen\u0151": 783}, {"date": 1991, "Budajen\u0151": 815}, {"date": 1992, "Budajen\u0151": 807}, {"date": 1993, "Budajen\u0151": 807}, {"date": 1994, "Budajen\u0151": 836}, {"date": 1995, "Budajen\u0151": 836}, {"date": 1996, "Budajen\u0151": 860}, {"date": 1997, "Budajen\u0151": 906}, {"date": 1998, "Budajen\u0151": 969}, {"date": 1999, "Budajen\u0151": 1060}, {"date": 2000, "Budajen\u0151": 1147}, {"date": 2001, "Budajen\u0151": 1225}, {"date": 2002, "Budajen\u0151": 1276}, {"date": 2003, "Budajen\u0151": 1370}, {"date": 2004, "Budajen\u0151": 1411}, {"date": 2005, "Budajen\u0151": 1473}, {"date": 2006, "Budajen\u0151": 1547}, {"date": 2007, "Budajen\u0151": 1612}, {"date": 2008, "Budajen\u0151": 1689}, {"date": 2009, "Budajen\u0151": 1756}, {"date": 2010, "Budajen\u0151": 1808}, {"date": 2011, "Budajen\u0151": 1844}, {"date": 2012, "Budajen\u0151": 1878}, {"date": 2013, "Budajen\u0151": 1984}, {"date": 2014, "Budajen\u0151": 1986}, {"date": 2015, "Budajen\u0151": 2000}, {"date": 2016, "Budajen\u0151": 2033}, {"date": 2017, "Budajen\u0151": 2002}, {"date": 2018, "Budajen\u0151": 2035}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

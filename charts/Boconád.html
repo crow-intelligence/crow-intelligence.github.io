@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bocon\u00e1d"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1121": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bocon\u00e1d"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1121"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bocon\u00e1d"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1121"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bocon\u00e1d", "selection": "selector1121"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bocon\u00e1d"}}}], "data": {"name": "data-74ec20a4116dd8f4b82bb2fd9743ef0e"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-74ec20a4116dd8f4b82bb2fd9743ef0e": [{"date": 1986, "Bocon\u00e1d": 1657}, {"date": 1987, "Bocon\u00e1d": 1626}, {"date": 1988, "Bocon\u00e1d": 1590}, {"date": 1989, "Bocon\u00e1d": 1586}, {"date": 1990, "Bocon\u00e1d": 1581}, {"date": 1991, "Bocon\u00e1d": 1577}, {"date": 1992, "Bocon\u00e1d": 1571}, {"date": 1993, "Bocon\u00e1d": 1565}, {"date": 1994, "Bocon\u00e1d": 1544}, {"date": 1995, "Bocon\u00e1d": 1537}, {"date": 1996, "Bocon\u00e1d": 1547}, {"date": 1997, "Bocon\u00e1d": 1527}, {"date": 1998, "Bocon\u00e1d": 1415}, {"date": 1999, "Bocon\u00e1d": 1395}, {"date": 2000, "Bocon\u00e1d": 1399}, {"date": 2001, "Bocon\u00e1d": 1388}, {"date": 2002, "Bocon\u00e1d": 1407}, {"date": 2003, "Bocon\u00e1d": 1436}, {"date": 2004, "Bocon\u00e1d": 1433}, {"date": 2005, "Bocon\u00e1d": 1416}, {"date": 2006, "Bocon\u00e1d": 1406}, {"date": 2007, "Bocon\u00e1d": 1382}, {"date": 2008, "Bocon\u00e1d": 1402}, {"date": 2009, "Bocon\u00e1d": 1431}, {"date": 2010, "Bocon\u00e1d": 1414}, {"date": 2011, "Bocon\u00e1d": 1402}, {"date": 2012, "Bocon\u00e1d": 1358}, {"date": 2013, "Bocon\u00e1d": 1347}, {"date": 2014, "Bocon\u00e1d": 1351}, {"date": 2015, "Bocon\u00e1d": 1320}, {"date": 2016, "Bocon\u00e1d": 1302}, {"date": 2017, "Bocon\u00e1d": 1324}, {"date": 2018, "Bocon\u00e1d": 1293}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

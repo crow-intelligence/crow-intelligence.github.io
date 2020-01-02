@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunatet\u00e9tlen"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector048": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dunatet\u00e9tlen"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector048"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunatet\u00e9tlen"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector048"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dunatet\u00e9tlen", "selection": "selector048"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunatet\u00e9tlen"}}}], "data": {"name": "data-84df44378407b5442f5646cf85de8ec8"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-84df44378407b5442f5646cf85de8ec8": [{"date": 1986, "Dunatet\u00e9tlen": 693}, {"date": 1987, "Dunatet\u00e9tlen": 688}, {"date": 1988, "Dunatet\u00e9tlen": 700}, {"date": 1989, "Dunatet\u00e9tlen": 684}, {"date": 1990, "Dunatet\u00e9tlen": 706}, {"date": 1991, "Dunatet\u00e9tlen": 704}, {"date": 1992, "Dunatet\u00e9tlen": 697}, {"date": 1993, "Dunatet\u00e9tlen": 688}, {"date": 1994, "Dunatet\u00e9tlen": 688}, {"date": 1995, "Dunatet\u00e9tlen": 679}, {"date": 1996, "Dunatet\u00e9tlen": 686}, {"date": 1997, "Dunatet\u00e9tlen": 674}, {"date": 1998, "Dunatet\u00e9tlen": 683}, {"date": 1999, "Dunatet\u00e9tlen": 687}, {"date": 2000, "Dunatet\u00e9tlen": 693}, {"date": 2001, "Dunatet\u00e9tlen": 693}, {"date": 2002, "Dunatet\u00e9tlen": 685}, {"date": 2003, "Dunatet\u00e9tlen": 661}, {"date": 2004, "Dunatet\u00e9tlen": 651}, {"date": 2005, "Dunatet\u00e9tlen": 646}, {"date": 2006, "Dunatet\u00e9tlen": 643}, {"date": 2007, "Dunatet\u00e9tlen": 629}, {"date": 2008, "Dunatet\u00e9tlen": 614}, {"date": 2009, "Dunatet\u00e9tlen": 619}, {"date": 2010, "Dunatet\u00e9tlen": 625}, {"date": 2011, "Dunatet\u00e9tlen": 625}, {"date": 2012, "Dunatet\u00e9tlen": 615}, {"date": 2013, "Dunatet\u00e9tlen": 613}, {"date": 2014, "Dunatet\u00e9tlen": 606}, {"date": 2015, "Dunatet\u00e9tlen": 599}, {"date": 2016, "Dunatet\u00e9tlen": 591}, {"date": 2017, "Dunatet\u00e9tlen": 569}, {"date": 2018, "Dunatet\u00e9tlen": 564}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Damak"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector504": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Damak"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector504"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Damak"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector504"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Damak", "selection": "selector504"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Damak"}}}], "data": {"name": "data-edd8907b169ea9d536bafbbae3055071"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-edd8907b169ea9d536bafbbae3055071": [{"date": 1986, "Damak": 0}, {"date": 1987, "Damak": 0}, {"date": 1988, "Damak": 0}, {"date": 1989, "Damak": 0}, {"date": 1990, "Damak": 0}, {"date": 1991, "Damak": 0}, {"date": 1992, "Damak": 0}, {"date": 1993, "Damak": 281}, {"date": 1994, "Damak": 273}, {"date": 1995, "Damak": 275}, {"date": 1996, "Damak": 271}, {"date": 1997, "Damak": 277}, {"date": 1998, "Damak": 273}, {"date": 1999, "Damak": 274}, {"date": 2000, "Damak": 276}, {"date": 2001, "Damak": 270}, {"date": 2002, "Damak": 267}, {"date": 2003, "Damak": 254}, {"date": 2004, "Damak": 251}, {"date": 2005, "Damak": 243}, {"date": 2006, "Damak": 250}, {"date": 2007, "Damak": 259}, {"date": 2008, "Damak": 281}, {"date": 2009, "Damak": 276}, {"date": 2010, "Damak": 274}, {"date": 2011, "Damak": 264}, {"date": 2012, "Damak": 262}, {"date": 2013, "Damak": 265}, {"date": 2014, "Damak": 256}, {"date": 2015, "Damak": 260}, {"date": 2016, "Damak": 258}, {"date": 2017, "Damak": 256}, {"date": 2018, "Damak": 252}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

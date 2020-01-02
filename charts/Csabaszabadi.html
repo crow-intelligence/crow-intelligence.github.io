@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csabaszabadi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector403": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Csabaszabadi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector403"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csabaszabadi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector403"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Csabaszabadi", "selection": "selector403"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csabaszabadi"}}}], "data": {"name": "data-2e76eb091dd31aa224fe67e99f0501f4"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2e76eb091dd31aa224fe67e99f0501f4": [{"date": 1986, "Csabaszabadi": 0}, {"date": 1987, "Csabaszabadi": 0}, {"date": 1988, "Csabaszabadi": 0}, {"date": 1989, "Csabaszabadi": 0}, {"date": 1990, "Csabaszabadi": 0}, {"date": 1991, "Csabaszabadi": 0}, {"date": 1992, "Csabaszabadi": 0}, {"date": 1993, "Csabaszabadi": 0}, {"date": 1994, "Csabaszabadi": 447}, {"date": 1995, "Csabaszabadi": 450}, {"date": 1996, "Csabaszabadi": 444}, {"date": 1997, "Csabaszabadi": 441}, {"date": 1998, "Csabaszabadi": 437}, {"date": 1999, "Csabaszabadi": 442}, {"date": 2000, "Csabaszabadi": 431}, {"date": 2001, "Csabaszabadi": 427}, {"date": 2002, "Csabaszabadi": 418}, {"date": 2003, "Csabaszabadi": 402}, {"date": 2004, "Csabaszabadi": 400}, {"date": 2005, "Csabaszabadi": 399}, {"date": 2006, "Csabaszabadi": 395}, {"date": 2007, "Csabaszabadi": 392}, {"date": 2008, "Csabaszabadi": 384}, {"date": 2009, "Csabaszabadi": 372}, {"date": 2010, "Csabaszabadi": 376}, {"date": 2011, "Csabaszabadi": 380}, {"date": 2012, "Csabaszabadi": 368}, {"date": 2013, "Csabaszabadi": 359}, {"date": 2014, "Csabaszabadi": 350}, {"date": 2015, "Csabaszabadi": 327}, {"date": 2016, "Csabaszabadi": 320}, {"date": 2017, "Csabaszabadi": 314}, {"date": 2018, "Csabaszabadi": 301}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

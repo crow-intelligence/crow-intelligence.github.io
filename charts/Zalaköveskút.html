@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalak\u00f6vesk\u00fat"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2710": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zalak\u00f6vesk\u00fat"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2710"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalak\u00f6vesk\u00fat"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2710"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zalak\u00f6vesk\u00fat", "selection": "selector2710"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalak\u00f6vesk\u00fat"}}}], "data": {"name": "data-a7a82e4cf67ea7b84a50e176e44d1ea0"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a7a82e4cf67ea7b84a50e176e44d1ea0": [{"date": 1986, "Zalak\u00f6vesk\u00fat": 63}, {"date": 1987, "Zalak\u00f6vesk\u00fat": 57}, {"date": 1988, "Zalak\u00f6vesk\u00fat": 54}, {"date": 1989, "Zalak\u00f6vesk\u00fat": 52}, {"date": 1990, "Zalak\u00f6vesk\u00fat": 51}, {"date": 1991, "Zalak\u00f6vesk\u00fat": 46}, {"date": 1992, "Zalak\u00f6vesk\u00fat": 38}, {"date": 1993, "Zalak\u00f6vesk\u00fat": 43}, {"date": 1994, "Zalak\u00f6vesk\u00fat": 42}, {"date": 1995, "Zalak\u00f6vesk\u00fat": 39}, {"date": 1996, "Zalak\u00f6vesk\u00fat": 43}, {"date": 1997, "Zalak\u00f6vesk\u00fat": 37}, {"date": 1998, "Zalak\u00f6vesk\u00fat": 38}, {"date": 1999, "Zalak\u00f6vesk\u00fat": 37}, {"date": 2000, "Zalak\u00f6vesk\u00fat": 38}, {"date": 2001, "Zalak\u00f6vesk\u00fat": 36}, {"date": 2002, "Zalak\u00f6vesk\u00fat": 33}, {"date": 2003, "Zalak\u00f6vesk\u00fat": 28}, {"date": 2004, "Zalak\u00f6vesk\u00fat": 28}, {"date": 2005, "Zalak\u00f6vesk\u00fat": 25}, {"date": 2006, "Zalak\u00f6vesk\u00fat": 26}, {"date": 2007, "Zalak\u00f6vesk\u00fat": 29}, {"date": 2008, "Zalak\u00f6vesk\u00fat": 32}, {"date": 2009, "Zalak\u00f6vesk\u00fat": 29}, {"date": 2010, "Zalak\u00f6vesk\u00fat": 29}, {"date": 2011, "Zalak\u00f6vesk\u00fat": 28}, {"date": 2012, "Zalak\u00f6vesk\u00fat": 28}, {"date": 2013, "Zalak\u00f6vesk\u00fat": 27}, {"date": 2014, "Zalak\u00f6vesk\u00fat": 28}, {"date": 2015, "Zalak\u00f6vesk\u00fat": 26}, {"date": 2016, "Zalak\u00f6vesk\u00fat": 29}, {"date": 2017, "Zalak\u00f6vesk\u00fat": 28}, {"date": 2018, "Zalak\u00f6vesk\u00fat": 28}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

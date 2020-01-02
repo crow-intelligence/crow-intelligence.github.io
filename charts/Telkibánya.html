@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Telkib\u00e1nya"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector722": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Telkib\u00e1nya"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector722"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Telkib\u00e1nya"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector722"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Telkib\u00e1nya", "selection": "selector722"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Telkib\u00e1nya"}}}], "data": {"name": "data-335a8d33acae3be0b3f8290dd7888da1"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-335a8d33acae3be0b3f8290dd7888da1": [{"date": 1986, "Telkib\u00e1nya": 856}, {"date": 1987, "Telkib\u00e1nya": 818}, {"date": 1988, "Telkib\u00e1nya": 801}, {"date": 1989, "Telkib\u00e1nya": 775}, {"date": 1990, "Telkib\u00e1nya": 763}, {"date": 1991, "Telkib\u00e1nya": 741}, {"date": 1992, "Telkib\u00e1nya": 729}, {"date": 1993, "Telkib\u00e1nya": 700}, {"date": 1994, "Telkib\u00e1nya": 674}, {"date": 1995, "Telkib\u00e1nya": 663}, {"date": 1996, "Telkib\u00e1nya": 667}, {"date": 1997, "Telkib\u00e1nya": 678}, {"date": 1998, "Telkib\u00e1nya": 688}, {"date": 1999, "Telkib\u00e1nya": 696}, {"date": 2000, "Telkib\u00e1nya": 700}, {"date": 2001, "Telkib\u00e1nya": 700}, {"date": 2002, "Telkib\u00e1nya": 720}, {"date": 2003, "Telkib\u00e1nya": 731}, {"date": 2004, "Telkib\u00e1nya": 726}, {"date": 2005, "Telkib\u00e1nya": 714}, {"date": 2006, "Telkib\u00e1nya": 700}, {"date": 2007, "Telkib\u00e1nya": 686}, {"date": 2008, "Telkib\u00e1nya": 685}, {"date": 2009, "Telkib\u00e1nya": 688}, {"date": 2010, "Telkib\u00e1nya": 688}, {"date": 2011, "Telkib\u00e1nya": 665}, {"date": 2012, "Telkib\u00e1nya": 641}, {"date": 2013, "Telkib\u00e1nya": 629}, {"date": 2014, "Telkib\u00e1nya": 619}, {"date": 2015, "Telkib\u00e1nya": 615}, {"date": 2016, "Telkib\u00e1nya": 611}, {"date": 2017, "Telkib\u00e1nya": 605}, {"date": 2018, "Telkib\u00e1nya": 606}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

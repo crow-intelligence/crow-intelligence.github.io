@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisdobsza"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector234": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kisdobsza"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector234"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisdobsza"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector234"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kisdobsza", "selection": "selector234"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisdobsza"}}}], "data": {"name": "data-ba57148ac05912d7b728ebe2adf43429"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ba57148ac05912d7b728ebe2adf43429": [{"date": 1986, "Kisdobsza": 0}, {"date": 1987, "Kisdobsza": 0}, {"date": 1988, "Kisdobsza": 0}, {"date": 1989, "Kisdobsza": 0}, {"date": 1990, "Kisdobsza": 0}, {"date": 1991, "Kisdobsza": 0}, {"date": 1992, "Kisdobsza": 0}, {"date": 1993, "Kisdobsza": 312}, {"date": 1994, "Kisdobsza": 309}, {"date": 1995, "Kisdobsza": 305}, {"date": 1996, "Kisdobsza": 304}, {"date": 1997, "Kisdobsza": 294}, {"date": 1998, "Kisdobsza": 298}, {"date": 1999, "Kisdobsza": 303}, {"date": 2000, "Kisdobsza": 306}, {"date": 2001, "Kisdobsza": 297}, {"date": 2002, "Kisdobsza": 297}, {"date": 2003, "Kisdobsza": 296}, {"date": 2004, "Kisdobsza": 274}, {"date": 2005, "Kisdobsza": 273}, {"date": 2006, "Kisdobsza": 271}, {"date": 2007, "Kisdobsza": 277}, {"date": 2008, "Kisdobsza": 276}, {"date": 2009, "Kisdobsza": 269}, {"date": 2010, "Kisdobsza": 255}, {"date": 2011, "Kisdobsza": 246}, {"date": 2012, "Kisdobsza": 248}, {"date": 2013, "Kisdobsza": 250}, {"date": 2014, "Kisdobsza": 267}, {"date": 2015, "Kisdobsza": 265}, {"date": 2016, "Kisdobsza": 258}, {"date": 2017, "Kisdobsza": 259}, {"date": 2018, "Kisdobsza": 265}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

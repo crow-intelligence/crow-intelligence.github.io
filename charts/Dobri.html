@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dobri"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2525": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dobri"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2525"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dobri"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2525"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dobri", "selection": "selector2525"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dobri"}}}], "data": {"name": "data-92f5384febba3cc84f7de48481f294f1"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-92f5384febba3cc84f7de48481f294f1": [{"date": 1986, "Dobri": 342}, {"date": 1987, "Dobri": 332}, {"date": 1988, "Dobri": 315}, {"date": 1989, "Dobri": 304}, {"date": 1990, "Dobri": 293}, {"date": 1991, "Dobri": 278}, {"date": 1992, "Dobri": 274}, {"date": 1993, "Dobri": 267}, {"date": 1994, "Dobri": 254}, {"date": 1995, "Dobri": 250}, {"date": 1996, "Dobri": 252}, {"date": 1997, "Dobri": 248}, {"date": 1998, "Dobri": 254}, {"date": 1999, "Dobri": 233}, {"date": 2000, "Dobri": 231}, {"date": 2001, "Dobri": 238}, {"date": 2002, "Dobri": 221}, {"date": 2003, "Dobri": 225}, {"date": 2004, "Dobri": 217}, {"date": 2005, "Dobri": 216}, {"date": 2006, "Dobri": 198}, {"date": 2007, "Dobri": 199}, {"date": 2008, "Dobri": 198}, {"date": 2009, "Dobri": 197}, {"date": 2010, "Dobri": 201}, {"date": 2011, "Dobri": 202}, {"date": 2012, "Dobri": 193}, {"date": 2013, "Dobri": 185}, {"date": 2014, "Dobri": 174}, {"date": 2015, "Dobri": 167}, {"date": 2016, "Dobri": 161}, {"date": 2017, "Dobri": 164}, {"date": 2018, "Dobri": 158}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

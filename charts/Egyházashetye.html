@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Egyh\u00e1zashetye"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2114": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Egyh\u00e1zashetye"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2114"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Egyh\u00e1zashetye"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2114"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Egyh\u00e1zashetye", "selection": "selector2114"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Egyh\u00e1zashetye"}}}], "data": {"name": "data-27a5fa89491f856f196e0ba2a6a127e9"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-27a5fa89491f856f196e0ba2a6a127e9": [{"date": 1986, "Egyh\u00e1zashetye": 557}, {"date": 1987, "Egyh\u00e1zashetye": 542}, {"date": 1988, "Egyh\u00e1zashetye": 522}, {"date": 1989, "Egyh\u00e1zashetye": 521}, {"date": 1990, "Egyh\u00e1zashetye": 518}, {"date": 1991, "Egyh\u00e1zashetye": 507}, {"date": 1992, "Egyh\u00e1zashetye": 491}, {"date": 1993, "Egyh\u00e1zashetye": 490}, {"date": 1994, "Egyh\u00e1zashetye": 485}, {"date": 1995, "Egyh\u00e1zashetye": 477}, {"date": 1996, "Egyh\u00e1zashetye": 470}, {"date": 1997, "Egyh\u00e1zashetye": 457}, {"date": 1998, "Egyh\u00e1zashetye": 459}, {"date": 1999, "Egyh\u00e1zashetye": 450}, {"date": 2000, "Egyh\u00e1zashetye": 458}, {"date": 2001, "Egyh\u00e1zashetye": 460}, {"date": 2002, "Egyh\u00e1zashetye": 450}, {"date": 2003, "Egyh\u00e1zashetye": 443}, {"date": 2004, "Egyh\u00e1zashetye": 434}, {"date": 2005, "Egyh\u00e1zashetye": 426}, {"date": 2006, "Egyh\u00e1zashetye": 420}, {"date": 2007, "Egyh\u00e1zashetye": 414}, {"date": 2008, "Egyh\u00e1zashetye": 393}, {"date": 2009, "Egyh\u00e1zashetye": 370}, {"date": 2010, "Egyh\u00e1zashetye": 351}, {"date": 2011, "Egyh\u00e1zashetye": 350}, {"date": 2012, "Egyh\u00e1zashetye": 348}, {"date": 2013, "Egyh\u00e1zashetye": 344}, {"date": 2014, "Egyh\u00e1zashetye": 341}, {"date": 2015, "Egyh\u00e1zashetye": 342}, {"date": 2016, "Egyh\u00e1zashetye": 338}, {"date": 2017, "Egyh\u00e1zashetye": 332}, {"date": 2018, "Egyh\u00e1zashetye": 323}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

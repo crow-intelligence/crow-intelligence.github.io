@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaszabolcs"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2958": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Pusztaszabolcs"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2958"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaszabolcs"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2958"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Pusztaszabolcs", "selection": "selector2958"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaszabolcs"}}}], "data": {"name": "data-113a90ef11414861960d810f27cf58d9"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-113a90ef11414861960d810f27cf58d9": [{"date": 1986, "Pusztaszabolcs": 6040}, {"date": 1987, "Pusztaszabolcs": 6040}, {"date": 1988, "Pusztaszabolcs": 6018}, {"date": 1989, "Pusztaszabolcs": 5968}, {"date": 1990, "Pusztaszabolcs": 6013}, {"date": 1991, "Pusztaszabolcs": 6073}, {"date": 1992, "Pusztaszabolcs": 6072}, {"date": 1993, "Pusztaszabolcs": 6143}, {"date": 1994, "Pusztaszabolcs": 6235}, {"date": 1995, "Pusztaszabolcs": 6260}, {"date": 1996, "Pusztaszabolcs": 6344}, {"date": 1997, "Pusztaszabolcs": 6354}, {"date": 1998, "Pusztaszabolcs": 6350}, {"date": 1999, "Pusztaszabolcs": 6338}, {"date": 2000, "Pusztaszabolcs": 6312}, {"date": 2001, "Pusztaszabolcs": 6410}, {"date": 2002, "Pusztaszabolcs": 6422}, {"date": 2003, "Pusztaszabolcs": 6447}, {"date": 2004, "Pusztaszabolcs": 6418}, {"date": 2005, "Pusztaszabolcs": 6463}, {"date": 2006, "Pusztaszabolcs": 6487}, {"date": 2007, "Pusztaszabolcs": 6395}, {"date": 2008, "Pusztaszabolcs": 6419}, {"date": 2009, "Pusztaszabolcs": 6419}, {"date": 2010, "Pusztaszabolcs": 6380}, {"date": 2011, "Pusztaszabolcs": 6376}, {"date": 2012, "Pusztaszabolcs": 6304}, {"date": 2013, "Pusztaszabolcs": 6235}, {"date": 2014, "Pusztaszabolcs": 6161}, {"date": 2015, "Pusztaszabolcs": 6120}, {"date": 2016, "Pusztaszabolcs": 6066}, {"date": 2017, "Pusztaszabolcs": 6098}, {"date": 2018, "Pusztaszabolcs": 6103}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

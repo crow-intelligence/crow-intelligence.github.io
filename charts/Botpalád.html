@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Botpal\u00e1d"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1762": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Botpal\u00e1d"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1762"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Botpal\u00e1d"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1762"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Botpal\u00e1d", "selection": "selector1762"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Botpal\u00e1d"}}}], "data": {"name": "data-2a23dc094d3a217c49c7adad0d75a608"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2a23dc094d3a217c49c7adad0d75a608": [{"date": 1986, "Botpal\u00e1d": 695}, {"date": 1987, "Botpal\u00e1d": 654}, {"date": 1988, "Botpal\u00e1d": 643}, {"date": 1989, "Botpal\u00e1d": 625}, {"date": 1990, "Botpal\u00e1d": 605}, {"date": 1991, "Botpal\u00e1d": 590}, {"date": 1992, "Botpal\u00e1d": 600}, {"date": 1993, "Botpal\u00e1d": 587}, {"date": 1994, "Botpal\u00e1d": 576}, {"date": 1995, "Botpal\u00e1d": 581}, {"date": 1996, "Botpal\u00e1d": 583}, {"date": 1997, "Botpal\u00e1d": 603}, {"date": 1998, "Botpal\u00e1d": 602}, {"date": 1999, "Botpal\u00e1d": 605}, {"date": 2000, "Botpal\u00e1d": 598}, {"date": 2001, "Botpal\u00e1d": 623}, {"date": 2002, "Botpal\u00e1d": 630}, {"date": 2003, "Botpal\u00e1d": 644}, {"date": 2004, "Botpal\u00e1d": 624}, {"date": 2005, "Botpal\u00e1d": 633}, {"date": 2006, "Botpal\u00e1d": 626}, {"date": 2007, "Botpal\u00e1d": 628}, {"date": 2008, "Botpal\u00e1d": 626}, {"date": 2009, "Botpal\u00e1d": 647}, {"date": 2010, "Botpal\u00e1d": 662}, {"date": 2011, "Botpal\u00e1d": 646}, {"date": 2012, "Botpal\u00e1d": 655}, {"date": 2013, "Botpal\u00e1d": 671}, {"date": 2014, "Botpal\u00e1d": 710}, {"date": 2015, "Botpal\u00e1d": 768}, {"date": 2016, "Botpal\u00e1d": 866}, {"date": 2017, "Botpal\u00e1d": 922}, {"date": 2018, "Botpal\u00e1d": 954}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

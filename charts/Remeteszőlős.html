@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Remetesz\u0151l\u0151s"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1479": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Remetesz\u0151l\u0151s"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1479"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Remetesz\u0151l\u0151s"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1479"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Remetesz\u0151l\u0151s", "selection": "selector1479"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Remetesz\u0151l\u0151s"}}}], "data": {"name": "data-26edfeb59118b462f2011c22216761d8"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-26edfeb59118b462f2011c22216761d8": [{"date": 1986, "Remetesz\u0151l\u0151s": 0}, {"date": 1987, "Remetesz\u0151l\u0151s": 0}, {"date": 1988, "Remetesz\u0151l\u0151s": 0}, {"date": 1989, "Remetesz\u0151l\u0151s": 0}, {"date": 1990, "Remetesz\u0151l\u0151s": 0}, {"date": 1991, "Remetesz\u0151l\u0151s": 0}, {"date": 1992, "Remetesz\u0151l\u0151s": 0}, {"date": 1993, "Remetesz\u0151l\u0151s": 0}, {"date": 1994, "Remetesz\u0151l\u0151s": 0}, {"date": 1995, "Remetesz\u0151l\u0151s": 0}, {"date": 1996, "Remetesz\u0151l\u0151s": 0}, {"date": 1997, "Remetesz\u0151l\u0151s": 0}, {"date": 1998, "Remetesz\u0151l\u0151s": 0}, {"date": 1999, "Remetesz\u0151l\u0151s": 0}, {"date": 2000, "Remetesz\u0151l\u0151s": 0}, {"date": 2001, "Remetesz\u0151l\u0151s": 0}, {"date": 2002, "Remetesz\u0151l\u0151s": 0}, {"date": 2003, "Remetesz\u0151l\u0151s": 403}, {"date": 2004, "Remetesz\u0151l\u0151s": 451}, {"date": 2005, "Remetesz\u0151l\u0151s": 464}, {"date": 2006, "Remetesz\u0151l\u0151s": 522}, {"date": 2007, "Remetesz\u0151l\u0151s": 594}, {"date": 2008, "Remetesz\u0151l\u0151s": 620}, {"date": 2009, "Remetesz\u0151l\u0151s": 651}, {"date": 2010, "Remetesz\u0151l\u0151s": 673}, {"date": 2011, "Remetesz\u0151l\u0151s": 708}, {"date": 2012, "Remetesz\u0151l\u0151s": 735}, {"date": 2013, "Remetesz\u0151l\u0151s": 742}, {"date": 2014, "Remetesz\u0151l\u0151s": 750}, {"date": 2015, "Remetesz\u0151l\u0151s": 794}, {"date": 2016, "Remetesz\u0151l\u0151s": 816}, {"date": 2017, "Remetesz\u0151l\u0151s": 936}, {"date": 2018, "Remetesz\u0151l\u0151s": 976}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fels\u0151\u00f6rs"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2338": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Fels\u0151\u00f6rs"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2338"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fels\u0151\u00f6rs"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2338"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Fels\u0151\u00f6rs", "selection": "selector2338"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fels\u0151\u00f6rs"}}}], "data": {"name": "data-e3e6c35706a78ddab821a65a5d9b6486"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e3e6c35706a78ddab821a65a5d9b6486": [{"date": 1986, "Fels\u0151\u00f6rs": 867}, {"date": 1987, "Fels\u0151\u00f6rs": 857}, {"date": 1988, "Fels\u0151\u00f6rs": 885}, {"date": 1989, "Fels\u0151\u00f6rs": 890}, {"date": 1990, "Fels\u0151\u00f6rs": 899}, {"date": 1991, "Fels\u0151\u00f6rs": 933}, {"date": 1992, "Fels\u0151\u00f6rs": 960}, {"date": 1993, "Fels\u0151\u00f6rs": 964}, {"date": 1994, "Fels\u0151\u00f6rs": 979}, {"date": 1995, "Fels\u0151\u00f6rs": 1027}, {"date": 1996, "Fels\u0151\u00f6rs": 1007}, {"date": 1997, "Fels\u0151\u00f6rs": 1037}, {"date": 1998, "Fels\u0151\u00f6rs": 1081}, {"date": 1999, "Fels\u0151\u00f6rs": 1083}, {"date": 2000, "Fels\u0151\u00f6rs": 1115}, {"date": 2001, "Fels\u0151\u00f6rs": 1152}, {"date": 2002, "Fels\u0151\u00f6rs": 1200}, {"date": 2003, "Fels\u0151\u00f6rs": 1238}, {"date": 2004, "Fels\u0151\u00f6rs": 1274}, {"date": 2005, "Fels\u0151\u00f6rs": 1313}, {"date": 2006, "Fels\u0151\u00f6rs": 1362}, {"date": 2007, "Fels\u0151\u00f6rs": 1433}, {"date": 2008, "Fels\u0151\u00f6rs": 1531}, {"date": 2009, "Fels\u0151\u00f6rs": 1599}, {"date": 2010, "Fels\u0151\u00f6rs": 1607}, {"date": 2011, "Fels\u0151\u00f6rs": 1644}, {"date": 2012, "Fels\u0151\u00f6rs": 1672}, {"date": 2013, "Fels\u0151\u00f6rs": 1670}, {"date": 2014, "Fels\u0151\u00f6rs": 1703}, {"date": 2015, "Fels\u0151\u00f6rs": 1728}, {"date": 2016, "Fels\u0151\u00f6rs": 1766}, {"date": 2017, "Fels\u0151\u00f6rs": 1776}, {"date": 2018, "Fels\u0151\u00f6rs": 1812}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

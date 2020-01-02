@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Cir\u00e1k"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector911": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Cir\u00e1k"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector911"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Cir\u00e1k"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector911"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Cir\u00e1k", "selection": "selector911"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Cir\u00e1k"}}}], "data": {"name": "data-9c2a92799353cec936574f8586163df1"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-9c2a92799353cec936574f8586163df1": [{"date": 1986, "Cir\u00e1k": 759}, {"date": 1987, "Cir\u00e1k": 741}, {"date": 1988, "Cir\u00e1k": 731}, {"date": 1989, "Cir\u00e1k": 725}, {"date": 1990, "Cir\u00e1k": 719}, {"date": 1991, "Cir\u00e1k": 717}, {"date": 1992, "Cir\u00e1k": 708}, {"date": 1993, "Cir\u00e1k": 695}, {"date": 1994, "Cir\u00e1k": 688}, {"date": 1995, "Cir\u00e1k": 702}, {"date": 1996, "Cir\u00e1k": 701}, {"date": 1997, "Cir\u00e1k": 686}, {"date": 1998, "Cir\u00e1k": 670}, {"date": 1999, "Cir\u00e1k": 664}, {"date": 2000, "Cir\u00e1k": 655}, {"date": 2001, "Cir\u00e1k": 654}, {"date": 2002, "Cir\u00e1k": 651}, {"date": 2003, "Cir\u00e1k": 647}, {"date": 2004, "Cir\u00e1k": 644}, {"date": 2005, "Cir\u00e1k": 623}, {"date": 2006, "Cir\u00e1k": 615}, {"date": 2007, "Cir\u00e1k": 608}, {"date": 2008, "Cir\u00e1k": 587}, {"date": 2009, "Cir\u00e1k": 585}, {"date": 2010, "Cir\u00e1k": 584}, {"date": 2011, "Cir\u00e1k": 570}, {"date": 2012, "Cir\u00e1k": 575}, {"date": 2013, "Cir\u00e1k": 574}, {"date": 2014, "Cir\u00e1k": 583}, {"date": 2015, "Cir\u00e1k": 578}, {"date": 2016, "Cir\u00e1k": 565}, {"date": 2017, "Cir\u00e1k": 549}, {"date": 2018, "Cir\u00e1k": 545}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

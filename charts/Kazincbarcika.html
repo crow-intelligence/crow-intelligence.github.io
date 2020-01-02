@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kazincbarcika"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2920": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kazincbarcika"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2920"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kazincbarcika"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2920"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kazincbarcika", "selection": "selector2920"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kazincbarcika"}}}], "data": {"name": "data-77151a25c3fd0349756b1051e256f647"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-77151a25c3fd0349756b1051e256f647": [{"date": 1986, "Kazincbarcika": 37218}, {"date": 1987, "Kazincbarcika": 37249}, {"date": 1988, "Kazincbarcika": 37537}, {"date": 1989, "Kazincbarcika": 37779}, {"date": 1990, "Kazincbarcika": 37889}, {"date": 1991, "Kazincbarcika": 37845}, {"date": 1992, "Kazincbarcika": 37756}, {"date": 1993, "Kazincbarcika": 37625}, {"date": 1994, "Kazincbarcika": 37294}, {"date": 1995, "Kazincbarcika": 37005}, {"date": 1996, "Kazincbarcika": 36778}, {"date": 1997, "Kazincbarcika": 36550}, {"date": 1998, "Kazincbarcika": 36024}, {"date": 1999, "Kazincbarcika": 35771}, {"date": 2000, "Kazincbarcika": 34394}, {"date": 2001, "Kazincbarcika": 34126}, {"date": 2002, "Kazincbarcika": 7164}, {"date": 2003, "Kazincbarcika": 33385}, {"date": 2004, "Kazincbarcika": 32907}, {"date": 2005, "Kazincbarcika": 32468}, {"date": 2006, "Kazincbarcika": 32297}, {"date": 2007, "Kazincbarcika": 31859}, {"date": 2008, "Kazincbarcika": 31392}, {"date": 2009, "Kazincbarcika": 31016}, {"date": 2010, "Kazincbarcika": 30676}, {"date": 2011, "Kazincbarcika": 30326}, {"date": 2012, "Kazincbarcika": 30030}, {"date": 2013, "Kazincbarcika": 29745}, {"date": 2014, "Kazincbarcika": 29516}, {"date": 2015, "Kazincbarcika": 29227}, {"date": 2016, "Kazincbarcika": 28975}, {"date": 2017, "Kazincbarcika": 28680}, {"date": 2018, "Kazincbarcika": 28410}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

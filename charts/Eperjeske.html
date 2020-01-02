@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Eperjeske"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1775": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Eperjeske"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1775"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Eperjeske"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1775"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Eperjeske", "selection": "selector1775"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Eperjeske"}}}], "data": {"name": "data-c86e2d653f0a4cd03af13ae69542c58c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c86e2d653f0a4cd03af13ae69542c58c": [{"date": 1986, "Eperjeske": 1307}, {"date": 1987, "Eperjeske": 1312}, {"date": 1988, "Eperjeske": 1310}, {"date": 1989, "Eperjeske": 1287}, {"date": 1990, "Eperjeske": 1267}, {"date": 1991, "Eperjeske": 1250}, {"date": 1992, "Eperjeske": 1242}, {"date": 1993, "Eperjeske": 1240}, {"date": 1994, "Eperjeske": 1238}, {"date": 1995, "Eperjeske": 1238}, {"date": 1996, "Eperjeske": 1213}, {"date": 1997, "Eperjeske": 1206}, {"date": 1998, "Eperjeske": 1235}, {"date": 1999, "Eperjeske": 1251}, {"date": 2000, "Eperjeske": 1264}, {"date": 2001, "Eperjeske": 1278}, {"date": 2002, "Eperjeske": 1266}, {"date": 2003, "Eperjeske": 1291}, {"date": 2004, "Eperjeske": 1282}, {"date": 2005, "Eperjeske": 1278}, {"date": 2006, "Eperjeske": 1240}, {"date": 2007, "Eperjeske": 1234}, {"date": 2008, "Eperjeske": 1249}, {"date": 2009, "Eperjeske": 1236}, {"date": 2010, "Eperjeske": 1246}, {"date": 2011, "Eperjeske": 1244}, {"date": 2012, "Eperjeske": 1247}, {"date": 2013, "Eperjeske": 1252}, {"date": 2014, "Eperjeske": 1257}, {"date": 2015, "Eperjeske": 1275}, {"date": 2016, "Eperjeske": 1270}, {"date": 2017, "Eperjeske": 1259}, {"date": 2018, "Eperjeske": 1233}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

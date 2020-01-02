@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Biharnagybajom"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1066": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Biharnagybajom"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1066"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Biharnagybajom"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1066"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Biharnagybajom", "selection": "selector1066"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Biharnagybajom"}}}], "data": {"name": "data-f7deb55ed58ab47fd09e81ae0df3cfd3"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f7deb55ed58ab47fd09e81ae0df3cfd3": [{"date": 1986, "Biharnagybajom": 3463}, {"date": 1987, "Biharnagybajom": 3428}, {"date": 1988, "Biharnagybajom": 3370}, {"date": 1989, "Biharnagybajom": 3306}, {"date": 1990, "Biharnagybajom": 3259}, {"date": 1991, "Biharnagybajom": 3235}, {"date": 1992, "Biharnagybajom": 3232}, {"date": 1993, "Biharnagybajom": 3203}, {"date": 1994, "Biharnagybajom": 3184}, {"date": 1995, "Biharnagybajom": 3166}, {"date": 1996, "Biharnagybajom": 3143}, {"date": 1997, "Biharnagybajom": 3149}, {"date": 1998, "Biharnagybajom": 3139}, {"date": 1999, "Biharnagybajom": 3149}, {"date": 2000, "Biharnagybajom": 3101}, {"date": 2001, "Biharnagybajom": 3102}, {"date": 2002, "Biharnagybajom": 3104}, {"date": 2003, "Biharnagybajom": 3114}, {"date": 2004, "Biharnagybajom": 3087}, {"date": 2005, "Biharnagybajom": 3069}, {"date": 2006, "Biharnagybajom": 3029}, {"date": 2007, "Biharnagybajom": 3020}, {"date": 2008, "Biharnagybajom": 2978}, {"date": 2009, "Biharnagybajom": 2971}, {"date": 2010, "Biharnagybajom": 2970}, {"date": 2011, "Biharnagybajom": 2932}, {"date": 2012, "Biharnagybajom": 2942}, {"date": 2013, "Biharnagybajom": 2899}, {"date": 2014, "Biharnagybajom": 2902}, {"date": 2015, "Biharnagybajom": 2861}, {"date": 2016, "Biharnagybajom": 2832}, {"date": 2017, "Biharnagybajom": 2800}, {"date": 2018, "Biharnagybajom": 2822}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

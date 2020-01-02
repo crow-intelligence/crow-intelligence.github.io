@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaf\u00fcred"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3130": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszaf\u00fcred"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3130"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaf\u00fcred"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3130"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszaf\u00fcred", "selection": "selector3130"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaf\u00fcred"}}}], "data": {"name": "data-dc6b0d5d5379ac38572421614233d251"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-dc6b0d5d5379ac38572421614233d251": [{"date": 1986, "Tiszaf\u00fcred": 15569}, {"date": 1987, "Tiszaf\u00fcred": 15621}, {"date": 1988, "Tiszaf\u00fcred": 15728}, {"date": 1989, "Tiszaf\u00fcred": 15657}, {"date": 1990, "Tiszaf\u00fcred": 15610}, {"date": 1991, "Tiszaf\u00fcred": 15566}, {"date": 1992, "Tiszaf\u00fcred": 15500}, {"date": 1993, "Tiszaf\u00fcred": 15481}, {"date": 1994, "Tiszaf\u00fcred": 15368}, {"date": 1995, "Tiszaf\u00fcred": 15310}, {"date": 1996, "Tiszaf\u00fcred": 15304}, {"date": 1997, "Tiszaf\u00fcred": 15260}, {"date": 1998, "Tiszaf\u00fcred": 15136}, {"date": 1999, "Tiszaf\u00fcred": 14977}, {"date": 2000, "Tiszaf\u00fcred": 14935}, {"date": 2001, "Tiszaf\u00fcred": 14800}, {"date": 2002, "Tiszaf\u00fcred": 14694}, {"date": 2003, "Tiszaf\u00fcred": 12828}, {"date": 2004, "Tiszaf\u00fcred": 12700}, {"date": 2005, "Tiszaf\u00fcred": 12603}, {"date": 2006, "Tiszaf\u00fcred": 12519}, {"date": 2007, "Tiszaf\u00fcred": 12523}, {"date": 2008, "Tiszaf\u00fcred": 12441}, {"date": 2009, "Tiszaf\u00fcred": 12337}, {"date": 2010, "Tiszaf\u00fcred": 12295}, {"date": 2011, "Tiszaf\u00fcred": 12147}, {"date": 2012, "Tiszaf\u00fcred": 12010}, {"date": 2013, "Tiszaf\u00fcred": 11999}, {"date": 2014, "Tiszaf\u00fcred": 11882}, {"date": 2015, "Tiszaf\u00fcred": 11822}, {"date": 2016, "Tiszaf\u00fcred": 11736}, {"date": 2017, "Tiszaf\u00fcred": 11555}, {"date": 2018, "Tiszaf\u00fcred": 11510}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

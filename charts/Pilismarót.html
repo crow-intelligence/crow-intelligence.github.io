@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pilismar\u00f3t"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1260": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Pilismar\u00f3t"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1260"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pilismar\u00f3t"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1260"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Pilismar\u00f3t", "selection": "selector1260"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pilismar\u00f3t"}}}], "data": {"name": "data-1f412852fb8492e1192cdc268991ee80"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1f412852fb8492e1192cdc268991ee80": [{"date": 1986, "Pilismar\u00f3t": 1791}, {"date": 1987, "Pilismar\u00f3t": 1784}, {"date": 1988, "Pilismar\u00f3t": 1783}, {"date": 1989, "Pilismar\u00f3t": 1781}, {"date": 1990, "Pilismar\u00f3t": 1770}, {"date": 1991, "Pilismar\u00f3t": 1785}, {"date": 1992, "Pilismar\u00f3t": 1777}, {"date": 1993, "Pilismar\u00f3t": 1810}, {"date": 1994, "Pilismar\u00f3t": 1824}, {"date": 1995, "Pilismar\u00f3t": 1852}, {"date": 1996, "Pilismar\u00f3t": 1893}, {"date": 1997, "Pilismar\u00f3t": 1939}, {"date": 1998, "Pilismar\u00f3t": 1959}, {"date": 1999, "Pilismar\u00f3t": 1980}, {"date": 2000, "Pilismar\u00f3t": 1979}, {"date": 2001, "Pilismar\u00f3t": 1943}, {"date": 2002, "Pilismar\u00f3t": 1934}, {"date": 2003, "Pilismar\u00f3t": 1957}, {"date": 2004, "Pilismar\u00f3t": 1960}, {"date": 2005, "Pilismar\u00f3t": 2010}, {"date": 2006, "Pilismar\u00f3t": 2019}, {"date": 2007, "Pilismar\u00f3t": 2022}, {"date": 2008, "Pilismar\u00f3t": 2056}, {"date": 2009, "Pilismar\u00f3t": 2044}, {"date": 2010, "Pilismar\u00f3t": 2064}, {"date": 2011, "Pilismar\u00f3t": 2075}, {"date": 2012, "Pilismar\u00f3t": 2073}, {"date": 2013, "Pilismar\u00f3t": 2057}, {"date": 2014, "Pilismar\u00f3t": 2046}, {"date": 2015, "Pilismar\u00f3t": 2046}, {"date": 2016, "Pilismar\u00f3t": 2049}, {"date": 2017, "Pilismar\u00f3t": 2081}, {"date": 2018, "Pilismar\u00f3t": 2114}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyrozv\u00e1gy"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector638": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nagyrozv\u00e1gy"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector638"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyrozv\u00e1gy"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector638"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nagyrozv\u00e1gy", "selection": "selector638"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyrozv\u00e1gy"}}}], "data": {"name": "data-6b381306d7ccef2fc41c372c4df7c7f7"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-6b381306d7ccef2fc41c372c4df7c7f7": [{"date": 1986, "Nagyrozv\u00e1gy": 1001}, {"date": 1987, "Nagyrozv\u00e1gy": 985}, {"date": 1988, "Nagyrozv\u00e1gy": 980}, {"date": 1989, "Nagyrozv\u00e1gy": 969}, {"date": 1990, "Nagyrozv\u00e1gy": 944}, {"date": 1991, "Nagyrozv\u00e1gy": 923}, {"date": 1992, "Nagyrozv\u00e1gy": 896}, {"date": 1993, "Nagyrozv\u00e1gy": 883}, {"date": 1994, "Nagyrozv\u00e1gy": 880}, {"date": 1995, "Nagyrozv\u00e1gy": 873}, {"date": 1996, "Nagyrozv\u00e1gy": 860}, {"date": 1997, "Nagyrozv\u00e1gy": 838}, {"date": 1998, "Nagyrozv\u00e1gy": 835}, {"date": 1999, "Nagyrozv\u00e1gy": 849}, {"date": 2000, "Nagyrozv\u00e1gy": 835}, {"date": 2001, "Nagyrozv\u00e1gy": 836}, {"date": 2002, "Nagyrozv\u00e1gy": 831}, {"date": 2003, "Nagyrozv\u00e1gy": 814}, {"date": 2004, "Nagyrozv\u00e1gy": 814}, {"date": 2005, "Nagyrozv\u00e1gy": 799}, {"date": 2006, "Nagyrozv\u00e1gy": 790}, {"date": 2007, "Nagyrozv\u00e1gy": 781}, {"date": 2008, "Nagyrozv\u00e1gy": 769}, {"date": 2009, "Nagyrozv\u00e1gy": 741}, {"date": 2010, "Nagyrozv\u00e1gy": 727}, {"date": 2011, "Nagyrozv\u00e1gy": 720}, {"date": 2012, "Nagyrozv\u00e1gy": 718}, {"date": 2013, "Nagyrozv\u00e1gy": 719}, {"date": 2014, "Nagyrozv\u00e1gy": 726}, {"date": 2015, "Nagyrozv\u00e1gy": 723}, {"date": 2016, "Nagyrozv\u00e1gy": 709}, {"date": 2017, "Nagyrozv\u00e1gy": 717}, {"date": 2018, "Nagyrozv\u00e1gy": 707}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

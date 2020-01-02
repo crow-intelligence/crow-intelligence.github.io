@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kemenesmagasi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2153": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kemenesmagasi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2153"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kemenesmagasi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2153"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kemenesmagasi", "selection": "selector2153"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kemenesmagasi"}}}], "data": {"name": "data-0fb506ac6ca3a71627989fb18a1dd8c7"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-0fb506ac6ca3a71627989fb18a1dd8c7": [{"date": 1986, "Kemenesmagasi": 1142}, {"date": 1987, "Kemenesmagasi": 1119}, {"date": 1988, "Kemenesmagasi": 1095}, {"date": 1989, "Kemenesmagasi": 1092}, {"date": 1990, "Kemenesmagasi": 1082}, {"date": 1991, "Kemenesmagasi": 1065}, {"date": 1992, "Kemenesmagasi": 1053}, {"date": 1993, "Kemenesmagasi": 1045}, {"date": 1994, "Kemenesmagasi": 1045}, {"date": 1995, "Kemenesmagasi": 1061}, {"date": 1996, "Kemenesmagasi": 1068}, {"date": 1997, "Kemenesmagasi": 1053}, {"date": 1998, "Kemenesmagasi": 1049}, {"date": 1999, "Kemenesmagasi": 1039}, {"date": 2000, "Kemenesmagasi": 1057}, {"date": 2001, "Kemenesmagasi": 1058}, {"date": 2002, "Kemenesmagasi": 1031}, {"date": 2003, "Kemenesmagasi": 1038}, {"date": 2004, "Kemenesmagasi": 1009}, {"date": 2005, "Kemenesmagasi": 1005}, {"date": 2006, "Kemenesmagasi": 995}, {"date": 2007, "Kemenesmagasi": 979}, {"date": 2008, "Kemenesmagasi": 969}, {"date": 2009, "Kemenesmagasi": 962}, {"date": 2010, "Kemenesmagasi": 948}, {"date": 2011, "Kemenesmagasi": 944}, {"date": 2012, "Kemenesmagasi": 928}, {"date": 2013, "Kemenesmagasi": 928}, {"date": 2014, "Kemenesmagasi": 920}, {"date": 2015, "Kemenesmagasi": 901}, {"date": 2016, "Kemenesmagasi": 897}, {"date": 2017, "Kemenesmagasi": 919}, {"date": 2018, "Kemenesmagasi": 909}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

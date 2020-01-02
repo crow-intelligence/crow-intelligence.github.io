@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kapuv\u00e1r"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2967": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kapuv\u00e1r"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2967"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kapuv\u00e1r"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2967"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kapuv\u00e1r", "selection": "selector2967"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kapuv\u00e1r"}}}], "data": {"name": "data-54cf59d0c7e8e6f2512d37ecde8bfa55"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-54cf59d0c7e8e6f2512d37ecde8bfa55": [{"date": 1986, "Kapuv\u00e1r": 11647}, {"date": 1987, "Kapuv\u00e1r": 11682}, {"date": 1988, "Kapuv\u00e1r": 11662}, {"date": 1989, "Kapuv\u00e1r": 11684}, {"date": 1990, "Kapuv\u00e1r": 11638}, {"date": 1991, "Kapuv\u00e1r": 11600}, {"date": 1992, "Kapuv\u00e1r": 11569}, {"date": 1993, "Kapuv\u00e1r": 11547}, {"date": 1994, "Kapuv\u00e1r": 11500}, {"date": 1995, "Kapuv\u00e1r": 11386}, {"date": 1996, "Kapuv\u00e1r": 11349}, {"date": 1997, "Kapuv\u00e1r": 11238}, {"date": 1998, "Kapuv\u00e1r": 11111}, {"date": 1999, "Kapuv\u00e1r": 10996}, {"date": 2000, "Kapuv\u00e1r": 10961}, {"date": 2001, "Kapuv\u00e1r": 10906}, {"date": 2002, "Kapuv\u00e1r": 10890}, {"date": 2003, "Kapuv\u00e1r": 10884}, {"date": 2004, "Kapuv\u00e1r": 10872}, {"date": 2005, "Kapuv\u00e1r": 10873}, {"date": 2006, "Kapuv\u00e1r": 10829}, {"date": 2007, "Kapuv\u00e1r": 10802}, {"date": 2008, "Kapuv\u00e1r": 10766}, {"date": 2009, "Kapuv\u00e1r": 10714}, {"date": 2010, "Kapuv\u00e1r": 10628}, {"date": 2011, "Kapuv\u00e1r": 10584}, {"date": 2012, "Kapuv\u00e1r": 10533}, {"date": 2013, "Kapuv\u00e1r": 10462}, {"date": 2014, "Kapuv\u00e1r": 10388}, {"date": 2015, "Kapuv\u00e1r": 10334}, {"date": 2016, "Kapuv\u00e1r": 10320}, {"date": 2017, "Kapuv\u00e1r": 10254}, {"date": 2018, "Kapuv\u00e1r": 10174}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kaszaper"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector414": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kaszaper"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector414"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kaszaper"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector414"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kaszaper", "selection": "selector414"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kaszaper"}}}], "data": {"name": "data-943f1ec3198063b82b15b3bf8a66a01c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-943f1ec3198063b82b15b3bf8a66a01c": [{"date": 1986, "Kaszaper": 2182}, {"date": 1987, "Kaszaper": 2139}, {"date": 1988, "Kaszaper": 2138}, {"date": 1989, "Kaszaper": 2115}, {"date": 1990, "Kaszaper": 2081}, {"date": 1991, "Kaszaper": 2076}, {"date": 1992, "Kaszaper": 2107}, {"date": 1993, "Kaszaper": 2086}, {"date": 1994, "Kaszaper": 2054}, {"date": 1995, "Kaszaper": 2058}, {"date": 1996, "Kaszaper": 2065}, {"date": 1997, "Kaszaper": 2053}, {"date": 1998, "Kaszaper": 2058}, {"date": 1999, "Kaszaper": 2031}, {"date": 2000, "Kaszaper": 2176}, {"date": 2001, "Kaszaper": 2185}, {"date": 2002, "Kaszaper": 2163}, {"date": 2003, "Kaszaper": 2171}, {"date": 2004, "Kaszaper": 2134}, {"date": 2005, "Kaszaper": 2130}, {"date": 2006, "Kaszaper": 2126}, {"date": 2007, "Kaszaper": 2107}, {"date": 2008, "Kaszaper": 2101}, {"date": 2009, "Kaszaper": 2050}, {"date": 2010, "Kaszaper": 2045}, {"date": 2011, "Kaszaper": 2045}, {"date": 2012, "Kaszaper": 2037}, {"date": 2013, "Kaszaper": 2013}, {"date": 2014, "Kaszaper": 1997}, {"date": 2015, "Kaszaper": 1970}, {"date": 2016, "Kaszaper": 1939}, {"date": 2017, "Kaszaper": 1884}, {"date": 2018, "Kaszaper": 1848}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

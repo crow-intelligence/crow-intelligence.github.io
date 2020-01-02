@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szigetmonostor"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1486": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szigetmonostor"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1486"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szigetmonostor"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1486"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szigetmonostor", "selection": "selector1486"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szigetmonostor"}}}], "data": {"name": "data-9e697485002213283a1f8b40ea8037aa"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-9e697485002213283a1f8b40ea8037aa": [{"date": 1986, "Szigetmonostor": 1209}, {"date": 1987, "Szigetmonostor": 1213}, {"date": 1988, "Szigetmonostor": 1206}, {"date": 1989, "Szigetmonostor": 1210}, {"date": 1990, "Szigetmonostor": 1219}, {"date": 1991, "Szigetmonostor": 1272}, {"date": 1992, "Szigetmonostor": 1175}, {"date": 1993, "Szigetmonostor": 1189}, {"date": 1994, "Szigetmonostor": 1213}, {"date": 1995, "Szigetmonostor": 1244}, {"date": 1996, "Szigetmonostor": 1275}, {"date": 1997, "Szigetmonostor": 1319}, {"date": 1998, "Szigetmonostor": 1357}, {"date": 1999, "Szigetmonostor": 1447}, {"date": 2000, "Szigetmonostor": 1517}, {"date": 2001, "Szigetmonostor": 1604}, {"date": 2002, "Szigetmonostor": 1694}, {"date": 2003, "Szigetmonostor": 1798}, {"date": 2004, "Szigetmonostor": 1885}, {"date": 2005, "Szigetmonostor": 2000}, {"date": 2006, "Szigetmonostor": 2113}, {"date": 2007, "Szigetmonostor": 2174}, {"date": 2008, "Szigetmonostor": 2234}, {"date": 2009, "Szigetmonostor": 2319}, {"date": 2010, "Szigetmonostor": 2357}, {"date": 2011, "Szigetmonostor": 2395}, {"date": 2012, "Szigetmonostor": 2435}, {"date": 2013, "Szigetmonostor": 2491}, {"date": 2014, "Szigetmonostor": 2526}, {"date": 2015, "Szigetmonostor": 2573}, {"date": 2016, "Szigetmonostor": 2617}, {"date": 2017, "Szigetmonostor": 2670}, {"date": 2018, "Szigetmonostor": 2744}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

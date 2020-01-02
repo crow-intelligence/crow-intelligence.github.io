@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Murakereszt\u00far"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2606": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Murakereszt\u00far"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2606"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Murakereszt\u00far"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2606"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Murakereszt\u00far", "selection": "selector2606"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Murakereszt\u00far"}}}], "data": {"name": "data-efde3f36fda1aadaeb7d2680a9b68399"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-efde3f36fda1aadaeb7d2680a9b68399": [{"date": 1986, "Murakereszt\u00far": 2204}, {"date": 1987, "Murakereszt\u00far": 2199}, {"date": 1988, "Murakereszt\u00far": 2206}, {"date": 1989, "Murakereszt\u00far": 2187}, {"date": 1990, "Murakereszt\u00far": 2182}, {"date": 1991, "Murakereszt\u00far": 2164}, {"date": 1992, "Murakereszt\u00far": 2161}, {"date": 1993, "Murakereszt\u00far": 2140}, {"date": 1994, "Murakereszt\u00far": 2124}, {"date": 1995, "Murakereszt\u00far": 2120}, {"date": 1996, "Murakereszt\u00far": 2113}, {"date": 1997, "Murakereszt\u00far": 2104}, {"date": 1998, "Murakereszt\u00far": 2105}, {"date": 1999, "Murakereszt\u00far": 2094}, {"date": 2000, "Murakereszt\u00far": 2038}, {"date": 2001, "Murakereszt\u00far": 2032}, {"date": 2002, "Murakereszt\u00far": 2040}, {"date": 2003, "Murakereszt\u00far": 2019}, {"date": 2004, "Murakereszt\u00far": 1992}, {"date": 2005, "Murakereszt\u00far": 1972}, {"date": 2006, "Murakereszt\u00far": 1980}, {"date": 2007, "Murakereszt\u00far": 1951}, {"date": 2008, "Murakereszt\u00far": 1905}, {"date": 2009, "Murakereszt\u00far": 1870}, {"date": 2010, "Murakereszt\u00far": 1865}, {"date": 2011, "Murakereszt\u00far": 1848}, {"date": 2012, "Murakereszt\u00far": 1848}, {"date": 2013, "Murakereszt\u00far": 1812}, {"date": 2014, "Murakereszt\u00far": 1787}, {"date": 2015, "Murakereszt\u00far": 1763}, {"date": 2016, "Murakereszt\u00far": 1745}, {"date": 2017, "Murakereszt\u00far": 1703}, {"date": 2018, "Murakereszt\u00far": 1696}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Debercs\u00e9ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1297": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Debercs\u00e9ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1297"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Debercs\u00e9ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1297"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Debercs\u00e9ny", "selection": "selector1297"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Debercs\u00e9ny"}}}], "data": {"name": "data-dc64511a7d48ca6d1d8bce49527f6c3b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-dc64511a7d48ca6d1d8bce49527f6c3b": [{"date": 1986, "Debercs\u00e9ny": 167}, {"date": 1987, "Debercs\u00e9ny": 172}, {"date": 1988, "Debercs\u00e9ny": 164}, {"date": 1989, "Debercs\u00e9ny": 157}, {"date": 1990, "Debercs\u00e9ny": 152}, {"date": 1991, "Debercs\u00e9ny": 150}, {"date": 1992, "Debercs\u00e9ny": 142}, {"date": 1993, "Debercs\u00e9ny": 136}, {"date": 1994, "Debercs\u00e9ny": 131}, {"date": 1995, "Debercs\u00e9ny": 130}, {"date": 1996, "Debercs\u00e9ny": 131}, {"date": 1997, "Debercs\u00e9ny": 125}, {"date": 1998, "Debercs\u00e9ny": 115}, {"date": 1999, "Debercs\u00e9ny": 110}, {"date": 2000, "Debercs\u00e9ny": 109}, {"date": 2001, "Debercs\u00e9ny": 107}, {"date": 2002, "Debercs\u00e9ny": 1465}, {"date": 2003, "Debercs\u00e9ny": 100}, {"date": 2004, "Debercs\u00e9ny": 97}, {"date": 2005, "Debercs\u00e9ny": 94}, {"date": 2006, "Debercs\u00e9ny": 94}, {"date": 2007, "Debercs\u00e9ny": 88}, {"date": 2008, "Debercs\u00e9ny": 78}, {"date": 2009, "Debercs\u00e9ny": 78}, {"date": 2010, "Debercs\u00e9ny": 78}, {"date": 2011, "Debercs\u00e9ny": 84}, {"date": 2012, "Debercs\u00e9ny": 83}, {"date": 2013, "Debercs\u00e9ny": 82}, {"date": 2014, "Debercs\u00e9ny": 83}, {"date": 2015, "Debercs\u00e9ny": 82}, {"date": 2016, "Debercs\u00e9ny": 85}, {"date": 2017, "Debercs\u00e9ny": 85}, {"date": 2018, "Debercs\u00e9ny": 82}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bodrogkereszt\u00far"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector473": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bodrogkereszt\u00far"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector473"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bodrogkereszt\u00far"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector473"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bodrogkereszt\u00far", "selection": "selector473"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bodrogkereszt\u00far"}}}], "data": {"name": "data-03eabafd66401ce559e17e37e3bc6616"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-03eabafd66401ce559e17e37e3bc6616": [{"date": 1986, "Bodrogkereszt\u00far": 1745}, {"date": 1987, "Bodrogkereszt\u00far": 1726}, {"date": 1988, "Bodrogkereszt\u00far": 1702}, {"date": 1989, "Bodrogkereszt\u00far": 1685}, {"date": 1990, "Bodrogkereszt\u00far": 1624}, {"date": 1991, "Bodrogkereszt\u00far": 1620}, {"date": 1992, "Bodrogkereszt\u00far": 1616}, {"date": 1993, "Bodrogkereszt\u00far": 1613}, {"date": 1994, "Bodrogkereszt\u00far": 1597}, {"date": 1995, "Bodrogkereszt\u00far": 1557}, {"date": 1996, "Bodrogkereszt\u00far": 1553}, {"date": 1997, "Bodrogkereszt\u00far": 1499}, {"date": 1998, "Bodrogkereszt\u00far": 1502}, {"date": 1999, "Bodrogkereszt\u00far": 1465}, {"date": 2000, "Bodrogkereszt\u00far": 1431}, {"date": 2001, "Bodrogkereszt\u00far": 1430}, {"date": 2002, "Bodrogkereszt\u00far": 1410}, {"date": 2003, "Bodrogkereszt\u00far": 1386}, {"date": 2004, "Bodrogkereszt\u00far": 1354}, {"date": 2005, "Bodrogkereszt\u00far": 1329}, {"date": 2006, "Bodrogkereszt\u00far": 1295}, {"date": 2007, "Bodrogkereszt\u00far": 1276}, {"date": 2008, "Bodrogkereszt\u00far": 1245}, {"date": 2009, "Bodrogkereszt\u00far": 1236}, {"date": 2010, "Bodrogkereszt\u00far": 1218}, {"date": 2011, "Bodrogkereszt\u00far": 1204}, {"date": 2012, "Bodrogkereszt\u00far": 1197}, {"date": 2013, "Bodrogkereszt\u00far": 1175}, {"date": 2014, "Bodrogkereszt\u00far": 1152}, {"date": 2015, "Bodrogkereszt\u00far": 1136}, {"date": 2016, "Bodrogkereszt\u00far": 1135}, {"date": 2017, "Bodrogkereszt\u00far": 1117}, {"date": 2018, "Bodrogkereszt\u00far": 1102}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

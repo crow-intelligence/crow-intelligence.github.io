@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bodolyab\u00e9r"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector144": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bodolyab\u00e9r"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector144"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bodolyab\u00e9r"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector144"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bodolyab\u00e9r", "selection": "selector144"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bodolyab\u00e9r"}}}], "data": {"name": "data-823d5197d1c3ec22c4e6e04409133004"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-823d5197d1c3ec22c4e6e04409133004": [{"date": 1986, "Bodolyab\u00e9r": 377}, {"date": 1987, "Bodolyab\u00e9r": 368}, {"date": 1988, "Bodolyab\u00e9r": 357}, {"date": 1989, "Bodolyab\u00e9r": 348}, {"date": 1990, "Bodolyab\u00e9r": 342}, {"date": 1991, "Bodolyab\u00e9r": 343}, {"date": 1992, "Bodolyab\u00e9r": 338}, {"date": 1993, "Bodolyab\u00e9r": 336}, {"date": 1994, "Bodolyab\u00e9r": 334}, {"date": 1995, "Bodolyab\u00e9r": 326}, {"date": 1996, "Bodolyab\u00e9r": 316}, {"date": 1997, "Bodolyab\u00e9r": 312}, {"date": 1998, "Bodolyab\u00e9r": 308}, {"date": 1999, "Bodolyab\u00e9r": 319}, {"date": 2000, "Bodolyab\u00e9r": 323}, {"date": 2001, "Bodolyab\u00e9r": 337}, {"date": 2002, "Bodolyab\u00e9r": 324}, {"date": 2003, "Bodolyab\u00e9r": 322}, {"date": 2004, "Bodolyab\u00e9r": 315}, {"date": 2005, "Bodolyab\u00e9r": 303}, {"date": 2006, "Bodolyab\u00e9r": 290}, {"date": 2007, "Bodolyab\u00e9r": 285}, {"date": 2008, "Bodolyab\u00e9r": 270}, {"date": 2009, "Bodolyab\u00e9r": 273}, {"date": 2010, "Bodolyab\u00e9r": 276}, {"date": 2011, "Bodolyab\u00e9r": 258}, {"date": 2012, "Bodolyab\u00e9r": 256}, {"date": 2013, "Bodolyab\u00e9r": 262}, {"date": 2014, "Bodolyab\u00e9r": 256}, {"date": 2015, "Bodolyab\u00e9r": 241}, {"date": 2016, "Bodolyab\u00e9r": 230}, {"date": 2017, "Bodolyab\u00e9r": 235}, {"date": 2018, "Bodolyab\u00e9r": 233}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

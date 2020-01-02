@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaboldogfa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2703": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zalaboldogfa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2703"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaboldogfa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2703"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zalaboldogfa", "selection": "selector2703"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaboldogfa"}}}], "data": {"name": "data-91a5cfc49236360d65306012ffcce31b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-91a5cfc49236360d65306012ffcce31b": [{"date": 1986, "Zalaboldogfa": 407}, {"date": 1987, "Zalaboldogfa": 403}, {"date": 1988, "Zalaboldogfa": 398}, {"date": 1989, "Zalaboldogfa": 387}, {"date": 1990, "Zalaboldogfa": 378}, {"date": 1991, "Zalaboldogfa": 361}, {"date": 1992, "Zalaboldogfa": 361}, {"date": 1993, "Zalaboldogfa": 370}, {"date": 1994, "Zalaboldogfa": 373}, {"date": 1995, "Zalaboldogfa": 366}, {"date": 1996, "Zalaboldogfa": 360}, {"date": 1997, "Zalaboldogfa": 365}, {"date": 1998, "Zalaboldogfa": 369}, {"date": 1999, "Zalaboldogfa": 365}, {"date": 2000, "Zalaboldogfa": 364}, {"date": 2001, "Zalaboldogfa": 357}, {"date": 2002, "Zalaboldogfa": 369}, {"date": 2003, "Zalaboldogfa": 357}, {"date": 2004, "Zalaboldogfa": 371}, {"date": 2005, "Zalaboldogfa": 376}, {"date": 2006, "Zalaboldogfa": 365}, {"date": 2007, "Zalaboldogfa": 367}, {"date": 2008, "Zalaboldogfa": 373}, {"date": 2009, "Zalaboldogfa": 367}, {"date": 2010, "Zalaboldogfa": 374}, {"date": 2011, "Zalaboldogfa": 386}, {"date": 2012, "Zalaboldogfa": 383}, {"date": 2013, "Zalaboldogfa": 375}, {"date": 2014, "Zalaboldogfa": 383}, {"date": 2015, "Zalaboldogfa": 382}, {"date": 2016, "Zalaboldogfa": 385}, {"date": 2017, "Zalaboldogfa": 379}, {"date": 2018, "Zalaboldogfa": 376}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

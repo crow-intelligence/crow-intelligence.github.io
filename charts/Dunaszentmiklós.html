@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaszentmikl\u00f3s"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1240": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dunaszentmikl\u00f3s"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1240"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaszentmikl\u00f3s"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1240"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dunaszentmikl\u00f3s", "selection": "selector1240"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaszentmikl\u00f3s"}}}], "data": {"name": "data-1142263287c2d2ae8c3c6353d6edea3a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1142263287c2d2ae8c3c6353d6edea3a": [{"date": 1986, "Dunaszentmikl\u00f3s": 451}, {"date": 1987, "Dunaszentmikl\u00f3s": 438}, {"date": 1988, "Dunaszentmikl\u00f3s": 438}, {"date": 1989, "Dunaszentmikl\u00f3s": 434}, {"date": 1990, "Dunaszentmikl\u00f3s": 431}, {"date": 1991, "Dunaszentmikl\u00f3s": 424}, {"date": 1992, "Dunaszentmikl\u00f3s": 432}, {"date": 1993, "Dunaszentmikl\u00f3s": 418}, {"date": 1994, "Dunaszentmikl\u00f3s": 411}, {"date": 1995, "Dunaszentmikl\u00f3s": 410}, {"date": 1996, "Dunaszentmikl\u00f3s": 405}, {"date": 1997, "Dunaszentmikl\u00f3s": 402}, {"date": 1998, "Dunaszentmikl\u00f3s": 401}, {"date": 1999, "Dunaszentmikl\u00f3s": 401}, {"date": 2000, "Dunaszentmikl\u00f3s": 408}, {"date": 2001, "Dunaszentmikl\u00f3s": 406}, {"date": 2002, "Dunaszentmikl\u00f3s": 404}, {"date": 2003, "Dunaszentmikl\u00f3s": 406}, {"date": 2004, "Dunaszentmikl\u00f3s": 413}, {"date": 2005, "Dunaszentmikl\u00f3s": 418}, {"date": 2006, "Dunaszentmikl\u00f3s": 421}, {"date": 2007, "Dunaszentmikl\u00f3s": 416}, {"date": 2008, "Dunaszentmikl\u00f3s": 425}, {"date": 2009, "Dunaszentmikl\u00f3s": 437}, {"date": 2010, "Dunaszentmikl\u00f3s": 428}, {"date": 2011, "Dunaszentmikl\u00f3s": 444}, {"date": 2012, "Dunaszentmikl\u00f3s": 459}, {"date": 2013, "Dunaszentmikl\u00f3s": 444}, {"date": 2014, "Dunaszentmikl\u00f3s": 455}, {"date": 2015, "Dunaszentmikl\u00f3s": 470}, {"date": 2016, "Dunaszentmikl\u00f3s": 495}, {"date": 2017, "Dunaszentmikl\u00f3s": 498}, {"date": 2018, "Dunaszentmikl\u00f3s": 495}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Taktaszada"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector717": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Taktaszada"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector717"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Taktaszada"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector717"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Taktaszada", "selection": "selector717"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Taktaszada"}}}], "data": {"name": "data-b207cf3cc057360d8797d0acd8517e3d"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b207cf3cc057360d8797d0acd8517e3d": [{"date": 1986, "Taktaszada": 2172}, {"date": 1987, "Taktaszada": 2151}, {"date": 1988, "Taktaszada": 2132}, {"date": 1989, "Taktaszada": 2118}, {"date": 1990, "Taktaszada": 2142}, {"date": 1991, "Taktaszada": 2141}, {"date": 1992, "Taktaszada": 2181}, {"date": 1993, "Taktaszada": 2178}, {"date": 1994, "Taktaszada": 2175}, {"date": 1995, "Taktaszada": 2166}, {"date": 1996, "Taktaszada": 2155}, {"date": 1997, "Taktaszada": 2162}, {"date": 1998, "Taktaszada": 2135}, {"date": 1999, "Taktaszada": 2140}, {"date": 2000, "Taktaszada": 2157}, {"date": 2001, "Taktaszada": 2141}, {"date": 2002, "Taktaszada": 2154}, {"date": 2003, "Taktaszada": 2168}, {"date": 2004, "Taktaszada": 2142}, {"date": 2005, "Taktaszada": 2161}, {"date": 2006, "Taktaszada": 2172}, {"date": 2007, "Taktaszada": 2166}, {"date": 2008, "Taktaszada": 2129}, {"date": 2009, "Taktaszada": 2067}, {"date": 2010, "Taktaszada": 2035}, {"date": 2011, "Taktaszada": 2027}, {"date": 2012, "Taktaszada": 2016}, {"date": 2013, "Taktaszada": 2018}, {"date": 2014, "Taktaszada": 2025}, {"date": 2015, "Taktaszada": 2012}, {"date": 2016, "Taktaszada": 2000}, {"date": 2017, "Taktaszada": 1980}, {"date": 2018, "Taktaszada": 1955}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

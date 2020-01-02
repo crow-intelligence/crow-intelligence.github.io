@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balogunyom"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2086": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Balogunyom"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2086"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balogunyom"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2086"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Balogunyom", "selection": "selector2086"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balogunyom"}}}], "data": {"name": "data-926747fa5a60dd98936090e0bc82f38f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-926747fa5a60dd98936090e0bc82f38f": [{"date": 1986, "Balogunyom": 1048}, {"date": 1987, "Balogunyom": 1055}, {"date": 1988, "Balogunyom": 1069}, {"date": 1989, "Balogunyom": 1068}, {"date": 1990, "Balogunyom": 1064}, {"date": 1991, "Balogunyom": 1068}, {"date": 1992, "Balogunyom": 1069}, {"date": 1993, "Balogunyom": 1104}, {"date": 1994, "Balogunyom": 1097}, {"date": 1995, "Balogunyom": 1095}, {"date": 1996, "Balogunyom": 1111}, {"date": 1997, "Balogunyom": 1093}, {"date": 1998, "Balogunyom": 1102}, {"date": 1999, "Balogunyom": 1124}, {"date": 2000, "Balogunyom": 1148}, {"date": 2001, "Balogunyom": 1164}, {"date": 2002, "Balogunyom": 1182}, {"date": 2003, "Balogunyom": 1200}, {"date": 2004, "Balogunyom": 1261}, {"date": 2005, "Balogunyom": 1273}, {"date": 2006, "Balogunyom": 1262}, {"date": 2007, "Balogunyom": 1273}, {"date": 2008, "Balogunyom": 1285}, {"date": 2009, "Balogunyom": 1253}, {"date": 2010, "Balogunyom": 1246}, {"date": 2011, "Balogunyom": 1229}, {"date": 2012, "Balogunyom": 1207}, {"date": 2013, "Balogunyom": 1191}, {"date": 2014, "Balogunyom": 1178}, {"date": 2015, "Balogunyom": 1161}, {"date": 2016, "Balogunyom": 1171}, {"date": 2017, "Balogunyom": 1171}, {"date": 2018, "Balogunyom": 1166}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csernely"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector499": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Csernely"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector499"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csernely"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector499"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Csernely", "selection": "selector499"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csernely"}}}], "data": {"name": "data-a923f214aba0f53205298e19a36113ef"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a923f214aba0f53205298e19a36113ef": [{"date": 1986, "Csernely": 1281}, {"date": 1987, "Csernely": 1266}, {"date": 1988, "Csernely": 1221}, {"date": 1989, "Csernely": 1190}, {"date": 1990, "Csernely": 1143}, {"date": 1991, "Csernely": 1115}, {"date": 1992, "Csernely": 1091}, {"date": 1993, "Csernely": 1096}, {"date": 1994, "Csernely": 1084}, {"date": 1995, "Csernely": 1077}, {"date": 1996, "Csernely": 1083}, {"date": 1997, "Csernely": 1077}, {"date": 1998, "Csernely": 1056}, {"date": 1999, "Csernely": 1041}, {"date": 2000, "Csernely": 1029}, {"date": 2001, "Csernely": 1012}, {"date": 2002, "Csernely": 1012}, {"date": 2003, "Csernely": 985}, {"date": 2004, "Csernely": 944}, {"date": 2005, "Csernely": 945}, {"date": 2006, "Csernely": 908}, {"date": 2007, "Csernely": 876}, {"date": 2008, "Csernely": 875}, {"date": 2009, "Csernely": 846}, {"date": 2010, "Csernely": 836}, {"date": 2011, "Csernely": 840}, {"date": 2012, "Csernely": 819}, {"date": 2013, "Csernely": 820}, {"date": 2014, "Csernely": 784}, {"date": 2015, "Csernely": 774}, {"date": 2016, "Csernely": 757}, {"date": 2017, "Csernely": 753}, {"date": 2018, "Csernely": 758}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

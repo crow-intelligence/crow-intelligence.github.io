@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonkenese"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3161": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Balatonkenese"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3161"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonkenese"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3161"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Balatonkenese", "selection": "selector3161"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonkenese"}}}], "data": {"name": "data-4ddee2fdc4c133325d11ab08fc4b7055"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-4ddee2fdc4c133325d11ab08fc4b7055": [{"date": 1986, "Balatonkenese": 3681}, {"date": 1987, "Balatonkenese": 3611}, {"date": 1988, "Balatonkenese": 3599}, {"date": 1989, "Balatonkenese": 3558}, {"date": 1990, "Balatonkenese": 3562}, {"date": 1991, "Balatonkenese": 3513}, {"date": 1992, "Balatonkenese": 3561}, {"date": 1993, "Balatonkenese": 3578}, {"date": 1994, "Balatonkenese": 3570}, {"date": 1995, "Balatonkenese": 3589}, {"date": 1996, "Balatonkenese": 3618}, {"date": 1997, "Balatonkenese": 3649}, {"date": 1998, "Balatonkenese": 3617}, {"date": 1999, "Balatonkenese": 3610}, {"date": 2000, "Balatonkenese": 3556}, {"date": 2001, "Balatonkenese": 3536}, {"date": 2002, "Balatonkenese": 3552}, {"date": 2003, "Balatonkenese": 3565}, {"date": 2004, "Balatonkenese": 3610}, {"date": 2005, "Balatonkenese": 3583}, {"date": 2006, "Balatonkenese": 3640}, {"date": 2007, "Balatonkenese": 3609}, {"date": 2008, "Balatonkenese": 3604}, {"date": 2009, "Balatonkenese": 3611}, {"date": 2010, "Balatonkenese": 3598}, {"date": 2011, "Balatonkenese": 3573}, {"date": 2012, "Balatonkenese": 3550}, {"date": 2013, "Balatonkenese": 3538}, {"date": 2014, "Balatonkenese": 3509}, {"date": 2015, "Balatonkenese": 2618}, {"date": 2016, "Balatonkenese": 2608}, {"date": 2017, "Balatonkenese": 2633}, {"date": 2018, "Balatonkenese": 2662}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

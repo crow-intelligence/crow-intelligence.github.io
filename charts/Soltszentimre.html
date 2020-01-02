@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Soltszentimre"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector097": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Soltszentimre"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector097"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Soltszentimre"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector097"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Soltszentimre", "selection": "selector097"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Soltszentimre"}}}], "data": {"name": "data-b128a8e4c6a0072cd045bf2679afb585"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b128a8e4c6a0072cd045bf2679afb585": [{"date": 1986, "Soltszentimre": 1463}, {"date": 1987, "Soltszentimre": 1445}, {"date": 1988, "Soltszentimre": 1436}, {"date": 1989, "Soltszentimre": 1428}, {"date": 1990, "Soltszentimre": 1414}, {"date": 1991, "Soltszentimre": 1427}, {"date": 1992, "Soltszentimre": 1409}, {"date": 1993, "Soltszentimre": 1394}, {"date": 1994, "Soltszentimre": 1407}, {"date": 1995, "Soltszentimre": 1400}, {"date": 1996, "Soltszentimre": 1401}, {"date": 1997, "Soltszentimre": 1406}, {"date": 1998, "Soltszentimre": 1386}, {"date": 1999, "Soltszentimre": 1386}, {"date": 2000, "Soltszentimre": 1419}, {"date": 2001, "Soltszentimre": 1409}, {"date": 2002, "Soltszentimre": 1414}, {"date": 2003, "Soltszentimre": 1421}, {"date": 2004, "Soltszentimre": 1440}, {"date": 2005, "Soltszentimre": 1450}, {"date": 2006, "Soltszentimre": 1414}, {"date": 2007, "Soltszentimre": 1398}, {"date": 2008, "Soltszentimre": 1382}, {"date": 2009, "Soltszentimre": 1347}, {"date": 2010, "Soltszentimre": 1334}, {"date": 2011, "Soltszentimre": 1328}, {"date": 2012, "Soltszentimre": 1335}, {"date": 2013, "Soltszentimre": 1334}, {"date": 2014, "Soltszentimre": 1319}, {"date": 2015, "Soltszentimre": 1293}, {"date": 2016, "Soltszentimre": 1287}, {"date": 2017, "Soltszentimre": 1293}, {"date": 2018, "Soltszentimre": 1298}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

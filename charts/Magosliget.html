@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magosliget"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1821": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Magosliget"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1821"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magosliget"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1821"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Magosliget", "selection": "selector1821"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magosliget"}}}], "data": {"name": "data-aa83bfbffd6366baa3e751a9eb65ddd7"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-aa83bfbffd6366baa3e751a9eb65ddd7": [{"date": 1986, "Magosliget": 253}, {"date": 1987, "Magosliget": 251}, {"date": 1988, "Magosliget": 252}, {"date": 1989, "Magosliget": 236}, {"date": 1990, "Magosliget": 240}, {"date": 1991, "Magosliget": 231}, {"date": 1992, "Magosliget": 233}, {"date": 1993, "Magosliget": 240}, {"date": 1994, "Magosliget": 242}, {"date": 1995, "Magosliget": 251}, {"date": 1996, "Magosliget": 256}, {"date": 1997, "Magosliget": 252}, {"date": 1998, "Magosliget": 261}, {"date": 1999, "Magosliget": 244}, {"date": 2000, "Magosliget": 249}, {"date": 2001, "Magosliget": 255}, {"date": 2002, "Magosliget": 259}, {"date": 2003, "Magosliget": 258}, {"date": 2004, "Magosliget": 267}, {"date": 2005, "Magosliget": 282}, {"date": 2006, "Magosliget": 271}, {"date": 2007, "Magosliget": 279}, {"date": 2008, "Magosliget": 283}, {"date": 2009, "Magosliget": 284}, {"date": 2010, "Magosliget": 283}, {"date": 2011, "Magosliget": 287}, {"date": 2012, "Magosliget": 287}, {"date": 2013, "Magosliget": 294}, {"date": 2014, "Magosliget": 302}, {"date": 2015, "Magosliget": 318}, {"date": 2016, "Magosliget": 343}, {"date": 2017, "Magosliget": 341}, {"date": 2018, "Magosliget": 333}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

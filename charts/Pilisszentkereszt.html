@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pilisszentkereszt"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1471": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Pilisszentkereszt"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1471"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pilisszentkereszt"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1471"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Pilisszentkereszt", "selection": "selector1471"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pilisszentkereszt"}}}], "data": {"name": "data-b5b390a725d28deddb1cf80622aac3de"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b5b390a725d28deddb1cf80622aac3de": [{"date": 1986, "Pilisszentkereszt": 1909}, {"date": 1987, "Pilisszentkereszt": 1913}, {"date": 1988, "Pilisszentkereszt": 1923}, {"date": 1989, "Pilisszentkereszt": 1915}, {"date": 1990, "Pilisszentkereszt": 1900}, {"date": 1991, "Pilisszentkereszt": 2059}, {"date": 1992, "Pilisszentkereszt": 1905}, {"date": 1993, "Pilisszentkereszt": 1934}, {"date": 1994, "Pilisszentkereszt": 1934}, {"date": 1995, "Pilisszentkereszt": 1980}, {"date": 1996, "Pilisszentkereszt": 1998}, {"date": 1997, "Pilisszentkereszt": 1992}, {"date": 1998, "Pilisszentkereszt": 2016}, {"date": 1999, "Pilisszentkereszt": 2041}, {"date": 2000, "Pilisszentkereszt": 2040}, {"date": 2001, "Pilisszentkereszt": 2052}, {"date": 2002, "Pilisszentkereszt": 2103}, {"date": 2003, "Pilisszentkereszt": 2117}, {"date": 2004, "Pilisszentkereszt": 2144}, {"date": 2005, "Pilisszentkereszt": 2190}, {"date": 2006, "Pilisszentkereszt": 2214}, {"date": 2007, "Pilisszentkereszt": 2231}, {"date": 2008, "Pilisszentkereszt": 2263}, {"date": 2009, "Pilisszentkereszt": 2243}, {"date": 2010, "Pilisszentkereszt": 2256}, {"date": 2011, "Pilisszentkereszt": 2242}, {"date": 2012, "Pilisszentkereszt": 2239}, {"date": 2013, "Pilisszentkereszt": 2222}, {"date": 2014, "Pilisszentkereszt": 2195}, {"date": 2015, "Pilisszentkereszt": 2174}, {"date": 2016, "Pilisszentkereszt": 2164}, {"date": 2017, "Pilisszentkereszt": 2189}, {"date": 2018, "Pilisszentkereszt": 2167}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

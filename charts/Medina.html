@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Medina"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2040": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Medina"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2040"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Medina"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2040"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Medina", "selection": "selector2040"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Medina"}}}], "data": {"name": "data-aab6121c9d2de5698faf6db163555e11"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-aab6121c9d2de5698faf6db163555e11": [{"date": 1986, "Medina": 967}, {"date": 1987, "Medina": 937}, {"date": 1988, "Medina": 910}, {"date": 1989, "Medina": 910}, {"date": 1990, "Medina": 905}, {"date": 1991, "Medina": 905}, {"date": 1992, "Medina": 892}, {"date": 1993, "Medina": 896}, {"date": 1994, "Medina": 893}, {"date": 1995, "Medina": 889}, {"date": 1996, "Medina": 871}, {"date": 1997, "Medina": 857}, {"date": 1998, "Medina": 866}, {"date": 1999, "Medina": 854}, {"date": 2000, "Medina": 850}, {"date": 2001, "Medina": 863}, {"date": 2002, "Medina": 853}, {"date": 2003, "Medina": 863}, {"date": 2004, "Medina": 841}, {"date": 2005, "Medina": 849}, {"date": 2006, "Medina": 848}, {"date": 2007, "Medina": 846}, {"date": 2008, "Medina": 845}, {"date": 2009, "Medina": 843}, {"date": 2010, "Medina": 836}, {"date": 2011, "Medina": 829}, {"date": 2012, "Medina": 807}, {"date": 2013, "Medina": 806}, {"date": 2014, "Medina": 813}, {"date": 2015, "Medina": 825}, {"date": 2016, "Medina": 810}, {"date": 2017, "Medina": 810}, {"date": 2018, "Medina": 816}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

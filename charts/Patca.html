@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Patca"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1658": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Patca"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1658"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Patca"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1658"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Patca", "selection": "selector1658"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Patca"}}}], "data": {"name": "data-b8eb8b225f1501135692aebc7eca5929"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b8eb8b225f1501135692aebc7eca5929": [{"date": 1986, "Patca": 75}, {"date": 1987, "Patca": 70}, {"date": 1988, "Patca": 65}, {"date": 1989, "Patca": 67}, {"date": 1990, "Patca": 67}, {"date": 1991, "Patca": 64}, {"date": 1992, "Patca": 65}, {"date": 1993, "Patca": 65}, {"date": 1994, "Patca": 65}, {"date": 1995, "Patca": 65}, {"date": 1996, "Patca": 67}, {"date": 1997, "Patca": 67}, {"date": 1998, "Patca": 68}, {"date": 1999, "Patca": 70}, {"date": 2000, "Patca": 67}, {"date": 2001, "Patca": 69}, {"date": 2002, "Patca": 69}, {"date": 2003, "Patca": 70}, {"date": 2004, "Patca": 80}, {"date": 2005, "Patca": 75}, {"date": 2006, "Patca": 69}, {"date": 2007, "Patca": 62}, {"date": 2008, "Patca": 59}, {"date": 2009, "Patca": 55}, {"date": 2010, "Patca": 57}, {"date": 2011, "Patca": 56}, {"date": 2012, "Patca": 57}, {"date": 2013, "Patca": 55}, {"date": 2014, "Patca": 56}, {"date": 2015, "Patca": 58}, {"date": 2016, "Patca": 58}, {"date": 2017, "Patca": 58}, {"date": 2018, "Patca": 56}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kir\u00e1lyszentistv\u00e1n"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2365": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kir\u00e1lyszentistv\u00e1n"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2365"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kir\u00e1lyszentistv\u00e1n"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2365"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kir\u00e1lyszentistv\u00e1n", "selection": "selector2365"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kir\u00e1lyszentistv\u00e1n"}}}], "data": {"name": "data-23ae23ac910c3112f999ee66a1f4edc0"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-23ae23ac910c3112f999ee66a1f4edc0": [{"date": 1986, "Kir\u00e1lyszentistv\u00e1n": 378}, {"date": 1987, "Kir\u00e1lyszentistv\u00e1n": 352}, {"date": 1988, "Kir\u00e1lyszentistv\u00e1n": 351}, {"date": 1989, "Kir\u00e1lyszentistv\u00e1n": 340}, {"date": 1990, "Kir\u00e1lyszentistv\u00e1n": 338}, {"date": 1991, "Kir\u00e1lyszentistv\u00e1n": 312}, {"date": 1992, "Kir\u00e1lyszentistv\u00e1n": 302}, {"date": 1993, "Kir\u00e1lyszentistv\u00e1n": 309}, {"date": 1994, "Kir\u00e1lyszentistv\u00e1n": 315}, {"date": 1995, "Kir\u00e1lyszentistv\u00e1n": 315}, {"date": 1996, "Kir\u00e1lyszentistv\u00e1n": 350}, {"date": 1997, "Kir\u00e1lyszentistv\u00e1n": 378}, {"date": 1998, "Kir\u00e1lyszentistv\u00e1n": 378}, {"date": 1999, "Kir\u00e1lyszentistv\u00e1n": 381}, {"date": 2000, "Kir\u00e1lyszentistv\u00e1n": 397}, {"date": 2001, "Kir\u00e1lyszentistv\u00e1n": 412}, {"date": 2002, "Kir\u00e1lyszentistv\u00e1n": 415}, {"date": 2003, "Kir\u00e1lyszentistv\u00e1n": 450}, {"date": 2004, "Kir\u00e1lyszentistv\u00e1n": 471}, {"date": 2005, "Kir\u00e1lyszentistv\u00e1n": 468}, {"date": 2006, "Kir\u00e1lyszentistv\u00e1n": 488}, {"date": 2007, "Kir\u00e1lyszentistv\u00e1n": 490}, {"date": 2008, "Kir\u00e1lyszentistv\u00e1n": 493}, {"date": 2009, "Kir\u00e1lyszentistv\u00e1n": 501}, {"date": 2010, "Kir\u00e1lyszentistv\u00e1n": 498}, {"date": 2011, "Kir\u00e1lyszentistv\u00e1n": 506}, {"date": 2012, "Kir\u00e1lyszentistv\u00e1n": 508}, {"date": 2013, "Kir\u00e1lyszentistv\u00e1n": 519}, {"date": 2014, "Kir\u00e1lyszentistv\u00e1n": 509}, {"date": 2015, "Kir\u00e1lyszentistv\u00e1n": 505}, {"date": 2016, "Kir\u00e1lyszentistv\u00e1n": 518}, {"date": 2017, "Kir\u00e1lyszentistv\u00e1n": 524}, {"date": 2018, "Kir\u00e1lyszentistv\u00e1n": 542}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

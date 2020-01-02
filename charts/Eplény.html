@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Epl\u00e9ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2336": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Epl\u00e9ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2336"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Epl\u00e9ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2336"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Epl\u00e9ny", "selection": "selector2336"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Epl\u00e9ny"}}}], "data": {"name": "data-b41a587133c8dfdbbc7b059ea7cd8991"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b41a587133c8dfdbbc7b059ea7cd8991": [{"date": 1986, "Epl\u00e9ny": 0}, {"date": 1987, "Epl\u00e9ny": 0}, {"date": 1988, "Epl\u00e9ny": 0}, {"date": 1989, "Epl\u00e9ny": 0}, {"date": 1990, "Epl\u00e9ny": 0}, {"date": 1991, "Epl\u00e9ny": 0}, {"date": 1992, "Epl\u00e9ny": 418}, {"date": 1993, "Epl\u00e9ny": 420}, {"date": 1994, "Epl\u00e9ny": 421}, {"date": 1995, "Epl\u00e9ny": 419}, {"date": 1996, "Epl\u00e9ny": 446}, {"date": 1997, "Epl\u00e9ny": 452}, {"date": 1998, "Epl\u00e9ny": 458}, {"date": 1999, "Epl\u00e9ny": 452}, {"date": 2000, "Epl\u00e9ny": 484}, {"date": 2001, "Epl\u00e9ny": 489}, {"date": 2002, "Epl\u00e9ny": 497}, {"date": 2003, "Epl\u00e9ny": 502}, {"date": 2004, "Epl\u00e9ny": 514}, {"date": 2005, "Epl\u00e9ny": 538}, {"date": 2006, "Epl\u00e9ny": 547}, {"date": 2007, "Epl\u00e9ny": 546}, {"date": 2008, "Epl\u00e9ny": 551}, {"date": 2009, "Epl\u00e9ny": 544}, {"date": 2010, "Epl\u00e9ny": 558}, {"date": 2011, "Epl\u00e9ny": 556}, {"date": 2012, "Epl\u00e9ny": 557}, {"date": 2013, "Epl\u00e9ny": 557}, {"date": 2014, "Epl\u00e9ny": 544}, {"date": 2015, "Epl\u00e9ny": 529}, {"date": 2016, "Epl\u00e9ny": 524}, {"date": 2017, "Epl\u00e9ny": 528}, {"date": 2018, "Epl\u00e9ny": 514}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

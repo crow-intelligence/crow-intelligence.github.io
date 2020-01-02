@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaszentimre"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1979": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszaszentimre"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1979"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaszentimre"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1979"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszaszentimre", "selection": "selector1979"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaszentimre"}}}], "data": {"name": "data-2bb931bea5a91147afd31d52c9e95d45"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2bb931bea5a91147afd31d52c9e95d45": [{"date": 1986, "Tiszaszentimre": 2836}, {"date": 1987, "Tiszaszentimre": 2782}, {"date": 1988, "Tiszaszentimre": 2768}, {"date": 1989, "Tiszaszentimre": 2734}, {"date": 1990, "Tiszaszentimre": 2717}, {"date": 1991, "Tiszaszentimre": 2660}, {"date": 1992, "Tiszaszentimre": 2637}, {"date": 1993, "Tiszaszentimre": 2606}, {"date": 1994, "Tiszaszentimre": 2624}, {"date": 1995, "Tiszaszentimre": 2640}, {"date": 1996, "Tiszaszentimre": 2636}, {"date": 1997, "Tiszaszentimre": 2600}, {"date": 1998, "Tiszaszentimre": 2587}, {"date": 1999, "Tiszaszentimre": 2585}, {"date": 2000, "Tiszaszentimre": 2535}, {"date": 2001, "Tiszaszentimre": 2521}, {"date": 2002, "Tiszaszentimre": 2490}, {"date": 2003, "Tiszaszentimre": 2465}, {"date": 2004, "Tiszaszentimre": 2447}, {"date": 2005, "Tiszaszentimre": 2443}, {"date": 2006, "Tiszaszentimre": 2409}, {"date": 2007, "Tiszaszentimre": 2389}, {"date": 2008, "Tiszaszentimre": 2333}, {"date": 2009, "Tiszaszentimre": 2307}, {"date": 2010, "Tiszaszentimre": 2286}, {"date": 2011, "Tiszaszentimre": 2309}, {"date": 2012, "Tiszaszentimre": 2290}, {"date": 2013, "Tiszaszentimre": 2266}, {"date": 2014, "Tiszaszentimre": 2239}, {"date": 2015, "Tiszaszentimre": 2190}, {"date": 2016, "Tiszaszentimre": 2149}, {"date": 2017, "Tiszaszentimre": 2131}, {"date": 2018, "Tiszaszentimre": 2092}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

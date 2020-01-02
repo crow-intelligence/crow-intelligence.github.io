@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Aldebr\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1112": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Aldebr\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1112"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Aldebr\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1112"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Aldebr\u0151", "selection": "selector1112"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Aldebr\u0151"}}}], "data": {"name": "data-494b5ad231dfa1637d988b531c8cc6a3"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-494b5ad231dfa1637d988b531c8cc6a3": [{"date": 1986, "Aldebr\u0151": 826}, {"date": 1987, "Aldebr\u0151": 814}, {"date": 1988, "Aldebr\u0151": 791}, {"date": 1989, "Aldebr\u0151": 803}, {"date": 1990, "Aldebr\u0151": 803}, {"date": 1991, "Aldebr\u0151": 814}, {"date": 1992, "Aldebr\u0151": 838}, {"date": 1993, "Aldebr\u0151": 843}, {"date": 1994, "Aldebr\u0151": 826}, {"date": 1995, "Aldebr\u0151": 814}, {"date": 1996, "Aldebr\u0151": 815}, {"date": 1997, "Aldebr\u0151": 803}, {"date": 1998, "Aldebr\u0151": 807}, {"date": 1999, "Aldebr\u0151": 808}, {"date": 2000, "Aldebr\u0151": 809}, {"date": 2001, "Aldebr\u0151": 804}, {"date": 2002, "Aldebr\u0151": 813}, {"date": 2003, "Aldebr\u0151": 790}, {"date": 2004, "Aldebr\u0151": 779}, {"date": 2005, "Aldebr\u0151": 768}, {"date": 2006, "Aldebr\u0151": 759}, {"date": 2007, "Aldebr\u0151": 754}, {"date": 2008, "Aldebr\u0151": 741}, {"date": 2009, "Aldebr\u0151": 729}, {"date": 2010, "Aldebr\u0151": 729}, {"date": 2011, "Aldebr\u0151": 723}, {"date": 2012, "Aldebr\u0151": 713}, {"date": 2013, "Aldebr\u0151": 716}, {"date": 2014, "Aldebr\u0151": 716}, {"date": 2015, "Aldebr\u0151": 707}, {"date": 2016, "Aldebr\u0151": 700}, {"date": 2017, "Aldebr\u0151": 694}, {"date": 2018, "Aldebr\u0151": 695}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

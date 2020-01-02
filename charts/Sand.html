@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sand"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2658": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Sand"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2658"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sand"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2658"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Sand", "selection": "selector2658"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sand"}}}], "data": {"name": "data-c0fda01784cc828499d5f93265f30741"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c0fda01784cc828499d5f93265f30741": [{"date": 1986, "Sand": 583}, {"date": 1987, "Sand": 574}, {"date": 1988, "Sand": 575}, {"date": 1989, "Sand": 570}, {"date": 1990, "Sand": 552}, {"date": 1991, "Sand": 552}, {"date": 1992, "Sand": 553}, {"date": 1993, "Sand": 550}, {"date": 1994, "Sand": 537}, {"date": 1995, "Sand": 532}, {"date": 1996, "Sand": 526}, {"date": 1997, "Sand": 520}, {"date": 1998, "Sand": 520}, {"date": 1999, "Sand": 515}, {"date": 2000, "Sand": 506}, {"date": 2001, "Sand": 492}, {"date": 2002, "Sand": 484}, {"date": 2003, "Sand": 492}, {"date": 2004, "Sand": 484}, {"date": 2005, "Sand": 481}, {"date": 2006, "Sand": 451}, {"date": 2007, "Sand": 438}, {"date": 2008, "Sand": 439}, {"date": 2009, "Sand": 437}, {"date": 2010, "Sand": 425}, {"date": 2011, "Sand": 416}, {"date": 2012, "Sand": 423}, {"date": 2013, "Sand": 420}, {"date": 2014, "Sand": 417}, {"date": 2015, "Sand": 412}, {"date": 2016, "Sand": 401}, {"date": 2017, "Sand": 391}, {"date": 2018, "Sand": 399}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

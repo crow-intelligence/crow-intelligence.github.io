@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Petrikereszt\u00far"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2640": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Petrikereszt\u00far"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2640"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Petrikereszt\u00far"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2640"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Petrikereszt\u00far", "selection": "selector2640"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Petrikereszt\u00far"}}}], "data": {"name": "data-0c2b911eb25ce3a79c320061f7b387e0"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-0c2b911eb25ce3a79c320061f7b387e0": [{"date": 1986, "Petrikereszt\u00far": 510}, {"date": 1987, "Petrikereszt\u00far": 503}, {"date": 1988, "Petrikereszt\u00far": 504}, {"date": 1989, "Petrikereszt\u00far": 481}, {"date": 1990, "Petrikereszt\u00far": 459}, {"date": 1991, "Petrikereszt\u00far": 459}, {"date": 1992, "Petrikereszt\u00far": 467}, {"date": 1993, "Petrikereszt\u00far": 460}, {"date": 1994, "Petrikereszt\u00far": 457}, {"date": 1995, "Petrikereszt\u00far": 455}, {"date": 1996, "Petrikereszt\u00far": 445}, {"date": 1997, "Petrikereszt\u00far": 452}, {"date": 1998, "Petrikereszt\u00far": 449}, {"date": 1999, "Petrikereszt\u00far": 438}, {"date": 2000, "Petrikereszt\u00far": 443}, {"date": 2001, "Petrikereszt\u00far": 439}, {"date": 2002, "Petrikereszt\u00far": 437}, {"date": 2003, "Petrikereszt\u00far": 441}, {"date": 2004, "Petrikereszt\u00far": 440}, {"date": 2005, "Petrikereszt\u00far": 430}, {"date": 2006, "Petrikereszt\u00far": 418}, {"date": 2007, "Petrikereszt\u00far": 410}, {"date": 2008, "Petrikereszt\u00far": 402}, {"date": 2009, "Petrikereszt\u00far": 392}, {"date": 2010, "Petrikereszt\u00far": 385}, {"date": 2011, "Petrikereszt\u00far": 372}, {"date": 2012, "Petrikereszt\u00far": 370}, {"date": 2013, "Petrikereszt\u00far": 381}, {"date": 2014, "Petrikereszt\u00far": 379}, {"date": 2015, "Petrikereszt\u00far": 377}, {"date": 2016, "Petrikereszt\u00far": 370}, {"date": 2017, "Petrikereszt\u00far": 370}, {"date": 2018, "Petrikereszt\u00far": 372}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

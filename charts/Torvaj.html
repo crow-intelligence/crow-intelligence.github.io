@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Torvaj"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1730": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Torvaj"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1730"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Torvaj"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1730"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Torvaj", "selection": "selector1730"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Torvaj"}}}], "data": {"name": "data-06e8be058459747fddd02121e34a7863"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-06e8be058459747fddd02121e34a7863": [{"date": 1986, "Torvaj": 421}, {"date": 1987, "Torvaj": 403}, {"date": 1988, "Torvaj": 394}, {"date": 1989, "Torvaj": 388}, {"date": 1990, "Torvaj": 385}, {"date": 1991, "Torvaj": 377}, {"date": 1992, "Torvaj": 371}, {"date": 1993, "Torvaj": 360}, {"date": 1994, "Torvaj": 370}, {"date": 1995, "Torvaj": 363}, {"date": 1996, "Torvaj": 366}, {"date": 1997, "Torvaj": 355}, {"date": 1998, "Torvaj": 355}, {"date": 1999, "Torvaj": 357}, {"date": 2000, "Torvaj": 354}, {"date": 2001, "Torvaj": 342}, {"date": 2002, "Torvaj": 339}, {"date": 2003, "Torvaj": 337}, {"date": 2004, "Torvaj": 337}, {"date": 2005, "Torvaj": 339}, {"date": 2006, "Torvaj": 334}, {"date": 2007, "Torvaj": 322}, {"date": 2008, "Torvaj": 316}, {"date": 2009, "Torvaj": 309}, {"date": 2010, "Torvaj": 304}, {"date": 2011, "Torvaj": 292}, {"date": 2012, "Torvaj": 287}, {"date": 2013, "Torvaj": 279}, {"date": 2014, "Torvaj": 272}, {"date": 2015, "Torvaj": 267}, {"date": 2016, "Torvaj": 263}, {"date": 2017, "Torvaj": 272}, {"date": 2018, "Torvaj": 264}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

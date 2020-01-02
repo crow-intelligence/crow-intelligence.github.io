@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Daraboshegy"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2108": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Daraboshegy"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2108"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Daraboshegy"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2108"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Daraboshegy", "selection": "selector2108"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Daraboshegy"}}}], "data": {"name": "data-a665993131d980cfd1223ea26eac8158"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a665993131d980cfd1223ea26eac8158": [{"date": 1986, "Daraboshegy": 148}, {"date": 1987, "Daraboshegy": 141}, {"date": 1988, "Daraboshegy": 141}, {"date": 1989, "Daraboshegy": 139}, {"date": 1990, "Daraboshegy": 139}, {"date": 1991, "Daraboshegy": 128}, {"date": 1992, "Daraboshegy": 130}, {"date": 1993, "Daraboshegy": 132}, {"date": 1994, "Daraboshegy": 128}, {"date": 1995, "Daraboshegy": 127}, {"date": 1996, "Daraboshegy": 126}, {"date": 1997, "Daraboshegy": 122}, {"date": 1998, "Daraboshegy": 122}, {"date": 1999, "Daraboshegy": 118}, {"date": 2000, "Daraboshegy": 111}, {"date": 2001, "Daraboshegy": 112}, {"date": 2002, "Daraboshegy": 109}, {"date": 2003, "Daraboshegy": 108}, {"date": 2004, "Daraboshegy": 104}, {"date": 2005, "Daraboshegy": 101}, {"date": 2006, "Daraboshegy": 101}, {"date": 2007, "Daraboshegy": 98}, {"date": 2008, "Daraboshegy": 101}, {"date": 2009, "Daraboshegy": 93}, {"date": 2010, "Daraboshegy": 94}, {"date": 2011, "Daraboshegy": 103}, {"date": 2012, "Daraboshegy": 105}, {"date": 2013, "Daraboshegy": 101}, {"date": 2014, "Daraboshegy": 100}, {"date": 2015, "Daraboshegy": 102}, {"date": 2016, "Daraboshegy": 99}, {"date": 2017, "Daraboshegy": 95}, {"date": 2018, "Daraboshegy": 97}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

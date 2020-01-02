@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Halogy"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2130": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Halogy"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2130"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Halogy"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2130"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Halogy", "selection": "selector2130"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Halogy"}}}], "data": {"name": "data-c489fa824a1010eda4ec93aa79aed846"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c489fa824a1010eda4ec93aa79aed846": [{"date": 1986, "Halogy": 385}, {"date": 1987, "Halogy": 383}, {"date": 1988, "Halogy": 389}, {"date": 1989, "Halogy": 382}, {"date": 1990, "Halogy": 382}, {"date": 1991, "Halogy": 385}, {"date": 1992, "Halogy": 372}, {"date": 1993, "Halogy": 364}, {"date": 1994, "Halogy": 359}, {"date": 1995, "Halogy": 354}, {"date": 1996, "Halogy": 351}, {"date": 1997, "Halogy": 343}, {"date": 1998, "Halogy": 339}, {"date": 1999, "Halogy": 339}, {"date": 2000, "Halogy": 336}, {"date": 2001, "Halogy": 329}, {"date": 2002, "Halogy": 334}, {"date": 2003, "Halogy": 333}, {"date": 2004, "Halogy": 323}, {"date": 2005, "Halogy": 315}, {"date": 2006, "Halogy": 310}, {"date": 2007, "Halogy": 304}, {"date": 2008, "Halogy": 308}, {"date": 2009, "Halogy": 301}, {"date": 2010, "Halogy": 296}, {"date": 2011, "Halogy": 292}, {"date": 2012, "Halogy": 289}, {"date": 2013, "Halogy": 281}, {"date": 2014, "Halogy": 283}, {"date": 2015, "Halogy": 274}, {"date": 2016, "Halogy": 288}, {"date": 2017, "Halogy": 286}, {"date": 2018, "Halogy": 294}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

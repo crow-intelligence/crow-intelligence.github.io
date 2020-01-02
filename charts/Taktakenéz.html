@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Taktaken\u00e9z"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector716": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Taktaken\u00e9z"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector716"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Taktaken\u00e9z"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector716"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Taktaken\u00e9z", "selection": "selector716"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Taktaken\u00e9z"}}}], "data": {"name": "data-7f4a575e652f100d8f90e1ef5fdabcfe"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-7f4a575e652f100d8f90e1ef5fdabcfe": [{"date": 1986, "Taktaken\u00e9z": 1193}, {"date": 1987, "Taktaken\u00e9z": 1181}, {"date": 1988, "Taktaken\u00e9z": 1180}, {"date": 1989, "Taktaken\u00e9z": 1174}, {"date": 1990, "Taktaken\u00e9z": 1187}, {"date": 1991, "Taktaken\u00e9z": 1172}, {"date": 1992, "Taktaken\u00e9z": 1171}, {"date": 1993, "Taktaken\u00e9z": 1167}, {"date": 1994, "Taktaken\u00e9z": 1179}, {"date": 1995, "Taktaken\u00e9z": 1177}, {"date": 1996, "Taktaken\u00e9z": 1174}, {"date": 1997, "Taktaken\u00e9z": 1184}, {"date": 1998, "Taktaken\u00e9z": 1188}, {"date": 1999, "Taktaken\u00e9z": 1199}, {"date": 2000, "Taktaken\u00e9z": 1194}, {"date": 2001, "Taktaken\u00e9z": 1233}, {"date": 2002, "Taktaken\u00e9z": 1215}, {"date": 2003, "Taktaken\u00e9z": 1243}, {"date": 2004, "Taktaken\u00e9z": 1238}, {"date": 2005, "Taktaken\u00e9z": 1251}, {"date": 2006, "Taktaken\u00e9z": 1268}, {"date": 2007, "Taktaken\u00e9z": 1283}, {"date": 2008, "Taktaken\u00e9z": 1290}, {"date": 2009, "Taktaken\u00e9z": 1312}, {"date": 2010, "Taktaken\u00e9z": 1318}, {"date": 2011, "Taktaken\u00e9z": 1313}, {"date": 2012, "Taktaken\u00e9z": 1307}, {"date": 2013, "Taktaken\u00e9z": 1289}, {"date": 2014, "Taktaken\u00e9z": 1287}, {"date": 2015, "Taktaken\u00e9z": 1291}, {"date": 2016, "Taktaken\u00e9z": 1304}, {"date": 2017, "Taktaken\u00e9z": 1292}, {"date": 2018, "Taktaken\u00e9z": 1277}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

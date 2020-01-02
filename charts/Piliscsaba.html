@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Piliscsaba"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3050": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Piliscsaba"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3050"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Piliscsaba"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3050"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Piliscsaba", "selection": "selector3050"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Piliscsaba"}}}], "data": {"name": "data-a395eaeba24e1516f1418cc0b2707a2d"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a395eaeba24e1516f1418cc0b2707a2d": [{"date": 1986, "Piliscsaba": 5108}, {"date": 1987, "Piliscsaba": 5060}, {"date": 1988, "Piliscsaba": 5099}, {"date": 1989, "Piliscsaba": 5110}, {"date": 1990, "Piliscsaba": 5099}, {"date": 1991, "Piliscsaba": 5352}, {"date": 1992, "Piliscsaba": 5255}, {"date": 1993, "Piliscsaba": 5375}, {"date": 1994, "Piliscsaba": 5502}, {"date": 1995, "Piliscsaba": 4982}, {"date": 1996, "Piliscsaba": 5053}, {"date": 1997, "Piliscsaba": 5138}, {"date": 1998, "Piliscsaba": 5214}, {"date": 1999, "Piliscsaba": 5340}, {"date": 2000, "Piliscsaba": 5424}, {"date": 2001, "Piliscsaba": 5552}, {"date": 2002, "Piliscsaba": 5162}, {"date": 2003, "Piliscsaba": 5973}, {"date": 2004, "Piliscsaba": 6225}, {"date": 2005, "Piliscsaba": 6509}, {"date": 2006, "Piliscsaba": 6770}, {"date": 2007, "Piliscsaba": 6998}, {"date": 2008, "Piliscsaba": 7202}, {"date": 2009, "Piliscsaba": 7335}, {"date": 2010, "Piliscsaba": 7474}, {"date": 2011, "Piliscsaba": 7579}, {"date": 2012, "Piliscsaba": 7721}, {"date": 2013, "Piliscsaba": 7790}, {"date": 2014, "Piliscsaba": 7832}, {"date": 2015, "Piliscsaba": 7946}, {"date": 2016, "Piliscsaba": 8034}, {"date": 2017, "Piliscsaba": 8097}, {"date": 2018, "Piliscsaba": 8108}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tomajmonostora"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1983": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tomajmonostora"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1983"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tomajmonostora"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1983"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tomajmonostora", "selection": "selector1983"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tomajmonostora"}}}], "data": {"name": "data-de1bd3e002588d3b3181bf262ac281b7"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-de1bd3e002588d3b3181bf262ac281b7": [{"date": 1986, "Tomajmonostora": 1019}, {"date": 1987, "Tomajmonostora": 1007}, {"date": 1988, "Tomajmonostora": 996}, {"date": 1989, "Tomajmonostora": 965}, {"date": 1990, "Tomajmonostora": 932}, {"date": 1991, "Tomajmonostora": 922}, {"date": 1992, "Tomajmonostora": 914}, {"date": 1993, "Tomajmonostora": 917}, {"date": 1994, "Tomajmonostora": 900}, {"date": 1995, "Tomajmonostora": 907}, {"date": 1996, "Tomajmonostora": 882}, {"date": 1997, "Tomajmonostora": 877}, {"date": 1998, "Tomajmonostora": 855}, {"date": 1999, "Tomajmonostora": 849}, {"date": 2000, "Tomajmonostora": 824}, {"date": 2001, "Tomajmonostora": 813}, {"date": 2002, "Tomajmonostora": 790}, {"date": 2003, "Tomajmonostora": 800}, {"date": 2004, "Tomajmonostora": 798}, {"date": 2005, "Tomajmonostora": 778}, {"date": 2006, "Tomajmonostora": 762}, {"date": 2007, "Tomajmonostora": 765}, {"date": 2008, "Tomajmonostora": 775}, {"date": 2009, "Tomajmonostora": 760}, {"date": 2010, "Tomajmonostora": 760}, {"date": 2011, "Tomajmonostora": 765}, {"date": 2012, "Tomajmonostora": 747}, {"date": 2013, "Tomajmonostora": 733}, {"date": 2014, "Tomajmonostora": 739}, {"date": 2015, "Tomajmonostora": 753}, {"date": 2016, "Tomajmonostora": 775}, {"date": 2017, "Tomajmonostora": 786}, {"date": 2018, "Tomajmonostora": 771}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

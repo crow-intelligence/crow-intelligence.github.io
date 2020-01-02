@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Petrivente"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2641": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Petrivente"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2641"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Petrivente"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2641"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Petrivente", "selection": "selector2641"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Petrivente"}}}], "data": {"name": "data-ffea5dccc461d738b57d54c7efd23ddc"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ffea5dccc461d738b57d54c7efd23ddc": [{"date": 1986, "Petrivente": 536}, {"date": 1987, "Petrivente": 507}, {"date": 1988, "Petrivente": 498}, {"date": 1989, "Petrivente": 490}, {"date": 1990, "Petrivente": 471}, {"date": 1991, "Petrivente": 462}, {"date": 1992, "Petrivente": 462}, {"date": 1993, "Petrivente": 446}, {"date": 1994, "Petrivente": 458}, {"date": 1995, "Petrivente": 456}, {"date": 1996, "Petrivente": 464}, {"date": 1997, "Petrivente": 448}, {"date": 1998, "Petrivente": 456}, {"date": 1999, "Petrivente": 443}, {"date": 2000, "Petrivente": 440}, {"date": 2001, "Petrivente": 440}, {"date": 2002, "Petrivente": 441}, {"date": 2003, "Petrivente": 435}, {"date": 2004, "Petrivente": 434}, {"date": 2005, "Petrivente": 425}, {"date": 2006, "Petrivente": 427}, {"date": 2007, "Petrivente": 428}, {"date": 2008, "Petrivente": 422}, {"date": 2009, "Petrivente": 409}, {"date": 2010, "Petrivente": 402}, {"date": 2011, "Petrivente": 406}, {"date": 2012, "Petrivente": 400}, {"date": 2013, "Petrivente": 392}, {"date": 2014, "Petrivente": 383}, {"date": 2015, "Petrivente": 374}, {"date": 2016, "Petrivente": 365}, {"date": 2017, "Petrivente": 375}, {"date": 2018, "Petrivente": 358}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

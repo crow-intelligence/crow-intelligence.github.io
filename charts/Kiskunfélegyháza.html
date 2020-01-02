@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kiskunf\u00e9legyh\u00e1za"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2866": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kiskunf\u00e9legyh\u00e1za"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2866"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kiskunf\u00e9legyh\u00e1za"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2866"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kiskunf\u00e9legyh\u00e1za", "selection": "selector2866"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kiskunf\u00e9legyh\u00e1za"}}}], "data": {"name": "data-05ab742edf3c3990b5910c16b0987673"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-05ab742edf3c3990b5910c16b0987673": [{"date": 1986, "Kiskunf\u00e9legyh\u00e1za": 35733}, {"date": 1987, "Kiskunf\u00e9legyh\u00e1za": 35481}, {"date": 1988, "Kiskunf\u00e9legyh\u00e1za": 35255}, {"date": 1989, "Kiskunf\u00e9legyh\u00e1za": 35101}, {"date": 1990, "Kiskunf\u00e9legyh\u00e1za": 34915}, {"date": 1991, "Kiskunf\u00e9legyh\u00e1za": 34780}, {"date": 1992, "Kiskunf\u00e9legyh\u00e1za": 34639}, {"date": 1993, "Kiskunf\u00e9legyh\u00e1za": 34550}, {"date": 1994, "Kiskunf\u00e9legyh\u00e1za": 34488}, {"date": 1995, "Kiskunf\u00e9legyh\u00e1za": 34394}, {"date": 1996, "Kiskunf\u00e9legyh\u00e1za": 34214}, {"date": 1997, "Kiskunf\u00e9legyh\u00e1za": 34001}, {"date": 1998, "Kiskunf\u00e9legyh\u00e1za": 33719}, {"date": 1999, "Kiskunf\u00e9legyh\u00e1za": 33379}, {"date": 2000, "Kiskunf\u00e9legyh\u00e1za": 33137}, {"date": 2001, "Kiskunf\u00e9legyh\u00e1za": 33020}, {"date": 2002, "Kiskunf\u00e9legyh\u00e1za": 15393}, {"date": 2003, "Kiskunf\u00e9legyh\u00e1za": 32450}, {"date": 2004, "Kiskunf\u00e9legyh\u00e1za": 32220}, {"date": 2005, "Kiskunf\u00e9legyh\u00e1za": 32054}, {"date": 2006, "Kiskunf\u00e9legyh\u00e1za": 31893}, {"date": 2007, "Kiskunf\u00e9legyh\u00e1za": 31653}, {"date": 2008, "Kiskunf\u00e9legyh\u00e1za": 31565}, {"date": 2009, "Kiskunf\u00e9legyh\u00e1za": 31549}, {"date": 2010, "Kiskunf\u00e9legyh\u00e1za": 31520}, {"date": 2011, "Kiskunf\u00e9legyh\u00e1za": 31230}, {"date": 2012, "Kiskunf\u00e9legyh\u00e1za": 30979}, {"date": 2013, "Kiskunf\u00e9legyh\u00e1za": 30761}, {"date": 2014, "Kiskunf\u00e9legyh\u00e1za": 30601}, {"date": 2015, "Kiskunf\u00e9legyh\u00e1za": 30407}, {"date": 2016, "Kiskunf\u00e9legyh\u00e1za": 30335}, {"date": 2017, "Kiskunf\u00e9legyh\u00e1za": 30317}, {"date": 2018, "Kiskunf\u00e9legyh\u00e1za": 30271}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

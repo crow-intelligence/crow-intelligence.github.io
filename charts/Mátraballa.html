@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "M\u00e1traballa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1167": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["M\u00e1traballa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1167"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "M\u00e1traballa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1167"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "M\u00e1traballa", "selection": "selector1167"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "M\u00e1traballa"}}}], "data": {"name": "data-0b58be7e2bd893a48e7a213f672c1254"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-0b58be7e2bd893a48e7a213f672c1254": [{"date": 1986, "M\u00e1traballa": 1089}, {"date": 1987, "M\u00e1traballa": 1077}, {"date": 1988, "M\u00e1traballa": 1068}, {"date": 1989, "M\u00e1traballa": 1056}, {"date": 1990, "M\u00e1traballa": 1021}, {"date": 1991, "M\u00e1traballa": 1008}, {"date": 1992, "M\u00e1traballa": 997}, {"date": 1993, "M\u00e1traballa": 1001}, {"date": 1994, "M\u00e1traballa": 998}, {"date": 1995, "M\u00e1traballa": 997}, {"date": 1996, "M\u00e1traballa": 985}, {"date": 1997, "M\u00e1traballa": 965}, {"date": 1998, "M\u00e1traballa": 953}, {"date": 1999, "M\u00e1traballa": 940}, {"date": 2000, "M\u00e1traballa": 923}, {"date": 2001, "M\u00e1traballa": 909}, {"date": 2002, "M\u00e1traballa": 897}, {"date": 2003, "M\u00e1traballa": 879}, {"date": 2004, "M\u00e1traballa": 877}, {"date": 2005, "M\u00e1traballa": 858}, {"date": 2006, "M\u00e1traballa": 842}, {"date": 2007, "M\u00e1traballa": 833}, {"date": 2008, "M\u00e1traballa": 828}, {"date": 2009, "M\u00e1traballa": 822}, {"date": 2010, "M\u00e1traballa": 808}, {"date": 2011, "M\u00e1traballa": 793}, {"date": 2012, "M\u00e1traballa": 767}, {"date": 2013, "M\u00e1traballa": 756}, {"date": 2014, "M\u00e1traballa": 745}, {"date": 2015, "M\u00e1traballa": 741}, {"date": 2016, "M\u00e1traballa": 753}, {"date": 2017, "M\u00e1traballa": 741}, {"date": 2018, "M\u00e1traballa": 740}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

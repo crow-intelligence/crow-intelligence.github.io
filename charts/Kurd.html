@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kurd"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2035": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kurd"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2035"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kurd"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2035"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kurd", "selection": "selector2035"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kurd"}}}], "data": {"name": "data-3c79f41d3887395b77a0797a412e0b55"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-3c79f41d3887395b77a0797a412e0b55": [{"date": 1986, "Kurd": 1482}, {"date": 1987, "Kurd": 1492}, {"date": 1988, "Kurd": 1494}, {"date": 1989, "Kurd": 1494}, {"date": 1990, "Kurd": 1478}, {"date": 1991, "Kurd": 1479}, {"date": 1992, "Kurd": 1477}, {"date": 1993, "Kurd": 1489}, {"date": 1994, "Kurd": 1483}, {"date": 1995, "Kurd": 1453}, {"date": 1996, "Kurd": 1448}, {"date": 1997, "Kurd": 1441}, {"date": 1998, "Kurd": 1410}, {"date": 1999, "Kurd": 1402}, {"date": 2000, "Kurd": 1397}, {"date": 2001, "Kurd": 1367}, {"date": 2002, "Kurd": 1348}, {"date": 2003, "Kurd": 1337}, {"date": 2004, "Kurd": 1319}, {"date": 2005, "Kurd": 1297}, {"date": 2006, "Kurd": 1296}, {"date": 2007, "Kurd": 1288}, {"date": 2008, "Kurd": 1283}, {"date": 2009, "Kurd": 1286}, {"date": 2010, "Kurd": 1284}, {"date": 2011, "Kurd": 1283}, {"date": 2012, "Kurd": 1260}, {"date": 2013, "Kurd": 1238}, {"date": 2014, "Kurd": 1240}, {"date": 2015, "Kurd": 1220}, {"date": 2016, "Kurd": 1211}, {"date": 2017, "Kurd": 1179}, {"date": 2018, "Kurd": 1173}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

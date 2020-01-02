@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fazekasboda"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector184": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Fazekasboda"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector184"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fazekasboda"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector184"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Fazekasboda", "selection": "selector184"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fazekasboda"}}}], "data": {"name": "data-33fca1ab76f1a89663feac60dfa11af2"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-33fca1ab76f1a89663feac60dfa11af2": [{"date": 1986, "Fazekasboda": 287}, {"date": 1987, "Fazekasboda": 279}, {"date": 1988, "Fazekasboda": 263}, {"date": 1989, "Fazekasboda": 256}, {"date": 1990, "Fazekasboda": 248}, {"date": 1991, "Fazekasboda": 243}, {"date": 1992, "Fazekasboda": 228}, {"date": 1993, "Fazekasboda": 232}, {"date": 1994, "Fazekasboda": 239}, {"date": 1995, "Fazekasboda": 240}, {"date": 1996, "Fazekasboda": 237}, {"date": 1997, "Fazekasboda": 241}, {"date": 1998, "Fazekasboda": 237}, {"date": 1999, "Fazekasboda": 241}, {"date": 2000, "Fazekasboda": 230}, {"date": 2001, "Fazekasboda": 232}, {"date": 2002, "Fazekasboda": 236}, {"date": 2003, "Fazekasboda": 229}, {"date": 2004, "Fazekasboda": 231}, {"date": 2005, "Fazekasboda": 230}, {"date": 2006, "Fazekasboda": 220}, {"date": 2007, "Fazekasboda": 223}, {"date": 2008, "Fazekasboda": 206}, {"date": 2009, "Fazekasboda": 211}, {"date": 2010, "Fazekasboda": 227}, {"date": 2011, "Fazekasboda": 228}, {"date": 2012, "Fazekasboda": 233}, {"date": 2013, "Fazekasboda": 229}, {"date": 2014, "Fazekasboda": 218}, {"date": 2015, "Fazekasboda": 222}, {"date": 2016, "Fazekasboda": 221}, {"date": 2017, "Fazekasboda": 219}, {"date": 2018, "Fazekasboda": 214}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

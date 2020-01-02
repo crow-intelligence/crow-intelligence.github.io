@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Alap"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector811": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Alap"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector811"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Alap"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector811"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Alap", "selection": "selector811"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Alap"}}}], "data": {"name": "data-547383c39273bdb115094ee340844f13"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-547383c39273bdb115094ee340844f13": [{"date": 1986, "Alap": 2331}, {"date": 1987, "Alap": 2324}, {"date": 1988, "Alap": 2291}, {"date": 1989, "Alap": 2263}, {"date": 1990, "Alap": 2259}, {"date": 1991, "Alap": 2264}, {"date": 1992, "Alap": 2239}, {"date": 1993, "Alap": 2268}, {"date": 1994, "Alap": 2253}, {"date": 1995, "Alap": 2253}, {"date": 1996, "Alap": 2285}, {"date": 1997, "Alap": 2265}, {"date": 1998, "Alap": 2219}, {"date": 1999, "Alap": 2177}, {"date": 2000, "Alap": 2182}, {"date": 2001, "Alap": 2189}, {"date": 2002, "Alap": 2174}, {"date": 2003, "Alap": 2167}, {"date": 2004, "Alap": 2137}, {"date": 2005, "Alap": 2111}, {"date": 2006, "Alap": 2107}, {"date": 2007, "Alap": 2100}, {"date": 2008, "Alap": 2096}, {"date": 2009, "Alap": 2093}, {"date": 2010, "Alap": 2100}, {"date": 2011, "Alap": 2082}, {"date": 2012, "Alap": 2060}, {"date": 2013, "Alap": 2016}, {"date": 2014, "Alap": 2010}, {"date": 2015, "Alap": 1993}, {"date": 2016, "Alap": 1991}, {"date": 2017, "Alap": 1968}, {"date": 2018, "Alap": 2003}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

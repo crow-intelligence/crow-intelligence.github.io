@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyb\u00e1rk\u00e1ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1355": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nagyb\u00e1rk\u00e1ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1355"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyb\u00e1rk\u00e1ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1355"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nagyb\u00e1rk\u00e1ny", "selection": "selector1355"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyb\u00e1rk\u00e1ny"}}}], "data": {"name": "data-dfa418ca1b990b6799d012e1ad77a519"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-dfa418ca1b990b6799d012e1ad77a519": [{"date": 1986, "Nagyb\u00e1rk\u00e1ny": 725}, {"date": 1987, "Nagyb\u00e1rk\u00e1ny": 728}, {"date": 1988, "Nagyb\u00e1rk\u00e1ny": 710}, {"date": 1989, "Nagyb\u00e1rk\u00e1ny": 697}, {"date": 1990, "Nagyb\u00e1rk\u00e1ny": 696}, {"date": 1991, "Nagyb\u00e1rk\u00e1ny": 708}, {"date": 1992, "Nagyb\u00e1rk\u00e1ny": 712}, {"date": 1993, "Nagyb\u00e1rk\u00e1ny": 715}, {"date": 1994, "Nagyb\u00e1rk\u00e1ny": 717}, {"date": 1995, "Nagyb\u00e1rk\u00e1ny": 722}, {"date": 1996, "Nagyb\u00e1rk\u00e1ny": 722}, {"date": 1997, "Nagyb\u00e1rk\u00e1ny": 735}, {"date": 1998, "Nagyb\u00e1rk\u00e1ny": 730}, {"date": 1999, "Nagyb\u00e1rk\u00e1ny": 733}, {"date": 2000, "Nagyb\u00e1rk\u00e1ny": 721}, {"date": 2001, "Nagyb\u00e1rk\u00e1ny": 723}, {"date": 2002, "Nagyb\u00e1rk\u00e1ny": 713}, {"date": 2003, "Nagyb\u00e1rk\u00e1ny": 729}, {"date": 2004, "Nagyb\u00e1rk\u00e1ny": 728}, {"date": 2005, "Nagyb\u00e1rk\u00e1ny": 719}, {"date": 2006, "Nagyb\u00e1rk\u00e1ny": 723}, {"date": 2007, "Nagyb\u00e1rk\u00e1ny": 726}, {"date": 2008, "Nagyb\u00e1rk\u00e1ny": 720}, {"date": 2009, "Nagyb\u00e1rk\u00e1ny": 699}, {"date": 2010, "Nagyb\u00e1rk\u00e1ny": 688}, {"date": 2011, "Nagyb\u00e1rk\u00e1ny": 678}, {"date": 2012, "Nagyb\u00e1rk\u00e1ny": 678}, {"date": 2013, "Nagyb\u00e1rk\u00e1ny": 676}, {"date": 2014, "Nagyb\u00e1rk\u00e1ny": 695}, {"date": 2015, "Nagyb\u00e1rk\u00e1ny": 698}, {"date": 2016, "Nagyb\u00e1rk\u00e1ny": 702}, {"date": 2017, "Nagyb\u00e1rk\u00e1ny": 694}, {"date": 2018, "Nagyb\u00e1rk\u00e1ny": 666}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

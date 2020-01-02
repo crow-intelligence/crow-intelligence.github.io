@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarnazsad\u00e1ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1204": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tarnazsad\u00e1ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1204"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarnazsad\u00e1ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1204"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tarnazsad\u00e1ny", "selection": "selector1204"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarnazsad\u00e1ny"}}}], "data": {"name": "data-327240ddb9fd1f4d295d38cc26f54711"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-327240ddb9fd1f4d295d38cc26f54711": [{"date": 1986, "Tarnazsad\u00e1ny": 1595}, {"date": 1987, "Tarnazsad\u00e1ny": 1563}, {"date": 1988, "Tarnazsad\u00e1ny": 1536}, {"date": 1989, "Tarnazsad\u00e1ny": 1525}, {"date": 1990, "Tarnazsad\u00e1ny": 1524}, {"date": 1991, "Tarnazsad\u00e1ny": 1514}, {"date": 1992, "Tarnazsad\u00e1ny": 1482}, {"date": 1993, "Tarnazsad\u00e1ny": 1464}, {"date": 1994, "Tarnazsad\u00e1ny": 1468}, {"date": 1995, "Tarnazsad\u00e1ny": 1448}, {"date": 1996, "Tarnazsad\u00e1ny": 1461}, {"date": 1997, "Tarnazsad\u00e1ny": 1446}, {"date": 1998, "Tarnazsad\u00e1ny": 1450}, {"date": 1999, "Tarnazsad\u00e1ny": 1448}, {"date": 2000, "Tarnazsad\u00e1ny": 1439}, {"date": 2001, "Tarnazsad\u00e1ny": 1425}, {"date": 2002, "Tarnazsad\u00e1ny": 1407}, {"date": 2003, "Tarnazsad\u00e1ny": 1377}, {"date": 2004, "Tarnazsad\u00e1ny": 1388}, {"date": 2005, "Tarnazsad\u00e1ny": 1379}, {"date": 2006, "Tarnazsad\u00e1ny": 1355}, {"date": 2007, "Tarnazsad\u00e1ny": 1344}, {"date": 2008, "Tarnazsad\u00e1ny": 1321}, {"date": 2009, "Tarnazsad\u00e1ny": 1301}, {"date": 2010, "Tarnazsad\u00e1ny": 1305}, {"date": 2011, "Tarnazsad\u00e1ny": 1309}, {"date": 2012, "Tarnazsad\u00e1ny": 1285}, {"date": 2013, "Tarnazsad\u00e1ny": 1289}, {"date": 2014, "Tarnazsad\u00e1ny": 1289}, {"date": 2015, "Tarnazsad\u00e1ny": 1299}, {"date": 2016, "Tarnazsad\u00e1ny": 1303}, {"date": 2017, "Tarnazsad\u00e1ny": 1328}, {"date": 2018, "Tarnazsad\u00e1ny": 1302}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

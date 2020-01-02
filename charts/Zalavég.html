@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalav\u00e9g"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2727": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zalav\u00e9g"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2727"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalav\u00e9g"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2727"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zalav\u00e9g", "selection": "selector2727"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalav\u00e9g"}}}], "data": {"name": "data-b69d4c9559738fbbd007652891067016"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b69d4c9559738fbbd007652891067016": [{"date": 1986, "Zalav\u00e9g": 669}, {"date": 1987, "Zalav\u00e9g": 642}, {"date": 1988, "Zalav\u00e9g": 632}, {"date": 1989, "Zalav\u00e9g": 628}, {"date": 1990, "Zalav\u00e9g": 598}, {"date": 1991, "Zalav\u00e9g": 583}, {"date": 1992, "Zalav\u00e9g": 563}, {"date": 1993, "Zalav\u00e9g": 555}, {"date": 1994, "Zalav\u00e9g": 546}, {"date": 1995, "Zalav\u00e9g": 544}, {"date": 1996, "Zalav\u00e9g": 533}, {"date": 1997, "Zalav\u00e9g": 520}, {"date": 1998, "Zalav\u00e9g": 513}, {"date": 1999, "Zalav\u00e9g": 505}, {"date": 2000, "Zalav\u00e9g": 492}, {"date": 2001, "Zalav\u00e9g": 472}, {"date": 2002, "Zalav\u00e9g": 463}, {"date": 2003, "Zalav\u00e9g": 460}, {"date": 2004, "Zalav\u00e9g": 454}, {"date": 2005, "Zalav\u00e9g": 449}, {"date": 2006, "Zalav\u00e9g": 451}, {"date": 2007, "Zalav\u00e9g": 432}, {"date": 2008, "Zalav\u00e9g": 434}, {"date": 2009, "Zalav\u00e9g": 424}, {"date": 2010, "Zalav\u00e9g": 415}, {"date": 2011, "Zalav\u00e9g": 401}, {"date": 2012, "Zalav\u00e9g": 391}, {"date": 2013, "Zalav\u00e9g": 390}, {"date": 2014, "Zalav\u00e9g": 389}, {"date": 2015, "Zalav\u00e9g": 379}, {"date": 2016, "Zalav\u00e9g": 375}, {"date": 2017, "Zalav\u00e9g": 369}, {"date": 2018, "Zalav\u00e9g": 353}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

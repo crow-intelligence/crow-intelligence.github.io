@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szabadh\u00eddv\u00e9g"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector878": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szabadh\u00eddv\u00e9g"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector878"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szabadh\u00eddv\u00e9g"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector878"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szabadh\u00eddv\u00e9g", "selection": "selector878"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szabadh\u00eddv\u00e9g"}}}], "data": {"name": "data-0f3b1cb1f0d8971b389df9ac11646a14"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-0f3b1cb1f0d8971b389df9ac11646a14": [{"date": 1986, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1987, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1988, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1989, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1990, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1991, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1992, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1993, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1994, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1995, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1996, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1997, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1998, "Szabadh\u00eddv\u00e9g": 0}, {"date": 1999, "Szabadh\u00eddv\u00e9g": 0}, {"date": 2000, "Szabadh\u00eddv\u00e9g": 0}, {"date": 2001, "Szabadh\u00eddv\u00e9g": 0}, {"date": 2002, "Szabadh\u00eddv\u00e9g": 0}, {"date": 2003, "Szabadh\u00eddv\u00e9g": 0}, {"date": 2004, "Szabadh\u00eddv\u00e9g": 988}, {"date": 2005, "Szabadh\u00eddv\u00e9g": 968}, {"date": 2006, "Szabadh\u00eddv\u00e9g": 957}, {"date": 2007, "Szabadh\u00eddv\u00e9g": 929}, {"date": 2008, "Szabadh\u00eddv\u00e9g": 906}, {"date": 2009, "Szabadh\u00eddv\u00e9g": 904}, {"date": 2010, "Szabadh\u00eddv\u00e9g": 886}, {"date": 2011, "Szabadh\u00eddv\u00e9g": 889}, {"date": 2012, "Szabadh\u00eddv\u00e9g": 875}, {"date": 2013, "Szabadh\u00eddv\u00e9g": 883}, {"date": 2014, "Szabadh\u00eddv\u00e9g": 876}, {"date": 2015, "Szabadh\u00eddv\u00e9g": 862}, {"date": 2016, "Szabadh\u00eddv\u00e9g": 841}, {"date": 2017, "Szabadh\u00eddv\u00e9g": 845}, {"date": 2018, "Szabadh\u00eddv\u00e9g": 849}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

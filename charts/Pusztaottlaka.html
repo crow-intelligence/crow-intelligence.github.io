@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaottlaka"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector435": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Pusztaottlaka"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector435"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaottlaka"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector435"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Pusztaottlaka", "selection": "selector435"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaottlaka"}}}], "data": {"name": "data-b6fb478a30987dea3393d3bcda5d206f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b6fb478a30987dea3393d3bcda5d206f": [{"date": 1986, "Pusztaottlaka": 646}, {"date": 1987, "Pusztaottlaka": 623}, {"date": 1988, "Pusztaottlaka": 589}, {"date": 1989, "Pusztaottlaka": 573}, {"date": 1990, "Pusztaottlaka": 567}, {"date": 1991, "Pusztaottlaka": 554}, {"date": 1992, "Pusztaottlaka": 551}, {"date": 1993, "Pusztaottlaka": 549}, {"date": 1994, "Pusztaottlaka": 543}, {"date": 1995, "Pusztaottlaka": 543}, {"date": 1996, "Pusztaottlaka": 519}, {"date": 1997, "Pusztaottlaka": 511}, {"date": 1998, "Pusztaottlaka": 495}, {"date": 1999, "Pusztaottlaka": 499}, {"date": 2000, "Pusztaottlaka": 485}, {"date": 2001, "Pusztaottlaka": 470}, {"date": 2002, "Pusztaottlaka": 482}, {"date": 2003, "Pusztaottlaka": 470}, {"date": 2004, "Pusztaottlaka": 457}, {"date": 2005, "Pusztaottlaka": 436}, {"date": 2006, "Pusztaottlaka": 431}, {"date": 2007, "Pusztaottlaka": 429}, {"date": 2008, "Pusztaottlaka": 409}, {"date": 2009, "Pusztaottlaka": 416}, {"date": 2010, "Pusztaottlaka": 407}, {"date": 2011, "Pusztaottlaka": 395}, {"date": 2012, "Pusztaottlaka": 408}, {"date": 2013, "Pusztaottlaka": 409}, {"date": 2014, "Pusztaottlaka": 404}, {"date": 2015, "Pusztaottlaka": 403}, {"date": 2016, "Pusztaottlaka": 390}, {"date": 2017, "Pusztaottlaka": 368}, {"date": 2018, "Pusztaottlaka": 362}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

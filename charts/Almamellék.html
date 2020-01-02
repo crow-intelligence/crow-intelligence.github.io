@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Almamell\u00e9k"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector117": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Almamell\u00e9k"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector117"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Almamell\u00e9k"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector117"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Almamell\u00e9k", "selection": "selector117"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Almamell\u00e9k"}}}], "data": {"name": "data-516ce45e5fd1c77d99047a5c00b77822"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-516ce45e5fd1c77d99047a5c00b77822": [{"date": 1986, "Almamell\u00e9k": 614}, {"date": 1987, "Almamell\u00e9k": 601}, {"date": 1988, "Almamell\u00e9k": 581}, {"date": 1989, "Almamell\u00e9k": 575}, {"date": 1990, "Almamell\u00e9k": 576}, {"date": 1991, "Almamell\u00e9k": 549}, {"date": 1992, "Almamell\u00e9k": 523}, {"date": 1993, "Almamell\u00e9k": 521}, {"date": 1994, "Almamell\u00e9k": 515}, {"date": 1995, "Almamell\u00e9k": 503}, {"date": 1996, "Almamell\u00e9k": 494}, {"date": 1997, "Almamell\u00e9k": 497}, {"date": 1998, "Almamell\u00e9k": 506}, {"date": 1999, "Almamell\u00e9k": 494}, {"date": 2000, "Almamell\u00e9k": 495}, {"date": 2001, "Almamell\u00e9k": 500}, {"date": 2002, "Almamell\u00e9k": 499}, {"date": 2003, "Almamell\u00e9k": 508}, {"date": 2004, "Almamell\u00e9k": 498}, {"date": 2005, "Almamell\u00e9k": 495}, {"date": 2006, "Almamell\u00e9k": 487}, {"date": 2007, "Almamell\u00e9k": 491}, {"date": 2008, "Almamell\u00e9k": 487}, {"date": 2009, "Almamell\u00e9k": 480}, {"date": 2010, "Almamell\u00e9k": 475}, {"date": 2011, "Almamell\u00e9k": 464}, {"date": 2012, "Almamell\u00e9k": 456}, {"date": 2013, "Almamell\u00e9k": 446}, {"date": 2014, "Almamell\u00e9k": 434}, {"date": 2015, "Almamell\u00e9k": 439}, {"date": 2016, "Almamell\u00e9k": 436}, {"date": 2017, "Almamell\u00e9k": 445}, {"date": 2018, "Almamell\u00e9k": 442}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

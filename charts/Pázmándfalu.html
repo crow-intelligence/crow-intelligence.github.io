@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "P\u00e1zm\u00e1ndfalu"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1000": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["P\u00e1zm\u00e1ndfalu"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1000"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "P\u00e1zm\u00e1ndfalu"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1000"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "P\u00e1zm\u00e1ndfalu", "selection": "selector1000"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "P\u00e1zm\u00e1ndfalu"}}}], "data": {"name": "data-77e79e5b7e818b8bb549fe3f7957663b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-77e79e5b7e818b8bb549fe3f7957663b": [{"date": 1986, "P\u00e1zm\u00e1ndfalu": 1013}, {"date": 1987, "P\u00e1zm\u00e1ndfalu": 1004}, {"date": 1988, "P\u00e1zm\u00e1ndfalu": 989}, {"date": 1989, "P\u00e1zm\u00e1ndfalu": 974}, {"date": 1990, "P\u00e1zm\u00e1ndfalu": 963}, {"date": 1991, "P\u00e1zm\u00e1ndfalu": 958}, {"date": 1992, "P\u00e1zm\u00e1ndfalu": 967}, {"date": 1993, "P\u00e1zm\u00e1ndfalu": 971}, {"date": 1994, "P\u00e1zm\u00e1ndfalu": 956}, {"date": 1995, "P\u00e1zm\u00e1ndfalu": 949}, {"date": 1996, "P\u00e1zm\u00e1ndfalu": 928}, {"date": 1997, "P\u00e1zm\u00e1ndfalu": 942}, {"date": 1998, "P\u00e1zm\u00e1ndfalu": 925}, {"date": 1999, "P\u00e1zm\u00e1ndfalu": 937}, {"date": 2000, "P\u00e1zm\u00e1ndfalu": 915}, {"date": 2001, "P\u00e1zm\u00e1ndfalu": 924}, {"date": 2002, "P\u00e1zm\u00e1ndfalu": 941}, {"date": 2003, "P\u00e1zm\u00e1ndfalu": 960}, {"date": 2004, "P\u00e1zm\u00e1ndfalu": 967}, {"date": 2005, "P\u00e1zm\u00e1ndfalu": 970}, {"date": 2006, "P\u00e1zm\u00e1ndfalu": 997}, {"date": 2007, "P\u00e1zm\u00e1ndfalu": 991}, {"date": 2008, "P\u00e1zm\u00e1ndfalu": 990}, {"date": 2009, "P\u00e1zm\u00e1ndfalu": 998}, {"date": 2010, "P\u00e1zm\u00e1ndfalu": 1014}, {"date": 2011, "P\u00e1zm\u00e1ndfalu": 1007}, {"date": 2012, "P\u00e1zm\u00e1ndfalu": 1014}, {"date": 2013, "P\u00e1zm\u00e1ndfalu": 1018}, {"date": 2014, "P\u00e1zm\u00e1ndfalu": 1011}, {"date": 2015, "P\u00e1zm\u00e1ndfalu": 1027}, {"date": 2016, "P\u00e1zm\u00e1ndfalu": 1051}, {"date": 2017, "P\u00e1zm\u00e1ndfalu": 1071}, {"date": 2018, "P\u00e1zm\u00e1ndfalu": 1073}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

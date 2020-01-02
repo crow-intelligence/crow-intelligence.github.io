@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szentmargitfalva"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2673": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szentmargitfalva"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2673"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szentmargitfalva"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2673"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szentmargitfalva", "selection": "selector2673"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szentmargitfalva"}}}], "data": {"name": "data-7f8ddd51bc3bfed0aee4422d054ad6af"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-7f8ddd51bc3bfed0aee4422d054ad6af": [{"date": 1986, "Szentmargitfalva": 196}, {"date": 1987, "Szentmargitfalva": 187}, {"date": 1988, "Szentmargitfalva": 173}, {"date": 1989, "Szentmargitfalva": 165}, {"date": 1990, "Szentmargitfalva": 156}, {"date": 1991, "Szentmargitfalva": 147}, {"date": 1992, "Szentmargitfalva": 134}, {"date": 1993, "Szentmargitfalva": 130}, {"date": 1994, "Szentmargitfalva": 128}, {"date": 1995, "Szentmargitfalva": 121}, {"date": 1996, "Szentmargitfalva": 123}, {"date": 1997, "Szentmargitfalva": 129}, {"date": 1998, "Szentmargitfalva": 130}, {"date": 1999, "Szentmargitfalva": 123}, {"date": 2000, "Szentmargitfalva": 122}, {"date": 2001, "Szentmargitfalva": 119}, {"date": 2002, "Szentmargitfalva": 111}, {"date": 2003, "Szentmargitfalva": 118}, {"date": 2004, "Szentmargitfalva": 110}, {"date": 2005, "Szentmargitfalva": 111}, {"date": 2006, "Szentmargitfalva": 108}, {"date": 2007, "Szentmargitfalva": 106}, {"date": 2008, "Szentmargitfalva": 104}, {"date": 2009, "Szentmargitfalva": 102}, {"date": 2010, "Szentmargitfalva": 99}, {"date": 2011, "Szentmargitfalva": 95}, {"date": 2012, "Szentmargitfalva": 100}, {"date": 2013, "Szentmargitfalva": 97}, {"date": 2014, "Szentmargitfalva": 92}, {"date": 2015, "Szentmargitfalva": 90}, {"date": 2016, "Szentmargitfalva": 82}, {"date": 2017, "Szentmargitfalva": 81}, {"date": 2018, "Szentmargitfalva": 78}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kapos\u00fajlak"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1603": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kapos\u00fajlak"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1603"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kapos\u00fajlak"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1603"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kapos\u00fajlak", "selection": "selector1603"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kapos\u00fajlak"}}}], "data": {"name": "data-ba1b6ef3732c90caadfc3783ef806c71"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ba1b6ef3732c90caadfc3783ef806c71": [{"date": 1986, "Kapos\u00fajlak": 715}, {"date": 1987, "Kapos\u00fajlak": 729}, {"date": 1988, "Kapos\u00fajlak": 729}, {"date": 1989, "Kapos\u00fajlak": 721}, {"date": 1990, "Kapos\u00fajlak": 707}, {"date": 1991, "Kapos\u00fajlak": 693}, {"date": 1992, "Kapos\u00fajlak": 691}, {"date": 1993, "Kapos\u00fajlak": 694}, {"date": 1994, "Kapos\u00fajlak": 696}, {"date": 1995, "Kapos\u00fajlak": 702}, {"date": 1996, "Kapos\u00fajlak": 690}, {"date": 1997, "Kapos\u00fajlak": 695}, {"date": 1998, "Kapos\u00fajlak": 698}, {"date": 1999, "Kapos\u00fajlak": 678}, {"date": 2000, "Kapos\u00fajlak": 665}, {"date": 2001, "Kapos\u00fajlak": 661}, {"date": 2002, "Kapos\u00fajlak": 669}, {"date": 2003, "Kapos\u00fajlak": 668}, {"date": 2004, "Kapos\u00fajlak": 674}, {"date": 2005, "Kapos\u00fajlak": 693}, {"date": 2006, "Kapos\u00fajlak": 703}, {"date": 2007, "Kapos\u00fajlak": 708}, {"date": 2008, "Kapos\u00fajlak": 744}, {"date": 2009, "Kapos\u00fajlak": 736}, {"date": 2010, "Kapos\u00fajlak": 739}, {"date": 2011, "Kapos\u00fajlak": 727}, {"date": 2012, "Kapos\u00fajlak": 732}, {"date": 2013, "Kapos\u00fajlak": 733}, {"date": 2014, "Kapos\u00fajlak": 720}, {"date": 2015, "Kapos\u00fajlak": 711}, {"date": 2016, "Kapos\u00fajlak": 719}, {"date": 2017, "Kapos\u00fajlak": 730}, {"date": 2018, "Kapos\u00fajlak": 736}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

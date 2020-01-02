@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Biharugra"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector401": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Biharugra"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector401"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Biharugra"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector401"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Biharugra", "selection": "selector401"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Biharugra"}}}], "data": {"name": "data-5048655137ab6e1f413379e8a44bdc74"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-5048655137ab6e1f413379e8a44bdc74": [{"date": 1986, "Biharugra": 1536}, {"date": 1987, "Biharugra": 1531}, {"date": 1988, "Biharugra": 1507}, {"date": 1989, "Biharugra": 1502}, {"date": 1990, "Biharugra": 1477}, {"date": 1991, "Biharugra": 1454}, {"date": 1992, "Biharugra": 1434}, {"date": 1993, "Biharugra": 1427}, {"date": 1994, "Biharugra": 1397}, {"date": 1995, "Biharugra": 1367}, {"date": 1996, "Biharugra": 1345}, {"date": 1997, "Biharugra": 1317}, {"date": 1998, "Biharugra": 1298}, {"date": 1999, "Biharugra": 1262}, {"date": 2000, "Biharugra": 1224}, {"date": 2001, "Biharugra": 1200}, {"date": 2002, "Biharugra": 1182}, {"date": 2003, "Biharugra": 1154}, {"date": 2004, "Biharugra": 1151}, {"date": 2005, "Biharugra": 1109}, {"date": 2006, "Biharugra": 1092}, {"date": 2007, "Biharugra": 1058}, {"date": 2008, "Biharugra": 1044}, {"date": 2009, "Biharugra": 1014}, {"date": 2010, "Biharugra": 991}, {"date": 2011, "Biharugra": 986}, {"date": 2012, "Biharugra": 968}, {"date": 2013, "Biharugra": 974}, {"date": 2014, "Biharugra": 977}, {"date": 2015, "Biharugra": 968}, {"date": 2016, "Biharugra": 956}, {"date": 2017, "Biharugra": 933}, {"date": 2018, "Biharugra": 927}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

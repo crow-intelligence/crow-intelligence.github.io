@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tornabarakony"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector737": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tornabarakony"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector737"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tornabarakony"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector737"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tornabarakony", "selection": "selector737"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tornabarakony"}}}], "data": {"name": "data-f1a7a86e9913ef33c06e4e48c581255a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f1a7a86e9913ef33c06e4e48c581255a": [{"date": 1986, "Tornabarakony": 91}, {"date": 1987, "Tornabarakony": 81}, {"date": 1988, "Tornabarakony": 66}, {"date": 1989, "Tornabarakony": 66}, {"date": 1990, "Tornabarakony": 60}, {"date": 1991, "Tornabarakony": 54}, {"date": 1992, "Tornabarakony": 53}, {"date": 1993, "Tornabarakony": 50}, {"date": 1994, "Tornabarakony": 46}, {"date": 1995, "Tornabarakony": 44}, {"date": 1996, "Tornabarakony": 41}, {"date": 1997, "Tornabarakony": 40}, {"date": 1998, "Tornabarakony": 37}, {"date": 1999, "Tornabarakony": 36}, {"date": 2000, "Tornabarakony": 35}, {"date": 2001, "Tornabarakony": 37}, {"date": 2002, "Tornabarakony": 36}, {"date": 2003, "Tornabarakony": 37}, {"date": 2004, "Tornabarakony": 35}, {"date": 2005, "Tornabarakony": 35}, {"date": 2006, "Tornabarakony": 32}, {"date": 2007, "Tornabarakony": 32}, {"date": 2008, "Tornabarakony": 22}, {"date": 2009, "Tornabarakony": 21}, {"date": 2010, "Tornabarakony": 21}, {"date": 2011, "Tornabarakony": 21}, {"date": 2012, "Tornabarakony": 18}, {"date": 2013, "Tornabarakony": 18}, {"date": 2014, "Tornabarakony": 21}, {"date": 2015, "Tornabarakony": 42}, {"date": 2016, "Tornabarakony": 29}, {"date": 2017, "Tornabarakony": 21}, {"date": 2018, "Tornabarakony": 20}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

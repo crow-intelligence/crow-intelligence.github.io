@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Oroszl\u00f3"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector312": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Oroszl\u00f3"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector312"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Oroszl\u00f3"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector312"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Oroszl\u00f3", "selection": "selector312"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Oroszl\u00f3"}}}], "data": {"name": "data-9943b57074145aa9d396eb868402f44c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-9943b57074145aa9d396eb868402f44c": [{"date": 1986, "Oroszl\u00f3": 372}, {"date": 1987, "Oroszl\u00f3": 376}, {"date": 1988, "Oroszl\u00f3": 362}, {"date": 1989, "Oroszl\u00f3": 351}, {"date": 1990, "Oroszl\u00f3": 351}, {"date": 1991, "Oroszl\u00f3": 349}, {"date": 1992, "Oroszl\u00f3": 346}, {"date": 1993, "Oroszl\u00f3": 350}, {"date": 1994, "Oroszl\u00f3": 335}, {"date": 1995, "Oroszl\u00f3": 337}, {"date": 1996, "Oroszl\u00f3": 342}, {"date": 1997, "Oroszl\u00f3": 335}, {"date": 1998, "Oroszl\u00f3": 330}, {"date": 1999, "Oroszl\u00f3": 337}, {"date": 2000, "Oroszl\u00f3": 335}, {"date": 2001, "Oroszl\u00f3": 334}, {"date": 2002, "Oroszl\u00f3": 337}, {"date": 2003, "Oroszl\u00f3": 337}, {"date": 2004, "Oroszl\u00f3": 334}, {"date": 2005, "Oroszl\u00f3": 336}, {"date": 2006, "Oroszl\u00f3": 344}, {"date": 2007, "Oroszl\u00f3": 347}, {"date": 2008, "Oroszl\u00f3": 344}, {"date": 2009, "Oroszl\u00f3": 352}, {"date": 2010, "Oroszl\u00f3": 344}, {"date": 2011, "Oroszl\u00f3": 344}, {"date": 2012, "Oroszl\u00f3": 336}, {"date": 2013, "Oroszl\u00f3": 337}, {"date": 2014, "Oroszl\u00f3": 341}, {"date": 2015, "Oroszl\u00f3": 323}, {"date": 2016, "Oroszl\u00f3": 322}, {"date": 2017, "Oroszl\u00f3": 322}, {"date": 2018, "Oroszl\u00f3": 302}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

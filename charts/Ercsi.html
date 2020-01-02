@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ercsi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2953": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Ercsi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2953"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ercsi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2953"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Ercsi", "selection": "selector2953"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ercsi"}}}], "data": {"name": "data-396db40c6e673154189f9b3cef0d1330"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-396db40c6e673154189f9b3cef0d1330": [{"date": 1986, "Ercsi": 8020}, {"date": 1987, "Ercsi": 7955}, {"date": 1988, "Ercsi": 7930}, {"date": 1989, "Ercsi": 7895}, {"date": 1990, "Ercsi": 7902}, {"date": 1991, "Ercsi": 7887}, {"date": 1992, "Ercsi": 8004}, {"date": 1993, "Ercsi": 7991}, {"date": 1994, "Ercsi": 8010}, {"date": 1995, "Ercsi": 8094}, {"date": 1996, "Ercsi": 8171}, {"date": 1997, "Ercsi": 8280}, {"date": 1998, "Ercsi": 8342}, {"date": 1999, "Ercsi": 8375}, {"date": 2000, "Ercsi": 8431}, {"date": 2001, "Ercsi": 8534}, {"date": 2002, "Ercsi": 8559}, {"date": 2003, "Ercsi": 8633}, {"date": 2004, "Ercsi": 8728}, {"date": 2005, "Ercsi": 8758}, {"date": 2006, "Ercsi": 8863}, {"date": 2007, "Ercsi": 8904}, {"date": 2008, "Ercsi": 8919}, {"date": 2009, "Ercsi": 8849}, {"date": 2010, "Ercsi": 8765}, {"date": 2011, "Ercsi": 8714}, {"date": 2012, "Ercsi": 8619}, {"date": 2013, "Ercsi": 8617}, {"date": 2014, "Ercsi": 8542}, {"date": 2015, "Ercsi": 8522}, {"date": 2016, "Ercsi": 8413}, {"date": 2017, "Ercsi": 8327}, {"date": 2018, "Ercsi": 8426}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

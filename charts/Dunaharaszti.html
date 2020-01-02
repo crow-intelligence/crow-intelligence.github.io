@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaharaszti"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3028": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dunaharaszti"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3028"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaharaszti"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3028"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dunaharaszti", "selection": "selector3028"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaharaszti"}}}], "data": {"name": "data-163f100d9445125cbe74bd834a869c49"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-163f100d9445125cbe74bd834a869c49": [{"date": 1986, "Dunaharaszti": 15862}, {"date": 1987, "Dunaharaszti": 15790}, {"date": 1988, "Dunaharaszti": 15750}, {"date": 1989, "Dunaharaszti": 15761}, {"date": 1990, "Dunaharaszti": 15706}, {"date": 1991, "Dunaharaszti": 16409}, {"date": 1992, "Dunaharaszti": 15736}, {"date": 1993, "Dunaharaszti": 15780}, {"date": 1994, "Dunaharaszti": 15869}, {"date": 1995, "Dunaharaszti": 15882}, {"date": 1996, "Dunaharaszti": 16011}, {"date": 1997, "Dunaharaszti": 16101}, {"date": 1998, "Dunaharaszti": 16157}, {"date": 1999, "Dunaharaszti": 16277}, {"date": 2000, "Dunaharaszti": 16383}, {"date": 2001, "Dunaharaszti": 16545}, {"date": 2002, "Dunaharaszti": 16613}, {"date": 2003, "Dunaharaszti": 16798}, {"date": 2004, "Dunaharaszti": 17099}, {"date": 2005, "Dunaharaszti": 17310}, {"date": 2006, "Dunaharaszti": 17981}, {"date": 2007, "Dunaharaszti": 18566}, {"date": 2008, "Dunaharaszti": 19303}, {"date": 2009, "Dunaharaszti": 19970}, {"date": 2010, "Dunaharaszti": 20459}, {"date": 2011, "Dunaharaszti": 20607}, {"date": 2012, "Dunaharaszti": 20782}, {"date": 2013, "Dunaharaszti": 20907}, {"date": 2014, "Dunaharaszti": 21144}, {"date": 2015, "Dunaharaszti": 21319}, {"date": 2016, "Dunaharaszti": 21596}, {"date": 2017, "Dunaharaszti": 21976}, {"date": 2018, "Dunaharaszti": 22320}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fels\u0151berecki"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector519": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Fels\u0151berecki"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector519"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fels\u0151berecki"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector519"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Fels\u0151berecki", "selection": "selector519"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fels\u0151berecki"}}}], "data": {"name": "data-d44b832716db84c1c4dc85f75dda9dad"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d44b832716db84c1c4dc85f75dda9dad": [{"date": 1986, "Fels\u0151berecki": 331}, {"date": 1987, "Fels\u0151berecki": 335}, {"date": 1988, "Fels\u0151berecki": 342}, {"date": 1989, "Fels\u0151berecki": 329}, {"date": 1990, "Fels\u0151berecki": 322}, {"date": 1991, "Fels\u0151berecki": 311}, {"date": 1992, "Fels\u0151berecki": 311}, {"date": 1993, "Fels\u0151berecki": 313}, {"date": 1994, "Fels\u0151berecki": 306}, {"date": 1995, "Fels\u0151berecki": 309}, {"date": 1996, "Fels\u0151berecki": 315}, {"date": 1997, "Fels\u0151berecki": 320}, {"date": 1998, "Fels\u0151berecki": 330}, {"date": 1999, "Fels\u0151berecki": 340}, {"date": 2000, "Fels\u0151berecki": 338}, {"date": 2001, "Fels\u0151berecki": 336}, {"date": 2002, "Fels\u0151berecki": 342}, {"date": 2003, "Fels\u0151berecki": 338}, {"date": 2004, "Fels\u0151berecki": 332}, {"date": 2005, "Fels\u0151berecki": 321}, {"date": 2006, "Fels\u0151berecki": 320}, {"date": 2007, "Fels\u0151berecki": 325}, {"date": 2008, "Fels\u0151berecki": 315}, {"date": 2009, "Fels\u0151berecki": 311}, {"date": 2010, "Fels\u0151berecki": 313}, {"date": 2011, "Fels\u0151berecki": 310}, {"date": 2012, "Fels\u0151berecki": 302}, {"date": 2013, "Fels\u0151berecki": 301}, {"date": 2014, "Fels\u0151berecki": 294}, {"date": 2015, "Fels\u0151berecki": 289}, {"date": 2016, "Fels\u0151berecki": 281}, {"date": 2017, "Fels\u0151berecki": 282}, {"date": 2018, "Fels\u0151berecki": 283}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

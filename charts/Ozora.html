@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ozora"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2053": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Ozora"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2053"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ozora"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2053"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Ozora", "selection": "selector2053"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ozora"}}}], "data": {"name": "data-82d467cfd8858d5099f6cadb54e0386f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-82d467cfd8858d5099f6cadb54e0386f": [{"date": 1986, "Ozora": 2275}, {"date": 1987, "Ozora": 2269}, {"date": 1988, "Ozora": 2198}, {"date": 1989, "Ozora": 2157}, {"date": 1990, "Ozora": 2146}, {"date": 1991, "Ozora": 2116}, {"date": 1992, "Ozora": 2085}, {"date": 1993, "Ozora": 2078}, {"date": 1994, "Ozora": 2045}, {"date": 1995, "Ozora": 2041}, {"date": 1996, "Ozora": 2022}, {"date": 1997, "Ozora": 1975}, {"date": 1998, "Ozora": 1951}, {"date": 1999, "Ozora": 1911}, {"date": 2000, "Ozora": 1915}, {"date": 2001, "Ozora": 1899}, {"date": 2002, "Ozora": 1860}, {"date": 2003, "Ozora": 1859}, {"date": 2004, "Ozora": 1869}, {"date": 2005, "Ozora": 1847}, {"date": 2006, "Ozora": 1845}, {"date": 2007, "Ozora": 1823}, {"date": 2008, "Ozora": 1806}, {"date": 2009, "Ozora": 1809}, {"date": 2010, "Ozora": 1776}, {"date": 2011, "Ozora": 1752}, {"date": 2012, "Ozora": 1738}, {"date": 2013, "Ozora": 1701}, {"date": 2014, "Ozora": 1692}, {"date": 2015, "Ozora": 1685}, {"date": 2016, "Ozora": 1708}, {"date": 2017, "Ozora": 1693}, {"date": 2018, "Ozora": 1658}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

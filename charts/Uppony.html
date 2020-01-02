@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Uppony"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector745": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Uppony"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector745"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Uppony"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector745"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Uppony", "selection": "selector745"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Uppony"}}}], "data": {"name": "data-5902cf3e6b688180a4808c8ca3b1072d"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-5902cf3e6b688180a4808c8ca3b1072d": [{"date": 1986, "Uppony": 522}, {"date": 1987, "Uppony": 512}, {"date": 1988, "Uppony": 499}, {"date": 1989, "Uppony": 501}, {"date": 1990, "Uppony": 512}, {"date": 1991, "Uppony": 509}, {"date": 1992, "Uppony": 493}, {"date": 1993, "Uppony": 483}, {"date": 1994, "Uppony": 472}, {"date": 1995, "Uppony": 467}, {"date": 1996, "Uppony": 469}, {"date": 1997, "Uppony": 472}, {"date": 1998, "Uppony": 459}, {"date": 1999, "Uppony": 448}, {"date": 2000, "Uppony": 447}, {"date": 2001, "Uppony": 441}, {"date": 2002, "Uppony": 438}, {"date": 2003, "Uppony": 428}, {"date": 2004, "Uppony": 396}, {"date": 2005, "Uppony": 380}, {"date": 2006, "Uppony": 370}, {"date": 2007, "Uppony": 366}, {"date": 2008, "Uppony": 364}, {"date": 2009, "Uppony": 349}, {"date": 2010, "Uppony": 351}, {"date": 2011, "Uppony": 345}, {"date": 2012, "Uppony": 346}, {"date": 2013, "Uppony": 339}, {"date": 2014, "Uppony": 328}, {"date": 2015, "Uppony": 322}, {"date": 2016, "Uppony": 317}, {"date": 2017, "Uppony": 305}, {"date": 2018, "Uppony": 292}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

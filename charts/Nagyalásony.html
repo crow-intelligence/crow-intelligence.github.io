@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyal\u00e1sony"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2399": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nagyal\u00e1sony"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2399"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyal\u00e1sony"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2399"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nagyal\u00e1sony", "selection": "selector2399"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagyal\u00e1sony"}}}], "data": {"name": "data-a7cba5251b64b8ec5c05d7cce211f4fd"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a7cba5251b64b8ec5c05d7cce211f4fd": [{"date": 1986, "Nagyal\u00e1sony": 545}, {"date": 1987, "Nagyal\u00e1sony": 538}, {"date": 1988, "Nagyal\u00e1sony": 539}, {"date": 1989, "Nagyal\u00e1sony": 541}, {"date": 1990, "Nagyal\u00e1sony": 568}, {"date": 1991, "Nagyal\u00e1sony": 569}, {"date": 1992, "Nagyal\u00e1sony": 562}, {"date": 1993, "Nagyal\u00e1sony": 554}, {"date": 1994, "Nagyal\u00e1sony": 561}, {"date": 1995, "Nagyal\u00e1sony": 560}, {"date": 1996, "Nagyal\u00e1sony": 546}, {"date": 1997, "Nagyal\u00e1sony": 547}, {"date": 1998, "Nagyal\u00e1sony": 533}, {"date": 1999, "Nagyal\u00e1sony": 544}, {"date": 2000, "Nagyal\u00e1sony": 548}, {"date": 2001, "Nagyal\u00e1sony": 529}, {"date": 2002, "Nagyal\u00e1sony": 519}, {"date": 2003, "Nagyal\u00e1sony": 526}, {"date": 2004, "Nagyal\u00e1sony": 531}, {"date": 2005, "Nagyal\u00e1sony": 545}, {"date": 2006, "Nagyal\u00e1sony": 549}, {"date": 2007, "Nagyal\u00e1sony": 554}, {"date": 2008, "Nagyal\u00e1sony": 557}, {"date": 2009, "Nagyal\u00e1sony": 540}, {"date": 2010, "Nagyal\u00e1sony": 540}, {"date": 2011, "Nagyal\u00e1sony": 521}, {"date": 2012, "Nagyal\u00e1sony": 522}, {"date": 2013, "Nagyal\u00e1sony": 509}, {"date": 2014, "Nagyal\u00e1sony": 503}, {"date": 2015, "Nagyal\u00e1sony": 499}, {"date": 2016, "Nagyal\u00e1sony": 506}, {"date": 2017, "Nagyal\u00e1sony": 495}, {"date": 2018, "Nagyal\u00e1sony": 481}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

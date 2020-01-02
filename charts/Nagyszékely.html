@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagysz\u00e9kely"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2048": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nagysz\u00e9kely"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2048"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagysz\u00e9kely"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2048"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nagysz\u00e9kely", "selection": "selector2048"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagysz\u00e9kely"}}}], "data": {"name": "data-21523c8e2ffb400af2bd540d9553ebf4"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-21523c8e2ffb400af2bd540d9553ebf4": [{"date": 1986, "Nagysz\u00e9kely": 620}, {"date": 1987, "Nagysz\u00e9kely": 607}, {"date": 1988, "Nagysz\u00e9kely": 575}, {"date": 1989, "Nagysz\u00e9kely": 569}, {"date": 1990, "Nagysz\u00e9kely": 566}, {"date": 1991, "Nagysz\u00e9kely": 557}, {"date": 1992, "Nagysz\u00e9kely": 539}, {"date": 1993, "Nagysz\u00e9kely": 537}, {"date": 1994, "Nagysz\u00e9kely": 537}, {"date": 1995, "Nagysz\u00e9kely": 538}, {"date": 1996, "Nagysz\u00e9kely": 539}, {"date": 1997, "Nagysz\u00e9kely": 524}, {"date": 1998, "Nagysz\u00e9kely": 512}, {"date": 1999, "Nagysz\u00e9kely": 507}, {"date": 2000, "Nagysz\u00e9kely": 495}, {"date": 2001, "Nagysz\u00e9kely": 476}, {"date": 2002, "Nagysz\u00e9kely": 467}, {"date": 2003, "Nagysz\u00e9kely": 484}, {"date": 2004, "Nagysz\u00e9kely": 465}, {"date": 2005, "Nagysz\u00e9kely": 469}, {"date": 2006, "Nagysz\u00e9kely": 463}, {"date": 2007, "Nagysz\u00e9kely": 449}, {"date": 2008, "Nagysz\u00e9kely": 446}, {"date": 2009, "Nagysz\u00e9kely": 447}, {"date": 2010, "Nagysz\u00e9kely": 442}, {"date": 2011, "Nagysz\u00e9kely": 448}, {"date": 2012, "Nagysz\u00e9kely": 448}, {"date": 2013, "Nagysz\u00e9kely": 447}, {"date": 2014, "Nagysz\u00e9kely": 457}, {"date": 2015, "Nagysz\u00e9kely": 457}, {"date": 2016, "Nagysz\u00e9kely": 445}, {"date": 2017, "Nagysz\u00e9kely": 433}, {"date": 2018, "Nagysz\u00e9kely": 428}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

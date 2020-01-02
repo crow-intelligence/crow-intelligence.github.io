@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kaposkereszt\u00far"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1600": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kaposkereszt\u00far"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1600"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kaposkereszt\u00far"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1600"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kaposkereszt\u00far", "selection": "selector1600"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kaposkereszt\u00far"}}}], "data": {"name": "data-1f24a7226fb7bf94476f67de28a56562"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1f24a7226fb7bf94476f67de28a56562": [{"date": 1986, "Kaposkereszt\u00far": 481}, {"date": 1987, "Kaposkereszt\u00far": 466}, {"date": 1988, "Kaposkereszt\u00far": 459}, {"date": 1989, "Kaposkereszt\u00far": 436}, {"date": 1990, "Kaposkereszt\u00far": 435}, {"date": 1991, "Kaposkereszt\u00far": 423}, {"date": 1992, "Kaposkereszt\u00far": 411}, {"date": 1993, "Kaposkereszt\u00far": 410}, {"date": 1994, "Kaposkereszt\u00far": 415}, {"date": 1995, "Kaposkereszt\u00far": 416}, {"date": 1996, "Kaposkereszt\u00far": 404}, {"date": 1997, "Kaposkereszt\u00far": 395}, {"date": 1998, "Kaposkereszt\u00far": 395}, {"date": 1999, "Kaposkereszt\u00far": 395}, {"date": 2000, "Kaposkereszt\u00far": 392}, {"date": 2001, "Kaposkereszt\u00far": 387}, {"date": 2002, "Kaposkereszt\u00far": 387}, {"date": 2003, "Kaposkereszt\u00far": 387}, {"date": 2004, "Kaposkereszt\u00far": 384}, {"date": 2005, "Kaposkereszt\u00far": 383}, {"date": 2006, "Kaposkereszt\u00far": 378}, {"date": 2007, "Kaposkereszt\u00far": 372}, {"date": 2008, "Kaposkereszt\u00far": 362}, {"date": 2009, "Kaposkereszt\u00far": 357}, {"date": 2010, "Kaposkereszt\u00far": 350}, {"date": 2011, "Kaposkereszt\u00far": 351}, {"date": 2012, "Kaposkereszt\u00far": 346}, {"date": 2013, "Kaposkereszt\u00far": 348}, {"date": 2014, "Kaposkereszt\u00far": 353}, {"date": 2015, "Kaposkereszt\u00far": 351}, {"date": 2016, "Kaposkereszt\u00far": 354}, {"date": 2017, "Kaposkereszt\u00far": 367}, {"date": 2018, "Kaposkereszt\u00far": 357}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

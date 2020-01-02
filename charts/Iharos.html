@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Iharos"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1588": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Iharos"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1588"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Iharos"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1588"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Iharos", "selection": "selector1588"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Iharos"}}}], "data": {"name": "data-6b657de8bd2067432d2966f738b5f108"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-6b657de8bd2067432d2966f738b5f108": [{"date": 1986, "Iharos": 670}, {"date": 1987, "Iharos": 658}, {"date": 1988, "Iharos": 662}, {"date": 1989, "Iharos": 657}, {"date": 1990, "Iharos": 649}, {"date": 1991, "Iharos": 630}, {"date": 1992, "Iharos": 620}, {"date": 1993, "Iharos": 597}, {"date": 1994, "Iharos": 595}, {"date": 1995, "Iharos": 598}, {"date": 1996, "Iharos": 605}, {"date": 1997, "Iharos": 598}, {"date": 1998, "Iharos": 590}, {"date": 1999, "Iharos": 569}, {"date": 2000, "Iharos": 563}, {"date": 2001, "Iharos": 561}, {"date": 2002, "Iharos": 544}, {"date": 2003, "Iharos": 542}, {"date": 2004, "Iharos": 548}, {"date": 2005, "Iharos": 555}, {"date": 2006, "Iharos": 536}, {"date": 2007, "Iharos": 523}, {"date": 2008, "Iharos": 526}, {"date": 2009, "Iharos": 514}, {"date": 2010, "Iharos": 519}, {"date": 2011, "Iharos": 531}, {"date": 2012, "Iharos": 528}, {"date": 2013, "Iharos": 514}, {"date": 2014, "Iharos": 515}, {"date": 2015, "Iharos": 508}, {"date": 2016, "Iharos": 505}, {"date": 2017, "Iharos": 495}, {"date": 2018, "Iharos": 495}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

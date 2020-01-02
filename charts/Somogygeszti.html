@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogygeszti"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1693": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Somogygeszti"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1693"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogygeszti"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1693"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Somogygeszti", "selection": "selector1693"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogygeszti"}}}], "data": {"name": "data-1f7dc95c68cfbd14984e8026a9a2d92e"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1f7dc95c68cfbd14984e8026a9a2d92e": [{"date": 1986, "Somogygeszti": 658}, {"date": 1987, "Somogygeszti": 636}, {"date": 1988, "Somogygeszti": 618}, {"date": 1989, "Somogygeszti": 631}, {"date": 1990, "Somogygeszti": 619}, {"date": 1991, "Somogygeszti": 623}, {"date": 1992, "Somogygeszti": 618}, {"date": 1993, "Somogygeszti": 608}, {"date": 1994, "Somogygeszti": 618}, {"date": 1995, "Somogygeszti": 585}, {"date": 1996, "Somogygeszti": 614}, {"date": 1997, "Somogygeszti": 611}, {"date": 1998, "Somogygeszti": 614}, {"date": 1999, "Somogygeszti": 600}, {"date": 2000, "Somogygeszti": 598}, {"date": 2001, "Somogygeszti": 579}, {"date": 2002, "Somogygeszti": 579}, {"date": 2003, "Somogygeszti": 592}, {"date": 2004, "Somogygeszti": 566}, {"date": 2005, "Somogygeszti": 560}, {"date": 2006, "Somogygeszti": 557}, {"date": 2007, "Somogygeszti": 558}, {"date": 2008, "Somogygeszti": 543}, {"date": 2009, "Somogygeszti": 514}, {"date": 2010, "Somogygeszti": 520}, {"date": 2011, "Somogygeszti": 513}, {"date": 2012, "Somogygeszti": 511}, {"date": 2013, "Somogygeszti": 506}, {"date": 2014, "Somogygeszti": 523}, {"date": 2015, "Somogygeszti": 518}, {"date": 2016, "Somogygeszti": 494}, {"date": 2017, "Somogygeszti": 476}, {"date": 2018, "Somogygeszti": 463}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

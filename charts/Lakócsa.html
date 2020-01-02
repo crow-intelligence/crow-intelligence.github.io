@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lak\u00f3csa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1626": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Lak\u00f3csa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1626"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lak\u00f3csa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1626"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Lak\u00f3csa", "selection": "selector1626"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lak\u00f3csa"}}}], "data": {"name": "data-8b800f68fad28461a75f46b46f609543"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-8b800f68fad28461a75f46b46f609543": [{"date": 1986, "Lak\u00f3csa": 690}, {"date": 1987, "Lak\u00f3csa": 679}, {"date": 1988, "Lak\u00f3csa": 652}, {"date": 1989, "Lak\u00f3csa": 642}, {"date": 1990, "Lak\u00f3csa": 648}, {"date": 1991, "Lak\u00f3csa": 641}, {"date": 1992, "Lak\u00f3csa": 643}, {"date": 1993, "Lak\u00f3csa": 636}, {"date": 1994, "Lak\u00f3csa": 630}, {"date": 1995, "Lak\u00f3csa": 633}, {"date": 1996, "Lak\u00f3csa": 608}, {"date": 1997, "Lak\u00f3csa": 616}, {"date": 1998, "Lak\u00f3csa": 624}, {"date": 1999, "Lak\u00f3csa": 635}, {"date": 2000, "Lak\u00f3csa": 635}, {"date": 2001, "Lak\u00f3csa": 606}, {"date": 2002, "Lak\u00f3csa": 596}, {"date": 2003, "Lak\u00f3csa": 657}, {"date": 2004, "Lak\u00f3csa": 652}, {"date": 2005, "Lak\u00f3csa": 649}, {"date": 2006, "Lak\u00f3csa": 641}, {"date": 2007, "Lak\u00f3csa": 618}, {"date": 2008, "Lak\u00f3csa": 627}, {"date": 2009, "Lak\u00f3csa": 615}, {"date": 2010, "Lak\u00f3csa": 612}, {"date": 2011, "Lak\u00f3csa": 606}, {"date": 2012, "Lak\u00f3csa": 584}, {"date": 2013, "Lak\u00f3csa": 587}, {"date": 2014, "Lak\u00f3csa": 610}, {"date": 2015, "Lak\u00f3csa": 614}, {"date": 2016, "Lak\u00f3csa": 592}, {"date": 2017, "Lak\u00f3csa": 593}, {"date": 2018, "Lak\u00f3csa": 602}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

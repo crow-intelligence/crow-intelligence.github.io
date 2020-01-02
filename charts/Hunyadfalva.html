@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hunyadfalva"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1940": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Hunyadfalva"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1940"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hunyadfalva"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1940"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Hunyadfalva", "selection": "selector1940"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hunyadfalva"}}}], "data": {"name": "data-efabdbd70a98eec29987d066668e4864"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-efabdbd70a98eec29987d066668e4864": [{"date": 1986, "Hunyadfalva": 0}, {"date": 1987, "Hunyadfalva": 0}, {"date": 1988, "Hunyadfalva": 0}, {"date": 1989, "Hunyadfalva": 0}, {"date": 1990, "Hunyadfalva": 0}, {"date": 1991, "Hunyadfalva": 0}, {"date": 1992, "Hunyadfalva": 0}, {"date": 1993, "Hunyadfalva": 242}, {"date": 1994, "Hunyadfalva": 239}, {"date": 1995, "Hunyadfalva": 238}, {"date": 1996, "Hunyadfalva": 252}, {"date": 1997, "Hunyadfalva": 252}, {"date": 1998, "Hunyadfalva": 242}, {"date": 1999, "Hunyadfalva": 253}, {"date": 2000, "Hunyadfalva": 262}, {"date": 2001, "Hunyadfalva": 268}, {"date": 2002, "Hunyadfalva": 265}, {"date": 2003, "Hunyadfalva": 251}, {"date": 2004, "Hunyadfalva": 241}, {"date": 2005, "Hunyadfalva": 248}, {"date": 2006, "Hunyadfalva": 254}, {"date": 2007, "Hunyadfalva": 238}, {"date": 2008, "Hunyadfalva": 232}, {"date": 2009, "Hunyadfalva": 234}, {"date": 2010, "Hunyadfalva": 239}, {"date": 2011, "Hunyadfalva": 236}, {"date": 2012, "Hunyadfalva": 230}, {"date": 2013, "Hunyadfalva": 221}, {"date": 2014, "Hunyadfalva": 221}, {"date": 2015, "Hunyadfalva": 219}, {"date": 2016, "Hunyadfalva": 213}, {"date": 2017, "Hunyadfalva": 214}, {"date": 2018, "Hunyadfalva": 212}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

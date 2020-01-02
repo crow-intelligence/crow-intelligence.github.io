@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Filkeh\u00e1za"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector527": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Filkeh\u00e1za"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector527"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Filkeh\u00e1za"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector527"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Filkeh\u00e1za", "selection": "selector527"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Filkeh\u00e1za"}}}], "data": {"name": "data-dcef0f8ad4c8b73e223ed9c463d0694b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-dcef0f8ad4c8b73e223ed9c463d0694b": [{"date": 1986, "Filkeh\u00e1za": 123}, {"date": 1987, "Filkeh\u00e1za": 117}, {"date": 1988, "Filkeh\u00e1za": 120}, {"date": 1989, "Filkeh\u00e1za": 126}, {"date": 1990, "Filkeh\u00e1za": 126}, {"date": 1991, "Filkeh\u00e1za": 130}, {"date": 1992, "Filkeh\u00e1za": 132}, {"date": 1993, "Filkeh\u00e1za": 139}, {"date": 1994, "Filkeh\u00e1za": 138}, {"date": 1995, "Filkeh\u00e1za": 131}, {"date": 1996, "Filkeh\u00e1za": 128}, {"date": 1997, "Filkeh\u00e1za": 126}, {"date": 1998, "Filkeh\u00e1za": 129}, {"date": 1999, "Filkeh\u00e1za": 125}, {"date": 2000, "Filkeh\u00e1za": 124}, {"date": 2001, "Filkeh\u00e1za": 122}, {"date": 2002, "Filkeh\u00e1za": 123}, {"date": 2003, "Filkeh\u00e1za": 121}, {"date": 2004, "Filkeh\u00e1za": 119}, {"date": 2005, "Filkeh\u00e1za": 118}, {"date": 2006, "Filkeh\u00e1za": 120}, {"date": 2007, "Filkeh\u00e1za": 117}, {"date": 2008, "Filkeh\u00e1za": 119}, {"date": 2009, "Filkeh\u00e1za": 129}, {"date": 2010, "Filkeh\u00e1za": 130}, {"date": 2011, "Filkeh\u00e1za": 131}, {"date": 2012, "Filkeh\u00e1za": 132}, {"date": 2013, "Filkeh\u00e1za": 132}, {"date": 2014, "Filkeh\u00e1za": 129}, {"date": 2015, "Filkeh\u00e1za": 125}, {"date": 2016, "Filkeh\u00e1za": 129}, {"date": 2017, "Filkeh\u00e1za": 129}, {"date": 2018, "Filkeh\u00e1za": 129}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarkeszi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2039": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Magyarkeszi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2039"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarkeszi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2039"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Magyarkeszi", "selection": "selector2039"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarkeszi"}}}], "data": {"name": "data-c7b52a596a7af6370c763ac45b84c2e0"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c7b52a596a7af6370c763ac45b84c2e0": [{"date": 1986, "Magyarkeszi": 1608}, {"date": 1987, "Magyarkeszi": 1594}, {"date": 1988, "Magyarkeszi": 1577}, {"date": 1989, "Magyarkeszi": 1547}, {"date": 1990, "Magyarkeszi": 1534}, {"date": 1991, "Magyarkeszi": 1492}, {"date": 1992, "Magyarkeszi": 1487}, {"date": 1993, "Magyarkeszi": 1470}, {"date": 1994, "Magyarkeszi": 1452}, {"date": 1995, "Magyarkeszi": 1459}, {"date": 1996, "Magyarkeszi": 1434}, {"date": 1997, "Magyarkeszi": 1441}, {"date": 1998, "Magyarkeszi": 1439}, {"date": 1999, "Magyarkeszi": 1416}, {"date": 2000, "Magyarkeszi": 1421}, {"date": 2001, "Magyarkeszi": 1387}, {"date": 2002, "Magyarkeszi": 1399}, {"date": 2003, "Magyarkeszi": 1384}, {"date": 2004, "Magyarkeszi": 1353}, {"date": 2005, "Magyarkeszi": 1349}, {"date": 2006, "Magyarkeszi": 1356}, {"date": 2007, "Magyarkeszi": 1346}, {"date": 2008, "Magyarkeszi": 1339}, {"date": 2009, "Magyarkeszi": 1338}, {"date": 2010, "Magyarkeszi": 1314}, {"date": 2011, "Magyarkeszi": 1312}, {"date": 2012, "Magyarkeszi": 1320}, {"date": 2013, "Magyarkeszi": 1298}, {"date": 2014, "Magyarkeszi": 1273}, {"date": 2015, "Magyarkeszi": 1251}, {"date": 2016, "Magyarkeszi": 1253}, {"date": 2017, "Magyarkeszi": 1252}, {"date": 2018, "Magyarkeszi": 1209}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

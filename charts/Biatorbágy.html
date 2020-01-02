@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Biatorb\u00e1gy"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3021": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Biatorb\u00e1gy"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3021"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Biatorb\u00e1gy"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3021"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Biatorb\u00e1gy", "selection": "selector3021"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Biatorb\u00e1gy"}}}], "data": {"name": "data-4a035b6eca2072b8d43e9f5fc55a38de"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-4a035b6eca2072b8d43e9f5fc55a38de": [{"date": 1986, "Biatorb\u00e1gy": 7431}, {"date": 1987, "Biatorb\u00e1gy": 7358}, {"date": 1988, "Biatorb\u00e1gy": 7308}, {"date": 1989, "Biatorb\u00e1gy": 7275}, {"date": 1990, "Biatorb\u00e1gy": 7222}, {"date": 1991, "Biatorb\u00e1gy": 7514}, {"date": 1992, "Biatorb\u00e1gy": 7216}, {"date": 1993, "Biatorb\u00e1gy": 7314}, {"date": 1994, "Biatorb\u00e1gy": 7403}, {"date": 1995, "Biatorb\u00e1gy": 7530}, {"date": 1996, "Biatorb\u00e1gy": 7602}, {"date": 1997, "Biatorb\u00e1gy": 7679}, {"date": 1998, "Biatorb\u00e1gy": 7705}, {"date": 1999, "Biatorb\u00e1gy": 7760}, {"date": 2000, "Biatorb\u00e1gy": 7961}, {"date": 2001, "Biatorb\u00e1gy": 8171}, {"date": 2002, "Biatorb\u00e1gy": 10595}, {"date": 2003, "Biatorb\u00e1gy": 8660}, {"date": 2004, "Biatorb\u00e1gy": 8917}, {"date": 2005, "Biatorb\u00e1gy": 9519}, {"date": 2006, "Biatorb\u00e1gy": 10013}, {"date": 2007, "Biatorb\u00e1gy": 10630}, {"date": 2008, "Biatorb\u00e1gy": 11260}, {"date": 2009, "Biatorb\u00e1gy": 11690}, {"date": 2010, "Biatorb\u00e1gy": 12068}, {"date": 2011, "Biatorb\u00e1gy": 12306}, {"date": 2012, "Biatorb\u00e1gy": 12496}, {"date": 2013, "Biatorb\u00e1gy": 12680}, {"date": 2014, "Biatorb\u00e1gy": 12798}, {"date": 2015, "Biatorb\u00e1gy": 12931}, {"date": 2016, "Biatorb\u00e1gy": 13030}, {"date": 2017, "Biatorb\u00e1gy": 13145}, {"date": 2018, "Biatorb\u00e1gy": 13481}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

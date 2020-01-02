@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rezi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2655": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Rezi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2655"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rezi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2655"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Rezi", "selection": "selector2655"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rezi"}}}], "data": {"name": "data-97d6e4354d18d57f885e47fca8b88fe9"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-97d6e4354d18d57f885e47fca8b88fe9": [{"date": 1986, "Rezi": 1068}, {"date": 1987, "Rezi": 1053}, {"date": 1988, "Rezi": 1054}, {"date": 1989, "Rezi": 1048}, {"date": 1990, "Rezi": 1046}, {"date": 1991, "Rezi": 1060}, {"date": 1992, "Rezi": 1061}, {"date": 1993, "Rezi": 1087}, {"date": 1994, "Rezi": 1101}, {"date": 1995, "Rezi": 1102}, {"date": 1996, "Rezi": 1116}, {"date": 1997, "Rezi": 1104}, {"date": 1998, "Rezi": 1100}, {"date": 1999, "Rezi": 1099}, {"date": 2000, "Rezi": 1095}, {"date": 2001, "Rezi": 1107}, {"date": 2002, "Rezi": 1108}, {"date": 2003, "Rezi": 1128}, {"date": 2004, "Rezi": 1140}, {"date": 2005, "Rezi": 1152}, {"date": 2006, "Rezi": 1189}, {"date": 2007, "Rezi": 1211}, {"date": 2008, "Rezi": 1244}, {"date": 2009, "Rezi": 1236}, {"date": 2010, "Rezi": 1253}, {"date": 2011, "Rezi": 1247}, {"date": 2012, "Rezi": 1243}, {"date": 2013, "Rezi": 1254}, {"date": 2014, "Rezi": 1234}, {"date": 2015, "Rezi": 1259}, {"date": 2016, "Rezi": 1278}, {"date": 2017, "Rezi": 1305}, {"date": 2018, "Rezi": 1328}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kehidakust\u00e1ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2564": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kehidakust\u00e1ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2564"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kehidakust\u00e1ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2564"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kehidakust\u00e1ny", "selection": "selector2564"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kehidakust\u00e1ny"}}}], "data": {"name": "data-1818577c8e6e5d4c2879e6d4020c3137"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1818577c8e6e5d4c2879e6d4020c3137": [{"date": 1986, "Kehidakust\u00e1ny": 1171}, {"date": 1987, "Kehidakust\u00e1ny": 1133}, {"date": 1988, "Kehidakust\u00e1ny": 1133}, {"date": 1989, "Kehidakust\u00e1ny": 1128}, {"date": 1990, "Kehidakust\u00e1ny": 1116}, {"date": 1991, "Kehidakust\u00e1ny": 1093}, {"date": 1992, "Kehidakust\u00e1ny": 1097}, {"date": 1993, "Kehidakust\u00e1ny": 1102}, {"date": 1994, "Kehidakust\u00e1ny": 1101}, {"date": 1995, "Kehidakust\u00e1ny": 1086}, {"date": 1996, "Kehidakust\u00e1ny": 1070}, {"date": 1997, "Kehidakust\u00e1ny": 1086}, {"date": 1998, "Kehidakust\u00e1ny": 1084}, {"date": 1999, "Kehidakust\u00e1ny": 1111}, {"date": 2000, "Kehidakust\u00e1ny": 1099}, {"date": 2001, "Kehidakust\u00e1ny": 1104}, {"date": 2002, "Kehidakust\u00e1ny": 1080}, {"date": 2003, "Kehidakust\u00e1ny": 1068}, {"date": 2004, "Kehidakust\u00e1ny": 1076}, {"date": 2005, "Kehidakust\u00e1ny": 1083}, {"date": 2006, "Kehidakust\u00e1ny": 1079}, {"date": 2007, "Kehidakust\u00e1ny": 1156}, {"date": 2008, "Kehidakust\u00e1ny": 1186}, {"date": 2009, "Kehidakust\u00e1ny": 1179}, {"date": 2010, "Kehidakust\u00e1ny": 1074}, {"date": 2011, "Kehidakust\u00e1ny": 1062}, {"date": 2012, "Kehidakust\u00e1ny": 1093}, {"date": 2013, "Kehidakust\u00e1ny": 1101}, {"date": 2014, "Kehidakust\u00e1ny": 1074}, {"date": 2015, "Kehidakust\u00e1ny": 1079}, {"date": 2016, "Kehidakust\u00e1ny": 1082}, {"date": 2017, "Kehidakust\u00e1ny": 1061}, {"date": 2018, "Kehidakust\u00e1ny": 1085}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

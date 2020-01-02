@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztacsal\u00e1d"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1006": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Pusztacsal\u00e1d"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1006"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztacsal\u00e1d"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1006"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Pusztacsal\u00e1d", "selection": "selector1006"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztacsal\u00e1d"}}}], "data": {"name": "data-c28ba92f9762b8036a88dbbc06bff0fb"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c28ba92f9762b8036a88dbbc06bff0fb": [{"date": 1986, "Pusztacsal\u00e1d": 402}, {"date": 1987, "Pusztacsal\u00e1d": 386}, {"date": 1988, "Pusztacsal\u00e1d": 377}, {"date": 1989, "Pusztacsal\u00e1d": 373}, {"date": 1990, "Pusztacsal\u00e1d": 373}, {"date": 1991, "Pusztacsal\u00e1d": 361}, {"date": 1992, "Pusztacsal\u00e1d": 353}, {"date": 1993, "Pusztacsal\u00e1d": 345}, {"date": 1994, "Pusztacsal\u00e1d": 340}, {"date": 1995, "Pusztacsal\u00e1d": 333}, {"date": 1996, "Pusztacsal\u00e1d": 327}, {"date": 1997, "Pusztacsal\u00e1d": 324}, {"date": 1998, "Pusztacsal\u00e1d": 314}, {"date": 1999, "Pusztacsal\u00e1d": 311}, {"date": 2000, "Pusztacsal\u00e1d": 307}, {"date": 2001, "Pusztacsal\u00e1d": 307}, {"date": 2002, "Pusztacsal\u00e1d": 301}, {"date": 2003, "Pusztacsal\u00e1d": 292}, {"date": 2004, "Pusztacsal\u00e1d": 288}, {"date": 2005, "Pusztacsal\u00e1d": 282}, {"date": 2006, "Pusztacsal\u00e1d": 288}, {"date": 2007, "Pusztacsal\u00e1d": 282}, {"date": 2008, "Pusztacsal\u00e1d": 284}, {"date": 2009, "Pusztacsal\u00e1d": 276}, {"date": 2010, "Pusztacsal\u00e1d": 276}, {"date": 2011, "Pusztacsal\u00e1d": 281}, {"date": 2012, "Pusztacsal\u00e1d": 268}, {"date": 2013, "Pusztacsal\u00e1d": 264}, {"date": 2014, "Pusztacsal\u00e1d": 269}, {"date": 2015, "Pusztacsal\u00e1d": 265}, {"date": 2016, "Pusztacsal\u00e1d": 271}, {"date": 2017, "Pusztacsal\u00e1d": 273}, {"date": 2018, "Pusztacsal\u00e1d": 287}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

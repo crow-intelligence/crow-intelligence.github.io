@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisbabot"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector966": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kisbabot"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector966"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisbabot"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector966"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kisbabot", "selection": "selector966"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisbabot"}}}], "data": {"name": "data-583b6bb6102c2b9a1ea79951331844bd"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-583b6bb6102c2b9a1ea79951331844bd": [{"date": 1986, "Kisbabot": 307}, {"date": 1987, "Kisbabot": 295}, {"date": 1988, "Kisbabot": 290}, {"date": 1989, "Kisbabot": 279}, {"date": 1990, "Kisbabot": 271}, {"date": 1991, "Kisbabot": 276}, {"date": 1992, "Kisbabot": 269}, {"date": 1993, "Kisbabot": 262}, {"date": 1994, "Kisbabot": 259}, {"date": 1995, "Kisbabot": 256}, {"date": 1996, "Kisbabot": 252}, {"date": 1997, "Kisbabot": 256}, {"date": 1998, "Kisbabot": 257}, {"date": 1999, "Kisbabot": 252}, {"date": 2000, "Kisbabot": 252}, {"date": 2001, "Kisbabot": 242}, {"date": 2002, "Kisbabot": 240}, {"date": 2003, "Kisbabot": 237}, {"date": 2004, "Kisbabot": 236}, {"date": 2005, "Kisbabot": 233}, {"date": 2006, "Kisbabot": 233}, {"date": 2007, "Kisbabot": 232}, {"date": 2008, "Kisbabot": 229}, {"date": 2009, "Kisbabot": 224}, {"date": 2010, "Kisbabot": 221}, {"date": 2011, "Kisbabot": 220}, {"date": 2012, "Kisbabot": 222}, {"date": 2013, "Kisbabot": 212}, {"date": 2014, "Kisbabot": 212}, {"date": 2015, "Kisbabot": 213}, {"date": 2016, "Kisbabot": 212}, {"date": 2017, "Kisbabot": 224}, {"date": 2018, "Kisbabot": 225}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

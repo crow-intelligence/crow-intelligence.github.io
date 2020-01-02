@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gilv\u00e1nfa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector192": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Gilv\u00e1nfa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector192"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gilv\u00e1nfa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector192"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Gilv\u00e1nfa", "selection": "selector192"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gilv\u00e1nfa"}}}], "data": {"name": "data-d8d41bd2d242aa49defc245d4cd02a1f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d8d41bd2d242aa49defc245d4cd02a1f": [{"date": 1986, "Gilv\u00e1nfa": 419}, {"date": 1987, "Gilv\u00e1nfa": 414}, {"date": 1988, "Gilv\u00e1nfa": 385}, {"date": 1989, "Gilv\u00e1nfa": 352}, {"date": 1990, "Gilv\u00e1nfa": 351}, {"date": 1991, "Gilv\u00e1nfa": 358}, {"date": 1992, "Gilv\u00e1nfa": 363}, {"date": 1993, "Gilv\u00e1nfa": 363}, {"date": 1994, "Gilv\u00e1nfa": 363}, {"date": 1995, "Gilv\u00e1nfa": 351}, {"date": 1996, "Gilv\u00e1nfa": 353}, {"date": 1997, "Gilv\u00e1nfa": 351}, {"date": 1998, "Gilv\u00e1nfa": 368}, {"date": 1999, "Gilv\u00e1nfa": 381}, {"date": 2000, "Gilv\u00e1nfa": 398}, {"date": 2001, "Gilv\u00e1nfa": 397}, {"date": 2002, "Gilv\u00e1nfa": 399}, {"date": 2003, "Gilv\u00e1nfa": 409}, {"date": 2004, "Gilv\u00e1nfa": 405}, {"date": 2005, "Gilv\u00e1nfa": 410}, {"date": 2006, "Gilv\u00e1nfa": 417}, {"date": 2007, "Gilv\u00e1nfa": 422}, {"date": 2008, "Gilv\u00e1nfa": 427}, {"date": 2009, "Gilv\u00e1nfa": 433}, {"date": 2010, "Gilv\u00e1nfa": 429}, {"date": 2011, "Gilv\u00e1nfa": 427}, {"date": 2012, "Gilv\u00e1nfa": 420}, {"date": 2013, "Gilv\u00e1nfa": 422}, {"date": 2014, "Gilv\u00e1nfa": 428}, {"date": 2015, "Gilv\u00e1nfa": 427}, {"date": 2016, "Gilv\u00e1nfa": 429}, {"date": 2017, "Gilv\u00e1nfa": 419}, {"date": 2018, "Gilv\u00e1nfa": 410}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

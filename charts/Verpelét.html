@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Verpel\u00e9t"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3001": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Verpel\u00e9t"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3001"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Verpel\u00e9t"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3001"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Verpel\u00e9t", "selection": "selector3001"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Verpel\u00e9t"}}}], "data": {"name": "data-7bbd57f4269af6bf7503ac79144004dd"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-7bbd57f4269af6bf7503ac79144004dd": [{"date": 1986, "Verpel\u00e9t": 4145}, {"date": 1987, "Verpel\u00e9t": 4099}, {"date": 1988, "Verpel\u00e9t": 4027}, {"date": 1989, "Verpel\u00e9t": 4043}, {"date": 1990, "Verpel\u00e9t": 4050}, {"date": 1991, "Verpel\u00e9t": 4031}, {"date": 1992, "Verpel\u00e9t": 3986}, {"date": 1993, "Verpel\u00e9t": 3982}, {"date": 1994, "Verpel\u00e9t": 4018}, {"date": 1995, "Verpel\u00e9t": 4038}, {"date": 1996, "Verpel\u00e9t": 4081}, {"date": 1997, "Verpel\u00e9t": 4072}, {"date": 1998, "Verpel\u00e9t": 4061}, {"date": 1999, "Verpel\u00e9t": 4095}, {"date": 2000, "Verpel\u00e9t": 4107}, {"date": 2001, "Verpel\u00e9t": 4110}, {"date": 2002, "Verpel\u00e9t": 4142}, {"date": 2003, "Verpel\u00e9t": 4136}, {"date": 2004, "Verpel\u00e9t": 4131}, {"date": 2005, "Verpel\u00e9t": 4103}, {"date": 2006, "Verpel\u00e9t": 4114}, {"date": 2007, "Verpel\u00e9t": 4083}, {"date": 2008, "Verpel\u00e9t": 4067}, {"date": 2009, "Verpel\u00e9t": 4031}, {"date": 2010, "Verpel\u00e9t": 3976}, {"date": 2011, "Verpel\u00e9t": 3955}, {"date": 2012, "Verpel\u00e9t": 3929}, {"date": 2013, "Verpel\u00e9t": 3930}, {"date": 2014, "Verpel\u00e9t": 3912}, {"date": 2015, "Verpel\u00e9t": 3902}, {"date": 2016, "Verpel\u00e9t": 3938}, {"date": 2017, "Verpel\u00e9t": 3931}, {"date": 2018, "Verpel\u00e9t": 3909}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

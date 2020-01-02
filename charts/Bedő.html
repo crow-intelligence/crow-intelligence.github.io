@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bed\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1063": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bed\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1063"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bed\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1063"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bed\u0151", "selection": "selector1063"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bed\u0151"}}}], "data": {"name": "data-ba14ebbfecaa54996a252578200cdccd"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ba14ebbfecaa54996a252578200cdccd": [{"date": 1986, "Bed\u0151": 506}, {"date": 1987, "Bed\u0151": 497}, {"date": 1988, "Bed\u0151": 470}, {"date": 1989, "Bed\u0151": 455}, {"date": 1990, "Bed\u0151": 444}, {"date": 1991, "Bed\u0151": 421}, {"date": 1992, "Bed\u0151": 424}, {"date": 1993, "Bed\u0151": 412}, {"date": 1994, "Bed\u0151": 402}, {"date": 1995, "Bed\u0151": 379}, {"date": 1996, "Bed\u0151": 379}, {"date": 1997, "Bed\u0151": 362}, {"date": 1998, "Bed\u0151": 349}, {"date": 1999, "Bed\u0151": 343}, {"date": 2000, "Bed\u0151": 339}, {"date": 2001, "Bed\u0151": 337}, {"date": 2002, "Bed\u0151": 337}, {"date": 2003, "Bed\u0151": 329}, {"date": 2004, "Bed\u0151": 320}, {"date": 2005, "Bed\u0151": 312}, {"date": 2006, "Bed\u0151": 307}, {"date": 2007, "Bed\u0151": 283}, {"date": 2008, "Bed\u0151": 280}, {"date": 2009, "Bed\u0151": 280}, {"date": 2010, "Bed\u0151": 279}, {"date": 2011, "Bed\u0151": 273}, {"date": 2012, "Bed\u0151": 280}, {"date": 2013, "Bed\u0151": 297}, {"date": 2014, "Bed\u0151": 323}, {"date": 2015, "Bed\u0151": 334}, {"date": 2016, "Bed\u0151": 344}, {"date": 2017, "Bed\u0151": 368}, {"date": 2018, "Bed\u0151": 365}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

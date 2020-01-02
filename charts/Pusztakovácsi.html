@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztakov\u00e1csi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1667": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Pusztakov\u00e1csi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1667"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztakov\u00e1csi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1667"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Pusztakov\u00e1csi", "selection": "selector1667"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztakov\u00e1csi"}}}], "data": {"name": "data-ca6c8280ae3e9ddef9b8aa327914b929"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ca6c8280ae3e9ddef9b8aa327914b929": [{"date": 1986, "Pusztakov\u00e1csi": 1021}, {"date": 1987, "Pusztakov\u00e1csi": 985}, {"date": 1988, "Pusztakov\u00e1csi": 959}, {"date": 1989, "Pusztakov\u00e1csi": 944}, {"date": 1990, "Pusztakov\u00e1csi": 935}, {"date": 1991, "Pusztakov\u00e1csi": 939}, {"date": 1992, "Pusztakov\u00e1csi": 940}, {"date": 1993, "Pusztakov\u00e1csi": 948}, {"date": 1994, "Pusztakov\u00e1csi": 948}, {"date": 1995, "Pusztakov\u00e1csi": 936}, {"date": 1996, "Pusztakov\u00e1csi": 922}, {"date": 1997, "Pusztakov\u00e1csi": 934}, {"date": 1998, "Pusztakov\u00e1csi": 931}, {"date": 1999, "Pusztakov\u00e1csi": 922}, {"date": 2000, "Pusztakov\u00e1csi": 918}, {"date": 2001, "Pusztakov\u00e1csi": 913}, {"date": 2002, "Pusztakov\u00e1csi": 914}, {"date": 2003, "Pusztakov\u00e1csi": 909}, {"date": 2004, "Pusztakov\u00e1csi": 904}, {"date": 2005, "Pusztakov\u00e1csi": 919}, {"date": 2006, "Pusztakov\u00e1csi": 928}, {"date": 2007, "Pusztakov\u00e1csi": 915}, {"date": 2008, "Pusztakov\u00e1csi": 893}, {"date": 2009, "Pusztakov\u00e1csi": 913}, {"date": 2010, "Pusztakov\u00e1csi": 891}, {"date": 2011, "Pusztakov\u00e1csi": 891}, {"date": 2012, "Pusztakov\u00e1csi": 888}, {"date": 2013, "Pusztakov\u00e1csi": 898}, {"date": 2014, "Pusztakov\u00e1csi": 890}, {"date": 2015, "Pusztakov\u00e1csi": 871}, {"date": 2016, "Pusztakov\u00e1csi": 877}, {"date": 2017, "Pusztakov\u00e1csi": 862}, {"date": 2018, "Pusztakov\u00e1csi": 876}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

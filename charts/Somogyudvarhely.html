@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogyudvarhely"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1703": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Somogyudvarhely"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1703"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogyudvarhely"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1703"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Somogyudvarhely", "selection": "selector1703"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogyudvarhely"}}}], "data": {"name": "data-fa75542f62ca1bcb95f398b9ea9bf03a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-fa75542f62ca1bcb95f398b9ea9bf03a": [{"date": 1986, "Somogyudvarhely": 1430}, {"date": 1987, "Somogyudvarhely": 1408}, {"date": 1988, "Somogyudvarhely": 1383}, {"date": 1989, "Somogyudvarhely": 1386}, {"date": 1990, "Somogyudvarhely": 1374}, {"date": 1991, "Somogyudvarhely": 1347}, {"date": 1992, "Somogyudvarhely": 1302}, {"date": 1993, "Somogyudvarhely": 1281}, {"date": 1994, "Somogyudvarhely": 1235}, {"date": 1995, "Somogyudvarhely": 1273}, {"date": 1996, "Somogyudvarhely": 1260}, {"date": 1997, "Somogyudvarhely": 1255}, {"date": 1998, "Somogyudvarhely": 1254}, {"date": 1999, "Somogyudvarhely": 1265}, {"date": 2000, "Somogyudvarhely": 1251}, {"date": 2001, "Somogyudvarhely": 1237}, {"date": 2002, "Somogyudvarhely": 1250}, {"date": 2003, "Somogyudvarhely": 1250}, {"date": 2004, "Somogyudvarhely": 1236}, {"date": 2005, "Somogyudvarhely": 1205}, {"date": 2006, "Somogyudvarhely": 1198}, {"date": 2007, "Somogyudvarhely": 1171}, {"date": 2008, "Somogyudvarhely": 1164}, {"date": 2009, "Somogyudvarhely": 1151}, {"date": 2010, "Somogyudvarhely": 1139}, {"date": 2011, "Somogyudvarhely": 1137}, {"date": 2012, "Somogyudvarhely": 1134}, {"date": 2013, "Somogyudvarhely": 1108}, {"date": 2014, "Somogyudvarhely": 1084}, {"date": 2015, "Somogyudvarhely": 1088}, {"date": 2016, "Somogyudvarhely": 1064}, {"date": 2017, "Somogyudvarhely": 1052}, {"date": 2018, "Somogyudvarhely": 1042}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

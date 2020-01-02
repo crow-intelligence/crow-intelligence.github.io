@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Endr\u0151c"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector180": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Endr\u0151c"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector180"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Endr\u0151c"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector180"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Endr\u0151c", "selection": "selector180"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Endr\u0151c"}}}], "data": {"name": "data-164d77f27d4cadb32c5d02e194e43164"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-164d77f27d4cadb32c5d02e194e43164": [{"date": 1986, "Endr\u0151c": 522}, {"date": 1987, "Endr\u0151c": 521}, {"date": 1988, "Endr\u0151c": 522}, {"date": 1989, "Endr\u0151c": 519}, {"date": 1990, "Endr\u0151c": 520}, {"date": 1991, "Endr\u0151c": 522}, {"date": 1992, "Endr\u0151c": 518}, {"date": 1993, "Endr\u0151c": 494}, {"date": 1994, "Endr\u0151c": 487}, {"date": 1995, "Endr\u0151c": 478}, {"date": 1996, "Endr\u0151c": 474}, {"date": 1997, "Endr\u0151c": 459}, {"date": 1998, "Endr\u0151c": 454}, {"date": 1999, "Endr\u0151c": 442}, {"date": 2000, "Endr\u0151c": 444}, {"date": 2001, "Endr\u0151c": 438}, {"date": 2002, "Endr\u0151c": 443}, {"date": 2003, "Endr\u0151c": 434}, {"date": 2004, "Endr\u0151c": 433}, {"date": 2005, "Endr\u0151c": 441}, {"date": 2006, "Endr\u0151c": 431}, {"date": 2007, "Endr\u0151c": 433}, {"date": 2008, "Endr\u0151c": 425}, {"date": 2009, "Endr\u0151c": 413}, {"date": 2010, "Endr\u0151c": 410}, {"date": 2011, "Endr\u0151c": 406}, {"date": 2012, "Endr\u0151c": 395}, {"date": 2013, "Endr\u0151c": 394}, {"date": 2014, "Endr\u0151c": 389}, {"date": 2015, "Endr\u0151c": 382}, {"date": 2016, "Endr\u0151c": 365}, {"date": 2017, "Endr\u0151c": 360}, {"date": 2018, "Endr\u0151c": 351}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tibolddar\u00f3c"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector724": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tibolddar\u00f3c"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector724"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tibolddar\u00f3c"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector724"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tibolddar\u00f3c", "selection": "selector724"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tibolddar\u00f3c"}}}], "data": {"name": "data-af5228cdf29434f34400dc208c578d60"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-af5228cdf29434f34400dc208c578d60": [{"date": 1986, "Tibolddar\u00f3c": 1870}, {"date": 1987, "Tibolddar\u00f3c": 1866}, {"date": 1988, "Tibolddar\u00f3c": 1847}, {"date": 1989, "Tibolddar\u00f3c": 1815}, {"date": 1990, "Tibolddar\u00f3c": 1784}, {"date": 1991, "Tibolddar\u00f3c": 1775}, {"date": 1992, "Tibolddar\u00f3c": 1752}, {"date": 1993, "Tibolddar\u00f3c": 1734}, {"date": 1994, "Tibolddar\u00f3c": 1721}, {"date": 1995, "Tibolddar\u00f3c": 1694}, {"date": 1996, "Tibolddar\u00f3c": 1695}, {"date": 1997, "Tibolddar\u00f3c": 1683}, {"date": 1998, "Tibolddar\u00f3c": 1655}, {"date": 1999, "Tibolddar\u00f3c": 1612}, {"date": 2000, "Tibolddar\u00f3c": 1614}, {"date": 2001, "Tibolddar\u00f3c": 1584}, {"date": 2002, "Tibolddar\u00f3c": 1586}, {"date": 2003, "Tibolddar\u00f3c": 1579}, {"date": 2004, "Tibolddar\u00f3c": 1563}, {"date": 2005, "Tibolddar\u00f3c": 1543}, {"date": 2006, "Tibolddar\u00f3c": 1538}, {"date": 2007, "Tibolddar\u00f3c": 1537}, {"date": 2008, "Tibolddar\u00f3c": 1541}, {"date": 2009, "Tibolddar\u00f3c": 1526}, {"date": 2010, "Tibolddar\u00f3c": 1510}, {"date": 2011, "Tibolddar\u00f3c": 1494}, {"date": 2012, "Tibolddar\u00f3c": 1476}, {"date": 2013, "Tibolddar\u00f3c": 1439}, {"date": 2014, "Tibolddar\u00f3c": 1434}, {"date": 2015, "Tibolddar\u00f3c": 1411}, {"date": 2016, "Tibolddar\u00f3c": 1411}, {"date": 2017, "Tibolddar\u00f3c": 1378}, {"date": 2018, "Tibolddar\u00f3c": 1364}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

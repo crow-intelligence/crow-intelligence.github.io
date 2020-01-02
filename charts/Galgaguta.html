@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Galgaguta"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1312": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Galgaguta"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1312"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Galgaguta"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1312"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Galgaguta", "selection": "selector1312"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Galgaguta"}}}], "data": {"name": "data-2b5c7d2e90674c9f3a0a5d3cf951667f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2b5c7d2e90674c9f3a0a5d3cf951667f": [{"date": 1986, "Galgaguta": 868}, {"date": 1987, "Galgaguta": 849}, {"date": 1988, "Galgaguta": 826}, {"date": 1989, "Galgaguta": 826}, {"date": 1990, "Galgaguta": 815}, {"date": 1991, "Galgaguta": 808}, {"date": 1992, "Galgaguta": 811}, {"date": 1993, "Galgaguta": 802}, {"date": 1994, "Galgaguta": 790}, {"date": 1995, "Galgaguta": 771}, {"date": 1996, "Galgaguta": 779}, {"date": 1997, "Galgaguta": 770}, {"date": 1998, "Galgaguta": 765}, {"date": 1999, "Galgaguta": 766}, {"date": 2000, "Galgaguta": 769}, {"date": 2001, "Galgaguta": 777}, {"date": 2002, "Galgaguta": 80}, {"date": 2003, "Galgaguta": 767}, {"date": 2004, "Galgaguta": 763}, {"date": 2005, "Galgaguta": 756}, {"date": 2006, "Galgaguta": 744}, {"date": 2007, "Galgaguta": 738}, {"date": 2008, "Galgaguta": 726}, {"date": 2009, "Galgaguta": 715}, {"date": 2010, "Galgaguta": 699}, {"date": 2011, "Galgaguta": 677}, {"date": 2012, "Galgaguta": 643}, {"date": 2013, "Galgaguta": 635}, {"date": 2014, "Galgaguta": 631}, {"date": 2015, "Galgaguta": 628}, {"date": 2016, "Galgaguta": 639}, {"date": 2017, "Galgaguta": 653}, {"date": 2018, "Galgaguta": 639}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

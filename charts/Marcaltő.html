@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Marcalt\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2389": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Marcalt\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2389"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Marcalt\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2389"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Marcalt\u0151", "selection": "selector2389"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Marcalt\u0151"}}}], "data": {"name": "data-4161d031979be100fdcdace786402447"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-4161d031979be100fdcdace786402447": [{"date": 1986, "Marcalt\u0151": 981}, {"date": 1987, "Marcalt\u0151": 973}, {"date": 1988, "Marcalt\u0151": 975}, {"date": 1989, "Marcalt\u0151": 952}, {"date": 1990, "Marcalt\u0151": 949}, {"date": 1991, "Marcalt\u0151": 941}, {"date": 1992, "Marcalt\u0151": 943}, {"date": 1993, "Marcalt\u0151": 940}, {"date": 1994, "Marcalt\u0151": 957}, {"date": 1995, "Marcalt\u0151": 931}, {"date": 1996, "Marcalt\u0151": 922}, {"date": 1997, "Marcalt\u0151": 914}, {"date": 1998, "Marcalt\u0151": 919}, {"date": 1999, "Marcalt\u0151": 907}, {"date": 2000, "Marcalt\u0151": 896}, {"date": 2001, "Marcalt\u0151": 887}, {"date": 2002, "Marcalt\u0151": 874}, {"date": 2003, "Marcalt\u0151": 886}, {"date": 2004, "Marcalt\u0151": 884}, {"date": 2005, "Marcalt\u0151": 875}, {"date": 2006, "Marcalt\u0151": 859}, {"date": 2007, "Marcalt\u0151": 851}, {"date": 2008, "Marcalt\u0151": 847}, {"date": 2009, "Marcalt\u0151": 851}, {"date": 2010, "Marcalt\u0151": 828}, {"date": 2011, "Marcalt\u0151": 807}, {"date": 2012, "Marcalt\u0151": 810}, {"date": 2013, "Marcalt\u0151": 807}, {"date": 2014, "Marcalt\u0151": 787}, {"date": 2015, "Marcalt\u0151": 765}, {"date": 2016, "Marcalt\u0151": 765}, {"date": 2017, "Marcalt\u0151": 759}, {"date": 2018, "Marcalt\u0151": 767}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

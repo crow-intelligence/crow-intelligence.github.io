@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tordas"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector882": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tordas"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector882"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tordas"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector882"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tordas", "selection": "selector882"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tordas"}}}], "data": {"name": "data-aeb6e8d7fa5053f5ec4fa4518dc0fe96"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-aeb6e8d7fa5053f5ec4fa4518dc0fe96": [{"date": 1986, "Tordas": 1389}, {"date": 1987, "Tordas": 1369}, {"date": 1988, "Tordas": 1336}, {"date": 1989, "Tordas": 1345}, {"date": 1990, "Tordas": 1358}, {"date": 1991, "Tordas": 1394}, {"date": 1992, "Tordas": 1397}, {"date": 1993, "Tordas": 1414}, {"date": 1994, "Tordas": 1410}, {"date": 1995, "Tordas": 1416}, {"date": 1996, "Tordas": 1452}, {"date": 1997, "Tordas": 1466}, {"date": 1998, "Tordas": 1490}, {"date": 1999, "Tordas": 1502}, {"date": 2000, "Tordas": 1530}, {"date": 2001, "Tordas": 1644}, {"date": 2002, "Tordas": 1687}, {"date": 2003, "Tordas": 1702}, {"date": 2004, "Tordas": 1741}, {"date": 2005, "Tordas": 1766}, {"date": 2006, "Tordas": 1767}, {"date": 2007, "Tordas": 1805}, {"date": 2008, "Tordas": 1844}, {"date": 2009, "Tordas": 1910}, {"date": 2010, "Tordas": 1960}, {"date": 2011, "Tordas": 1979}, {"date": 2012, "Tordas": 2011}, {"date": 2013, "Tordas": 2047}, {"date": 2014, "Tordas": 2027}, {"date": 2015, "Tordas": 2053}, {"date": 2016, "Tordas": 2078}, {"date": 2017, "Tordas": 2059}, {"date": 2018, "Tordas": 2073}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

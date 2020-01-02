@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector037": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector037"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector037"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s", "selection": "selector037"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s"}}}], "data": {"name": "data-e08c2263ece78dddb201f367f33f6776"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e08c2263ece78dddb201f367f33f6776": [{"date": 1986, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 3353}, {"date": 1987, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 3310}, {"date": 1988, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 3253}, {"date": 1989, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 3225}, {"date": 1990, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 3208}, {"date": 1991, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 3171}, {"date": 1992, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 3150}, {"date": 1993, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 3120}, {"date": 1994, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 3089}, {"date": 1995, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 3031}, {"date": 1996, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 3008}, {"date": 1997, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2993}, {"date": 1998, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2955}, {"date": 1999, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2908}, {"date": 2000, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2868}, {"date": 2001, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2801}, {"date": 2002, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2758}, {"date": 2003, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2729}, {"date": 2004, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2682}, {"date": 2005, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2662}, {"date": 2006, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2644}, {"date": 2007, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2607}, {"date": 2008, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2591}, {"date": 2009, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2603}, {"date": 2010, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2561}, {"date": 2011, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2512}, {"date": 2012, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2478}, {"date": 2013, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2466}, {"date": 2014, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2441}, {"date": 2015, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2423}, {"date": 2016, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2408}, {"date": 2017, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2393}, {"date": 2018, "Cs\u00e1sz\u00e1rt\u00f6lt\u00e9s": 2326}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

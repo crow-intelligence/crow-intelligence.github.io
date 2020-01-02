@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tisza\u00fajv\u00e1ros"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2937": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tisza\u00fajv\u00e1ros"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2937"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tisza\u00fajv\u00e1ros"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2937"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tisza\u00fajv\u00e1ros", "selection": "selector2937"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tisza\u00fajv\u00e1ros"}}}], "data": {"name": "data-7a2156f3e4aacbb8ef6a8d36e8150803"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-7a2156f3e4aacbb8ef6a8d36e8150803": [{"date": 1986, "Tisza\u00fajv\u00e1ros": 0}, {"date": 1987, "Tisza\u00fajv\u00e1ros": 0}, {"date": 1988, "Tisza\u00fajv\u00e1ros": 0}, {"date": 1989, "Tisza\u00fajv\u00e1ros": 0}, {"date": 1990, "Tisza\u00fajv\u00e1ros": 0}, {"date": 1991, "Tisza\u00fajv\u00e1ros": 18933}, {"date": 1992, "Tisza\u00fajv\u00e1ros": 18939}, {"date": 1993, "Tisza\u00fajv\u00e1ros": 18839}, {"date": 1994, "Tisza\u00fajv\u00e1ros": 18731}, {"date": 1995, "Tisza\u00fajv\u00e1ros": 18721}, {"date": 1996, "Tisza\u00fajv\u00e1ros": 18643}, {"date": 1997, "Tisza\u00fajv\u00e1ros": 18697}, {"date": 1998, "Tisza\u00fajv\u00e1ros": 18544}, {"date": 1999, "Tisza\u00fajv\u00e1ros": 18521}, {"date": 2000, "Tisza\u00fajv\u00e1ros": 18454}, {"date": 2001, "Tisza\u00fajv\u00e1ros": 18304}, {"date": 2002, "Tisza\u00fajv\u00e1ros": 4378}, {"date": 2003, "Tisza\u00fajv\u00e1ros": 18346}, {"date": 2004, "Tisza\u00fajv\u00e1ros": 18213}, {"date": 2005, "Tisza\u00fajv\u00e1ros": 18042}, {"date": 2006, "Tisza\u00fajv\u00e1ros": 18051}, {"date": 2007, "Tisza\u00fajv\u00e1ros": 18051}, {"date": 2008, "Tisza\u00fajv\u00e1ros": 18039}, {"date": 2009, "Tisza\u00fajv\u00e1ros": 18021}, {"date": 2010, "Tisza\u00fajv\u00e1ros": 17982}, {"date": 2011, "Tisza\u00fajv\u00e1ros": 17934}, {"date": 2012, "Tisza\u00fajv\u00e1ros": 17919}, {"date": 2013, "Tisza\u00fajv\u00e1ros": 17911}, {"date": 2014, "Tisza\u00fajv\u00e1ros": 17821}, {"date": 2015, "Tisza\u00fajv\u00e1ros": 17605}, {"date": 2016, "Tisza\u00fajv\u00e1ros": 17462}, {"date": 2017, "Tisza\u00fajv\u00e1ros": 17162}, {"date": 2018, "Tisza\u00fajv\u00e1ros": 16980}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

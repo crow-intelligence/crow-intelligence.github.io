@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tahit\u00f3tfalu"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1493": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tahit\u00f3tfalu"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1493"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tahit\u00f3tfalu"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1493"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tahit\u00f3tfalu", "selection": "selector1493"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tahit\u00f3tfalu"}}}], "data": {"name": "data-4d3efebc88975df3bb315d62f9bed4df"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-4d3efebc88975df3bb315d62f9bed4df": [{"date": 1986, "Tahit\u00f3tfalu": 3366}, {"date": 1987, "Tahit\u00f3tfalu": 3368}, {"date": 1988, "Tahit\u00f3tfalu": 3372}, {"date": 1989, "Tahit\u00f3tfalu": 3390}, {"date": 1990, "Tahit\u00f3tfalu": 3418}, {"date": 1991, "Tahit\u00f3tfalu": 3454}, {"date": 1992, "Tahit\u00f3tfalu": 3515}, {"date": 1993, "Tahit\u00f3tfalu": 3627}, {"date": 1994, "Tahit\u00f3tfalu": 3738}, {"date": 1995, "Tahit\u00f3tfalu": 3819}, {"date": 1996, "Tahit\u00f3tfalu": 3907}, {"date": 1997, "Tahit\u00f3tfalu": 3982}, {"date": 1998, "Tahit\u00f3tfalu": 4031}, {"date": 1999, "Tahit\u00f3tfalu": 4137}, {"date": 2000, "Tahit\u00f3tfalu": 4247}, {"date": 2001, "Tahit\u00f3tfalu": 4376}, {"date": 2002, "Tahit\u00f3tfalu": 4479}, {"date": 2003, "Tahit\u00f3tfalu": 4636}, {"date": 2004, "Tahit\u00f3tfalu": 4867}, {"date": 2005, "Tahit\u00f3tfalu": 4989}, {"date": 2006, "Tahit\u00f3tfalu": 5128}, {"date": 2007, "Tahit\u00f3tfalu": 5180}, {"date": 2008, "Tahit\u00f3tfalu": 5329}, {"date": 2009, "Tahit\u00f3tfalu": 5422}, {"date": 2010, "Tahit\u00f3tfalu": 5513}, {"date": 2011, "Tahit\u00f3tfalu": 5581}, {"date": 2012, "Tahit\u00f3tfalu": 5640}, {"date": 2013, "Tahit\u00f3tfalu": 5701}, {"date": 2014, "Tahit\u00f3tfalu": 5707}, {"date": 2015, "Tahit\u00f3tfalu": 5725}, {"date": 2016, "Tahit\u00f3tfalu": 5800}, {"date": 2017, "Tahit\u00f3tfalu": 5888}, {"date": 2018, "Tahit\u00f3tfalu": 5944}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

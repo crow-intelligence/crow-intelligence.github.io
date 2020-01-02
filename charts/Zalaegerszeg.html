@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaegerszeg"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2746": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zalaegerszeg"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2746"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaegerszeg"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2746"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zalaegerszeg", "selection": "selector2746"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaegerszeg"}}}], "data": {"name": "data-591f97f1d8b042b0b71f82866ca8841f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-591f97f1d8b042b0b71f82866ca8841f": [{"date": 1986, "Zalaegerszeg": 59930}, {"date": 1987, "Zalaegerszeg": 60476}, {"date": 1988, "Zalaegerszeg": 61065}, {"date": 1989, "Zalaegerszeg": 61548}, {"date": 1990, "Zalaegerszeg": 62111}, {"date": 1991, "Zalaegerszeg": 62200}, {"date": 1992, "Zalaegerszeg": 62544}, {"date": 1993, "Zalaegerszeg": 62628}, {"date": 1994, "Zalaegerszeg": 62485}, {"date": 1995, "Zalaegerszeg": 62349}, {"date": 1996, "Zalaegerszeg": 62077}, {"date": 1997, "Zalaegerszeg": 61933}, {"date": 1998, "Zalaegerszeg": 61828}, {"date": 1999, "Zalaegerszeg": 61587}, {"date": 2000, "Zalaegerszeg": 61228}, {"date": 2001, "Zalaegerszeg": 60998}, {"date": 2002, "Zalaegerszeg": 60690}, {"date": 2003, "Zalaegerszeg": 60615}, {"date": 2004, "Zalaegerszeg": 60310}, {"date": 2005, "Zalaegerszeg": 60061}, {"date": 2006, "Zalaegerszeg": 60174}, {"date": 2007, "Zalaegerszeg": 60088}, {"date": 2008, "Zalaegerszeg": 60110}, {"date": 2009, "Zalaegerszeg": 59832}, {"date": 2010, "Zalaegerszeg": 59626}, {"date": 2011, "Zalaegerszeg": 59464}, {"date": 2012, "Zalaegerszeg": 59272}, {"date": 2013, "Zalaegerszeg": 59097}, {"date": 2014, "Zalaegerszeg": 58978}, {"date": 2015, "Zalaegerszeg": 58678}, {"date": 2016, "Zalaegerszeg": 58547}, {"date": 2017, "Zalaegerszeg": 58125}, {"date": 2018, "Zalaegerszeg": 57914}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

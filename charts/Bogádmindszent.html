@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bog\u00e1dmindszent"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector146": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bog\u00e1dmindszent"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector146"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bog\u00e1dmindszent"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector146"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bog\u00e1dmindszent", "selection": "selector146"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bog\u00e1dmindszent"}}}], "data": {"name": "data-e97c69a41e90a270cf6c255baac022f1"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e97c69a41e90a270cf6c255baac022f1": [{"date": 1986, "Bog\u00e1dmindszent": 474}, {"date": 1987, "Bog\u00e1dmindszent": 456}, {"date": 1988, "Bog\u00e1dmindszent": 446}, {"date": 1989, "Bog\u00e1dmindszent": 440}, {"date": 1990, "Bog\u00e1dmindszent": 444}, {"date": 1991, "Bog\u00e1dmindszent": 438}, {"date": 1992, "Bog\u00e1dmindszent": 440}, {"date": 1993, "Bog\u00e1dmindszent": 436}, {"date": 1994, "Bog\u00e1dmindszent": 444}, {"date": 1995, "Bog\u00e1dmindszent": 451}, {"date": 1996, "Bog\u00e1dmindszent": 453}, {"date": 1997, "Bog\u00e1dmindszent": 450}, {"date": 1998, "Bog\u00e1dmindszent": 441}, {"date": 1999, "Bog\u00e1dmindszent": 445}, {"date": 2000, "Bog\u00e1dmindszent": 449}, {"date": 2001, "Bog\u00e1dmindszent": 455}, {"date": 2002, "Bog\u00e1dmindszent": 462}, {"date": 2003, "Bog\u00e1dmindszent": 473}, {"date": 2004, "Bog\u00e1dmindszent": 476}, {"date": 2005, "Bog\u00e1dmindszent": 465}, {"date": 2006, "Bog\u00e1dmindszent": 469}, {"date": 2007, "Bog\u00e1dmindszent": 470}, {"date": 2008, "Bog\u00e1dmindszent": 457}, {"date": 2009, "Bog\u00e1dmindszent": 462}, {"date": 2010, "Bog\u00e1dmindszent": 452}, {"date": 2011, "Bog\u00e1dmindszent": 453}, {"date": 2012, "Bog\u00e1dmindszent": 462}, {"date": 2013, "Bog\u00e1dmindszent": 464}, {"date": 2014, "Bog\u00e1dmindszent": 448}, {"date": 2015, "Bog\u00e1dmindszent": 461}, {"date": 2016, "Bog\u00e1dmindszent": 447}, {"date": 2017, "Bog\u00e1dmindszent": 445}, {"date": 2018, "Bog\u00e1dmindszent": 443}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

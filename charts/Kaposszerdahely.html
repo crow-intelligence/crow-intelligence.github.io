@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kaposszerdahely"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1602": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kaposszerdahely"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1602"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kaposszerdahely"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1602"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kaposszerdahely", "selection": "selector1602"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kaposszerdahely"}}}], "data": {"name": "data-da3574fa9c37e0f0ba660a77c5d0a987"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-da3574fa9c37e0f0ba660a77c5d0a987": [{"date": 1986, "Kaposszerdahely": 761}, {"date": 1987, "Kaposszerdahely": 767}, {"date": 1988, "Kaposszerdahely": 764}, {"date": 1989, "Kaposszerdahely": 814}, {"date": 1990, "Kaposszerdahely": 861}, {"date": 1991, "Kaposszerdahely": 905}, {"date": 1992, "Kaposszerdahely": 926}, {"date": 1993, "Kaposszerdahely": 922}, {"date": 1994, "Kaposszerdahely": 941}, {"date": 1995, "Kaposszerdahely": 962}, {"date": 1996, "Kaposszerdahely": 979}, {"date": 1997, "Kaposszerdahely": 984}, {"date": 1998, "Kaposszerdahely": 985}, {"date": 1999, "Kaposszerdahely": 1008}, {"date": 2000, "Kaposszerdahely": 1015}, {"date": 2001, "Kaposszerdahely": 1015}, {"date": 2002, "Kaposszerdahely": 1027}, {"date": 2003, "Kaposszerdahely": 1041}, {"date": 2004, "Kaposszerdahely": 1043}, {"date": 2005, "Kaposszerdahely": 1056}, {"date": 2006, "Kaposszerdahely": 1045}, {"date": 2007, "Kaposszerdahely": 1045}, {"date": 2008, "Kaposszerdahely": 1055}, {"date": 2009, "Kaposszerdahely": 1058}, {"date": 2010, "Kaposszerdahely": 1062}, {"date": 2011, "Kaposszerdahely": 1062}, {"date": 2012, "Kaposszerdahely": 1066}, {"date": 2013, "Kaposszerdahely": 1059}, {"date": 2014, "Kaposszerdahely": 1047}, {"date": 2015, "Kaposszerdahely": 1040}, {"date": 2016, "Kaposszerdahely": 1033}, {"date": 2017, "Kaposszerdahely": 1026}, {"date": 2018, "Kaposszerdahely": 1021}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

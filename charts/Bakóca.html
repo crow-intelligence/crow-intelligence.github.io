@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bak\u00f3ca"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector126": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bak\u00f3ca"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector126"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bak\u00f3ca"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector126"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bak\u00f3ca", "selection": "selector126"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bak\u00f3ca"}}}], "data": {"name": "data-2ed47e2830228e24c477b72137a866a1"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2ed47e2830228e24c477b72137a866a1": [{"date": 1986, "Bak\u00f3ca": 474}, {"date": 1987, "Bak\u00f3ca": 463}, {"date": 1988, "Bak\u00f3ca": 460}, {"date": 1989, "Bak\u00f3ca": 448}, {"date": 1990, "Bak\u00f3ca": 429}, {"date": 1991, "Bak\u00f3ca": 429}, {"date": 1992, "Bak\u00f3ca": 421}, {"date": 1993, "Bak\u00f3ca": 413}, {"date": 1994, "Bak\u00f3ca": 408}, {"date": 1995, "Bak\u00f3ca": 410}, {"date": 1996, "Bak\u00f3ca": 412}, {"date": 1997, "Bak\u00f3ca": 416}, {"date": 1998, "Bak\u00f3ca": 410}, {"date": 1999, "Bak\u00f3ca": 400}, {"date": 2000, "Bak\u00f3ca": 383}, {"date": 2001, "Bak\u00f3ca": 380}, {"date": 2002, "Bak\u00f3ca": 366}, {"date": 2003, "Bak\u00f3ca": 386}, {"date": 2004, "Bak\u00f3ca": 379}, {"date": 2005, "Bak\u00f3ca": 368}, {"date": 2006, "Bak\u00f3ca": 363}, {"date": 2007, "Bak\u00f3ca": 344}, {"date": 2008, "Bak\u00f3ca": 334}, {"date": 2009, "Bak\u00f3ca": 331}, {"date": 2010, "Bak\u00f3ca": 329}, {"date": 2011, "Bak\u00f3ca": 326}, {"date": 2012, "Bak\u00f3ca": 321}, {"date": 2013, "Bak\u00f3ca": 324}, {"date": 2014, "Bak\u00f3ca": 319}, {"date": 2015, "Bak\u00f3ca": 311}, {"date": 2016, "Bak\u00f3ca": 304}, {"date": 2017, "Bak\u00f3ca": 307}, {"date": 2018, "Bak\u00f3ca": 311}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

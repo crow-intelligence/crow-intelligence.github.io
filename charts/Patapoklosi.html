@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Patapoklosi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector318": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Patapoklosi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector318"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Patapoklosi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector318"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Patapoklosi", "selection": "selector318"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Patapoklosi"}}}], "data": {"name": "data-e0a87dba9d4ebc52495da12cd0cb0f8c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e0a87dba9d4ebc52495da12cd0cb0f8c": [{"date": 1986, "Patapoklosi": 446}, {"date": 1987, "Patapoklosi": 445}, {"date": 1988, "Patapoklosi": 445}, {"date": 1989, "Patapoklosi": 447}, {"date": 1990, "Patapoklosi": 431}, {"date": 1991, "Patapoklosi": 425}, {"date": 1992, "Patapoklosi": 426}, {"date": 1993, "Patapoklosi": 419}, {"date": 1994, "Patapoklosi": 424}, {"date": 1995, "Patapoklosi": 431}, {"date": 1996, "Patapoklosi": 440}, {"date": 1997, "Patapoklosi": 425}, {"date": 1998, "Patapoklosi": 442}, {"date": 1999, "Patapoklosi": 438}, {"date": 2000, "Patapoklosi": 424}, {"date": 2001, "Patapoklosi": 430}, {"date": 2002, "Patapoklosi": 420}, {"date": 2003, "Patapoklosi": 423}, {"date": 2004, "Patapoklosi": 415}, {"date": 2005, "Patapoklosi": 422}, {"date": 2006, "Patapoklosi": 424}, {"date": 2007, "Patapoklosi": 415}, {"date": 2008, "Patapoklosi": 413}, {"date": 2009, "Patapoklosi": 400}, {"date": 2010, "Patapoklosi": 410}, {"date": 2011, "Patapoklosi": 410}, {"date": 2012, "Patapoklosi": 411}, {"date": 2013, "Patapoklosi": 403}, {"date": 2014, "Patapoklosi": 413}, {"date": 2015, "Patapoklosi": 411}, {"date": 2016, "Patapoklosi": 406}, {"date": 2017, "Patapoklosi": 391}, {"date": 2018, "Patapoklosi": 384}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

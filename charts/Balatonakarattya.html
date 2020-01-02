@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonakarattya"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2302": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Balatonakarattya"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2302"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonakarattya"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2302"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Balatonakarattya", "selection": "selector2302"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonakarattya"}}}], "data": {"name": "data-75eab973f2e3f2e76c457d63754b18eb"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-75eab973f2e3f2e76c457d63754b18eb": [{"date": 1986, "Balatonakarattya": 0}, {"date": 1987, "Balatonakarattya": 0}, {"date": 1988, "Balatonakarattya": 0}, {"date": 1989, "Balatonakarattya": 0}, {"date": 1990, "Balatonakarattya": 0}, {"date": 1991, "Balatonakarattya": 0}, {"date": 1992, "Balatonakarattya": 0}, {"date": 1993, "Balatonakarattya": 0}, {"date": 1994, "Balatonakarattya": 0}, {"date": 1995, "Balatonakarattya": 0}, {"date": 1996, "Balatonakarattya": 0}, {"date": 1997, "Balatonakarattya": 0}, {"date": 1998, "Balatonakarattya": 0}, {"date": 1999, "Balatonakarattya": 0}, {"date": 2000, "Balatonakarattya": 0}, {"date": 2001, "Balatonakarattya": 0}, {"date": 2002, "Balatonakarattya": 0}, {"date": 2003, "Balatonakarattya": 0}, {"date": 2004, "Balatonakarattya": 0}, {"date": 2005, "Balatonakarattya": 0}, {"date": 2006, "Balatonakarattya": 0}, {"date": 2007, "Balatonakarattya": 0}, {"date": 2008, "Balatonakarattya": 0}, {"date": 2009, "Balatonakarattya": 0}, {"date": 2010, "Balatonakarattya": 0}, {"date": 2011, "Balatonakarattya": 0}, {"date": 2012, "Balatonakarattya": 0}, {"date": 2013, "Balatonakarattya": 0}, {"date": 2014, "Balatonakarattya": 0}, {"date": 2015, "Balatonakarattya": 893}, {"date": 2016, "Balatonakarattya": 889}, {"date": 2017, "Balatonakarattya": 915}, {"date": 2018, "Balatonakarattya": 925}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

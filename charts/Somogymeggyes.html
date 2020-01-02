@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogymeggyes"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1695": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Somogymeggyes"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1695"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogymeggyes"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1695"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Somogymeggyes", "selection": "selector1695"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogymeggyes"}}}], "data": {"name": "data-154abd4f5b8a017a7a5b8a18c39bb003"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-154abd4f5b8a017a7a5b8a18c39bb003": [{"date": 1986, "Somogymeggyes": 672}, {"date": 1987, "Somogymeggyes": 660}, {"date": 1988, "Somogymeggyes": 657}, {"date": 1989, "Somogymeggyes": 654}, {"date": 1990, "Somogymeggyes": 657}, {"date": 1991, "Somogymeggyes": 649}, {"date": 1992, "Somogymeggyes": 659}, {"date": 1993, "Somogymeggyes": 656}, {"date": 1994, "Somogymeggyes": 646}, {"date": 1995, "Somogymeggyes": 633}, {"date": 1996, "Somogymeggyes": 635}, {"date": 1997, "Somogymeggyes": 627}, {"date": 1998, "Somogymeggyes": 634}, {"date": 1999, "Somogymeggyes": 643}, {"date": 2000, "Somogymeggyes": 630}, {"date": 2001, "Somogymeggyes": 627}, {"date": 2002, "Somogymeggyes": 618}, {"date": 2003, "Somogymeggyes": 607}, {"date": 2004, "Somogymeggyes": 604}, {"date": 2005, "Somogymeggyes": 596}, {"date": 2006, "Somogymeggyes": 570}, {"date": 2007, "Somogymeggyes": 558}, {"date": 2008, "Somogymeggyes": 554}, {"date": 2009, "Somogymeggyes": 556}, {"date": 2010, "Somogymeggyes": 546}, {"date": 2011, "Somogymeggyes": 532}, {"date": 2012, "Somogymeggyes": 521}, {"date": 2013, "Somogymeggyes": 508}, {"date": 2014, "Somogymeggyes": 505}, {"date": 2015, "Somogymeggyes": 506}, {"date": 2016, "Somogymeggyes": 509}, {"date": 2017, "Somogymeggyes": 485}, {"date": 2018, "Somogymeggyes": 490}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

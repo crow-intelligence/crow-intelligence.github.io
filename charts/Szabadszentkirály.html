@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szabadszentkir\u00e1ly"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector345": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szabadszentkir\u00e1ly"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector345"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szabadszentkir\u00e1ly"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector345"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szabadszentkir\u00e1ly", "selection": "selector345"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szabadszentkir\u00e1ly"}}}], "data": {"name": "data-094cf4785bc780668ac79004a15d66a9"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-094cf4785bc780668ac79004a15d66a9": [{"date": 1986, "Szabadszentkir\u00e1ly": 740}, {"date": 1987, "Szabadszentkir\u00e1ly": 722}, {"date": 1988, "Szabadszentkir\u00e1ly": 741}, {"date": 1989, "Szabadszentkir\u00e1ly": 736}, {"date": 1990, "Szabadszentkir\u00e1ly": 755}, {"date": 1991, "Szabadszentkir\u00e1ly": 792}, {"date": 1992, "Szabadszentkir\u00e1ly": 805}, {"date": 1993, "Szabadszentkir\u00e1ly": 809}, {"date": 1994, "Szabadszentkir\u00e1ly": 816}, {"date": 1995, "Szabadszentkir\u00e1ly": 829}, {"date": 1996, "Szabadszentkir\u00e1ly": 820}, {"date": 1997, "Szabadszentkir\u00e1ly": 817}, {"date": 1998, "Szabadszentkir\u00e1ly": 801}, {"date": 1999, "Szabadszentkir\u00e1ly": 827}, {"date": 2000, "Szabadszentkir\u00e1ly": 836}, {"date": 2001, "Szabadszentkir\u00e1ly": 823}, {"date": 2002, "Szabadszentkir\u00e1ly": 804}, {"date": 2003, "Szabadszentkir\u00e1ly": 811}, {"date": 2004, "Szabadszentkir\u00e1ly": 826}, {"date": 2005, "Szabadszentkir\u00e1ly": 826}, {"date": 2006, "Szabadszentkir\u00e1ly": 823}, {"date": 2007, "Szabadszentkir\u00e1ly": 825}, {"date": 2008, "Szabadszentkir\u00e1ly": 830}, {"date": 2009, "Szabadszentkir\u00e1ly": 846}, {"date": 2010, "Szabadszentkir\u00e1ly": 842}, {"date": 2011, "Szabadszentkir\u00e1ly": 835}, {"date": 2012, "Szabadszentkir\u00e1ly": 822}, {"date": 2013, "Szabadszentkir\u00e1ly": 833}, {"date": 2014, "Szabadszentkir\u00e1ly": 811}, {"date": 2015, "Szabadszentkir\u00e1ly": 804}, {"date": 2016, "Szabadszentkir\u00e1ly": 801}, {"date": 2017, "Szabadszentkir\u00e1ly": 796}, {"date": 2018, "Szabadszentkir\u00e1ly": 792}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

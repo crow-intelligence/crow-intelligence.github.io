@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Litka"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector617": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Litka"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector617"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Litka"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector617"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Litka", "selection": "selector617"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Litka"}}}], "data": {"name": "data-d44175f804163d7e7af47bbf6f33d03b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d44175f804163d7e7af47bbf6f33d03b": [{"date": 1986, "Litka": 110}, {"date": 1987, "Litka": 109}, {"date": 1988, "Litka": 110}, {"date": 1989, "Litka": 105}, {"date": 1990, "Litka": 100}, {"date": 1991, "Litka": 96}, {"date": 1992, "Litka": 93}, {"date": 1993, "Litka": 90}, {"date": 1994, "Litka": 89}, {"date": 1995, "Litka": 73}, {"date": 1996, "Litka": 74}, {"date": 1997, "Litka": 73}, {"date": 1998, "Litka": 73}, {"date": 1999, "Litka": 72}, {"date": 2000, "Litka": 73}, {"date": 2001, "Litka": 76}, {"date": 2002, "Litka": 77}, {"date": 2003, "Litka": 73}, {"date": 2004, "Litka": 71}, {"date": 2005, "Litka": 67}, {"date": 2006, "Litka": 64}, {"date": 2007, "Litka": 63}, {"date": 2008, "Litka": 66}, {"date": 2009, "Litka": 59}, {"date": 2010, "Litka": 56}, {"date": 2011, "Litka": 51}, {"date": 2012, "Litka": 48}, {"date": 2013, "Litka": 48}, {"date": 2014, "Litka": 46}, {"date": 2015, "Litka": 48}, {"date": 2016, "Litka": 47}, {"date": 2017, "Litka": 49}, {"date": 2018, "Litka": 48}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

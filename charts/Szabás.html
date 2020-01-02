@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szab\u00e1s"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1708": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szab\u00e1s"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1708"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szab\u00e1s"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1708"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szab\u00e1s", "selection": "selector1708"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szab\u00e1s"}}}], "data": {"name": "data-6eb79f4c4602ffe02d34eb4d887505be"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-6eb79f4c4602ffe02d34eb4d887505be": [{"date": 1986, "Szab\u00e1s": 613}, {"date": 1987, "Szab\u00e1s": 610}, {"date": 1988, "Szab\u00e1s": 588}, {"date": 1989, "Szab\u00e1s": 576}, {"date": 1990, "Szab\u00e1s": 583}, {"date": 1991, "Szab\u00e1s": 588}, {"date": 1992, "Szab\u00e1s": 593}, {"date": 1993, "Szab\u00e1s": 589}, {"date": 1994, "Szab\u00e1s": 598}, {"date": 1995, "Szab\u00e1s": 609}, {"date": 1996, "Szab\u00e1s": 624}, {"date": 1997, "Szab\u00e1s": 620}, {"date": 1998, "Szab\u00e1s": 625}, {"date": 1999, "Szab\u00e1s": 637}, {"date": 2000, "Szab\u00e1s": 639}, {"date": 2001, "Szab\u00e1s": 619}, {"date": 2002, "Szab\u00e1s": 605}, {"date": 2003, "Szab\u00e1s": 606}, {"date": 2004, "Szab\u00e1s": 613}, {"date": 2005, "Szab\u00e1s": 599}, {"date": 2006, "Szab\u00e1s": 605}, {"date": 2007, "Szab\u00e1s": 613}, {"date": 2008, "Szab\u00e1s": 607}, {"date": 2009, "Szab\u00e1s": 601}, {"date": 2010, "Szab\u00e1s": 599}, {"date": 2011, "Szab\u00e1s": 591}, {"date": 2012, "Szab\u00e1s": 582}, {"date": 2013, "Szab\u00e1s": 577}, {"date": 2014, "Szab\u00e1s": 571}, {"date": 2015, "Szab\u00e1s": 577}, {"date": 2016, "Szab\u00e1s": 560}, {"date": 2017, "Szab\u00e1s": 562}, {"date": 2018, "Szab\u00e1s": 571}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

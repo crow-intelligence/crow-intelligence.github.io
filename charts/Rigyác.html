@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rigy\u00e1c"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2656": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Rigy\u00e1c"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2656"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rigy\u00e1c"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2656"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Rigy\u00e1c", "selection": "selector2656"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rigy\u00e1c"}}}], "data": {"name": "data-a5356ff1662f08e31ec80c0f0681f99a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a5356ff1662f08e31ec80c0f0681f99a": [{"date": 1986, "Rigy\u00e1c": 491}, {"date": 1987, "Rigy\u00e1c": 482}, {"date": 1988, "Rigy\u00e1c": 482}, {"date": 1989, "Rigy\u00e1c": 488}, {"date": 1990, "Rigy\u00e1c": 489}, {"date": 1991, "Rigy\u00e1c": 492}, {"date": 1992, "Rigy\u00e1c": 482}, {"date": 1993, "Rigy\u00e1c": 474}, {"date": 1994, "Rigy\u00e1c": 472}, {"date": 1995, "Rigy\u00e1c": 479}, {"date": 1996, "Rigy\u00e1c": 478}, {"date": 1997, "Rigy\u00e1c": 482}, {"date": 1998, "Rigy\u00e1c": 484}, {"date": 1999, "Rigy\u00e1c": 481}, {"date": 2000, "Rigy\u00e1c": 478}, {"date": 2001, "Rigy\u00e1c": 464}, {"date": 2002, "Rigy\u00e1c": 470}, {"date": 2003, "Rigy\u00e1c": 471}, {"date": 2004, "Rigy\u00e1c": 454}, {"date": 2005, "Rigy\u00e1c": 458}, {"date": 2006, "Rigy\u00e1c": 451}, {"date": 2007, "Rigy\u00e1c": 435}, {"date": 2008, "Rigy\u00e1c": 421}, {"date": 2009, "Rigy\u00e1c": 422}, {"date": 2010, "Rigy\u00e1c": 412}, {"date": 2011, "Rigy\u00e1c": 413}, {"date": 2012, "Rigy\u00e1c": 413}, {"date": 2013, "Rigy\u00e1c": 415}, {"date": 2014, "Rigy\u00e1c": 411}, {"date": 2015, "Rigy\u00e1c": 423}, {"date": 2016, "Rigy\u00e1c": 437}, {"date": 2017, "Rigy\u00e1c": 423}, {"date": 2018, "Rigy\u00e1c": 424}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

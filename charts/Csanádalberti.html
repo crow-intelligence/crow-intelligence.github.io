@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csan\u00e1dalberti"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector771": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Csan\u00e1dalberti"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector771"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csan\u00e1dalberti"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector771"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Csan\u00e1dalberti", "selection": "selector771"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csan\u00e1dalberti"}}}], "data": {"name": "data-4214328de4b1b17c83b20172f7d19951"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-4214328de4b1b17c83b20172f7d19951": [{"date": 1986, "Csan\u00e1dalberti": 572}, {"date": 1987, "Csan\u00e1dalberti": 590}, {"date": 1988, "Csan\u00e1dalberti": 573}, {"date": 1989, "Csan\u00e1dalberti": 571}, {"date": 1990, "Csan\u00e1dalberti": 579}, {"date": 1991, "Csan\u00e1dalberti": 567}, {"date": 1992, "Csan\u00e1dalberti": 547}, {"date": 1993, "Csan\u00e1dalberti": 548}, {"date": 1994, "Csan\u00e1dalberti": 541}, {"date": 1995, "Csan\u00e1dalberti": 549}, {"date": 1996, "Csan\u00e1dalberti": 538}, {"date": 1997, "Csan\u00e1dalberti": 530}, {"date": 1998, "Csan\u00e1dalberti": 520}, {"date": 1999, "Csan\u00e1dalberti": 525}, {"date": 2000, "Csan\u00e1dalberti": 526}, {"date": 2001, "Csan\u00e1dalberti": 526}, {"date": 2002, "Csan\u00e1dalberti": 525}, {"date": 2003, "Csan\u00e1dalberti": 514}, {"date": 2004, "Csan\u00e1dalberti": 517}, {"date": 2005, "Csan\u00e1dalberti": 514}, {"date": 2006, "Csan\u00e1dalberti": 510}, {"date": 2007, "Csan\u00e1dalberti": 512}, {"date": 2008, "Csan\u00e1dalberti": 488}, {"date": 2009, "Csan\u00e1dalberti": 477}, {"date": 2010, "Csan\u00e1dalberti": 491}, {"date": 2011, "Csan\u00e1dalberti": 485}, {"date": 2012, "Csan\u00e1dalberti": 487}, {"date": 2013, "Csan\u00e1dalberti": 481}, {"date": 2014, "Csan\u00e1dalberti": 473}, {"date": 2015, "Csan\u00e1dalberti": 466}, {"date": 2016, "Csan\u00e1dalberti": 465}, {"date": 2017, "Csan\u00e1dalberti": 461}, {"date": 2018, "Csan\u00e1dalberti": 468}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonytam\u00e1si"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2300": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bakonytam\u00e1si"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2300"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonytam\u00e1si"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2300"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bakonytam\u00e1si", "selection": "selector2300"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonytam\u00e1si"}}}], "data": {"name": "data-2b85ba62322faa7878ece41d7d73a064"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2b85ba62322faa7878ece41d7d73a064": [{"date": 1986, "Bakonytam\u00e1si": 898}, {"date": 1987, "Bakonytam\u00e1si": 890}, {"date": 1988, "Bakonytam\u00e1si": 888}, {"date": 1989, "Bakonytam\u00e1si": 885}, {"date": 1990, "Bakonytam\u00e1si": 872}, {"date": 1991, "Bakonytam\u00e1si": 868}, {"date": 1992, "Bakonytam\u00e1si": 840}, {"date": 1993, "Bakonytam\u00e1si": 819}, {"date": 1994, "Bakonytam\u00e1si": 811}, {"date": 1995, "Bakonytam\u00e1si": 795}, {"date": 1996, "Bakonytam\u00e1si": 783}, {"date": 1997, "Bakonytam\u00e1si": 781}, {"date": 1998, "Bakonytam\u00e1si": 780}, {"date": 1999, "Bakonytam\u00e1si": 754}, {"date": 2000, "Bakonytam\u00e1si": 758}, {"date": 2001, "Bakonytam\u00e1si": 757}, {"date": 2002, "Bakonytam\u00e1si": 742}, {"date": 2003, "Bakonytam\u00e1si": 736}, {"date": 2004, "Bakonytam\u00e1si": 726}, {"date": 2005, "Bakonytam\u00e1si": 743}, {"date": 2006, "Bakonytam\u00e1si": 733}, {"date": 2007, "Bakonytam\u00e1si": 753}, {"date": 2008, "Bakonytam\u00e1si": 737}, {"date": 2009, "Bakonytam\u00e1si": 731}, {"date": 2010, "Bakonytam\u00e1si": 714}, {"date": 2011, "Bakonytam\u00e1si": 723}, {"date": 2012, "Bakonytam\u00e1si": 695}, {"date": 2013, "Bakonytam\u00e1si": 677}, {"date": 2014, "Bakonytam\u00e1si": 680}, {"date": 2015, "Bakonytam\u00e1si": 670}, {"date": 2016, "Bakonytam\u00e1si": 656}, {"date": 2017, "Bakonytam\u00e1si": 636}, {"date": 2018, "Bakonytam\u00e1si": 636}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

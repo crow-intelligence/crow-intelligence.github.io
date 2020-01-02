@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyszentiv\u00e1n"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2297": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bakonyszentiv\u00e1n"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2297"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyszentiv\u00e1n"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2297"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bakonyszentiv\u00e1n", "selection": "selector2297"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyszentiv\u00e1n"}}}], "data": {"name": "data-e6d25d67c8d81ef0c789f79cbefbe5a8"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e6d25d67c8d81ef0c789f79cbefbe5a8": [{"date": 1986, "Bakonyszentiv\u00e1n": 319}, {"date": 1987, "Bakonyszentiv\u00e1n": 320}, {"date": 1988, "Bakonyszentiv\u00e1n": 317}, {"date": 1989, "Bakonyszentiv\u00e1n": 319}, {"date": 1990, "Bakonyszentiv\u00e1n": 323}, {"date": 1991, "Bakonyszentiv\u00e1n": 316}, {"date": 1992, "Bakonyszentiv\u00e1n": 315}, {"date": 1993, "Bakonyszentiv\u00e1n": 309}, {"date": 1994, "Bakonyszentiv\u00e1n": 318}, {"date": 1995, "Bakonyszentiv\u00e1n": 310}, {"date": 1996, "Bakonyszentiv\u00e1n": 303}, {"date": 1997, "Bakonyszentiv\u00e1n": 287}, {"date": 1998, "Bakonyszentiv\u00e1n": 283}, {"date": 1999, "Bakonyszentiv\u00e1n": 285}, {"date": 2000, "Bakonyszentiv\u00e1n": 279}, {"date": 2001, "Bakonyszentiv\u00e1n": 272}, {"date": 2002, "Bakonyszentiv\u00e1n": 263}, {"date": 2003, "Bakonyszentiv\u00e1n": 254}, {"date": 2004, "Bakonyszentiv\u00e1n": 255}, {"date": 2005, "Bakonyszentiv\u00e1n": 252}, {"date": 2006, "Bakonyszentiv\u00e1n": 254}, {"date": 2007, "Bakonyszentiv\u00e1n": 247}, {"date": 2008, "Bakonyszentiv\u00e1n": 248}, {"date": 2009, "Bakonyszentiv\u00e1n": 244}, {"date": 2010, "Bakonyszentiv\u00e1n": 235}, {"date": 2011, "Bakonyszentiv\u00e1n": 230}, {"date": 2012, "Bakonyszentiv\u00e1n": 233}, {"date": 2013, "Bakonyszentiv\u00e1n": 242}, {"date": 2014, "Bakonyszentiv\u00e1n": 246}, {"date": 2015, "Bakonyszentiv\u00e1n": 251}, {"date": 2016, "Bakonyszentiv\u00e1n": 244}, {"date": 2017, "Bakonyszentiv\u00e1n": 237}, {"date": 2018, "Bakonyszentiv\u00e1n": 232}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

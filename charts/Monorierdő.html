@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monorierd\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1456": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Monorierd\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1456"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monorierd\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1456"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Monorierd\u0151", "selection": "selector1456"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monorierd\u0151"}}}], "data": {"name": "data-447c78f2e8a24144338a811d4200239d"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-447c78f2e8a24144338a811d4200239d": [{"date": 1986, "Monorierd\u0151": 0}, {"date": 1987, "Monorierd\u0151": 0}, {"date": 1988, "Monorierd\u0151": 0}, {"date": 1989, "Monorierd\u0151": 0}, {"date": 1990, "Monorierd\u0151": 0}, {"date": 1991, "Monorierd\u0151": 0}, {"date": 1992, "Monorierd\u0151": 0}, {"date": 1993, "Monorierd\u0151": 0}, {"date": 1994, "Monorierd\u0151": 0}, {"date": 1995, "Monorierd\u0151": 0}, {"date": 1996, "Monorierd\u0151": 0}, {"date": 1997, "Monorierd\u0151": 0}, {"date": 1998, "Monorierd\u0151": 0}, {"date": 1999, "Monorierd\u0151": 0}, {"date": 2000, "Monorierd\u0151": 0}, {"date": 2001, "Monorierd\u0151": 0}, {"date": 2002, "Monorierd\u0151": 0}, {"date": 2003, "Monorierd\u0151": 0}, {"date": 2004, "Monorierd\u0151": 0}, {"date": 2005, "Monorierd\u0151": 0}, {"date": 2006, "Monorierd\u0151": 0}, {"date": 2007, "Monorierd\u0151": 4074}, {"date": 2008, "Monorierd\u0151": 4175}, {"date": 2009, "Monorierd\u0151": 4239}, {"date": 2010, "Monorierd\u0151": 4282}, {"date": 2011, "Monorierd\u0151": 4347}, {"date": 2012, "Monorierd\u0151": 4435}, {"date": 2013, "Monorierd\u0151": 4449}, {"date": 2014, "Monorierd\u0151": 4447}, {"date": 2015, "Monorierd\u0151": 4505}, {"date": 2016, "Monorierd\u0151": 4538}, {"date": 2017, "Monorierd\u0151": 4591}, {"date": 2018, "Monorierd\u0151": 4666}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

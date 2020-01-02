@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budakeszi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3023": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Budakeszi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3023"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budakeszi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3023"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Budakeszi", "selection": "selector3023"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budakeszi"}}}], "data": {"name": "data-18bb932416581f54c8bf4fd38e3254e3"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-18bb932416581f54c8bf4fd38e3254e3": [{"date": 1986, "Budakeszi": 11626}, {"date": 1987, "Budakeszi": 11588}, {"date": 1988, "Budakeszi": 11611}, {"date": 1989, "Budakeszi": 11563}, {"date": 1990, "Budakeszi": 11634}, {"date": 1991, "Budakeszi": 12413}, {"date": 1992, "Budakeszi": 11608}, {"date": 1993, "Budakeszi": 11720}, {"date": 1994, "Budakeszi": 11825}, {"date": 1995, "Budakeszi": 11972}, {"date": 1996, "Budakeszi": 12007}, {"date": 1997, "Budakeszi": 12205}, {"date": 1998, "Budakeszi": 12185}, {"date": 1999, "Budakeszi": 12390}, {"date": 2000, "Budakeszi": 12515}, {"date": 2001, "Budakeszi": 12624}, {"date": 2002, "Budakeszi": 12733}, {"date": 2003, "Budakeszi": 13039}, {"date": 2004, "Budakeszi": 13141}, {"date": 2005, "Budakeszi": 13082}, {"date": 2006, "Budakeszi": 13412}, {"date": 2007, "Budakeszi": 13532}, {"date": 2008, "Budakeszi": 13773}, {"date": 2009, "Budakeszi": 13900}, {"date": 2010, "Budakeszi": 14077}, {"date": 2011, "Budakeszi": 14168}, {"date": 2012, "Budakeszi": 14350}, {"date": 2013, "Budakeszi": 14357}, {"date": 2014, "Budakeszi": 14374}, {"date": 2015, "Budakeszi": 14479}, {"date": 2016, "Budakeszi": 14575}, {"date": 2017, "Budakeszi": 14741}, {"date": 2018, "Budakeszi": 14887}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

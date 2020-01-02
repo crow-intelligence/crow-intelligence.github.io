@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Birj\u00e1n"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector141": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Birj\u00e1n"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector141"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Birj\u00e1n"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector141"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Birj\u00e1n", "selection": "selector141"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Birj\u00e1n"}}}], "data": {"name": "data-5a2803138d683a096d71e61b8381e0a6"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-5a2803138d683a096d71e61b8381e0a6": [{"date": 1986, "Birj\u00e1n": 0}, {"date": 1987, "Birj\u00e1n": 0}, {"date": 1988, "Birj\u00e1n": 0}, {"date": 1989, "Birj\u00e1n": 0}, {"date": 1990, "Birj\u00e1n": 0}, {"date": 1991, "Birj\u00e1n": 0}, {"date": 1992, "Birj\u00e1n": 0}, {"date": 1993, "Birj\u00e1n": 0}, {"date": 1994, "Birj\u00e1n": 399}, {"date": 1995, "Birj\u00e1n": 399}, {"date": 1996, "Birj\u00e1n": 422}, {"date": 1997, "Birj\u00e1n": 426}, {"date": 1998, "Birj\u00e1n": 429}, {"date": 1999, "Birj\u00e1n": 438}, {"date": 2000, "Birj\u00e1n": 443}, {"date": 2001, "Birj\u00e1n": 451}, {"date": 2002, "Birj\u00e1n": 457}, {"date": 2003, "Birj\u00e1n": 451}, {"date": 2004, "Birj\u00e1n": 453}, {"date": 2005, "Birj\u00e1n": 461}, {"date": 2006, "Birj\u00e1n": 493}, {"date": 2007, "Birj\u00e1n": 515}, {"date": 2008, "Birj\u00e1n": 506}, {"date": 2009, "Birj\u00e1n": 521}, {"date": 2010, "Birj\u00e1n": 556}, {"date": 2011, "Birj\u00e1n": 561}, {"date": 2012, "Birj\u00e1n": 555}, {"date": 2013, "Birj\u00e1n": 540}, {"date": 2014, "Birj\u00e1n": 524}, {"date": 2015, "Birj\u00e1n": 538}, {"date": 2016, "Birj\u00e1n": 530}, {"date": 2017, "Birj\u00e1n": 528}, {"date": 2018, "Birj\u00e1n": 526}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

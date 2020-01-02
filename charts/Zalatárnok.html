@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalat\u00e1rnok"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2724": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zalat\u00e1rnok"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2724"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalat\u00e1rnok"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2724"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zalat\u00e1rnok", "selection": "selector2724"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalat\u00e1rnok"}}}], "data": {"name": "data-51e68bf8fd4cd7568e44bcf47646d1d8"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-51e68bf8fd4cd7568e44bcf47646d1d8": [{"date": 1986, "Zalat\u00e1rnok": 913}, {"date": 1987, "Zalat\u00e1rnok": 891}, {"date": 1988, "Zalat\u00e1rnok": 873}, {"date": 1989, "Zalat\u00e1rnok": 856}, {"date": 1990, "Zalat\u00e1rnok": 850}, {"date": 1991, "Zalat\u00e1rnok": 843}, {"date": 1992, "Zalat\u00e1rnok": 831}, {"date": 1993, "Zalat\u00e1rnok": 815}, {"date": 1994, "Zalat\u00e1rnok": 797}, {"date": 1995, "Zalat\u00e1rnok": 790}, {"date": 1996, "Zalat\u00e1rnok": 772}, {"date": 1997, "Zalat\u00e1rnok": 773}, {"date": 1998, "Zalat\u00e1rnok": 777}, {"date": 1999, "Zalat\u00e1rnok": 771}, {"date": 2000, "Zalat\u00e1rnok": 762}, {"date": 2001, "Zalat\u00e1rnok": 745}, {"date": 2002, "Zalat\u00e1rnok": 748}, {"date": 2003, "Zalat\u00e1rnok": 752}, {"date": 2004, "Zalat\u00e1rnok": 744}, {"date": 2005, "Zalat\u00e1rnok": 727}, {"date": 2006, "Zalat\u00e1rnok": 719}, {"date": 2007, "Zalat\u00e1rnok": 704}, {"date": 2008, "Zalat\u00e1rnok": 716}, {"date": 2009, "Zalat\u00e1rnok": 705}, {"date": 2010, "Zalat\u00e1rnok": 697}, {"date": 2011, "Zalat\u00e1rnok": 699}, {"date": 2012, "Zalat\u00e1rnok": 674}, {"date": 2013, "Zalat\u00e1rnok": 664}, {"date": 2014, "Zalat\u00e1rnok": 658}, {"date": 2015, "Zalat\u00e1rnok": 650}, {"date": 2016, "Zalat\u00e1rnok": 644}, {"date": 2017, "Zalat\u00e1rnok": 630}, {"date": 2018, "Zalat\u00e1rnok": 615}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

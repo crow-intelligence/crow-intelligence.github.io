@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csokonyavisonta"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1554": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Csokonyavisonta"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1554"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csokonyavisonta"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1554"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Csokonyavisonta", "selection": "selector1554"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csokonyavisonta"}}}], "data": {"name": "data-d9567ba9a2996ae8a7d50ebe758f7f67"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d9567ba9a2996ae8a7d50ebe758f7f67": [{"date": 1986, "Csokonyavisonta": 1983}, {"date": 1987, "Csokonyavisonta": 1936}, {"date": 1988, "Csokonyavisonta": 1908}, {"date": 1989, "Csokonyavisonta": 1888}, {"date": 1990, "Csokonyavisonta": 1854}, {"date": 1991, "Csokonyavisonta": 1863}, {"date": 1992, "Csokonyavisonta": 1809}, {"date": 1993, "Csokonyavisonta": 1802}, {"date": 1994, "Csokonyavisonta": 1780}, {"date": 1995, "Csokonyavisonta": 1794}, {"date": 1996, "Csokonyavisonta": 1760}, {"date": 1997, "Csokonyavisonta": 1747}, {"date": 1998, "Csokonyavisonta": 1749}, {"date": 1999, "Csokonyavisonta": 1750}, {"date": 2000, "Csokonyavisonta": 1727}, {"date": 2001, "Csokonyavisonta": 1697}, {"date": 2002, "Csokonyavisonta": 1681}, {"date": 2003, "Csokonyavisonta": 1677}, {"date": 2004, "Csokonyavisonta": 1661}, {"date": 2005, "Csokonyavisonta": 1666}, {"date": 2006, "Csokonyavisonta": 1642}, {"date": 2007, "Csokonyavisonta": 1632}, {"date": 2008, "Csokonyavisonta": 1598}, {"date": 2009, "Csokonyavisonta": 1594}, {"date": 2010, "Csokonyavisonta": 1581}, {"date": 2011, "Csokonyavisonta": 1569}, {"date": 2012, "Csokonyavisonta": 1565}, {"date": 2013, "Csokonyavisonta": 1538}, {"date": 2014, "Csokonyavisonta": 1544}, {"date": 2015, "Csokonyavisonta": 1539}, {"date": 2016, "Csokonyavisonta": 1526}, {"date": 2017, "Csokonyavisonta": 1522}, {"date": 2018, "Csokonyavisonta": 1539}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

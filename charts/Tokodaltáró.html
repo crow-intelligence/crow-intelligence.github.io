@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tokodalt\u00e1r\u00f3"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1272": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tokodalt\u00e1r\u00f3"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1272"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tokodalt\u00e1r\u00f3"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1272"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tokodalt\u00e1r\u00f3", "selection": "selector1272"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tokodalt\u00e1r\u00f3"}}}], "data": {"name": "data-f614e259de99da20b89fcae58a421b4a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f614e259de99da20b89fcae58a421b4a": [{"date": 1986, "Tokodalt\u00e1r\u00f3": 0}, {"date": 1987, "Tokodalt\u00e1r\u00f3": 0}, {"date": 1988, "Tokodalt\u00e1r\u00f3": 0}, {"date": 1989, "Tokodalt\u00e1r\u00f3": 0}, {"date": 1990, "Tokodalt\u00e1r\u00f3": 0}, {"date": 1991, "Tokodalt\u00e1r\u00f3": 0}, {"date": 1992, "Tokodalt\u00e1r\u00f3": 0}, {"date": 1993, "Tokodalt\u00e1r\u00f3": 3003}, {"date": 1994, "Tokodalt\u00e1r\u00f3": 3061}, {"date": 1995, "Tokodalt\u00e1r\u00f3": 3062}, {"date": 1996, "Tokodalt\u00e1r\u00f3": 3051}, {"date": 1997, "Tokodalt\u00e1r\u00f3": 3151}, {"date": 1998, "Tokodalt\u00e1r\u00f3": 3105}, {"date": 1999, "Tokodalt\u00e1r\u00f3": 3139}, {"date": 2000, "Tokodalt\u00e1r\u00f3": 3141}, {"date": 2001, "Tokodalt\u00e1r\u00f3": 3132}, {"date": 2002, "Tokodalt\u00e1r\u00f3": 3150}, {"date": 2003, "Tokodalt\u00e1r\u00f3": 3177}, {"date": 2004, "Tokodalt\u00e1r\u00f3": 3195}, {"date": 2005, "Tokodalt\u00e1r\u00f3": 3169}, {"date": 2006, "Tokodalt\u00e1r\u00f3": 3203}, {"date": 2007, "Tokodalt\u00e1r\u00f3": 3186}, {"date": 2008, "Tokodalt\u00e1r\u00f3": 3177}, {"date": 2009, "Tokodalt\u00e1r\u00f3": 3161}, {"date": 2010, "Tokodalt\u00e1r\u00f3": 3130}, {"date": 2011, "Tokodalt\u00e1r\u00f3": 3118}, {"date": 2012, "Tokodalt\u00e1r\u00f3": 3112}, {"date": 2013, "Tokodalt\u00e1r\u00f3": 3102}, {"date": 2014, "Tokodalt\u00e1r\u00f3": 3065}, {"date": 2015, "Tokodalt\u00e1r\u00f3": 3095}, {"date": 2016, "Tokodalt\u00e1r\u00f3": 3054}, {"date": 2017, "Tokodalt\u00e1r\u00f3": 3049}, {"date": 2018, "Tokodalt\u00e1r\u00f3": 3033}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

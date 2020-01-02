@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Visonta"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1213": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Visonta"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1213"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Visonta"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1213"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Visonta", "selection": "selector1213"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Visonta"}}}], "data": {"name": "data-95eb5f814fb573fcaea9255c091dd5a7"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-95eb5f814fb573fcaea9255c091dd5a7": [{"date": 1986, "Visonta": 1379}, {"date": 1987, "Visonta": 1297}, {"date": 1988, "Visonta": 1336}, {"date": 1989, "Visonta": 1335}, {"date": 1990, "Visonta": 1331}, {"date": 1991, "Visonta": 1328}, {"date": 1992, "Visonta": 1355}, {"date": 1993, "Visonta": 1349}, {"date": 1994, "Visonta": 1324}, {"date": 1995, "Visonta": 1335}, {"date": 1996, "Visonta": 1351}, {"date": 1997, "Visonta": 1350}, {"date": 1998, "Visonta": 1078}, {"date": 1999, "Visonta": 1073}, {"date": 2000, "Visonta": 1068}, {"date": 2001, "Visonta": 1061}, {"date": 2002, "Visonta": 1055}, {"date": 2003, "Visonta": 1076}, {"date": 2004, "Visonta": 1068}, {"date": 2005, "Visonta": 1067}, {"date": 2006, "Visonta": 1095}, {"date": 2007, "Visonta": 1111}, {"date": 2008, "Visonta": 1105}, {"date": 2009, "Visonta": 1116}, {"date": 2010, "Visonta": 1134}, {"date": 2011, "Visonta": 1178}, {"date": 2012, "Visonta": 1198}, {"date": 2013, "Visonta": 1186}, {"date": 2014, "Visonta": 1210}, {"date": 2015, "Visonta": 1214}, {"date": 2016, "Visonta": 1217}, {"date": 2017, "Visonta": 1242}, {"date": 2018, "Visonta": 1245}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

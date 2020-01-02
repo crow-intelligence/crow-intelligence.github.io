@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szilv\u00e1sszentm\u00e1rton"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1717": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szilv\u00e1sszentm\u00e1rton"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1717"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szilv\u00e1sszentm\u00e1rton"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1717"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szilv\u00e1sszentm\u00e1rton", "selection": "selector1717"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szilv\u00e1sszentm\u00e1rton"}}}], "data": {"name": "data-1a5f8fc0704f9e5fc887eb8e0f9f82c9"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1a5f8fc0704f9e5fc887eb8e0f9f82c9": [{"date": 1986, "Szilv\u00e1sszentm\u00e1rton": 187}, {"date": 1987, "Szilv\u00e1sszentm\u00e1rton": 193}, {"date": 1988, "Szilv\u00e1sszentm\u00e1rton": 186}, {"date": 1989, "Szilv\u00e1sszentm\u00e1rton": 189}, {"date": 1990, "Szilv\u00e1sszentm\u00e1rton": 192}, {"date": 1991, "Szilv\u00e1sszentm\u00e1rton": 195}, {"date": 1992, "Szilv\u00e1sszentm\u00e1rton": 200}, {"date": 1993, "Szilv\u00e1sszentm\u00e1rton": 194}, {"date": 1994, "Szilv\u00e1sszentm\u00e1rton": 190}, {"date": 1995, "Szilv\u00e1sszentm\u00e1rton": 198}, {"date": 1996, "Szilv\u00e1sszentm\u00e1rton": 208}, {"date": 1997, "Szilv\u00e1sszentm\u00e1rton": 214}, {"date": 1998, "Szilv\u00e1sszentm\u00e1rton": 226}, {"date": 1999, "Szilv\u00e1sszentm\u00e1rton": 231}, {"date": 2000, "Szilv\u00e1sszentm\u00e1rton": 241}, {"date": 2001, "Szilv\u00e1sszentm\u00e1rton": 238}, {"date": 2002, "Szilv\u00e1sszentm\u00e1rton": 244}, {"date": 2003, "Szilv\u00e1sszentm\u00e1rton": 243}, {"date": 2004, "Szilv\u00e1sszentm\u00e1rton": 240}, {"date": 2005, "Szilv\u00e1sszentm\u00e1rton": 235}, {"date": 2006, "Szilv\u00e1sszentm\u00e1rton": 223}, {"date": 2007, "Szilv\u00e1sszentm\u00e1rton": 214}, {"date": 2008, "Szilv\u00e1sszentm\u00e1rton": 211}, {"date": 2009, "Szilv\u00e1sszentm\u00e1rton": 210}, {"date": 2010, "Szilv\u00e1sszentm\u00e1rton": 206}, {"date": 2011, "Szilv\u00e1sszentm\u00e1rton": 209}, {"date": 2012, "Szilv\u00e1sszentm\u00e1rton": 213}, {"date": 2013, "Szilv\u00e1sszentm\u00e1rton": 213}, {"date": 2014, "Szilv\u00e1sszentm\u00e1rton": 210}, {"date": 2015, "Szilv\u00e1sszentm\u00e1rton": 212}, {"date": 2016, "Szilv\u00e1sszentm\u00e1rton": 213}, {"date": 2017, "Szilv\u00e1sszentm\u00e1rton": 212}, {"date": 2018, "Szilv\u00e1sszentm\u00e1rton": 210}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

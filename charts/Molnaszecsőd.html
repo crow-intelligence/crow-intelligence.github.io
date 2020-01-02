@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Molnaszecs\u0151d"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2186": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Molnaszecs\u0151d"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2186"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Molnaszecs\u0151d"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2186"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Molnaszecs\u0151d", "selection": "selector2186"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Molnaszecs\u0151d"}}}], "data": {"name": "data-ed720dbd2df11a4a0d43f44b6ad78d03"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ed720dbd2df11a4a0d43f44b6ad78d03": [{"date": 1986, "Molnaszecs\u0151d": 449}, {"date": 1987, "Molnaszecs\u0151d": 449}, {"date": 1988, "Molnaszecs\u0151d": 452}, {"date": 1989, "Molnaszecs\u0151d": 445}, {"date": 1990, "Molnaszecs\u0151d": 447}, {"date": 1991, "Molnaszecs\u0151d": 445}, {"date": 1992, "Molnaszecs\u0151d": 442}, {"date": 1993, "Molnaszecs\u0151d": 439}, {"date": 1994, "Molnaszecs\u0151d": 442}, {"date": 1995, "Molnaszecs\u0151d": 433}, {"date": 1996, "Molnaszecs\u0151d": 433}, {"date": 1997, "Molnaszecs\u0151d": 427}, {"date": 1998, "Molnaszecs\u0151d": 428}, {"date": 1999, "Molnaszecs\u0151d": 425}, {"date": 2000, "Molnaszecs\u0151d": 426}, {"date": 2001, "Molnaszecs\u0151d": 422}, {"date": 2002, "Molnaszecs\u0151d": 421}, {"date": 2003, "Molnaszecs\u0151d": 418}, {"date": 2004, "Molnaszecs\u0151d": 423}, {"date": 2005, "Molnaszecs\u0151d": 430}, {"date": 2006, "Molnaszecs\u0151d": 446}, {"date": 2007, "Molnaszecs\u0151d": 442}, {"date": 2008, "Molnaszecs\u0151d": 449}, {"date": 2009, "Molnaszecs\u0151d": 448}, {"date": 2010, "Molnaszecs\u0151d": 448}, {"date": 2011, "Molnaszecs\u0151d": 445}, {"date": 2012, "Molnaszecs\u0151d": 444}, {"date": 2013, "Molnaszecs\u0151d": 436}, {"date": 2014, "Molnaszecs\u0151d": 433}, {"date": 2015, "Molnaszecs\u0151d": 428}, {"date": 2016, "Molnaszecs\u0151d": 422}, {"date": 2017, "Molnaszecs\u0151d": 424}, {"date": 2018, "Molnaszecs\u0151d": 420}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

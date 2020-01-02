@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Vilm\u00e1ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector753": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Vilm\u00e1ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector753"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Vilm\u00e1ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector753"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Vilm\u00e1ny", "selection": "selector753"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Vilm\u00e1ny"}}}], "data": {"name": "data-8e514ec751d978f043cd2015d1c6bc93"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-8e514ec751d978f043cd2015d1c6bc93": [{"date": 1986, "Vilm\u00e1ny": 1340}, {"date": 1987, "Vilm\u00e1ny": 1336}, {"date": 1988, "Vilm\u00e1ny": 1345}, {"date": 1989, "Vilm\u00e1ny": 1353}, {"date": 1990, "Vilm\u00e1ny": 1339}, {"date": 1991, "Vilm\u00e1ny": 1345}, {"date": 1992, "Vilm\u00e1ny": 1349}, {"date": 1993, "Vilm\u00e1ny": 1339}, {"date": 1994, "Vilm\u00e1ny": 1316}, {"date": 1995, "Vilm\u00e1ny": 1322}, {"date": 1996, "Vilm\u00e1ny": 1337}, {"date": 1997, "Vilm\u00e1ny": 1357}, {"date": 1998, "Vilm\u00e1ny": 1397}, {"date": 1999, "Vilm\u00e1ny": 1400}, {"date": 2000, "Vilm\u00e1ny": 1423}, {"date": 2001, "Vilm\u00e1ny": 1446}, {"date": 2002, "Vilm\u00e1ny": 1454}, {"date": 2003, "Vilm\u00e1ny": 1460}, {"date": 2004, "Vilm\u00e1ny": 1427}, {"date": 2005, "Vilm\u00e1ny": 1444}, {"date": 2006, "Vilm\u00e1ny": 1469}, {"date": 2007, "Vilm\u00e1ny": 1469}, {"date": 2008, "Vilm\u00e1ny": 1472}, {"date": 2009, "Vilm\u00e1ny": 1472}, {"date": 2010, "Vilm\u00e1ny": 1502}, {"date": 2011, "Vilm\u00e1ny": 1511}, {"date": 2012, "Vilm\u00e1ny": 1484}, {"date": 2013, "Vilm\u00e1ny": 1461}, {"date": 2014, "Vilm\u00e1ny": 1467}, {"date": 2015, "Vilm\u00e1ny": 1469}, {"date": 2016, "Vilm\u00e1ny": 1492}, {"date": 2017, "Vilm\u00e1ny": 1506}, {"date": 2018, "Vilm\u00e1ny": 1492}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsodiv\u00e1nka"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector485": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Borsodiv\u00e1nka"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector485"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsodiv\u00e1nka"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector485"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Borsodiv\u00e1nka", "selection": "selector485"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsodiv\u00e1nka"}}}], "data": {"name": "data-a6ce87425d4811f8a16f295d6a959773"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a6ce87425d4811f8a16f295d6a959773": [{"date": 1986, "Borsodiv\u00e1nka": 711}, {"date": 1987, "Borsodiv\u00e1nka": 690}, {"date": 1988, "Borsodiv\u00e1nka": 683}, {"date": 1989, "Borsodiv\u00e1nka": 775}, {"date": 1990, "Borsodiv\u00e1nka": 799}, {"date": 1991, "Borsodiv\u00e1nka": 800}, {"date": 1992, "Borsodiv\u00e1nka": 819}, {"date": 1993, "Borsodiv\u00e1nka": 821}, {"date": 1994, "Borsodiv\u00e1nka": 822}, {"date": 1995, "Borsodiv\u00e1nka": 827}, {"date": 1996, "Borsodiv\u00e1nka": 835}, {"date": 1997, "Borsodiv\u00e1nka": 832}, {"date": 1998, "Borsodiv\u00e1nka": 811}, {"date": 1999, "Borsodiv\u00e1nka": 796}, {"date": 2000, "Borsodiv\u00e1nka": 808}, {"date": 2001, "Borsodiv\u00e1nka": 802}, {"date": 2002, "Borsodiv\u00e1nka": 786}, {"date": 2003, "Borsodiv\u00e1nka": 756}, {"date": 2004, "Borsodiv\u00e1nka": 727}, {"date": 2005, "Borsodiv\u00e1nka": 745}, {"date": 2006, "Borsodiv\u00e1nka": 752}, {"date": 2007, "Borsodiv\u00e1nka": 755}, {"date": 2008, "Borsodiv\u00e1nka": 754}, {"date": 2009, "Borsodiv\u00e1nka": 742}, {"date": 2010, "Borsodiv\u00e1nka": 744}, {"date": 2011, "Borsodiv\u00e1nka": 738}, {"date": 2012, "Borsodiv\u00e1nka": 741}, {"date": 2013, "Borsodiv\u00e1nka": 732}, {"date": 2014, "Borsodiv\u00e1nka": 727}, {"date": 2015, "Borsodiv\u00e1nka": 713}, {"date": 2016, "Borsodiv\u00e1nka": 726}, {"date": 2017, "Borsodiv\u00e1nka": 728}, {"date": 2018, "Borsodiv\u00e1nka": 697}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

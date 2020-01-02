@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "B\u00e9k\u00e9sszentandr\u00e1s"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2762": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["B\u00e9k\u00e9sszentandr\u00e1s"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2762"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "B\u00e9k\u00e9sszentandr\u00e1s"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2762"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "B\u00e9k\u00e9sszentandr\u00e1s", "selection": "selector2762"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "B\u00e9k\u00e9sszentandr\u00e1s"}}}], "data": {"name": "data-a6c950f55505e7941c34aa8c74f75744"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a6c950f55505e7941c34aa8c74f75744": [{"date": 1986, "B\u00e9k\u00e9sszentandr\u00e1s": 4456}, {"date": 1987, "B\u00e9k\u00e9sszentandr\u00e1s": 4428}, {"date": 1988, "B\u00e9k\u00e9sszentandr\u00e1s": 4410}, {"date": 1989, "B\u00e9k\u00e9sszentandr\u00e1s": 4401}, {"date": 1990, "B\u00e9k\u00e9sszentandr\u00e1s": 4384}, {"date": 1991, "B\u00e9k\u00e9sszentandr\u00e1s": 4384}, {"date": 1992, "B\u00e9k\u00e9sszentandr\u00e1s": 4376}, {"date": 1993, "B\u00e9k\u00e9sszentandr\u00e1s": 4351}, {"date": 1994, "B\u00e9k\u00e9sszentandr\u00e1s": 4341}, {"date": 1995, "B\u00e9k\u00e9sszentandr\u00e1s": 4276}, {"date": 1996, "B\u00e9k\u00e9sszentandr\u00e1s": 4258}, {"date": 1997, "B\u00e9k\u00e9sszentandr\u00e1s": 4228}, {"date": 1998, "B\u00e9k\u00e9sszentandr\u00e1s": 4227}, {"date": 1999, "B\u00e9k\u00e9sszentandr\u00e1s": 4190}, {"date": 2000, "B\u00e9k\u00e9sszentandr\u00e1s": 4153}, {"date": 2001, "B\u00e9k\u00e9sszentandr\u00e1s": 4117}, {"date": 2002, "B\u00e9k\u00e9sszentandr\u00e1s": 8140}, {"date": 2003, "B\u00e9k\u00e9sszentandr\u00e1s": 4095}, {"date": 2004, "B\u00e9k\u00e9sszentandr\u00e1s": 4048}, {"date": 2005, "B\u00e9k\u00e9sszentandr\u00e1s": 4035}, {"date": 2006, "B\u00e9k\u00e9sszentandr\u00e1s": 3971}, {"date": 2007, "B\u00e9k\u00e9sszentandr\u00e1s": 3961}, {"date": 2008, "B\u00e9k\u00e9sszentandr\u00e1s": 3939}, {"date": 2009, "B\u00e9k\u00e9sszentandr\u00e1s": 3908}, {"date": 2010, "B\u00e9k\u00e9sszentandr\u00e1s": 3867}, {"date": 2011, "B\u00e9k\u00e9sszentandr\u00e1s": 3852}, {"date": 2012, "B\u00e9k\u00e9sszentandr\u00e1s": 3814}, {"date": 2013, "B\u00e9k\u00e9sszentandr\u00e1s": 3799}, {"date": 2014, "B\u00e9k\u00e9sszentandr\u00e1s": 3765}, {"date": 2015, "B\u00e9k\u00e9sszentandr\u00e1s": 3723}, {"date": 2016, "B\u00e9k\u00e9sszentandr\u00e1s": 3708}, {"date": 2017, "B\u00e9k\u00e9sszentandr\u00e1s": 3716}, {"date": 2018, "B\u00e9k\u00e9sszentandr\u00e1s": 3693}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

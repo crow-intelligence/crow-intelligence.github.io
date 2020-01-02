@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fityeh\u00e1z"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2536": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Fityeh\u00e1z"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2536"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fityeh\u00e1z"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2536"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Fityeh\u00e1z", "selection": "selector2536"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fityeh\u00e1z"}}}], "data": {"name": "data-f0600fb5a1ee639e0b3eab63b73c6a9e"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f0600fb5a1ee639e0b3eab63b73c6a9e": [{"date": 1986, "Fityeh\u00e1z": 859}, {"date": 1987, "Fityeh\u00e1z": 850}, {"date": 1988, "Fityeh\u00e1z": 836}, {"date": 1989, "Fityeh\u00e1z": 821}, {"date": 1990, "Fityeh\u00e1z": 804}, {"date": 1991, "Fityeh\u00e1z": 788}, {"date": 1992, "Fityeh\u00e1z": 781}, {"date": 1993, "Fityeh\u00e1z": 775}, {"date": 1994, "Fityeh\u00e1z": 773}, {"date": 1995, "Fityeh\u00e1z": 767}, {"date": 1996, "Fityeh\u00e1z": 760}, {"date": 1997, "Fityeh\u00e1z": 762}, {"date": 1998, "Fityeh\u00e1z": 755}, {"date": 1999, "Fityeh\u00e1z": 738}, {"date": 2000, "Fityeh\u00e1z": 733}, {"date": 2001, "Fityeh\u00e1z": 715}, {"date": 2002, "Fityeh\u00e1z": 713}, {"date": 2003, "Fityeh\u00e1z": 718}, {"date": 2004, "Fityeh\u00e1z": 720}, {"date": 2005, "Fityeh\u00e1z": 716}, {"date": 2006, "Fityeh\u00e1z": 713}, {"date": 2007, "Fityeh\u00e1z": 707}, {"date": 2008, "Fityeh\u00e1z": 696}, {"date": 2009, "Fityeh\u00e1z": 686}, {"date": 2010, "Fityeh\u00e1z": 694}, {"date": 2011, "Fityeh\u00e1z": 682}, {"date": 2012, "Fityeh\u00e1z": 679}, {"date": 2013, "Fityeh\u00e1z": 677}, {"date": 2014, "Fityeh\u00e1z": 663}, {"date": 2015, "Fityeh\u00e1z": 668}, {"date": 2016, "Fityeh\u00e1z": 661}, {"date": 2017, "Fityeh\u00e1z": 652}, {"date": 2018, "Fityeh\u00e1z": 625}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

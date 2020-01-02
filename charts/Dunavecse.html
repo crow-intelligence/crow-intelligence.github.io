@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunavecse"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2858": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dunavecse"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2858"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunavecse"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2858"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dunavecse", "selection": "selector2858"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunavecse"}}}], "data": {"name": "data-f456ab43a569b5fbea42c6ff5ce84dcd"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f456ab43a569b5fbea42c6ff5ce84dcd": [{"date": 1986, "Dunavecse": 4416}, {"date": 1987, "Dunavecse": 4361}, {"date": 1988, "Dunavecse": 4337}, {"date": 1989, "Dunavecse": 4285}, {"date": 1990, "Dunavecse": 4275}, {"date": 1991, "Dunavecse": 4245}, {"date": 1992, "Dunavecse": 4167}, {"date": 1993, "Dunavecse": 4224}, {"date": 1994, "Dunavecse": 4197}, {"date": 1995, "Dunavecse": 4235}, {"date": 1996, "Dunavecse": 4254}, {"date": 1997, "Dunavecse": 4257}, {"date": 1998, "Dunavecse": 4248}, {"date": 1999, "Dunavecse": 4227}, {"date": 2000, "Dunavecse": 4168}, {"date": 2001, "Dunavecse": 4209}, {"date": 2002, "Dunavecse": 3761}, {"date": 2003, "Dunavecse": 4187}, {"date": 2004, "Dunavecse": 4168}, {"date": 2005, "Dunavecse": 4147}, {"date": 2006, "Dunavecse": 4140}, {"date": 2007, "Dunavecse": 4135}, {"date": 2008, "Dunavecse": 4158}, {"date": 2009, "Dunavecse": 4132}, {"date": 2010, "Dunavecse": 4131}, {"date": 2011, "Dunavecse": 4088}, {"date": 2012, "Dunavecse": 4063}, {"date": 2013, "Dunavecse": 4054}, {"date": 2014, "Dunavecse": 4033}, {"date": 2015, "Dunavecse": 4001}, {"date": 2016, "Dunavecse": 3985}, {"date": 2017, "Dunavecse": 3995}, {"date": 2018, "Dunavecse": 3938}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

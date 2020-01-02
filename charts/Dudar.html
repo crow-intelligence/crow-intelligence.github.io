@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dudar"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2333": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dudar"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2333"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dudar"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2333"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dudar", "selection": "selector2333"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dudar"}}}], "data": {"name": "data-fdea47a9d32175124e3231217bcc52ab"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-fdea47a9d32175124e3231217bcc52ab": [{"date": 1986, "Dudar": 1762}, {"date": 1987, "Dudar": 1743}, {"date": 1988, "Dudar": 1752}, {"date": 1989, "Dudar": 1775}, {"date": 1990, "Dudar": 1761}, {"date": 1991, "Dudar": 1758}, {"date": 1992, "Dudar": 1775}, {"date": 1993, "Dudar": 1787}, {"date": 1994, "Dudar": 1782}, {"date": 1995, "Dudar": 1783}, {"date": 1996, "Dudar": 1810}, {"date": 1997, "Dudar": 1810}, {"date": 1998, "Dudar": 1816}, {"date": 1999, "Dudar": 1808}, {"date": 2000, "Dudar": 1803}, {"date": 2001, "Dudar": 1802}, {"date": 2002, "Dudar": 1796}, {"date": 2003, "Dudar": 1799}, {"date": 2004, "Dudar": 1806}, {"date": 2005, "Dudar": 1778}, {"date": 2006, "Dudar": 1791}, {"date": 2007, "Dudar": 1800}, {"date": 2008, "Dudar": 1795}, {"date": 2009, "Dudar": 1789}, {"date": 2010, "Dudar": 1794}, {"date": 2011, "Dudar": 1788}, {"date": 2012, "Dudar": 1752}, {"date": 2013, "Dudar": 1749}, {"date": 2014, "Dudar": 1759}, {"date": 2015, "Dudar": 1775}, {"date": 2016, "Dudar": 1775}, {"date": 2017, "Dudar": 1768}, {"date": 2018, "Dudar": 1790}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

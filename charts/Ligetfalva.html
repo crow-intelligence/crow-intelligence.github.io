@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ligetfalva"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2591": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Ligetfalva"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2591"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ligetfalva"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2591"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Ligetfalva", "selection": "selector2591"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ligetfalva"}}}], "data": {"name": "data-da340e5794f51200ecff7392c4481ab7"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-da340e5794f51200ecff7392c4481ab7": [{"date": 1986, "Ligetfalva": 113}, {"date": 1987, "Ligetfalva": 105}, {"date": 1988, "Ligetfalva": 103}, {"date": 1989, "Ligetfalva": 107}, {"date": 1990, "Ligetfalva": 105}, {"date": 1991, "Ligetfalva": 102}, {"date": 1992, "Ligetfalva": 100}, {"date": 1993, "Ligetfalva": 94}, {"date": 1994, "Ligetfalva": 75}, {"date": 1995, "Ligetfalva": 73}, {"date": 1996, "Ligetfalva": 77}, {"date": 1997, "Ligetfalva": 73}, {"date": 1998, "Ligetfalva": 71}, {"date": 1999, "Ligetfalva": 62}, {"date": 2000, "Ligetfalva": 58}, {"date": 2001, "Ligetfalva": 59}, {"date": 2002, "Ligetfalva": 59}, {"date": 2003, "Ligetfalva": 56}, {"date": 2004, "Ligetfalva": 57}, {"date": 2005, "Ligetfalva": 59}, {"date": 2006, "Ligetfalva": 57}, {"date": 2007, "Ligetfalva": 60}, {"date": 2008, "Ligetfalva": 62}, {"date": 2009, "Ligetfalva": 63}, {"date": 2010, "Ligetfalva": 56}, {"date": 2011, "Ligetfalva": 54}, {"date": 2012, "Ligetfalva": 55}, {"date": 2013, "Ligetfalva": 58}, {"date": 2014, "Ligetfalva": 60}, {"date": 2015, "Ligetfalva": 60}, {"date": 2016, "Ligetfalva": 59}, {"date": 2017, "Ligetfalva": 60}, {"date": 2018, "Ligetfalva": 59}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

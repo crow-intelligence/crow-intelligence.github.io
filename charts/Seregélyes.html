@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sereg\u00e9lyes"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2788": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Sereg\u00e9lyes"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2788"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sereg\u00e9lyes"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2788"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Sereg\u00e9lyes", "selection": "selector2788"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sereg\u00e9lyes"}}}], "data": {"name": "data-251fac2e3075c97c2e3e74c1bb40efc2"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-251fac2e3075c97c2e3e74c1bb40efc2": [{"date": 1986, "Sereg\u00e9lyes": 4498}, {"date": 1987, "Sereg\u00e9lyes": 4526}, {"date": 1988, "Sereg\u00e9lyes": 4457}, {"date": 1989, "Sereg\u00e9lyes": 4446}, {"date": 1990, "Sereg\u00e9lyes": 4404}, {"date": 1991, "Sereg\u00e9lyes": 4421}, {"date": 1992, "Sereg\u00e9lyes": 4431}, {"date": 1993, "Sereg\u00e9lyes": 4434}, {"date": 1994, "Sereg\u00e9lyes": 4414}, {"date": 1995, "Sereg\u00e9lyes": 4416}, {"date": 1996, "Sereg\u00e9lyes": 4464}, {"date": 1997, "Sereg\u00e9lyes": 4455}, {"date": 1998, "Sereg\u00e9lyes": 4417}, {"date": 1999, "Sereg\u00e9lyes": 4413}, {"date": 2000, "Sereg\u00e9lyes": 4388}, {"date": 2001, "Sereg\u00e9lyes": 4444}, {"date": 2002, "Sereg\u00e9lyes": 4455}, {"date": 2003, "Sereg\u00e9lyes": 4514}, {"date": 2004, "Sereg\u00e9lyes": 4594}, {"date": 2005, "Sereg\u00e9lyes": 4588}, {"date": 2006, "Sereg\u00e9lyes": 4622}, {"date": 2007, "Sereg\u00e9lyes": 4614}, {"date": 2008, "Sereg\u00e9lyes": 4571}, {"date": 2009, "Sereg\u00e9lyes": 4569}, {"date": 2010, "Sereg\u00e9lyes": 4556}, {"date": 2011, "Sereg\u00e9lyes": 4542}, {"date": 2012, "Sereg\u00e9lyes": 4506}, {"date": 2013, "Sereg\u00e9lyes": 4490}, {"date": 2014, "Sereg\u00e9lyes": 4490}, {"date": 2015, "Sereg\u00e9lyes": 4456}, {"date": 2016, "Sereg\u00e9lyes": 4464}, {"date": 2017, "Sereg\u00e9lyes": 4518}, {"date": 2018, "Sereg\u00e9lyes": 4492}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

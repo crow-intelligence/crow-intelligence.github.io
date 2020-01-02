@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csehimindszent"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2102": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Csehimindszent"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2102"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csehimindszent"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2102"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Csehimindszent", "selection": "selector2102"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csehimindszent"}}}], "data": {"name": "data-f7ffe904bee8d29f61eccce74fe40532"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f7ffe904bee8d29f61eccce74fe40532": [{"date": 1986, "Csehimindszent": 510}, {"date": 1987, "Csehimindszent": 493}, {"date": 1988, "Csehimindszent": 491}, {"date": 1989, "Csehimindszent": 494}, {"date": 1990, "Csehimindszent": 477}, {"date": 1991, "Csehimindszent": 476}, {"date": 1992, "Csehimindszent": 483}, {"date": 1993, "Csehimindszent": 483}, {"date": 1994, "Csehimindszent": 484}, {"date": 1995, "Csehimindszent": 490}, {"date": 1996, "Csehimindszent": 478}, {"date": 1997, "Csehimindszent": 477}, {"date": 1998, "Csehimindszent": 477}, {"date": 1999, "Csehimindszent": 464}, {"date": 2000, "Csehimindszent": 453}, {"date": 2001, "Csehimindszent": 446}, {"date": 2002, "Csehimindszent": 443}, {"date": 2003, "Csehimindszent": 434}, {"date": 2004, "Csehimindszent": 437}, {"date": 2005, "Csehimindszent": 429}, {"date": 2006, "Csehimindszent": 426}, {"date": 2007, "Csehimindszent": 417}, {"date": 2008, "Csehimindszent": 406}, {"date": 2009, "Csehimindszent": 398}, {"date": 2010, "Csehimindszent": 396}, {"date": 2011, "Csehimindszent": 381}, {"date": 2012, "Csehimindszent": 379}, {"date": 2013, "Csehimindszent": 372}, {"date": 2014, "Csehimindszent": 370}, {"date": 2015, "Csehimindszent": 367}, {"date": 2016, "Csehimindszent": 367}, {"date": 2017, "Csehimindszent": 372}, {"date": 2018, "Csehimindszent": 373}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Parasznya"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector653": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Parasznya"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector653"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Parasznya"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector653"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Parasznya", "selection": "selector653"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Parasznya"}}}], "data": {"name": "data-12f441877bb5a68692f72a65c1e500ec"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-12f441877bb5a68692f72a65c1e500ec": [{"date": 1986, "Parasznya": 1309}, {"date": 1987, "Parasznya": 1323}, {"date": 1988, "Parasznya": 1306}, {"date": 1989, "Parasznya": 1298}, {"date": 1990, "Parasznya": 1285}, {"date": 1991, "Parasznya": 1288}, {"date": 1992, "Parasznya": 1318}, {"date": 1993, "Parasznya": 1321}, {"date": 1994, "Parasznya": 1292}, {"date": 1995, "Parasznya": 1280}, {"date": 1996, "Parasznya": 1309}, {"date": 1997, "Parasznya": 1312}, {"date": 1998, "Parasznya": 1318}, {"date": 1999, "Parasznya": 1326}, {"date": 2000, "Parasznya": 1338}, {"date": 2001, "Parasznya": 1327}, {"date": 2002, "Parasznya": 1332}, {"date": 2003, "Parasznya": 1351}, {"date": 2004, "Parasznya": 1353}, {"date": 2005, "Parasznya": 1324}, {"date": 2006, "Parasznya": 1313}, {"date": 2007, "Parasznya": 1290}, {"date": 2008, "Parasznya": 1289}, {"date": 2009, "Parasznya": 1271}, {"date": 2010, "Parasznya": 1256}, {"date": 2011, "Parasznya": 1264}, {"date": 2012, "Parasznya": 1248}, {"date": 2013, "Parasznya": 1218}, {"date": 2014, "Parasznya": 1191}, {"date": 2015, "Parasznya": 1186}, {"date": 2016, "Parasznya": 1183}, {"date": 2017, "Parasznya": 1205}, {"date": 2018, "Parasznya": 1197}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

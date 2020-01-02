@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kiskunlach\u00e1za"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2816": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kiskunlach\u00e1za"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2816"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kiskunlach\u00e1za"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2816"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kiskunlach\u00e1za", "selection": "selector2816"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kiskunlach\u00e1za"}}}], "data": {"name": "data-cfce6200105b7172241588c0178d45a4"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-cfce6200105b7172241588c0178d45a4": [{"date": 1986, "Kiskunlach\u00e1za": 8236}, {"date": 1987, "Kiskunlach\u00e1za": 8183}, {"date": 1988, "Kiskunlach\u00e1za": 8135}, {"date": 1989, "Kiskunlach\u00e1za": 8159}, {"date": 1990, "Kiskunlach\u00e1za": 8127}, {"date": 1991, "Kiskunlach\u00e1za": 7994}, {"date": 1992, "Kiskunlach\u00e1za": 8084}, {"date": 1993, "Kiskunlach\u00e1za": 8112}, {"date": 1994, "Kiskunlach\u00e1za": 8142}, {"date": 1995, "Kiskunlach\u00e1za": 8169}, {"date": 1996, "Kiskunlach\u00e1za": 8221}, {"date": 1997, "Kiskunlach\u00e1za": 8239}, {"date": 1998, "Kiskunlach\u00e1za": 8237}, {"date": 1999, "Kiskunlach\u00e1za": 8296}, {"date": 2000, "Kiskunlach\u00e1za": 8443}, {"date": 2001, "Kiskunlach\u00e1za": 8620}, {"date": 2002, "Kiskunlach\u00e1za": 7202}, {"date": 2003, "Kiskunlach\u00e1za": 8764}, {"date": 2004, "Kiskunlach\u00e1za": 8856}, {"date": 2005, "Kiskunlach\u00e1za": 8895}, {"date": 2006, "Kiskunlach\u00e1za": 8933}, {"date": 2007, "Kiskunlach\u00e1za": 8971}, {"date": 2008, "Kiskunlach\u00e1za": 9003}, {"date": 2009, "Kiskunlach\u00e1za": 9092}, {"date": 2010, "Kiskunlach\u00e1za": 9099}, {"date": 2011, "Kiskunlach\u00e1za": 9064}, {"date": 2012, "Kiskunlach\u00e1za": 9022}, {"date": 2013, "Kiskunlach\u00e1za": 8964}, {"date": 2014, "Kiskunlach\u00e1za": 8950}, {"date": 2015, "Kiskunlach\u00e1za": 8934}, {"date": 2016, "Kiskunlach\u00e1za": 8890}, {"date": 2017, "Kiskunlach\u00e1za": 8881}, {"date": 2018, "Kiskunlach\u00e1za": 8982}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

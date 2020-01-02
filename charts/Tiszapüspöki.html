@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszap\u00fcsp\u00f6ki"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1975": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszap\u00fcsp\u00f6ki"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1975"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszap\u00fcsp\u00f6ki"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1975"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszap\u00fcsp\u00f6ki", "selection": "selector1975"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszap\u00fcsp\u00f6ki"}}}], "data": {"name": "data-bdb9958cd7f5d946b3567954c5c0741c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-bdb9958cd7f5d946b3567954c5c0741c": [{"date": 1986, "Tiszap\u00fcsp\u00f6ki": 2187}, {"date": 1987, "Tiszap\u00fcsp\u00f6ki": 2170}, {"date": 1988, "Tiszap\u00fcsp\u00f6ki": 2188}, {"date": 1989, "Tiszap\u00fcsp\u00f6ki": 2183}, {"date": 1990, "Tiszap\u00fcsp\u00f6ki": 2151}, {"date": 1991, "Tiszap\u00fcsp\u00f6ki": 2125}, {"date": 1992, "Tiszap\u00fcsp\u00f6ki": 2113}, {"date": 1993, "Tiszap\u00fcsp\u00f6ki": 2131}, {"date": 1994, "Tiszap\u00fcsp\u00f6ki": 2107}, {"date": 1995, "Tiszap\u00fcsp\u00f6ki": 2120}, {"date": 1996, "Tiszap\u00fcsp\u00f6ki": 2127}, {"date": 1997, "Tiszap\u00fcsp\u00f6ki": 2124}, {"date": 1998, "Tiszap\u00fcsp\u00f6ki": 2117}, {"date": 1999, "Tiszap\u00fcsp\u00f6ki": 2104}, {"date": 2000, "Tiszap\u00fcsp\u00f6ki": 2095}, {"date": 2001, "Tiszap\u00fcsp\u00f6ki": 2165}, {"date": 2002, "Tiszap\u00fcsp\u00f6ki": 2165}, {"date": 2003, "Tiszap\u00fcsp\u00f6ki": 2194}, {"date": 2004, "Tiszap\u00fcsp\u00f6ki": 2173}, {"date": 2005, "Tiszap\u00fcsp\u00f6ki": 2170}, {"date": 2006, "Tiszap\u00fcsp\u00f6ki": 2185}, {"date": 2007, "Tiszap\u00fcsp\u00f6ki": 2211}, {"date": 2008, "Tiszap\u00fcsp\u00f6ki": 2200}, {"date": 2009, "Tiszap\u00fcsp\u00f6ki": 2203}, {"date": 2010, "Tiszap\u00fcsp\u00f6ki": 2171}, {"date": 2011, "Tiszap\u00fcsp\u00f6ki": 2205}, {"date": 2012, "Tiszap\u00fcsp\u00f6ki": 2193}, {"date": 2013, "Tiszap\u00fcsp\u00f6ki": 2222}, {"date": 2014, "Tiszap\u00fcsp\u00f6ki": 2219}, {"date": 2015, "Tiszap\u00fcsp\u00f6ki": 2198}, {"date": 2016, "Tiszap\u00fcsp\u00f6ki": 2173}, {"date": 2017, "Tiszap\u00fcsp\u00f6ki": 2142}, {"date": 2018, "Tiszap\u00fcsp\u00f6ki": 2103}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

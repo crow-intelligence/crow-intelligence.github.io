@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Halmajugra"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1149": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Halmajugra"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1149"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Halmajugra"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1149"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Halmajugra", "selection": "selector1149"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Halmajugra"}}}], "data": {"name": "data-b97127f34fc9a87c3a063a631b1d9d7b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b97127f34fc9a87c3a063a631b1d9d7b": [{"date": 1986, "Halmajugra": 1313}, {"date": 1987, "Halmajugra": 1289}, {"date": 1988, "Halmajugra": 1298}, {"date": 1989, "Halmajugra": 1290}, {"date": 1990, "Halmajugra": 1271}, {"date": 1991, "Halmajugra": 1257}, {"date": 1992, "Halmajugra": 1237}, {"date": 1993, "Halmajugra": 1266}, {"date": 1994, "Halmajugra": 1258}, {"date": 1995, "Halmajugra": 1221}, {"date": 1996, "Halmajugra": 1216}, {"date": 1997, "Halmajugra": 1246}, {"date": 1998, "Halmajugra": 1221}, {"date": 1999, "Halmajugra": 1277}, {"date": 2000, "Halmajugra": 1290}, {"date": 2001, "Halmajugra": 1297}, {"date": 2002, "Halmajugra": 1308}, {"date": 2003, "Halmajugra": 1309}, {"date": 2004, "Halmajugra": 1339}, {"date": 2005, "Halmajugra": 1317}, {"date": 2006, "Halmajugra": 1344}, {"date": 2007, "Halmajugra": 1345}, {"date": 2008, "Halmajugra": 1350}, {"date": 2009, "Halmajugra": 1368}, {"date": 2010, "Halmajugra": 1369}, {"date": 2011, "Halmajugra": 1344}, {"date": 2012, "Halmajugra": 1302}, {"date": 2013, "Halmajugra": 1313}, {"date": 2014, "Halmajugra": 1312}, {"date": 2015, "Halmajugra": 1333}, {"date": 2016, "Halmajugra": 1339}, {"date": 2017, "Halmajugra": 1379}, {"date": 2018, "Halmajugra": 1397}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monaj"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector631": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Monaj"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector631"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monaj"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector631"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Monaj", "selection": "selector631"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monaj"}}}], "data": {"name": "data-c106bcc508c95b03127f3485df88cba1"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c106bcc508c95b03127f3485df88cba1": [{"date": 1986, "Monaj": 262}, {"date": 1987, "Monaj": 258}, {"date": 1988, "Monaj": 248}, {"date": 1989, "Monaj": 244}, {"date": 1990, "Monaj": 252}, {"date": 1991, "Monaj": 251}, {"date": 1992, "Monaj": 247}, {"date": 1993, "Monaj": 249}, {"date": 1994, "Monaj": 251}, {"date": 1995, "Monaj": 247}, {"date": 1996, "Monaj": 259}, {"date": 1997, "Monaj": 274}, {"date": 1998, "Monaj": 273}, {"date": 1999, "Monaj": 286}, {"date": 2000, "Monaj": 301}, {"date": 2001, "Monaj": 299}, {"date": 2002, "Monaj": 297}, {"date": 2003, "Monaj": 305}, {"date": 2004, "Monaj": 288}, {"date": 2005, "Monaj": 297}, {"date": 2006, "Monaj": 307}, {"date": 2007, "Monaj": 293}, {"date": 2008, "Monaj": 294}, {"date": 2009, "Monaj": 281}, {"date": 2010, "Monaj": 268}, {"date": 2011, "Monaj": 256}, {"date": 2012, "Monaj": 245}, {"date": 2013, "Monaj": 241}, {"date": 2014, "Monaj": 248}, {"date": 2015, "Monaj": 257}, {"date": 2016, "Monaj": 262}, {"date": 2017, "Monaj": 264}, {"date": 2018, "Monaj": 257}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

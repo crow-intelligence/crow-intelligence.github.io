@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szalkszentm\u00e1rton"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector099": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szalkszentm\u00e1rton"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector099"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szalkszentm\u00e1rton"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector099"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szalkszentm\u00e1rton", "selection": "selector099"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szalkszentm\u00e1rton"}}}], "data": {"name": "data-62714251e68a80c90617b927354f596d"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-62714251e68a80c90617b927354f596d": [{"date": 1986, "Szalkszentm\u00e1rton": 3029}, {"date": 1987, "Szalkszentm\u00e1rton": 3026}, {"date": 1988, "Szalkszentm\u00e1rton": 3029}, {"date": 1989, "Szalkszentm\u00e1rton": 3017}, {"date": 1990, "Szalkszentm\u00e1rton": 3006}, {"date": 1991, "Szalkszentm\u00e1rton": 2991}, {"date": 1992, "Szalkszentm\u00e1rton": 3002}, {"date": 1993, "Szalkszentm\u00e1rton": 2962}, {"date": 1994, "Szalkszentm\u00e1rton": 2992}, {"date": 1995, "Szalkszentm\u00e1rton": 3007}, {"date": 1996, "Szalkszentm\u00e1rton": 3036}, {"date": 1997, "Szalkszentm\u00e1rton": 3015}, {"date": 1998, "Szalkszentm\u00e1rton": 2980}, {"date": 1999, "Szalkszentm\u00e1rton": 2989}, {"date": 2000, "Szalkszentm\u00e1rton": 3037}, {"date": 2001, "Szalkszentm\u00e1rton": 3063}, {"date": 2002, "Szalkszentm\u00e1rton": 3065}, {"date": 2003, "Szalkszentm\u00e1rton": 3064}, {"date": 2004, "Szalkszentm\u00e1rton": 3098}, {"date": 2005, "Szalkszentm\u00e1rton": 3080}, {"date": 2006, "Szalkszentm\u00e1rton": 3062}, {"date": 2007, "Szalkszentm\u00e1rton": 3001}, {"date": 2008, "Szalkszentm\u00e1rton": 2999}, {"date": 2009, "Szalkszentm\u00e1rton": 2992}, {"date": 2010, "Szalkszentm\u00e1rton": 2970}, {"date": 2011, "Szalkszentm\u00e1rton": 2938}, {"date": 2012, "Szalkszentm\u00e1rton": 2894}, {"date": 2013, "Szalkszentm\u00e1rton": 2892}, {"date": 2014, "Szalkszentm\u00e1rton": 2889}, {"date": 2015, "Szalkszentm\u00e1rton": 2844}, {"date": 2016, "Szalkszentm\u00e1rton": 2840}, {"date": 2017, "Szalkszentm\u00e1rton": 2809}, {"date": 2018, "Szalkszentm\u00e1rton": 2808}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

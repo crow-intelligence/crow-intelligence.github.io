@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zselickislak"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1747": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zselickislak"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1747"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zselickislak"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1747"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zselickislak", "selection": "selector1747"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zselickislak"}}}], "data": {"name": "data-ba85eae53a0a35d47fdaca212a6385c7"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ba85eae53a0a35d47fdaca212a6385c7": [{"date": 1986, "Zselickislak": 323}, {"date": 1987, "Zselickislak": 317}, {"date": 1988, "Zselickislak": 314}, {"date": 1989, "Zselickislak": 320}, {"date": 1990, "Zselickislak": 313}, {"date": 1991, "Zselickislak": 308}, {"date": 1992, "Zselickislak": 310}, {"date": 1993, "Zselickislak": 314}, {"date": 1994, "Zselickislak": 315}, {"date": 1995, "Zselickislak": 319}, {"date": 1996, "Zselickislak": 329}, {"date": 1997, "Zselickislak": 333}, {"date": 1998, "Zselickislak": 326}, {"date": 1999, "Zselickislak": 325}, {"date": 2000, "Zselickislak": 321}, {"date": 2001, "Zselickislak": 336}, {"date": 2002, "Zselickislak": 334}, {"date": 2003, "Zselickislak": 339}, {"date": 2004, "Zselickislak": 338}, {"date": 2005, "Zselickislak": 345}, {"date": 2006, "Zselickislak": 335}, {"date": 2007, "Zselickislak": 327}, {"date": 2008, "Zselickislak": 329}, {"date": 2009, "Zselickislak": 335}, {"date": 2010, "Zselickislak": 332}, {"date": 2011, "Zselickislak": 328}, {"date": 2012, "Zselickislak": 328}, {"date": 2013, "Zselickislak": 319}, {"date": 2014, "Zselickislak": 316}, {"date": 2015, "Zselickislak": 322}, {"date": 2016, "Zselickislak": 324}, {"date": 2017, "Zselickislak": 385}, {"date": 2018, "Zselickislak": 425}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

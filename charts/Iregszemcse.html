@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Iregszemcse"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2017": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Iregszemcse"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2017"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Iregszemcse"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2017"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Iregszemcse", "selection": "selector2017"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Iregszemcse"}}}], "data": {"name": "data-2effc7f3778613f928e647c72b576edb"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2effc7f3778613f928e647c72b576edb": [{"date": 1986, "Iregszemcse": 3088}, {"date": 1987, "Iregszemcse": 3078}, {"date": 1988, "Iregszemcse": 3064}, {"date": 1989, "Iregszemcse": 3070}, {"date": 1990, "Iregszemcse": 3040}, {"date": 1991, "Iregszemcse": 3047}, {"date": 1992, "Iregszemcse": 3066}, {"date": 1993, "Iregszemcse": 3023}, {"date": 1994, "Iregszemcse": 2998}, {"date": 1995, "Iregszemcse": 3022}, {"date": 1996, "Iregszemcse": 3004}, {"date": 1997, "Iregszemcse": 2993}, {"date": 1998, "Iregszemcse": 2972}, {"date": 1999, "Iregszemcse": 2975}, {"date": 2000, "Iregszemcse": 2949}, {"date": 2001, "Iregszemcse": 2930}, {"date": 2002, "Iregszemcse": 2877}, {"date": 2003, "Iregszemcse": 2891}, {"date": 2004, "Iregszemcse": 2867}, {"date": 2005, "Iregszemcse": 2848}, {"date": 2006, "Iregszemcse": 2855}, {"date": 2007, "Iregszemcse": 2804}, {"date": 2008, "Iregszemcse": 2803}, {"date": 2009, "Iregszemcse": 2811}, {"date": 2010, "Iregszemcse": 2805}, {"date": 2011, "Iregszemcse": 2755}, {"date": 2012, "Iregszemcse": 2747}, {"date": 2013, "Iregszemcse": 2730}, {"date": 2014, "Iregszemcse": 2732}, {"date": 2015, "Iregszemcse": 2690}, {"date": 2016, "Iregszemcse": 2664}, {"date": 2017, "Iregszemcse": 2653}, {"date": 2018, "Iregszemcse": 2647}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

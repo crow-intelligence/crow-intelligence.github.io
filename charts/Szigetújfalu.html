@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sziget\u00fajfalu"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1488": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Sziget\u00fajfalu"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1488"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sziget\u00fajfalu"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1488"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Sziget\u00fajfalu", "selection": "selector1488"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sziget\u00fajfalu"}}}], "data": {"name": "data-1375c6d5d73bd062812c851428f4d63f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1375c6d5d73bd062812c851428f4d63f": [{"date": 1986, "Sziget\u00fajfalu": 2082}, {"date": 1987, "Sziget\u00fajfalu": 2046}, {"date": 1988, "Sziget\u00fajfalu": 2061}, {"date": 1989, "Sziget\u00fajfalu": 2057}, {"date": 1990, "Sziget\u00fajfalu": 2043}, {"date": 1991, "Sziget\u00fajfalu": 2033}, {"date": 1992, "Sziget\u00fajfalu": 2037}, {"date": 1993, "Sziget\u00fajfalu": 2039}, {"date": 1994, "Sziget\u00fajfalu": 2017}, {"date": 1995, "Sziget\u00fajfalu": 2030}, {"date": 1996, "Sziget\u00fajfalu": 1996}, {"date": 1997, "Sziget\u00fajfalu": 1996}, {"date": 1998, "Sziget\u00fajfalu": 2010}, {"date": 1999, "Sziget\u00fajfalu": 2013}, {"date": 2000, "Sziget\u00fajfalu": 2073}, {"date": 2001, "Sziget\u00fajfalu": 2093}, {"date": 2002, "Sziget\u00fajfalu": 2126}, {"date": 2003, "Sziget\u00fajfalu": 2124}, {"date": 2004, "Sziget\u00fajfalu": 2181}, {"date": 2005, "Sziget\u00fajfalu": 2193}, {"date": 2006, "Sziget\u00fajfalu": 2225}, {"date": 2007, "Sziget\u00fajfalu": 2198}, {"date": 2008, "Sziget\u00fajfalu": 2180}, {"date": 2009, "Sziget\u00fajfalu": 2194}, {"date": 2010, "Sziget\u00fajfalu": 2215}, {"date": 2011, "Sziget\u00fajfalu": 2171}, {"date": 2012, "Sziget\u00fajfalu": 2139}, {"date": 2013, "Sziget\u00fajfalu": 2118}, {"date": 2014, "Sziget\u00fajfalu": 2127}, {"date": 2015, "Sziget\u00fajfalu": 2130}, {"date": 2016, "Sziget\u00fajfalu": 2131}, {"date": 2017, "Sziget\u00fajfalu": 2145}, {"date": 2018, "Sziget\u00fajfalu": 2179}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

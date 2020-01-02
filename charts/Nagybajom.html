@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagybajom"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3082": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nagybajom"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3082"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagybajom"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3082"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nagybajom", "selection": "selector3082"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagybajom"}}}], "data": {"name": "data-ceda53dd9ea00c985dc185c5a5393606"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ceda53dd9ea00c985dc185c5a5393606": [{"date": 1986, "Nagybajom": 3883}, {"date": 1987, "Nagybajom": 3848}, {"date": 1988, "Nagybajom": 3826}, {"date": 1989, "Nagybajom": 3823}, {"date": 1990, "Nagybajom": 3812}, {"date": 1991, "Nagybajom": 3807}, {"date": 1992, "Nagybajom": 3827}, {"date": 1993, "Nagybajom": 3485}, {"date": 1994, "Nagybajom": 3482}, {"date": 1995, "Nagybajom": 3478}, {"date": 1996, "Nagybajom": 3427}, {"date": 1997, "Nagybajom": 3426}, {"date": 1998, "Nagybajom": 3389}, {"date": 1999, "Nagybajom": 3406}, {"date": 2000, "Nagybajom": 3389}, {"date": 2001, "Nagybajom": 3426}, {"date": 2002, "Nagybajom": 2787}, {"date": 2003, "Nagybajom": 3505}, {"date": 2004, "Nagybajom": 3475}, {"date": 2005, "Nagybajom": 3469}, {"date": 2006, "Nagybajom": 3452}, {"date": 2007, "Nagybajom": 3427}, {"date": 2008, "Nagybajom": 3392}, {"date": 2009, "Nagybajom": 3369}, {"date": 2010, "Nagybajom": 3350}, {"date": 2011, "Nagybajom": 3336}, {"date": 2012, "Nagybajom": 3298}, {"date": 2013, "Nagybajom": 3253}, {"date": 2014, "Nagybajom": 3243}, {"date": 2015, "Nagybajom": 3218}, {"date": 2016, "Nagybajom": 3186}, {"date": 2017, "Nagybajom": 3181}, {"date": 2018, "Nagybajom": 3185}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pilisszentiv\u00e1n"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1470": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Pilisszentiv\u00e1n"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1470"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pilisszentiv\u00e1n"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1470"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Pilisszentiv\u00e1n", "selection": "selector1470"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pilisszentiv\u00e1n"}}}], "data": {"name": "data-6382c23401de5b6a9bf81a82dbb77dd5"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-6382c23401de5b6a9bf81a82dbb77dd5": [{"date": 1986, "Pilisszentiv\u00e1n": 3406}, {"date": 1987, "Pilisszentiv\u00e1n": 3415}, {"date": 1988, "Pilisszentiv\u00e1n": 3411}, {"date": 1989, "Pilisszentiv\u00e1n": 3422}, {"date": 1990, "Pilisszentiv\u00e1n": 3456}, {"date": 1991, "Pilisszentiv\u00e1n": 3397}, {"date": 1992, "Pilisszentiv\u00e1n": 3568}, {"date": 1993, "Pilisszentiv\u00e1n": 3612}, {"date": 1994, "Pilisszentiv\u00e1n": 3674}, {"date": 1995, "Pilisszentiv\u00e1n": 3716}, {"date": 1996, "Pilisszentiv\u00e1n": 3725}, {"date": 1997, "Pilisszentiv\u00e1n": 3788}, {"date": 1998, "Pilisszentiv\u00e1n": 3790}, {"date": 1999, "Pilisszentiv\u00e1n": 3902}, {"date": 2000, "Pilisszentiv\u00e1n": 3981}, {"date": 2001, "Pilisszentiv\u00e1n": 4065}, {"date": 2002, "Pilisszentiv\u00e1n": 4127}, {"date": 2003, "Pilisszentiv\u00e1n": 4187}, {"date": 2004, "Pilisszentiv\u00e1n": 4191}, {"date": 2005, "Pilisszentiv\u00e1n": 4192}, {"date": 2006, "Pilisszentiv\u00e1n": 4313}, {"date": 2007, "Pilisszentiv\u00e1n": 4288}, {"date": 2008, "Pilisszentiv\u00e1n": 4339}, {"date": 2009, "Pilisszentiv\u00e1n": 4375}, {"date": 2010, "Pilisszentiv\u00e1n": 4426}, {"date": 2011, "Pilisszentiv\u00e1n": 4417}, {"date": 2012, "Pilisszentiv\u00e1n": 4424}, {"date": 2013, "Pilisszentiv\u00e1n": 4418}, {"date": 2014, "Pilisszentiv\u00e1n": 4425}, {"date": 2015, "Pilisszentiv\u00e1n": 4453}, {"date": 2016, "Pilisszentiv\u00e1n": 4473}, {"date": 2017, "Pilisszentiv\u00e1n": 4462}, {"date": 2018, "Pilisszentiv\u00e1n": 4486}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

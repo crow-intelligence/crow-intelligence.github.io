@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szendehely"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1389": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szendehely"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1389"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szendehely"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1389"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szendehely", "selection": "selector1389"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szendehely"}}}], "data": {"name": "data-861a588ce3d7c49d7f066518b91dc056"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-861a588ce3d7c49d7f066518b91dc056": [{"date": 1986, "Szendehely": 1416}, {"date": 1987, "Szendehely": 1415}, {"date": 1988, "Szendehely": 1416}, {"date": 1989, "Szendehely": 1426}, {"date": 1990, "Szendehely": 1422}, {"date": 1991, "Szendehely": 1417}, {"date": 1992, "Szendehely": 1438}, {"date": 1993, "Szendehely": 1439}, {"date": 1994, "Szendehely": 1416}, {"date": 1995, "Szendehely": 1417}, {"date": 1996, "Szendehely": 1389}, {"date": 1997, "Szendehely": 1386}, {"date": 1998, "Szendehely": 1371}, {"date": 1999, "Szendehely": 1369}, {"date": 2000, "Szendehely": 1363}, {"date": 2001, "Szendehely": 1371}, {"date": 2002, "Szendehely": 1393}, {"date": 2003, "Szendehely": 1430}, {"date": 2004, "Szendehely": 1438}, {"date": 2005, "Szendehely": 1480}, {"date": 2006, "Szendehely": 1505}, {"date": 2007, "Szendehely": 1518}, {"date": 2008, "Szendehely": 1532}, {"date": 2009, "Szendehely": 1562}, {"date": 2010, "Szendehely": 1571}, {"date": 2011, "Szendehely": 1568}, {"date": 2012, "Szendehely": 1578}, {"date": 2013, "Szendehely": 1608}, {"date": 2014, "Szendehely": 1610}, {"date": 2015, "Szendehely": 1613}, {"date": 2016, "Szendehely": 1599}, {"date": 2017, "Szendehely": 1610}, {"date": 2018, "Szendehely": 1611}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

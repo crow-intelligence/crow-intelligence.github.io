@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagykamar\u00e1s"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector431": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nagykamar\u00e1s"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector431"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagykamar\u00e1s"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector431"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nagykamar\u00e1s", "selection": "selector431"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagykamar\u00e1s"}}}], "data": {"name": "data-c4b109ac39265a6470eed35973084238"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c4b109ac39265a6470eed35973084238": [{"date": 1986, "Nagykamar\u00e1s": 2112}, {"date": 1987, "Nagykamar\u00e1s": 2091}, {"date": 1988, "Nagykamar\u00e1s": 2036}, {"date": 1989, "Nagykamar\u00e1s": 2015}, {"date": 1990, "Nagykamar\u00e1s": 1978}, {"date": 1991, "Nagykamar\u00e1s": 1965}, {"date": 1992, "Nagykamar\u00e1s": 1912}, {"date": 1993, "Nagykamar\u00e1s": 1859}, {"date": 1994, "Nagykamar\u00e1s": 1881}, {"date": 1995, "Nagykamar\u00e1s": 1852}, {"date": 1996, "Nagykamar\u00e1s": 1839}, {"date": 1997, "Nagykamar\u00e1s": 1832}, {"date": 1998, "Nagykamar\u00e1s": 1799}, {"date": 1999, "Nagykamar\u00e1s": 1790}, {"date": 2000, "Nagykamar\u00e1s": 1764}, {"date": 2001, "Nagykamar\u00e1s": 1752}, {"date": 2002, "Nagykamar\u00e1s": 1754}, {"date": 2003, "Nagykamar\u00e1s": 1708}, {"date": 2004, "Nagykamar\u00e1s": 1692}, {"date": 2005, "Nagykamar\u00e1s": 1678}, {"date": 2006, "Nagykamar\u00e1s": 1655}, {"date": 2007, "Nagykamar\u00e1s": 1642}, {"date": 2008, "Nagykamar\u00e1s": 1623}, {"date": 2009, "Nagykamar\u00e1s": 1606}, {"date": 2010, "Nagykamar\u00e1s": 1581}, {"date": 2011, "Nagykamar\u00e1s": 1527}, {"date": 2012, "Nagykamar\u00e1s": 1487}, {"date": 2013, "Nagykamar\u00e1s": 1463}, {"date": 2014, "Nagykamar\u00e1s": 1438}, {"date": 2015, "Nagykamar\u00e1s": 1424}, {"date": 2016, "Nagykamar\u00e1s": 1393}, {"date": 2017, "Nagykamar\u00e1s": 1396}, {"date": 2018, "Nagykamar\u00e1s": 1366}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

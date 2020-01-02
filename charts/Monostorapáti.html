@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monostorap\u00e1ti"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2396": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Monostorap\u00e1ti"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2396"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monostorap\u00e1ti"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2396"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Monostorap\u00e1ti", "selection": "selector2396"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monostorap\u00e1ti"}}}], "data": {"name": "data-d1e07f4a6eb9d2f9fdf4864795b4f801"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d1e07f4a6eb9d2f9fdf4864795b4f801": [{"date": 1986, "Monostorap\u00e1ti": 1136}, {"date": 1987, "Monostorap\u00e1ti": 1138}, {"date": 1988, "Monostorap\u00e1ti": 1135}, {"date": 1989, "Monostorap\u00e1ti": 1147}, {"date": 1990, "Monostorap\u00e1ti": 1152}, {"date": 1991, "Monostorap\u00e1ti": 1164}, {"date": 1992, "Monostorap\u00e1ti": 1165}, {"date": 1993, "Monostorap\u00e1ti": 1159}, {"date": 1994, "Monostorap\u00e1ti": 1180}, {"date": 1995, "Monostorap\u00e1ti": 1192}, {"date": 1996, "Monostorap\u00e1ti": 1191}, {"date": 1997, "Monostorap\u00e1ti": 1192}, {"date": 1998, "Monostorap\u00e1ti": 1191}, {"date": 1999, "Monostorap\u00e1ti": 1185}, {"date": 2000, "Monostorap\u00e1ti": 1169}, {"date": 2001, "Monostorap\u00e1ti": 1188}, {"date": 2002, "Monostorap\u00e1ti": 1180}, {"date": 2003, "Monostorap\u00e1ti": 1170}, {"date": 2004, "Monostorap\u00e1ti": 1179}, {"date": 2005, "Monostorap\u00e1ti": 1171}, {"date": 2006, "Monostorap\u00e1ti": 1156}, {"date": 2007, "Monostorap\u00e1ti": 1168}, {"date": 2008, "Monostorap\u00e1ti": 1159}, {"date": 2009, "Monostorap\u00e1ti": 1170}, {"date": 2010, "Monostorap\u00e1ti": 1180}, {"date": 2011, "Monostorap\u00e1ti": 1180}, {"date": 2012, "Monostorap\u00e1ti": 1185}, {"date": 2013, "Monostorap\u00e1ti": 1188}, {"date": 2014, "Monostorap\u00e1ti": 1175}, {"date": 2015, "Monostorap\u00e1ti": 1154}, {"date": 2016, "Monostorap\u00e1ti": 1166}, {"date": 2017, "Monostorap\u00e1ti": 1166}, {"date": 2018, "Monostorap\u00e1ti": 1168}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szarvasgede"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1385": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szarvasgede"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1385"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szarvasgede"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1385"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szarvasgede", "selection": "selector1385"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szarvasgede"}}}], "data": {"name": "data-f8ced4bd924e5ce880c99eee905b68a8"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f8ced4bd924e5ce880c99eee905b68a8": [{"date": 1986, "Szarvasgede": 585}, {"date": 1987, "Szarvasgede": 573}, {"date": 1988, "Szarvasgede": 563}, {"date": 1989, "Szarvasgede": 552}, {"date": 1990, "Szarvasgede": 538}, {"date": 1991, "Szarvasgede": 533}, {"date": 1992, "Szarvasgede": 529}, {"date": 1993, "Szarvasgede": 511}, {"date": 1994, "Szarvasgede": 484}, {"date": 1995, "Szarvasgede": 469}, {"date": 1996, "Szarvasgede": 458}, {"date": 1997, "Szarvasgede": 438}, {"date": 1998, "Szarvasgede": 441}, {"date": 1999, "Szarvasgede": 463}, {"date": 2000, "Szarvasgede": 461}, {"date": 2001, "Szarvasgede": 459}, {"date": 2002, "Szarvasgede": 458}, {"date": 2003, "Szarvasgede": 458}, {"date": 2004, "Szarvasgede": 450}, {"date": 2005, "Szarvasgede": 453}, {"date": 2006, "Szarvasgede": 447}, {"date": 2007, "Szarvasgede": 449}, {"date": 2008, "Szarvasgede": 449}, {"date": 2009, "Szarvasgede": 435}, {"date": 2010, "Szarvasgede": 432}, {"date": 2011, "Szarvasgede": 427}, {"date": 2012, "Szarvasgede": 418}, {"date": 2013, "Szarvasgede": 409}, {"date": 2014, "Szarvasgede": 401}, {"date": 2015, "Szarvasgede": 397}, {"date": 2016, "Szarvasgede": 404}, {"date": 2017, "Szarvasgede": 403}, {"date": 2018, "Szarvasgede": 399}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tapsony"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1723": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tapsony"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1723"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tapsony"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1723"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tapsony", "selection": "selector1723"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tapsony"}}}], "data": {"name": "data-d44815ef8694d08672707e8efecfd049"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d44815ef8694d08672707e8efecfd049": [{"date": 1986, "Tapsony": 1047}, {"date": 1987, "Tapsony": 1050}, {"date": 1988, "Tapsony": 1055}, {"date": 1989, "Tapsony": 1048}, {"date": 1990, "Tapsony": 1049}, {"date": 1991, "Tapsony": 1045}, {"date": 1992, "Tapsony": 1040}, {"date": 1993, "Tapsony": 999}, {"date": 1994, "Tapsony": 985}, {"date": 1995, "Tapsony": 994}, {"date": 1996, "Tapsony": 973}, {"date": 1997, "Tapsony": 971}, {"date": 1998, "Tapsony": 973}, {"date": 1999, "Tapsony": 967}, {"date": 2000, "Tapsony": 954}, {"date": 2001, "Tapsony": 936}, {"date": 2002, "Tapsony": 934}, {"date": 2003, "Tapsony": 926}, {"date": 2004, "Tapsony": 912}, {"date": 2005, "Tapsony": 881}, {"date": 2006, "Tapsony": 873}, {"date": 2007, "Tapsony": 848}, {"date": 2008, "Tapsony": 835}, {"date": 2009, "Tapsony": 784}, {"date": 2010, "Tapsony": 784}, {"date": 2011, "Tapsony": 788}, {"date": 2012, "Tapsony": 780}, {"date": 2013, "Tapsony": 766}, {"date": 2014, "Tapsony": 755}, {"date": 2015, "Tapsony": 759}, {"date": 2016, "Tapsony": 738}, {"date": 2017, "Tapsony": 720}, {"date": 2018, "Tapsony": 711}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

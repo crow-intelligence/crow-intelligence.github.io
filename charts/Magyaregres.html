@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyaregres"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1631": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Magyaregres"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1631"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyaregres"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1631"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Magyaregres", "selection": "selector1631"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyaregres"}}}], "data": {"name": "data-8b377c4397f7280f06fdf515eebe2bcb"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-8b377c4397f7280f06fdf515eebe2bcb": [{"date": 1986, "Magyaregres": 581}, {"date": 1987, "Magyaregres": 570}, {"date": 1988, "Magyaregres": 551}, {"date": 1989, "Magyaregres": 556}, {"date": 1990, "Magyaregres": 549}, {"date": 1991, "Magyaregres": 566}, {"date": 1992, "Magyaregres": 591}, {"date": 1993, "Magyaregres": 605}, {"date": 1994, "Magyaregres": 598}, {"date": 1995, "Magyaregres": 609}, {"date": 1996, "Magyaregres": 610}, {"date": 1997, "Magyaregres": 622}, {"date": 1998, "Magyaregres": 613}, {"date": 1999, "Magyaregres": 608}, {"date": 2000, "Magyaregres": 608}, {"date": 2001, "Magyaregres": 624}, {"date": 2002, "Magyaregres": 620}, {"date": 2003, "Magyaregres": 610}, {"date": 2004, "Magyaregres": 620}, {"date": 2005, "Magyaregres": 630}, {"date": 2006, "Magyaregres": 642}, {"date": 2007, "Magyaregres": 652}, {"date": 2008, "Magyaregres": 645}, {"date": 2009, "Magyaregres": 658}, {"date": 2010, "Magyaregres": 674}, {"date": 2011, "Magyaregres": 678}, {"date": 2012, "Magyaregres": 664}, {"date": 2013, "Magyaregres": 662}, {"date": 2014, "Magyaregres": 657}, {"date": 2015, "Magyaregres": 645}, {"date": 2016, "Magyaregres": 633}, {"date": 2017, "Magyaregres": 620}, {"date": 2018, "Magyaregres": 619}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunakeszi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3029": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dunakeszi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3029"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunakeszi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3029"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dunakeszi", "selection": "selector3029"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunakeszi"}}}], "data": {"name": "data-f1af78c167aa0473792bcd8690b6a75d"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f1af78c167aa0473792bcd8690b6a75d": [{"date": 1986, "Dunakeszi": 25424}, {"date": 1987, "Dunakeszi": 25602}, {"date": 1988, "Dunakeszi": 25781}, {"date": 1989, "Dunakeszi": 26054}, {"date": 1990, "Dunakeszi": 26217}, {"date": 1991, "Dunakeszi": 27815}, {"date": 1992, "Dunakeszi": 26662}, {"date": 1993, "Dunakeszi": 27245}, {"date": 1994, "Dunakeszi": 27776}, {"date": 1995, "Dunakeszi": 28236}, {"date": 1996, "Dunakeszi": 28521}, {"date": 1997, "Dunakeszi": 28857}, {"date": 1998, "Dunakeszi": 28897}, {"date": 1999, "Dunakeszi": 29056}, {"date": 2000, "Dunakeszi": 29365}, {"date": 2001, "Dunakeszi": 29541}, {"date": 2002, "Dunakeszi": 29567}, {"date": 2003, "Dunakeszi": 30071}, {"date": 2004, "Dunakeszi": 30580}, {"date": 2005, "Dunakeszi": 31051}, {"date": 2006, "Dunakeszi": 31998}, {"date": 2007, "Dunakeszi": 33249}, {"date": 2008, "Dunakeszi": 35450}, {"date": 2009, "Dunakeszi": 37577}, {"date": 2010, "Dunakeszi": 38890}, {"date": 2011, "Dunakeszi": 39869}, {"date": 2012, "Dunakeszi": 40748}, {"date": 2013, "Dunakeszi": 41457}, {"date": 2014, "Dunakeszi": 42134}, {"date": 2015, "Dunakeszi": 42811}, {"date": 2016, "Dunakeszi": 43320}, {"date": 2017, "Dunakeszi": 43679}, {"date": 2018, "Dunakeszi": 43908}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

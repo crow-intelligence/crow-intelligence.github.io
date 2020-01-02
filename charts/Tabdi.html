@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tabdi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector103": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tabdi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector103"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tabdi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector103"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tabdi", "selection": "selector103"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tabdi"}}}], "data": {"name": "data-c589383be53eee2d4f53699231479cfb"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c589383be53eee2d4f53699231479cfb": [{"date": 1986, "Tabdi": 1355}, {"date": 1987, "Tabdi": 1350}, {"date": 1988, "Tabdi": 1316}, {"date": 1989, "Tabdi": 1297}, {"date": 1990, "Tabdi": 1281}, {"date": 1991, "Tabdi": 1267}, {"date": 1992, "Tabdi": 1271}, {"date": 1993, "Tabdi": 1268}, {"date": 1994, "Tabdi": 1272}, {"date": 1995, "Tabdi": 1295}, {"date": 1996, "Tabdi": 1284}, {"date": 1997, "Tabdi": 1289}, {"date": 1998, "Tabdi": 1267}, {"date": 1999, "Tabdi": 1267}, {"date": 2000, "Tabdi": 1252}, {"date": 2001, "Tabdi": 1231}, {"date": 2002, "Tabdi": 1220}, {"date": 2003, "Tabdi": 1217}, {"date": 2004, "Tabdi": 1208}, {"date": 2005, "Tabdi": 1200}, {"date": 2006, "Tabdi": 1221}, {"date": 2007, "Tabdi": 1220}, {"date": 2008, "Tabdi": 1200}, {"date": 2009, "Tabdi": 1190}, {"date": 2010, "Tabdi": 1173}, {"date": 2011, "Tabdi": 1163}, {"date": 2012, "Tabdi": 1143}, {"date": 2013, "Tabdi": 1145}, {"date": 2014, "Tabdi": 1136}, {"date": 2015, "Tabdi": 1121}, {"date": 2016, "Tabdi": 1122}, {"date": 2017, "Tabdi": 1095}, {"date": 2018, "Tabdi": 1076}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

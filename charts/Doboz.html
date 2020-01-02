@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Doboz"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2764": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Doboz"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2764"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Doboz"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2764"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Doboz", "selection": "selector2764"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Doboz"}}}], "data": {"name": "data-92492abff9bde67129546ae3c59f0d47"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-92492abff9bde67129546ae3c59f0d47": [{"date": 1986, "Doboz": 4849}, {"date": 1987, "Doboz": 4842}, {"date": 1988, "Doboz": 4847}, {"date": 1989, "Doboz": 4851}, {"date": 1990, "Doboz": 4816}, {"date": 1991, "Doboz": 4821}, {"date": 1992, "Doboz": 4817}, {"date": 1993, "Doboz": 4789}, {"date": 1994, "Doboz": 4790}, {"date": 1995, "Doboz": 4772}, {"date": 1996, "Doboz": 4770}, {"date": 1997, "Doboz": 4745}, {"date": 1998, "Doboz": 4721}, {"date": 1999, "Doboz": 4701}, {"date": 2000, "Doboz": 4723}, {"date": 2001, "Doboz": 4704}, {"date": 2002, "Doboz": 5859}, {"date": 2003, "Doboz": 4697}, {"date": 2004, "Doboz": 4676}, {"date": 2005, "Doboz": 4687}, {"date": 2006, "Doboz": 4664}, {"date": 2007, "Doboz": 4625}, {"date": 2008, "Doboz": 4597}, {"date": 2009, "Doboz": 4545}, {"date": 2010, "Doboz": 4458}, {"date": 2011, "Doboz": 4438}, {"date": 2012, "Doboz": 4402}, {"date": 2013, "Doboz": 4386}, {"date": 2014, "Doboz": 4379}, {"date": 2015, "Doboz": 4339}, {"date": 2016, "Doboz": 4292}, {"date": 2017, "Doboz": 4246}, {"date": 2018, "Doboz": 4233}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

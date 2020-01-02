@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipolytarn\u00f3c"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1322": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Ipolytarn\u00f3c"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1322"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipolytarn\u00f3c"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1322"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Ipolytarn\u00f3c", "selection": "selector1322"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipolytarn\u00f3c"}}}], "data": {"name": "data-5b2dd19fd0cc7fddcd73d8b0bfe3f639"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-5b2dd19fd0cc7fddcd73d8b0bfe3f639": [{"date": 1986, "Ipolytarn\u00f3c": 614}, {"date": 1987, "Ipolytarn\u00f3c": 605}, {"date": 1988, "Ipolytarn\u00f3c": 596}, {"date": 1989, "Ipolytarn\u00f3c": 579}, {"date": 1990, "Ipolytarn\u00f3c": 568}, {"date": 1991, "Ipolytarn\u00f3c": 557}, {"date": 1992, "Ipolytarn\u00f3c": 573}, {"date": 1993, "Ipolytarn\u00f3c": 565}, {"date": 1994, "Ipolytarn\u00f3c": 561}, {"date": 1995, "Ipolytarn\u00f3c": 554}, {"date": 1996, "Ipolytarn\u00f3c": 553}, {"date": 1997, "Ipolytarn\u00f3c": 560}, {"date": 1998, "Ipolytarn\u00f3c": 548}, {"date": 1999, "Ipolytarn\u00f3c": 549}, {"date": 2000, "Ipolytarn\u00f3c": 537}, {"date": 2001, "Ipolytarn\u00f3c": 553}, {"date": 2002, "Ipolytarn\u00f3c": 864}, {"date": 2003, "Ipolytarn\u00f3c": 564}, {"date": 2004, "Ipolytarn\u00f3c": 546}, {"date": 2005, "Ipolytarn\u00f3c": 541}, {"date": 2006, "Ipolytarn\u00f3c": 537}, {"date": 2007, "Ipolytarn\u00f3c": 516}, {"date": 2008, "Ipolytarn\u00f3c": 510}, {"date": 2009, "Ipolytarn\u00f3c": 503}, {"date": 2010, "Ipolytarn\u00f3c": 499}, {"date": 2011, "Ipolytarn\u00f3c": 498}, {"date": 2012, "Ipolytarn\u00f3c": 487}, {"date": 2013, "Ipolytarn\u00f3c": 481}, {"date": 2014, "Ipolytarn\u00f3c": 472}, {"date": 2015, "Ipolytarn\u00f3c": 476}, {"date": 2016, "Ipolytarn\u00f3c": 480}, {"date": 2017, "Ipolytarn\u00f3c": 458}, {"date": 2018, "Ipolytarn\u00f3c": 461}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

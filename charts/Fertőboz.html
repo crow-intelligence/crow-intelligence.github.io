@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fert\u0151boz"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector935": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Fert\u0151boz"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector935"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fert\u0151boz"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector935"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Fert\u0151boz", "selection": "selector935"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fert\u0151boz"}}}], "data": {"name": "data-6796632394ddd62e1d1079fb0aab2eb9"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-6796632394ddd62e1d1079fb0aab2eb9": [{"date": 1986, "Fert\u0151boz": 283}, {"date": 1987, "Fert\u0151boz": 277}, {"date": 1988, "Fert\u0151boz": 269}, {"date": 1989, "Fert\u0151boz": 284}, {"date": 1990, "Fert\u0151boz": 291}, {"date": 1991, "Fert\u0151boz": 289}, {"date": 1992, "Fert\u0151boz": 290}, {"date": 1993, "Fert\u0151boz": 289}, {"date": 1994, "Fert\u0151boz": 291}, {"date": 1995, "Fert\u0151boz": 287}, {"date": 1996, "Fert\u0151boz": 294}, {"date": 1997, "Fert\u0151boz": 285}, {"date": 1998, "Fert\u0151boz": 280}, {"date": 1999, "Fert\u0151boz": 275}, {"date": 2000, "Fert\u0151boz": 275}, {"date": 2001, "Fert\u0151boz": 279}, {"date": 2002, "Fert\u0151boz": 274}, {"date": 2003, "Fert\u0151boz": 275}, {"date": 2004, "Fert\u0151boz": 270}, {"date": 2005, "Fert\u0151boz": 264}, {"date": 2006, "Fert\u0151boz": 264}, {"date": 2007, "Fert\u0151boz": 260}, {"date": 2008, "Fert\u0151boz": 260}, {"date": 2009, "Fert\u0151boz": 263}, {"date": 2010, "Fert\u0151boz": 274}, {"date": 2011, "Fert\u0151boz": 275}, {"date": 2012, "Fert\u0151boz": 279}, {"date": 2013, "Fert\u0151boz": 291}, {"date": 2014, "Fert\u0151boz": 290}, {"date": 2015, "Fert\u0151boz": 289}, {"date": 2016, "Fert\u0151boz": 290}, {"date": 2017, "Fert\u0151boz": 301}, {"date": 2018, "Fert\u0151boz": 307}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

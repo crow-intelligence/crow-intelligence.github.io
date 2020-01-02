@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gelej"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector541": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Gelej"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector541"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gelej"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector541"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Gelej", "selection": "selector541"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gelej"}}}], "data": {"name": "data-35c6adaae6046df021d815073260977c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-35c6adaae6046df021d815073260977c": [{"date": 1986, "Gelej": 771}, {"date": 1987, "Gelej": 752}, {"date": 1988, "Gelej": 747}, {"date": 1989, "Gelej": 758}, {"date": 1990, "Gelej": 750}, {"date": 1991, "Gelej": 739}, {"date": 1992, "Gelej": 742}, {"date": 1993, "Gelej": 731}, {"date": 1994, "Gelej": 736}, {"date": 1995, "Gelej": 733}, {"date": 1996, "Gelej": 745}, {"date": 1997, "Gelej": 746}, {"date": 1998, "Gelej": 745}, {"date": 1999, "Gelej": 715}, {"date": 2000, "Gelej": 718}, {"date": 2001, "Gelej": 714}, {"date": 2002, "Gelej": 712}, {"date": 2003, "Gelej": 703}, {"date": 2004, "Gelej": 694}, {"date": 2005, "Gelej": 689}, {"date": 2006, "Gelej": 692}, {"date": 2007, "Gelej": 681}, {"date": 2008, "Gelej": 670}, {"date": 2009, "Gelej": 661}, {"date": 2010, "Gelej": 655}, {"date": 2011, "Gelej": 630}, {"date": 2012, "Gelej": 617}, {"date": 2013, "Gelej": 603}, {"date": 2014, "Gelej": 606}, {"date": 2015, "Gelej": 593}, {"date": 2016, "Gelej": 595}, {"date": 2017, "Gelej": 613}, {"date": 2018, "Gelej": 608}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

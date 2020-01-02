@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaszegv\u00e1r"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2481": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zalaszegv\u00e1r"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2481"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaszegv\u00e1r"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2481"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zalaszegv\u00e1r", "selection": "selector2481"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaszegv\u00e1r"}}}], "data": {"name": "data-8a18eb66e17d3617435ef04bb5d9e4f2"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-8a18eb66e17d3617435ef04bb5d9e4f2": [{"date": 1986, "Zalaszegv\u00e1r": 215}, {"date": 1987, "Zalaszegv\u00e1r": 204}, {"date": 1988, "Zalaszegv\u00e1r": 194}, {"date": 1989, "Zalaszegv\u00e1r": 191}, {"date": 1990, "Zalaszegv\u00e1r": 189}, {"date": 1991, "Zalaszegv\u00e1r": 189}, {"date": 1992, "Zalaszegv\u00e1r": 182}, {"date": 1993, "Zalaszegv\u00e1r": 184}, {"date": 1994, "Zalaszegv\u00e1r": 185}, {"date": 1995, "Zalaszegv\u00e1r": 183}, {"date": 1996, "Zalaszegv\u00e1r": 182}, {"date": 1997, "Zalaszegv\u00e1r": 172}, {"date": 1998, "Zalaszegv\u00e1r": 164}, {"date": 1999, "Zalaszegv\u00e1r": 160}, {"date": 2000, "Zalaszegv\u00e1r": 148}, {"date": 2001, "Zalaszegv\u00e1r": 150}, {"date": 2002, "Zalaszegv\u00e1r": 153}, {"date": 2003, "Zalaszegv\u00e1r": 153}, {"date": 2004, "Zalaszegv\u00e1r": 146}, {"date": 2005, "Zalaszegv\u00e1r": 143}, {"date": 2006, "Zalaszegv\u00e1r": 154}, {"date": 2007, "Zalaszegv\u00e1r": 164}, {"date": 2008, "Zalaszegv\u00e1r": 158}, {"date": 2009, "Zalaszegv\u00e1r": 158}, {"date": 2010, "Zalaszegv\u00e1r": 163}, {"date": 2011, "Zalaszegv\u00e1r": 168}, {"date": 2012, "Zalaszegv\u00e1r": 157}, {"date": 2013, "Zalaszegv\u00e1r": 152}, {"date": 2014, "Zalaszegv\u00e1r": 162}, {"date": 2015, "Zalaszegv\u00e1r": 158}, {"date": 2016, "Zalaszegv\u00e1r": 149}, {"date": 2017, "Zalaszegv\u00e1r": 148}, {"date": 2018, "Zalaszegv\u00e1r": 155}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

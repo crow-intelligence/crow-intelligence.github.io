@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalagy\u00f6m\u00f6r\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2478": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zalagy\u00f6m\u00f6r\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2478"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalagy\u00f6m\u00f6r\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2478"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zalagy\u00f6m\u00f6r\u0151", "selection": "selector2478"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalagy\u00f6m\u00f6r\u0151"}}}], "data": {"name": "data-d7d3a43d55b23f60244fa651450d60b6"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d7d3a43d55b23f60244fa651450d60b6": [{"date": 1986, "Zalagy\u00f6m\u00f6r\u0151": 551}, {"date": 1987, "Zalagy\u00f6m\u00f6r\u0151": 548}, {"date": 1988, "Zalagy\u00f6m\u00f6r\u0151": 560}, {"date": 1989, "Zalagy\u00f6m\u00f6r\u0151": 557}, {"date": 1990, "Zalagy\u00f6m\u00f6r\u0151": 537}, {"date": 1991, "Zalagy\u00f6m\u00f6r\u0151": 551}, {"date": 1992, "Zalagy\u00f6m\u00f6r\u0151": 548}, {"date": 1993, "Zalagy\u00f6m\u00f6r\u0151": 532}, {"date": 1994, "Zalagy\u00f6m\u00f6r\u0151": 533}, {"date": 1995, "Zalagy\u00f6m\u00f6r\u0151": 541}, {"date": 1996, "Zalagy\u00f6m\u00f6r\u0151": 536}, {"date": 1997, "Zalagy\u00f6m\u00f6r\u0151": 537}, {"date": 1998, "Zalagy\u00f6m\u00f6r\u0151": 540}, {"date": 1999, "Zalagy\u00f6m\u00f6r\u0151": 531}, {"date": 2000, "Zalagy\u00f6m\u00f6r\u0151": 512}, {"date": 2001, "Zalagy\u00f6m\u00f6r\u0151": 515}, {"date": 2002, "Zalagy\u00f6m\u00f6r\u0151": 516}, {"date": 2003, "Zalagy\u00f6m\u00f6r\u0151": 508}, {"date": 2004, "Zalagy\u00f6m\u00f6r\u0151": 503}, {"date": 2005, "Zalagy\u00f6m\u00f6r\u0151": 503}, {"date": 2006, "Zalagy\u00f6m\u00f6r\u0151": 480}, {"date": 2007, "Zalagy\u00f6m\u00f6r\u0151": 476}, {"date": 2008, "Zalagy\u00f6m\u00f6r\u0151": 481}, {"date": 2009, "Zalagy\u00f6m\u00f6r\u0151": 477}, {"date": 2010, "Zalagy\u00f6m\u00f6r\u0151": 479}, {"date": 2011, "Zalagy\u00f6m\u00f6r\u0151": 470}, {"date": 2012, "Zalagy\u00f6m\u00f6r\u0151": 464}, {"date": 2013, "Zalagy\u00f6m\u00f6r\u0151": 457}, {"date": 2014, "Zalagy\u00f6m\u00f6r\u0151": 452}, {"date": 2015, "Zalagy\u00f6m\u00f6r\u0151": 448}, {"date": 2016, "Zalagy\u00f6m\u00f6r\u0151": 441}, {"date": 2017, "Zalagy\u00f6m\u00f6r\u0151": 443}, {"date": 2018, "Zalagy\u00f6m\u00f6r\u0151": 437}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

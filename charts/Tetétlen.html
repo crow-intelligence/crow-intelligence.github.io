@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tet\u00e9tlen"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1101": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tet\u00e9tlen"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1101"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tet\u00e9tlen"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1101"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tet\u00e9tlen", "selection": "selector1101"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tet\u00e9tlen"}}}], "data": {"name": "data-c312b7b56f1f7b8fe1101be93912e89b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c312b7b56f1f7b8fe1101be93912e89b": [{"date": 1986, "Tet\u00e9tlen": 1682}, {"date": 1987, "Tet\u00e9tlen": 1631}, {"date": 1988, "Tet\u00e9tlen": 1591}, {"date": 1989, "Tet\u00e9tlen": 1589}, {"date": 1990, "Tet\u00e9tlen": 1572}, {"date": 1991, "Tet\u00e9tlen": 1551}, {"date": 1992, "Tet\u00e9tlen": 1565}, {"date": 1993, "Tet\u00e9tlen": 1549}, {"date": 1994, "Tet\u00e9tlen": 1538}, {"date": 1995, "Tet\u00e9tlen": 1528}, {"date": 1996, "Tet\u00e9tlen": 1526}, {"date": 1997, "Tet\u00e9tlen": 1508}, {"date": 1998, "Tet\u00e9tlen": 1530}, {"date": 1999, "Tet\u00e9tlen": 1528}, {"date": 2000, "Tet\u00e9tlen": 1509}, {"date": 2001, "Tet\u00e9tlen": 1514}, {"date": 2002, "Tet\u00e9tlen": 1490}, {"date": 2003, "Tet\u00e9tlen": 1483}, {"date": 2004, "Tet\u00e9tlen": 1462}, {"date": 2005, "Tet\u00e9tlen": 1483}, {"date": 2006, "Tet\u00e9tlen": 1462}, {"date": 2007, "Tet\u00e9tlen": 1448}, {"date": 2008, "Tet\u00e9tlen": 1443}, {"date": 2009, "Tet\u00e9tlen": 1420}, {"date": 2010, "Tet\u00e9tlen": 1426}, {"date": 2011, "Tet\u00e9tlen": 1405}, {"date": 2012, "Tet\u00e9tlen": 1384}, {"date": 2013, "Tet\u00e9tlen": 1384}, {"date": 2014, "Tet\u00e9tlen": 1389}, {"date": 2015, "Tet\u00e9tlen": 1370}, {"date": 2016, "Tet\u00e9tlen": 1358}, {"date": 2017, "Tet\u00e9tlen": 1354}, {"date": 2018, "Tet\u00e9tlen": 1355}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

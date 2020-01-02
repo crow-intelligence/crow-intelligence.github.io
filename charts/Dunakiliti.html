@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunakiliti"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector919": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dunakiliti"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector919"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunakiliti"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector919"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dunakiliti", "selection": "selector919"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunakiliti"}}}], "data": {"name": "data-86ab26e89b408da4bba1ac888a705a65"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-86ab26e89b408da4bba1ac888a705a65": [{"date": 1986, "Dunakiliti": 1690}, {"date": 1987, "Dunakiliti": 1691}, {"date": 1988, "Dunakiliti": 1671}, {"date": 1989, "Dunakiliti": 1692}, {"date": 1990, "Dunakiliti": 1704}, {"date": 1991, "Dunakiliti": 1700}, {"date": 1992, "Dunakiliti": 1698}, {"date": 1993, "Dunakiliti": 1705}, {"date": 1994, "Dunakiliti": 1701}, {"date": 1995, "Dunakiliti": 1738}, {"date": 1996, "Dunakiliti": 1762}, {"date": 1997, "Dunakiliti": 1754}, {"date": 1998, "Dunakiliti": 1771}, {"date": 1999, "Dunakiliti": 1759}, {"date": 2000, "Dunakiliti": 1763}, {"date": 2001, "Dunakiliti": 1756}, {"date": 2002, "Dunakiliti": 1750}, {"date": 2003, "Dunakiliti": 1795}, {"date": 2004, "Dunakiliti": 1812}, {"date": 2005, "Dunakiliti": 1836}, {"date": 2006, "Dunakiliti": 1834}, {"date": 2007, "Dunakiliti": 1860}, {"date": 2008, "Dunakiliti": 1887}, {"date": 2009, "Dunakiliti": 1910}, {"date": 2010, "Dunakiliti": 1890}, {"date": 2011, "Dunakiliti": 1903}, {"date": 2012, "Dunakiliti": 1908}, {"date": 2013, "Dunakiliti": 1897}, {"date": 2014, "Dunakiliti": 1889}, {"date": 2015, "Dunakiliti": 1918}, {"date": 2016, "Dunakiliti": 1937}, {"date": 2017, "Dunakiliti": 1934}, {"date": 2018, "Dunakiliti": 1955}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

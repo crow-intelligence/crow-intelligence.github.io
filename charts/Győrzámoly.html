@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gy\u0151rz\u00e1moly"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector952": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Gy\u0151rz\u00e1moly"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector952"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gy\u0151rz\u00e1moly"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector952"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Gy\u0151rz\u00e1moly", "selection": "selector952"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gy\u0151rz\u00e1moly"}}}], "data": {"name": "data-1a0cd566c9836ad567e9bedc654cd917"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1a0cd566c9836ad567e9bedc654cd917": [{"date": 1986, "Gy\u0151rz\u00e1moly": 1374}, {"date": 1987, "Gy\u0151rz\u00e1moly": 1389}, {"date": 1988, "Gy\u0151rz\u00e1moly": 1389}, {"date": 1989, "Gy\u0151rz\u00e1moly": 1402}, {"date": 1990, "Gy\u0151rz\u00e1moly": 1405}, {"date": 1991, "Gy\u0151rz\u00e1moly": 1417}, {"date": 1992, "Gy\u0151rz\u00e1moly": 1415}, {"date": 1993, "Gy\u0151rz\u00e1moly": 1442}, {"date": 1994, "Gy\u0151rz\u00e1moly": 1441}, {"date": 1995, "Gy\u0151rz\u00e1moly": 1465}, {"date": 1996, "Gy\u0151rz\u00e1moly": 1474}, {"date": 1997, "Gy\u0151rz\u00e1moly": 1483}, {"date": 1998, "Gy\u0151rz\u00e1moly": 1476}, {"date": 1999, "Gy\u0151rz\u00e1moly": 1495}, {"date": 2000, "Gy\u0151rz\u00e1moly": 1511}, {"date": 2001, "Gy\u0151rz\u00e1moly": 1539}, {"date": 2002, "Gy\u0151rz\u00e1moly": 1647}, {"date": 2003, "Gy\u0151rz\u00e1moly": 1671}, {"date": 2004, "Gy\u0151rz\u00e1moly": 1769}, {"date": 2005, "Gy\u0151rz\u00e1moly": 1865}, {"date": 2006, "Gy\u0151rz\u00e1moly": 1952}, {"date": 2007, "Gy\u0151rz\u00e1moly": 2039}, {"date": 2008, "Gy\u0151rz\u00e1moly": 2138}, {"date": 2009, "Gy\u0151rz\u00e1moly": 2256}, {"date": 2010, "Gy\u0151rz\u00e1moly": 2359}, {"date": 2011, "Gy\u0151rz\u00e1moly": 2446}, {"date": 2012, "Gy\u0151rz\u00e1moly": 2480}, {"date": 2013, "Gy\u0151rz\u00e1moly": 2526}, {"date": 2014, "Gy\u0151rz\u00e1moly": 2597}, {"date": 2015, "Gy\u0151rz\u00e1moly": 2705}, {"date": 2016, "Gy\u0151rz\u00e1moly": 2787}, {"date": 2017, "Gy\u0151rz\u00e1moly": 2854}, {"date": 2018, "Gy\u0151rz\u00e1moly": 3003}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

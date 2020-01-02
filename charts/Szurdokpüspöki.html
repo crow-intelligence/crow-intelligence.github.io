@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szurdokp\u00fcsp\u00f6ki"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1394": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szurdokp\u00fcsp\u00f6ki"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1394"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szurdokp\u00fcsp\u00f6ki"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1394"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szurdokp\u00fcsp\u00f6ki", "selection": "selector1394"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szurdokp\u00fcsp\u00f6ki"}}}], "data": {"name": "data-ccb16b9ce2ea6c69b463503003a5c24c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ccb16b9ce2ea6c69b463503003a5c24c": [{"date": 1986, "Szurdokp\u00fcsp\u00f6ki": 2264}, {"date": 1987, "Szurdokp\u00fcsp\u00f6ki": 2242}, {"date": 1988, "Szurdokp\u00fcsp\u00f6ki": 2238}, {"date": 1989, "Szurdokp\u00fcsp\u00f6ki": 2229}, {"date": 1990, "Szurdokp\u00fcsp\u00f6ki": 2223}, {"date": 1991, "Szurdokp\u00fcsp\u00f6ki": 2220}, {"date": 1992, "Szurdokp\u00fcsp\u00f6ki": 2210}, {"date": 1993, "Szurdokp\u00fcsp\u00f6ki": 2180}, {"date": 1994, "Szurdokp\u00fcsp\u00f6ki": 2180}, {"date": 1995, "Szurdokp\u00fcsp\u00f6ki": 2184}, {"date": 1996, "Szurdokp\u00fcsp\u00f6ki": 2154}, {"date": 1997, "Szurdokp\u00fcsp\u00f6ki": 2130}, {"date": 1998, "Szurdokp\u00fcsp\u00f6ki": 2137}, {"date": 1999, "Szurdokp\u00fcsp\u00f6ki": 2118}, {"date": 2000, "Szurdokp\u00fcsp\u00f6ki": 2071}, {"date": 2001, "Szurdokp\u00fcsp\u00f6ki": 2072}, {"date": 2002, "Szurdokp\u00fcsp\u00f6ki": 2045}, {"date": 2003, "Szurdokp\u00fcsp\u00f6ki": 2018}, {"date": 2004, "Szurdokp\u00fcsp\u00f6ki": 2044}, {"date": 2005, "Szurdokp\u00fcsp\u00f6ki": 2023}, {"date": 2006, "Szurdokp\u00fcsp\u00f6ki": 2020}, {"date": 2007, "Szurdokp\u00fcsp\u00f6ki": 2033}, {"date": 2008, "Szurdokp\u00fcsp\u00f6ki": 2014}, {"date": 2009, "Szurdokp\u00fcsp\u00f6ki": 1991}, {"date": 2010, "Szurdokp\u00fcsp\u00f6ki": 1973}, {"date": 2011, "Szurdokp\u00fcsp\u00f6ki": 1980}, {"date": 2012, "Szurdokp\u00fcsp\u00f6ki": 2052}, {"date": 2013, "Szurdokp\u00fcsp\u00f6ki": 2005}, {"date": 2014, "Szurdokp\u00fcsp\u00f6ki": 1971}, {"date": 2015, "Szurdokp\u00fcsp\u00f6ki": 1972}, {"date": 2016, "Szurdokp\u00fcsp\u00f6ki": 1936}, {"date": 2017, "Szurdokp\u00fcsp\u00f6ki": 1903}, {"date": 2018, "Szurdokp\u00fcsp\u00f6ki": 1899}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

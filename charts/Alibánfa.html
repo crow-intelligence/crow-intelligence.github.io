@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Alib\u00e1nfa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2483": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Alib\u00e1nfa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2483"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Alib\u00e1nfa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2483"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Alib\u00e1nfa", "selection": "selector2483"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Alib\u00e1nfa"}}}], "data": {"name": "data-daf64f001ab821693c5b68173bec7500"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-daf64f001ab821693c5b68173bec7500": [{"date": 1986, "Alib\u00e1nfa": 482}, {"date": 1987, "Alib\u00e1nfa": 484}, {"date": 1988, "Alib\u00e1nfa": 482}, {"date": 1989, "Alib\u00e1nfa": 481}, {"date": 1990, "Alib\u00e1nfa": 477}, {"date": 1991, "Alib\u00e1nfa": 480}, {"date": 1992, "Alib\u00e1nfa": 478}, {"date": 1993, "Alib\u00e1nfa": 465}, {"date": 1994, "Alib\u00e1nfa": 464}, {"date": 1995, "Alib\u00e1nfa": 468}, {"date": 1996, "Alib\u00e1nfa": 468}, {"date": 1997, "Alib\u00e1nfa": 451}, {"date": 1998, "Alib\u00e1nfa": 458}, {"date": 1999, "Alib\u00e1nfa": 461}, {"date": 2000, "Alib\u00e1nfa": 457}, {"date": 2001, "Alib\u00e1nfa": 452}, {"date": 2002, "Alib\u00e1nfa": 449}, {"date": 2003, "Alib\u00e1nfa": 457}, {"date": 2004, "Alib\u00e1nfa": 450}, {"date": 2005, "Alib\u00e1nfa": 453}, {"date": 2006, "Alib\u00e1nfa": 443}, {"date": 2007, "Alib\u00e1nfa": 444}, {"date": 2008, "Alib\u00e1nfa": 457}, {"date": 2009, "Alib\u00e1nfa": 470}, {"date": 2010, "Alib\u00e1nfa": 465}, {"date": 2011, "Alib\u00e1nfa": 456}, {"date": 2012, "Alib\u00e1nfa": 452}, {"date": 2013, "Alib\u00e1nfa": 441}, {"date": 2014, "Alib\u00e1nfa": 439}, {"date": 2015, "Alib\u00e1nfa": 423}, {"date": 2016, "Alib\u00e1nfa": 427}, {"date": 2017, "Alib\u00e1nfa": 440}, {"date": 2018, "Alib\u00e1nfa": 433}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Agyagosszerg\u00e9ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector895": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Agyagosszerg\u00e9ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector895"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Agyagosszerg\u00e9ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector895"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Agyagosszerg\u00e9ny", "selection": "selector895"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Agyagosszerg\u00e9ny"}}}], "data": {"name": "data-38d644b8fefd479ebaf6acb1bec77429"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-38d644b8fefd479ebaf6acb1bec77429": [{"date": 1986, "Agyagosszerg\u00e9ny": 1064}, {"date": 1987, "Agyagosszerg\u00e9ny": 1043}, {"date": 1988, "Agyagosszerg\u00e9ny": 1011}, {"date": 1989, "Agyagosszerg\u00e9ny": 980}, {"date": 1990, "Agyagosszerg\u00e9ny": 968}, {"date": 1991, "Agyagosszerg\u00e9ny": 961}, {"date": 1992, "Agyagosszerg\u00e9ny": 933}, {"date": 1993, "Agyagosszerg\u00e9ny": 932}, {"date": 1994, "Agyagosszerg\u00e9ny": 930}, {"date": 1995, "Agyagosszerg\u00e9ny": 942}, {"date": 1996, "Agyagosszerg\u00e9ny": 936}, {"date": 1997, "Agyagosszerg\u00e9ny": 933}, {"date": 1998, "Agyagosszerg\u00e9ny": 922}, {"date": 1999, "Agyagosszerg\u00e9ny": 925}, {"date": 2000, "Agyagosszerg\u00e9ny": 930}, {"date": 2001, "Agyagosszerg\u00e9ny": 913}, {"date": 2002, "Agyagosszerg\u00e9ny": 912}, {"date": 2003, "Agyagosszerg\u00e9ny": 923}, {"date": 2004, "Agyagosszerg\u00e9ny": 919}, {"date": 2005, "Agyagosszerg\u00e9ny": 913}, {"date": 2006, "Agyagosszerg\u00e9ny": 902}, {"date": 2007, "Agyagosszerg\u00e9ny": 882}, {"date": 2008, "Agyagosszerg\u00e9ny": 899}, {"date": 2009, "Agyagosszerg\u00e9ny": 884}, {"date": 2010, "Agyagosszerg\u00e9ny": 887}, {"date": 2011, "Agyagosszerg\u00e9ny": 887}, {"date": 2012, "Agyagosszerg\u00e9ny": 887}, {"date": 2013, "Agyagosszerg\u00e9ny": 888}, {"date": 2014, "Agyagosszerg\u00e9ny": 894}, {"date": 2015, "Agyagosszerg\u00e9ny": 909}, {"date": 2016, "Agyagosszerg\u00e9ny": 893}, {"date": 2017, "Agyagosszerg\u00e9ny": 894}, {"date": 2018, "Agyagosszerg\u00e9ny": 900}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

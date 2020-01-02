@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lengyelt\u00f3ti"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3079": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Lengyelt\u00f3ti"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3079"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lengyelt\u00f3ti"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3079"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Lengyelt\u00f3ti", "selection": "selector3079"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lengyelt\u00f3ti"}}}], "data": {"name": "data-333cc79496441b8102408bcf7eba517f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-333cc79496441b8102408bcf7eba517f": [{"date": 1986, "Lengyelt\u00f3ti": 3488}, {"date": 1987, "Lengyelt\u00f3ti": 3466}, {"date": 1988, "Lengyelt\u00f3ti": 3437}, {"date": 1989, "Lengyelt\u00f3ti": 3424}, {"date": 1990, "Lengyelt\u00f3ti": 3431}, {"date": 1991, "Lengyelt\u00f3ti": 3419}, {"date": 1992, "Lengyelt\u00f3ti": 3445}, {"date": 1993, "Lengyelt\u00f3ti": 3464}, {"date": 1994, "Lengyelt\u00f3ti": 3429}, {"date": 1995, "Lengyelt\u00f3ti": 3450}, {"date": 1996, "Lengyelt\u00f3ti": 3457}, {"date": 1997, "Lengyelt\u00f3ti": 3451}, {"date": 1998, "Lengyelt\u00f3ti": 3414}, {"date": 1999, "Lengyelt\u00f3ti": 3375}, {"date": 2000, "Lengyelt\u00f3ti": 3368}, {"date": 2001, "Lengyelt\u00f3ti": 3407}, {"date": 2002, "Lengyelt\u00f3ti": 3389}, {"date": 2003, "Lengyelt\u00f3ti": 3401}, {"date": 2004, "Lengyelt\u00f3ti": 3352}, {"date": 2005, "Lengyelt\u00f3ti": 3347}, {"date": 2006, "Lengyelt\u00f3ti": 3348}, {"date": 2007, "Lengyelt\u00f3ti": 3327}, {"date": 2008, "Lengyelt\u00f3ti": 3354}, {"date": 2009, "Lengyelt\u00f3ti": 3340}, {"date": 2010, "Lengyelt\u00f3ti": 3309}, {"date": 2011, "Lengyelt\u00f3ti": 3290}, {"date": 2012, "Lengyelt\u00f3ti": 3261}, {"date": 2013, "Lengyelt\u00f3ti": 3217}, {"date": 2014, "Lengyelt\u00f3ti": 3188}, {"date": 2015, "Lengyelt\u00f3ti": 3140}, {"date": 2016, "Lengyelt\u00f3ti": 3116}, {"date": 2017, "Lengyelt\u00f3ti": 3083}, {"date": 2018, "Lengyelt\u00f3ti": 3061}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pankasz"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2214": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Pankasz"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2214"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pankasz"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2214"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Pankasz", "selection": "selector2214"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pankasz"}}}], "data": {"name": "data-2493882d7381122f39dfaab46dc8dc6b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2493882d7381122f39dfaab46dc8dc6b": [{"date": 1986, "Pankasz": 615}, {"date": 1987, "Pankasz": 611}, {"date": 1988, "Pankasz": 610}, {"date": 1989, "Pankasz": 603}, {"date": 1990, "Pankasz": 588}, {"date": 1991, "Pankasz": 575}, {"date": 1992, "Pankasz": 570}, {"date": 1993, "Pankasz": 553}, {"date": 1994, "Pankasz": 542}, {"date": 1995, "Pankasz": 541}, {"date": 1996, "Pankasz": 539}, {"date": 1997, "Pankasz": 538}, {"date": 1998, "Pankasz": 526}, {"date": 1999, "Pankasz": 524}, {"date": 2000, "Pankasz": 520}, {"date": 2001, "Pankasz": 517}, {"date": 2002, "Pankasz": 509}, {"date": 2003, "Pankasz": 506}, {"date": 2004, "Pankasz": 499}, {"date": 2005, "Pankasz": 491}, {"date": 2006, "Pankasz": 490}, {"date": 2007, "Pankasz": 477}, {"date": 2008, "Pankasz": 474}, {"date": 2009, "Pankasz": 471}, {"date": 2010, "Pankasz": 471}, {"date": 2011, "Pankasz": 462}, {"date": 2012, "Pankasz": 463}, {"date": 2013, "Pankasz": 460}, {"date": 2014, "Pankasz": 462}, {"date": 2015, "Pankasz": 455}, {"date": 2016, "Pankasz": 463}, {"date": 2017, "Pankasz": 450}, {"date": 2018, "Pankasz": 458}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

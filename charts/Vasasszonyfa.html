@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Vasasszonyfa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2268": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Vasasszonyfa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2268"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Vasasszonyfa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2268"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Vasasszonyfa", "selection": "selector2268"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Vasasszonyfa"}}}], "data": {"name": "data-ad538f9fa5f6b913f052d77b6cef8c9a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ad538f9fa5f6b913f052d77b6cef8c9a": [{"date": 1986, "Vasasszonyfa": 437}, {"date": 1987, "Vasasszonyfa": 440}, {"date": 1988, "Vasasszonyfa": 439}, {"date": 1989, "Vasasszonyfa": 435}, {"date": 1990, "Vasasszonyfa": 427}, {"date": 1991, "Vasasszonyfa": 419}, {"date": 1992, "Vasasszonyfa": 399}, {"date": 1993, "Vasasszonyfa": 391}, {"date": 1994, "Vasasszonyfa": 380}, {"date": 1995, "Vasasszonyfa": 393}, {"date": 1996, "Vasasszonyfa": 396}, {"date": 1997, "Vasasszonyfa": 395}, {"date": 1998, "Vasasszonyfa": 392}, {"date": 1999, "Vasasszonyfa": 396}, {"date": 2000, "Vasasszonyfa": 393}, {"date": 2001, "Vasasszonyfa": 390}, {"date": 2002, "Vasasszonyfa": 396}, {"date": 2003, "Vasasszonyfa": 390}, {"date": 2004, "Vasasszonyfa": 389}, {"date": 2005, "Vasasszonyfa": 398}, {"date": 2006, "Vasasszonyfa": 394}, {"date": 2007, "Vasasszonyfa": 381}, {"date": 2008, "Vasasszonyfa": 379}, {"date": 2009, "Vasasszonyfa": 380}, {"date": 2010, "Vasasszonyfa": 375}, {"date": 2011, "Vasasszonyfa": 367}, {"date": 2012, "Vasasszonyfa": 372}, {"date": 2013, "Vasasszonyfa": 377}, {"date": 2014, "Vasasszonyfa": 381}, {"date": 2015, "Vasasszonyfa": 390}, {"date": 2016, "Vasasszonyfa": 392}, {"date": 2017, "Vasasszonyfa": 387}, {"date": 2018, "Vasasszonyfa": 388}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

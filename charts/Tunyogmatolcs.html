@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tunyogmatolcs"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1921": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tunyogmatolcs"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1921"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tunyogmatolcs"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1921"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tunyogmatolcs", "selection": "selector1921"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tunyogmatolcs"}}}], "data": {"name": "data-e7c1d3f1de0daad96670e0e69be99d6b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e7c1d3f1de0daad96670e0e69be99d6b": [{"date": 1986, "Tunyogmatolcs": 2882}, {"date": 1987, "Tunyogmatolcs": 2848}, {"date": 1988, "Tunyogmatolcs": 2803}, {"date": 1989, "Tunyogmatolcs": 2787}, {"date": 1990, "Tunyogmatolcs": 2781}, {"date": 1991, "Tunyogmatolcs": 2754}, {"date": 1992, "Tunyogmatolcs": 2748}, {"date": 1993, "Tunyogmatolcs": 2727}, {"date": 1994, "Tunyogmatolcs": 2733}, {"date": 1995, "Tunyogmatolcs": 2716}, {"date": 1996, "Tunyogmatolcs": 2692}, {"date": 1997, "Tunyogmatolcs": 2696}, {"date": 1998, "Tunyogmatolcs": 2711}, {"date": 1999, "Tunyogmatolcs": 2731}, {"date": 2000, "Tunyogmatolcs": 2737}, {"date": 2001, "Tunyogmatolcs": 2728}, {"date": 2002, "Tunyogmatolcs": 2723}, {"date": 2003, "Tunyogmatolcs": 2712}, {"date": 2004, "Tunyogmatolcs": 2678}, {"date": 2005, "Tunyogmatolcs": 2677}, {"date": 2006, "Tunyogmatolcs": 2678}, {"date": 2007, "Tunyogmatolcs": 2682}, {"date": 2008, "Tunyogmatolcs": 2670}, {"date": 2009, "Tunyogmatolcs": 2596}, {"date": 2010, "Tunyogmatolcs": 2607}, {"date": 2011, "Tunyogmatolcs": 2564}, {"date": 2012, "Tunyogmatolcs": 2572}, {"date": 2013, "Tunyogmatolcs": 2551}, {"date": 2014, "Tunyogmatolcs": 2548}, {"date": 2015, "Tunyogmatolcs": 2539}, {"date": 2016, "Tunyogmatolcs": 2522}, {"date": 2017, "Tunyogmatolcs": 2559}, {"date": 2018, "Tunyogmatolcs": 2571}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

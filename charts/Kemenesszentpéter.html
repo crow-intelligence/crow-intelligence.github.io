@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kemenesszentp\u00e9ter"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2363": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kemenesszentp\u00e9ter"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2363"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kemenesszentp\u00e9ter"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2363"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kemenesszentp\u00e9ter", "selection": "selector2363"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kemenesszentp\u00e9ter"}}}], "data": {"name": "data-2709800cda02b1b381d978fa1a2f6ccf"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2709800cda02b1b381d978fa1a2f6ccf": [{"date": 1986, "Kemenesszentp\u00e9ter": 933}, {"date": 1987, "Kemenesszentp\u00e9ter": 922}, {"date": 1988, "Kemenesszentp\u00e9ter": 920}, {"date": 1989, "Kemenesszentp\u00e9ter": 899}, {"date": 1990, "Kemenesszentp\u00e9ter": 896}, {"date": 1991, "Kemenesszentp\u00e9ter": 875}, {"date": 1992, "Kemenesszentp\u00e9ter": 867}, {"date": 1993, "Kemenesszentp\u00e9ter": 863}, {"date": 1994, "Kemenesszentp\u00e9ter": 852}, {"date": 1995, "Kemenesszentp\u00e9ter": 853}, {"date": 1996, "Kemenesszentp\u00e9ter": 847}, {"date": 1997, "Kemenesszentp\u00e9ter": 845}, {"date": 1998, "Kemenesszentp\u00e9ter": 831}, {"date": 1999, "Kemenesszentp\u00e9ter": 809}, {"date": 2000, "Kemenesszentp\u00e9ter": 802}, {"date": 2001, "Kemenesszentp\u00e9ter": 792}, {"date": 2002, "Kemenesszentp\u00e9ter": 789}, {"date": 2003, "Kemenesszentp\u00e9ter": 775}, {"date": 2004, "Kemenesszentp\u00e9ter": 754}, {"date": 2005, "Kemenesszentp\u00e9ter": 732}, {"date": 2006, "Kemenesszentp\u00e9ter": 717}, {"date": 2007, "Kemenesszentp\u00e9ter": 704}, {"date": 2008, "Kemenesszentp\u00e9ter": 681}, {"date": 2009, "Kemenesszentp\u00e9ter": 671}, {"date": 2010, "Kemenesszentp\u00e9ter": 674}, {"date": 2011, "Kemenesszentp\u00e9ter": 673}, {"date": 2012, "Kemenesszentp\u00e9ter": 661}, {"date": 2013, "Kemenesszentp\u00e9ter": 650}, {"date": 2014, "Kemenesszentp\u00e9ter": 639}, {"date": 2015, "Kemenesszentp\u00e9ter": 626}, {"date": 2016, "Kemenesszentp\u00e9ter": 620}, {"date": 2017, "Kemenesszentp\u00e9ter": 615}, {"date": 2018, "Kemenesszentp\u00e9ter": 600}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

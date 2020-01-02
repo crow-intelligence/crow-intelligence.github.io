@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonys\u00e1rk\u00e1ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1226": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bakonys\u00e1rk\u00e1ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1226"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonys\u00e1rk\u00e1ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1226"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bakonys\u00e1rk\u00e1ny", "selection": "selector1226"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonys\u00e1rk\u00e1ny"}}}], "data": {"name": "data-2e35e25bdb49f80fb2acc0a1662fcb41"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2e35e25bdb49f80fb2acc0a1662fcb41": [{"date": 1986, "Bakonys\u00e1rk\u00e1ny": 1117}, {"date": 1987, "Bakonys\u00e1rk\u00e1ny": 1104}, {"date": 1988, "Bakonys\u00e1rk\u00e1ny": 1079}, {"date": 1989, "Bakonys\u00e1rk\u00e1ny": 1063}, {"date": 1990, "Bakonys\u00e1rk\u00e1ny": 1046}, {"date": 1991, "Bakonys\u00e1rk\u00e1ny": 1026}, {"date": 1992, "Bakonys\u00e1rk\u00e1ny": 1037}, {"date": 1993, "Bakonys\u00e1rk\u00e1ny": 1007}, {"date": 1994, "Bakonys\u00e1rk\u00e1ny": 1023}, {"date": 1995, "Bakonys\u00e1rk\u00e1ny": 1025}, {"date": 1996, "Bakonys\u00e1rk\u00e1ny": 1026}, {"date": 1997, "Bakonys\u00e1rk\u00e1ny": 1032}, {"date": 1998, "Bakonys\u00e1rk\u00e1ny": 1012}, {"date": 1999, "Bakonys\u00e1rk\u00e1ny": 996}, {"date": 2000, "Bakonys\u00e1rk\u00e1ny": 1005}, {"date": 2001, "Bakonys\u00e1rk\u00e1ny": 999}, {"date": 2002, "Bakonys\u00e1rk\u00e1ny": 1002}, {"date": 2003, "Bakonys\u00e1rk\u00e1ny": 994}, {"date": 2004, "Bakonys\u00e1rk\u00e1ny": 992}, {"date": 2005, "Bakonys\u00e1rk\u00e1ny": 978}, {"date": 2006, "Bakonys\u00e1rk\u00e1ny": 991}, {"date": 2007, "Bakonys\u00e1rk\u00e1ny": 1000}, {"date": 2008, "Bakonys\u00e1rk\u00e1ny": 993}, {"date": 2009, "Bakonys\u00e1rk\u00e1ny": 996}, {"date": 2010, "Bakonys\u00e1rk\u00e1ny": 984}, {"date": 2011, "Bakonys\u00e1rk\u00e1ny": 978}, {"date": 2012, "Bakonys\u00e1rk\u00e1ny": 973}, {"date": 2013, "Bakonys\u00e1rk\u00e1ny": 975}, {"date": 2014, "Bakonys\u00e1rk\u00e1ny": 969}, {"date": 2015, "Bakonys\u00e1rk\u00e1ny": 949}, {"date": 2016, "Bakonys\u00e1rk\u00e1ny": 975}, {"date": 2017, "Bakonys\u00e1rk\u00e1ny": 974}, {"date": 2018, "Bakonys\u00e1rk\u00e1ny": 996}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonf\u0151kaj\u00e1r"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2305": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Balatonf\u0151kaj\u00e1r"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2305"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonf\u0151kaj\u00e1r"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2305"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Balatonf\u0151kaj\u00e1r", "selection": "selector2305"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonf\u0151kaj\u00e1r"}}}], "data": {"name": "data-afb8e70b5391f7c4e5ba6c99b7a8ca18"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-afb8e70b5391f7c4e5ba6c99b7a8ca18": [{"date": 1986, "Balatonf\u0151kaj\u00e1r": 1635}, {"date": 1987, "Balatonf\u0151kaj\u00e1r": 1614}, {"date": 1988, "Balatonf\u0151kaj\u00e1r": 1588}, {"date": 1989, "Balatonf\u0151kaj\u00e1r": 1605}, {"date": 1990, "Balatonf\u0151kaj\u00e1r": 1589}, {"date": 1991, "Balatonf\u0151kaj\u00e1r": 1575}, {"date": 1992, "Balatonf\u0151kaj\u00e1r": 1559}, {"date": 1993, "Balatonf\u0151kaj\u00e1r": 1557}, {"date": 1994, "Balatonf\u0151kaj\u00e1r": 1542}, {"date": 1995, "Balatonf\u0151kaj\u00e1r": 1541}, {"date": 1996, "Balatonf\u0151kaj\u00e1r": 1532}, {"date": 1997, "Balatonf\u0151kaj\u00e1r": 1516}, {"date": 1998, "Balatonf\u0151kaj\u00e1r": 1500}, {"date": 1999, "Balatonf\u0151kaj\u00e1r": 1471}, {"date": 2000, "Balatonf\u0151kaj\u00e1r": 1471}, {"date": 2001, "Balatonf\u0151kaj\u00e1r": 1461}, {"date": 2002, "Balatonf\u0151kaj\u00e1r": 1450}, {"date": 2003, "Balatonf\u0151kaj\u00e1r": 1462}, {"date": 2004, "Balatonf\u0151kaj\u00e1r": 1465}, {"date": 2005, "Balatonf\u0151kaj\u00e1r": 1442}, {"date": 2006, "Balatonf\u0151kaj\u00e1r": 1427}, {"date": 2007, "Balatonf\u0151kaj\u00e1r": 1406}, {"date": 2008, "Balatonf\u0151kaj\u00e1r": 1394}, {"date": 2009, "Balatonf\u0151kaj\u00e1r": 1387}, {"date": 2010, "Balatonf\u0151kaj\u00e1r": 1380}, {"date": 2011, "Balatonf\u0151kaj\u00e1r": 1370}, {"date": 2012, "Balatonf\u0151kaj\u00e1r": 1380}, {"date": 2013, "Balatonf\u0151kaj\u00e1r": 1354}, {"date": 2014, "Balatonf\u0151kaj\u00e1r": 1358}, {"date": 2015, "Balatonf\u0151kaj\u00e1r": 1345}, {"date": 2016, "Balatonf\u0151kaj\u00e1r": 1362}, {"date": 2017, "Balatonf\u0151kaj\u00e1r": 1350}, {"date": 2018, "Balatonf\u0151kaj\u00e1r": 1356}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

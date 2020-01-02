@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarcal"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector719": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tarcal"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector719"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarcal"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector719"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tarcal", "selection": "selector719"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarcal"}}}], "data": {"name": "data-85c2df158140ba022c9b738787d14561"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-85c2df158140ba022c9b738787d14561": [{"date": 1986, "Tarcal": 3704}, {"date": 1987, "Tarcal": 3654}, {"date": 1988, "Tarcal": 3616}, {"date": 1989, "Tarcal": 3576}, {"date": 1990, "Tarcal": 3554}, {"date": 1991, "Tarcal": 3549}, {"date": 1992, "Tarcal": 3515}, {"date": 1993, "Tarcal": 3489}, {"date": 1994, "Tarcal": 3451}, {"date": 1995, "Tarcal": 3440}, {"date": 1996, "Tarcal": 3388}, {"date": 1997, "Tarcal": 3387}, {"date": 1998, "Tarcal": 3380}, {"date": 1999, "Tarcal": 3363}, {"date": 2000, "Tarcal": 3365}, {"date": 2001, "Tarcal": 3377}, {"date": 2002, "Tarcal": 3368}, {"date": 2003, "Tarcal": 3353}, {"date": 2004, "Tarcal": 3310}, {"date": 2005, "Tarcal": 3271}, {"date": 2006, "Tarcal": 3244}, {"date": 2007, "Tarcal": 3228}, {"date": 2008, "Tarcal": 3180}, {"date": 2009, "Tarcal": 3129}, {"date": 2010, "Tarcal": 3056}, {"date": 2011, "Tarcal": 3019}, {"date": 2012, "Tarcal": 2991}, {"date": 2013, "Tarcal": 2945}, {"date": 2014, "Tarcal": 2926}, {"date": 2015, "Tarcal": 2913}, {"date": 2016, "Tarcal": 2861}, {"date": 2017, "Tarcal": 2855}, {"date": 2018, "Tarcal": 2851}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

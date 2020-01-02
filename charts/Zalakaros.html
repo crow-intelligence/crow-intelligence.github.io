@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalakaros"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3175": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zalakaros"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3175"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalakaros"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3175"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zalakaros", "selection": "selector3175"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalakaros"}}}], "data": {"name": "data-8ebe7143cda8a807b6a38c2a54f26fe0"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-8ebe7143cda8a807b6a38c2a54f26fe0": [{"date": 1986, "Zalakaros": 992}, {"date": 1987, "Zalakaros": 1028}, {"date": 1988, "Zalakaros": 1067}, {"date": 1989, "Zalakaros": 1082}, {"date": 1990, "Zalakaros": 1108}, {"date": 1991, "Zalakaros": 1134}, {"date": 1992, "Zalakaros": 1158}, {"date": 1993, "Zalakaros": 1171}, {"date": 1994, "Zalakaros": 1187}, {"date": 1995, "Zalakaros": 1253}, {"date": 1996, "Zalakaros": 1327}, {"date": 1997, "Zalakaros": 1380}, {"date": 1998, "Zalakaros": 1423}, {"date": 1999, "Zalakaros": 1494}, {"date": 2000, "Zalakaros": 1550}, {"date": 2001, "Zalakaros": 1648}, {"date": 2002, "Zalakaros": 1714}, {"date": 2003, "Zalakaros": 1765}, {"date": 2004, "Zalakaros": 1786}, {"date": 2005, "Zalakaros": 1895}, {"date": 2006, "Zalakaros": 1958}, {"date": 2007, "Zalakaros": 2020}, {"date": 2008, "Zalakaros": 2105}, {"date": 2009, "Zalakaros": 2140}, {"date": 2010, "Zalakaros": 2183}, {"date": 2011, "Zalakaros": 2215}, {"date": 2012, "Zalakaros": 2277}, {"date": 2013, "Zalakaros": 2316}, {"date": 2014, "Zalakaros": 2396}, {"date": 2015, "Zalakaros": 2453}, {"date": 2016, "Zalakaros": 2470}, {"date": 2017, "Zalakaros": 2458}, {"date": 2018, "Zalakaros": 2518}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

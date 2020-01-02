@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Egyek"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2797": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Egyek"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2797"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Egyek"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2797"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Egyek", "selection": "selector2797"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Egyek"}}}], "data": {"name": "data-17fa98a488bb06ae326c484f730c9bf9"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-17fa98a488bb06ae326c484f730c9bf9": [{"date": 1986, "Egyek": 6956}, {"date": 1987, "Egyek": 6850}, {"date": 1988, "Egyek": 6720}, {"date": 1989, "Egyek": 6638}, {"date": 1990, "Egyek": 6544}, {"date": 1991, "Egyek": 6444}, {"date": 1992, "Egyek": 6401}, {"date": 1993, "Egyek": 6320}, {"date": 1994, "Egyek": 6310}, {"date": 1995, "Egyek": 6306}, {"date": 1996, "Egyek": 6289}, {"date": 1997, "Egyek": 6224}, {"date": 1998, "Egyek": 6149}, {"date": 1999, "Egyek": 6099}, {"date": 2000, "Egyek": 6046}, {"date": 2001, "Egyek": 6008}, {"date": 2002, "Egyek": 2573}, {"date": 2003, "Egyek": 5924}, {"date": 2004, "Egyek": 5928}, {"date": 2005, "Egyek": 5916}, {"date": 2006, "Egyek": 5844}, {"date": 2007, "Egyek": 5829}, {"date": 2008, "Egyek": 5727}, {"date": 2009, "Egyek": 5619}, {"date": 2010, "Egyek": 5598}, {"date": 2011, "Egyek": 5571}, {"date": 2012, "Egyek": 5504}, {"date": 2013, "Egyek": 5482}, {"date": 2014, "Egyek": 5485}, {"date": 2015, "Egyek": 5457}, {"date": 2016, "Egyek": 5443}, {"date": 2017, "Egyek": 5448}, {"date": 2018, "Egyek": 5389}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ambr\u00f3zfalva"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector764": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Ambr\u00f3zfalva"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector764"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ambr\u00f3zfalva"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector764"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Ambr\u00f3zfalva", "selection": "selector764"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ambr\u00f3zfalva"}}}], "data": {"name": "data-726fabfce52541041d957bff67a4af45"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-726fabfce52541041d957bff67a4af45": [{"date": 1986, "Ambr\u00f3zfalva": 617}, {"date": 1987, "Ambr\u00f3zfalva": 603}, {"date": 1988, "Ambr\u00f3zfalva": 589}, {"date": 1989, "Ambr\u00f3zfalva": 584}, {"date": 1990, "Ambr\u00f3zfalva": 586}, {"date": 1991, "Ambr\u00f3zfalva": 595}, {"date": 1992, "Ambr\u00f3zfalva": 591}, {"date": 1993, "Ambr\u00f3zfalva": 576}, {"date": 1994, "Ambr\u00f3zfalva": 553}, {"date": 1995, "Ambr\u00f3zfalva": 542}, {"date": 1996, "Ambr\u00f3zfalva": 548}, {"date": 1997, "Ambr\u00f3zfalva": 546}, {"date": 1998, "Ambr\u00f3zfalva": 542}, {"date": 1999, "Ambr\u00f3zfalva": 550}, {"date": 2000, "Ambr\u00f3zfalva": 531}, {"date": 2001, "Ambr\u00f3zfalva": 557}, {"date": 2002, "Ambr\u00f3zfalva": 547}, {"date": 2003, "Ambr\u00f3zfalva": 549}, {"date": 2004, "Ambr\u00f3zfalva": 566}, {"date": 2005, "Ambr\u00f3zfalva": 555}, {"date": 2006, "Ambr\u00f3zfalva": 544}, {"date": 2007, "Ambr\u00f3zfalva": 538}, {"date": 2008, "Ambr\u00f3zfalva": 542}, {"date": 2009, "Ambr\u00f3zfalva": 531}, {"date": 2010, "Ambr\u00f3zfalva": 530}, {"date": 2011, "Ambr\u00f3zfalva": 531}, {"date": 2012, "Ambr\u00f3zfalva": 536}, {"date": 2013, "Ambr\u00f3zfalva": 519}, {"date": 2014, "Ambr\u00f3zfalva": 516}, {"date": 2015, "Ambr\u00f3zfalva": 517}, {"date": 2016, "Ambr\u00f3zfalva": 516}, {"date": 2017, "Ambr\u00f3zfalva": 504}, {"date": 2018, "Ambr\u00f3zfalva": 507}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

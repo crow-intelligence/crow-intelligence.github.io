@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rudolftelep"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector669": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Rudolftelep"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector669"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rudolftelep"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector669"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Rudolftelep", "selection": "selector669"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rudolftelep"}}}], "data": {"name": "data-83b3bf1dd043adea9d8852ef8584fb71"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-83b3bf1dd043adea9d8852ef8584fb71": [{"date": 1986, "Rudolftelep": 0}, {"date": 1987, "Rudolftelep": 0}, {"date": 1988, "Rudolftelep": 0}, {"date": 1989, "Rudolftelep": 0}, {"date": 1990, "Rudolftelep": 0}, {"date": 1991, "Rudolftelep": 0}, {"date": 1992, "Rudolftelep": 0}, {"date": 1993, "Rudolftelep": 0}, {"date": 1994, "Rudolftelep": 0}, {"date": 1995, "Rudolftelep": 838}, {"date": 1996, "Rudolftelep": 832}, {"date": 1997, "Rudolftelep": 841}, {"date": 1998, "Rudolftelep": 840}, {"date": 1999, "Rudolftelep": 838}, {"date": 2000, "Rudolftelep": 843}, {"date": 2001, "Rudolftelep": 838}, {"date": 2002, "Rudolftelep": 816}, {"date": 2003, "Rudolftelep": 819}, {"date": 2004, "Rudolftelep": 809}, {"date": 2005, "Rudolftelep": 815}, {"date": 2006, "Rudolftelep": 803}, {"date": 2007, "Rudolftelep": 785}, {"date": 2008, "Rudolftelep": 771}, {"date": 2009, "Rudolftelep": 790}, {"date": 2010, "Rudolftelep": 773}, {"date": 2011, "Rudolftelep": 760}, {"date": 2012, "Rudolftelep": 756}, {"date": 2013, "Rudolftelep": 761}, {"date": 2014, "Rudolftelep": 772}, {"date": 2015, "Rudolftelep": 766}, {"date": 2016, "Rudolftelep": 773}, {"date": 2017, "Rudolftelep": 772}, {"date": 2018, "Rudolftelep": 751}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

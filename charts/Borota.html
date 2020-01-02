@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borota"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector035": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Borota"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector035"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borota"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector035"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Borota", "selection": "selector035"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borota"}}}], "data": {"name": "data-0a76cdb40c0d5ea30706393234515b14"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-0a76cdb40c0d5ea30706393234515b14": [{"date": 1986, "Borota": 2000}, {"date": 1987, "Borota": 1982}, {"date": 1988, "Borota": 1941}, {"date": 1989, "Borota": 1888}, {"date": 1990, "Borota": 1876}, {"date": 1991, "Borota": 1841}, {"date": 1992, "Borota": 1840}, {"date": 1993, "Borota": 1825}, {"date": 1994, "Borota": 1779}, {"date": 1995, "Borota": 1768}, {"date": 1996, "Borota": 1754}, {"date": 1997, "Borota": 1727}, {"date": 1998, "Borota": 1695}, {"date": 1999, "Borota": 1685}, {"date": 2000, "Borota": 1675}, {"date": 2001, "Borota": 1639}, {"date": 2002, "Borota": 1624}, {"date": 2003, "Borota": 1623}, {"date": 2004, "Borota": 1555}, {"date": 2005, "Borota": 1537}, {"date": 2006, "Borota": 1536}, {"date": 2007, "Borota": 1525}, {"date": 2008, "Borota": 1487}, {"date": 2009, "Borota": 1457}, {"date": 2010, "Borota": 1430}, {"date": 2011, "Borota": 1409}, {"date": 2012, "Borota": 1412}, {"date": 2013, "Borota": 1406}, {"date": 2014, "Borota": 1364}, {"date": 2015, "Borota": 1357}, {"date": 2016, "Borota": 1340}, {"date": 2017, "Borota": 1332}, {"date": 2018, "Borota": 1303}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

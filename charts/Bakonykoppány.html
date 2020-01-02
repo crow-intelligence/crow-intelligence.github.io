@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonykopp\u00e1ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2292": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bakonykopp\u00e1ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2292"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonykopp\u00e1ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2292"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bakonykopp\u00e1ny", "selection": "selector2292"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonykopp\u00e1ny"}}}], "data": {"name": "data-24d762c07ca47249330f576f1a64274b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-24d762c07ca47249330f576f1a64274b": [{"date": 1986, "Bakonykopp\u00e1ny": 318}, {"date": 1987, "Bakonykopp\u00e1ny": 311}, {"date": 1988, "Bakonykopp\u00e1ny": 308}, {"date": 1989, "Bakonykopp\u00e1ny": 290}, {"date": 1990, "Bakonykopp\u00e1ny": 276}, {"date": 1991, "Bakonykopp\u00e1ny": 275}, {"date": 1992, "Bakonykopp\u00e1ny": 275}, {"date": 1993, "Bakonykopp\u00e1ny": 277}, {"date": 1994, "Bakonykopp\u00e1ny": 282}, {"date": 1995, "Bakonykopp\u00e1ny": 268}, {"date": 1996, "Bakonykopp\u00e1ny": 260}, {"date": 1997, "Bakonykopp\u00e1ny": 252}, {"date": 1998, "Bakonykopp\u00e1ny": 260}, {"date": 1999, "Bakonykopp\u00e1ny": 260}, {"date": 2000, "Bakonykopp\u00e1ny": 262}, {"date": 2001, "Bakonykopp\u00e1ny": 257}, {"date": 2002, "Bakonykopp\u00e1ny": 257}, {"date": 2003, "Bakonykopp\u00e1ny": 250}, {"date": 2004, "Bakonykopp\u00e1ny": 247}, {"date": 2005, "Bakonykopp\u00e1ny": 238}, {"date": 2006, "Bakonykopp\u00e1ny": 233}, {"date": 2007, "Bakonykopp\u00e1ny": 223}, {"date": 2008, "Bakonykopp\u00e1ny": 219}, {"date": 2009, "Bakonykopp\u00e1ny": 213}, {"date": 2010, "Bakonykopp\u00e1ny": 211}, {"date": 2011, "Bakonykopp\u00e1ny": 210}, {"date": 2012, "Bakonykopp\u00e1ny": 211}, {"date": 2013, "Bakonykopp\u00e1ny": 210}, {"date": 2014, "Bakonykopp\u00e1ny": 216}, {"date": 2015, "Bakonykopp\u00e1ny": 214}, {"date": 2016, "Bakonykopp\u00e1ny": 211}, {"date": 2017, "Bakonykopp\u00e1ny": 225}, {"date": 2018, "Bakonykopp\u00e1ny": 219}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

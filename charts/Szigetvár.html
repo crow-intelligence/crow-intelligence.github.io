@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szigetv\u00e1r"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2888": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szigetv\u00e1r"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2888"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szigetv\u00e1r"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2888"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szigetv\u00e1r", "selection": "selector2888"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szigetv\u00e1r"}}}], "data": {"name": "data-fa5bd6724a444689158c77ae1513aa33"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-fa5bd6724a444689158c77ae1513aa33": [{"date": 1986, "Szigetv\u00e1r": 12588}, {"date": 1987, "Szigetv\u00e1r": 12643}, {"date": 1988, "Szigetv\u00e1r": 12673}, {"date": 1989, "Szigetv\u00e1r": 12723}, {"date": 1990, "Szigetv\u00e1r": 12764}, {"date": 1991, "Szigetv\u00e1r": 12826}, {"date": 1992, "Szigetv\u00e1r": 11857}, {"date": 1993, "Szigetv\u00e1r": 11815}, {"date": 1994, "Szigetv\u00e1r": 11796}, {"date": 1995, "Szigetv\u00e1r": 11744}, {"date": 1996, "Szigetv\u00e1r": 11764}, {"date": 1997, "Szigetv\u00e1r": 11706}, {"date": 1998, "Szigetv\u00e1r": 11614}, {"date": 1999, "Szigetv\u00e1r": 11567}, {"date": 2000, "Szigetv\u00e1r": 11570}, {"date": 2001, "Szigetv\u00e1r": 11535}, {"date": 2002, "Szigetv\u00e1r": 11485}, {"date": 2003, "Szigetv\u00e1r": 11408}, {"date": 2004, "Szigetv\u00e1r": 11319}, {"date": 2005, "Szigetv\u00e1r": 11265}, {"date": 2006, "Szigetv\u00e1r": 11262}, {"date": 2007, "Szigetv\u00e1r": 11162}, {"date": 2008, "Szigetv\u00e1r": 11111}, {"date": 2009, "Szigetv\u00e1r": 11127}, {"date": 2010, "Szigetv\u00e1r": 11100}, {"date": 2011, "Szigetv\u00e1r": 11026}, {"date": 2012, "Szigetv\u00e1r": 10928}, {"date": 2013, "Szigetv\u00e1r": 10892}, {"date": 2014, "Szigetv\u00e1r": 10820}, {"date": 2015, "Szigetv\u00e1r": 10733}, {"date": 2016, "Szigetv\u00e1r": 10636}, {"date": 2017, "Szigetv\u00e1r": 10572}, {"date": 2018, "Szigetv\u00e1r": 10558}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

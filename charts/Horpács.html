@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Horp\u00e1cs"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1318": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Horp\u00e1cs"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1318"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Horp\u00e1cs"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1318"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Horp\u00e1cs", "selection": "selector1318"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Horp\u00e1cs"}}}], "data": {"name": "data-0163bcaa7a85b2661aa14955f5fd08b7"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-0163bcaa7a85b2661aa14955f5fd08b7": [{"date": 1986, "Horp\u00e1cs": 253}, {"date": 1987, "Horp\u00e1cs": 244}, {"date": 1988, "Horp\u00e1cs": 233}, {"date": 1989, "Horp\u00e1cs": 229}, {"date": 1990, "Horp\u00e1cs": 223}, {"date": 1991, "Horp\u00e1cs": 218}, {"date": 1992, "Horp\u00e1cs": 218}, {"date": 1993, "Horp\u00e1cs": 216}, {"date": 1994, "Horp\u00e1cs": 208}, {"date": 1995, "Horp\u00e1cs": 195}, {"date": 1996, "Horp\u00e1cs": 195}, {"date": 1997, "Horp\u00e1cs": 189}, {"date": 1998, "Horp\u00e1cs": 184}, {"date": 1999, "Horp\u00e1cs": 192}, {"date": 2000, "Horp\u00e1cs": 193}, {"date": 2001, "Horp\u00e1cs": 194}, {"date": 2002, "Horp\u00e1cs": 946}, {"date": 2003, "Horp\u00e1cs": 194}, {"date": 2004, "Horp\u00e1cs": 188}, {"date": 2005, "Horp\u00e1cs": 191}, {"date": 2006, "Horp\u00e1cs": 191}, {"date": 2007, "Horp\u00e1cs": 183}, {"date": 2008, "Horp\u00e1cs": 175}, {"date": 2009, "Horp\u00e1cs": 175}, {"date": 2010, "Horp\u00e1cs": 174}, {"date": 2011, "Horp\u00e1cs": 176}, {"date": 2012, "Horp\u00e1cs": 174}, {"date": 2013, "Horp\u00e1cs": 178}, {"date": 2014, "Horp\u00e1cs": 179}, {"date": 2015, "Horp\u00e1cs": 174}, {"date": 2016, "Horp\u00e1cs": 177}, {"date": 2017, "Horp\u00e1cs": 174}, {"date": 2018, "Horp\u00e1cs": 169}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

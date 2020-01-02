@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budakal\u00e1sz"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3022": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Budakal\u00e1sz"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3022"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budakal\u00e1sz"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3022"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Budakal\u00e1sz", "selection": "selector3022"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budakal\u00e1sz"}}}], "data": {"name": "data-62f7784bdb6bf8b94ea5d2f841317cdd"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-62f7784bdb6bf8b94ea5d2f841317cdd": [{"date": 1986, "Budakal\u00e1sz": 7294}, {"date": 1987, "Budakal\u00e1sz": 7328}, {"date": 1988, "Budakal\u00e1sz": 7357}, {"date": 1989, "Budakal\u00e1sz": 7383}, {"date": 1990, "Budakal\u00e1sz": 7407}, {"date": 1991, "Budakal\u00e1sz": 7909}, {"date": 1992, "Budakal\u00e1sz": 7649}, {"date": 1993, "Budakal\u00e1sz": 7774}, {"date": 1994, "Budakal\u00e1sz": 7973}, {"date": 1995, "Budakal\u00e1sz": 8120}, {"date": 1996, "Budakal\u00e1sz": 8246}, {"date": 1997, "Budakal\u00e1sz": 8416}, {"date": 1998, "Budakal\u00e1sz": 8654}, {"date": 1999, "Budakal\u00e1sz": 8842}, {"date": 2000, "Budakal\u00e1sz": 9111}, {"date": 2001, "Budakal\u00e1sz": 9295}, {"date": 2002, "Budakal\u00e1sz": 1606}, {"date": 2003, "Budakal\u00e1sz": 9557}, {"date": 2004, "Budakal\u00e1sz": 9745}, {"date": 2005, "Budakal\u00e1sz": 9922}, {"date": 2006, "Budakal\u00e1sz": 10125}, {"date": 2007, "Budakal\u00e1sz": 10213}, {"date": 2008, "Budakal\u00e1sz": 10254}, {"date": 2009, "Budakal\u00e1sz": 10398}, {"date": 2010, "Budakal\u00e1sz": 10499}, {"date": 2011, "Budakal\u00e1sz": 10534}, {"date": 2012, "Budakal\u00e1sz": 10572}, {"date": 2013, "Budakal\u00e1sz": 10645}, {"date": 2014, "Budakal\u00e1sz": 10742}, {"date": 2015, "Budakal\u00e1sz": 10841}, {"date": 2016, "Budakal\u00e1sz": 10879}, {"date": 2017, "Budakal\u00e1sz": 11034}, {"date": 2018, "Budakal\u00e1sz": 11165}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaz\u00e1mor"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1475": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Pusztaz\u00e1mor"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1475"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaz\u00e1mor"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1475"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Pusztaz\u00e1mor", "selection": "selector1475"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaz\u00e1mor"}}}], "data": {"name": "data-6885ed78a496753e81aaa1502ec282ce"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-6885ed78a496753e81aaa1502ec282ce": [{"date": 1986, "Pusztaz\u00e1mor": 738}, {"date": 1987, "Pusztaz\u00e1mor": 718}, {"date": 1988, "Pusztaz\u00e1mor": 715}, {"date": 1989, "Pusztaz\u00e1mor": 722}, {"date": 1990, "Pusztaz\u00e1mor": 727}, {"date": 1991, "Pusztaz\u00e1mor": 714}, {"date": 1992, "Pusztaz\u00e1mor": 730}, {"date": 1993, "Pusztaz\u00e1mor": 732}, {"date": 1994, "Pusztaz\u00e1mor": 748}, {"date": 1995, "Pusztaz\u00e1mor": 758}, {"date": 1996, "Pusztaz\u00e1mor": 811}, {"date": 1997, "Pusztaz\u00e1mor": 830}, {"date": 1998, "Pusztaz\u00e1mor": 865}, {"date": 1999, "Pusztaz\u00e1mor": 883}, {"date": 2000, "Pusztaz\u00e1mor": 897}, {"date": 2001, "Pusztaz\u00e1mor": 940}, {"date": 2002, "Pusztaz\u00e1mor": 956}, {"date": 2003, "Pusztaz\u00e1mor": 995}, {"date": 2004, "Pusztaz\u00e1mor": 1033}, {"date": 2005, "Pusztaz\u00e1mor": 1061}, {"date": 2006, "Pusztaz\u00e1mor": 1097}, {"date": 2007, "Pusztaz\u00e1mor": 1093}, {"date": 2008, "Pusztaz\u00e1mor": 1134}, {"date": 2009, "Pusztaz\u00e1mor": 1146}, {"date": 2010, "Pusztaz\u00e1mor": 1157}, {"date": 2011, "Pusztaz\u00e1mor": 1192}, {"date": 2012, "Pusztaz\u00e1mor": 1198}, {"date": 2013, "Pusztaz\u00e1mor": 1196}, {"date": 2014, "Pusztaz\u00e1mor": 1187}, {"date": 2015, "Pusztaz\u00e1mor": 1185}, {"date": 2016, "Pusztaz\u00e1mor": 1211}, {"date": 2017, "Pusztaz\u00e1mor": 1199}, {"date": 2018, "Pusztaz\u00e1mor": 1221}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

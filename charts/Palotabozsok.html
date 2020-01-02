@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Palotabozsok"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector316": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Palotabozsok"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector316"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Palotabozsok"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector316"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Palotabozsok", "selection": "selector316"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Palotabozsok"}}}], "data": {"name": "data-c1ea2fee30f826195f3f17a07ad86b65"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c1ea2fee30f826195f3f17a07ad86b65": [{"date": 1986, "Palotabozsok": 1373}, {"date": 1987, "Palotabozsok": 1339}, {"date": 1988, "Palotabozsok": 1310}, {"date": 1989, "Palotabozsok": 1298}, {"date": 1990, "Palotabozsok": 1288}, {"date": 1991, "Palotabozsok": 1270}, {"date": 1992, "Palotabozsok": 1251}, {"date": 1993, "Palotabozsok": 1241}, {"date": 1994, "Palotabozsok": 1225}, {"date": 1995, "Palotabozsok": 1204}, {"date": 1996, "Palotabozsok": 1192}, {"date": 1997, "Palotabozsok": 1190}, {"date": 1998, "Palotabozsok": 1174}, {"date": 1999, "Palotabozsok": 1160}, {"date": 2000, "Palotabozsok": 1145}, {"date": 2001, "Palotabozsok": 1115}, {"date": 2002, "Palotabozsok": 1104}, {"date": 2003, "Palotabozsok": 1094}, {"date": 2004, "Palotabozsok": 1085}, {"date": 2005, "Palotabozsok": 1067}, {"date": 2006, "Palotabozsok": 1043}, {"date": 2007, "Palotabozsok": 1037}, {"date": 2008, "Palotabozsok": 1032}, {"date": 2009, "Palotabozsok": 995}, {"date": 2010, "Palotabozsok": 1009}, {"date": 2011, "Palotabozsok": 983}, {"date": 2012, "Palotabozsok": 966}, {"date": 2013, "Palotabozsok": 948}, {"date": 2014, "Palotabozsok": 922}, {"date": 2015, "Palotabozsok": 897}, {"date": 2016, "Palotabozsok": 889}, {"date": 2017, "Palotabozsok": 866}, {"date": 2018, "Palotabozsok": 865}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

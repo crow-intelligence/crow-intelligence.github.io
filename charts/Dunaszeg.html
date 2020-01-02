@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaszeg"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector921": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dunaszeg"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector921"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaszeg"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector921"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dunaszeg", "selection": "selector921"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaszeg"}}}], "data": {"name": "data-00f194606317a24003498cf1731ae159"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-00f194606317a24003498cf1731ae159": [{"date": 1986, "Dunaszeg": 1504}, {"date": 1987, "Dunaszeg": 1492}, {"date": 1988, "Dunaszeg": 1504}, {"date": 1989, "Dunaszeg": 1512}, {"date": 1990, "Dunaszeg": 1523}, {"date": 1991, "Dunaszeg": 1542}, {"date": 1992, "Dunaszeg": 1552}, {"date": 1993, "Dunaszeg": 1583}, {"date": 1994, "Dunaszeg": 1604}, {"date": 1995, "Dunaszeg": 1641}, {"date": 1996, "Dunaszeg": 1646}, {"date": 1997, "Dunaszeg": 1675}, {"date": 1998, "Dunaszeg": 1655}, {"date": 1999, "Dunaszeg": 1636}, {"date": 2000, "Dunaszeg": 1638}, {"date": 2001, "Dunaszeg": 1676}, {"date": 2002, "Dunaszeg": 1712}, {"date": 2003, "Dunaszeg": 1736}, {"date": 2004, "Dunaszeg": 1771}, {"date": 2005, "Dunaszeg": 1804}, {"date": 2006, "Dunaszeg": 1836}, {"date": 2007, "Dunaszeg": 1909}, {"date": 2008, "Dunaszeg": 1937}, {"date": 2009, "Dunaszeg": 1961}, {"date": 2010, "Dunaszeg": 1992}, {"date": 2011, "Dunaszeg": 1996}, {"date": 2012, "Dunaszeg": 2002}, {"date": 2013, "Dunaszeg": 2023}, {"date": 2014, "Dunaszeg": 2035}, {"date": 2015, "Dunaszeg": 2058}, {"date": 2016, "Dunaszeg": 2104}, {"date": 2017, "Dunaszeg": 2122}, {"date": 2018, "Dunaszeg": 2133}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

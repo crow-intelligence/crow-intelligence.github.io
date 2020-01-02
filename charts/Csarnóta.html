@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csarn\u00f3ta"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector155": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Csarn\u00f3ta"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector155"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csarn\u00f3ta"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector155"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Csarn\u00f3ta", "selection": "selector155"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csarn\u00f3ta"}}}], "data": {"name": "data-bf92ab860f2d74429ba8852a59a23a9a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-bf92ab860f2d74429ba8852a59a23a9a": [{"date": 1986, "Csarn\u00f3ta": 148}, {"date": 1987, "Csarn\u00f3ta": 143}, {"date": 1988, "Csarn\u00f3ta": 143}, {"date": 1989, "Csarn\u00f3ta": 148}, {"date": 1990, "Csarn\u00f3ta": 148}, {"date": 1991, "Csarn\u00f3ta": 150}, {"date": 1992, "Csarn\u00f3ta": 149}, {"date": 1993, "Csarn\u00f3ta": 149}, {"date": 1994, "Csarn\u00f3ta": 147}, {"date": 1995, "Csarn\u00f3ta": 157}, {"date": 1996, "Csarn\u00f3ta": 163}, {"date": 1997, "Csarn\u00f3ta": 167}, {"date": 1998, "Csarn\u00f3ta": 162}, {"date": 1999, "Csarn\u00f3ta": 166}, {"date": 2000, "Csarn\u00f3ta": 169}, {"date": 2001, "Csarn\u00f3ta": 165}, {"date": 2002, "Csarn\u00f3ta": 164}, {"date": 2003, "Csarn\u00f3ta": 158}, {"date": 2004, "Csarn\u00f3ta": 154}, {"date": 2005, "Csarn\u00f3ta": 149}, {"date": 2006, "Csarn\u00f3ta": 153}, {"date": 2007, "Csarn\u00f3ta": 147}, {"date": 2008, "Csarn\u00f3ta": 145}, {"date": 2009, "Csarn\u00f3ta": 148}, {"date": 2010, "Csarn\u00f3ta": 148}, {"date": 2011, "Csarn\u00f3ta": 147}, {"date": 2012, "Csarn\u00f3ta": 155}, {"date": 2013, "Csarn\u00f3ta": 163}, {"date": 2014, "Csarn\u00f3ta": 163}, {"date": 2015, "Csarn\u00f3ta": 162}, {"date": 2016, "Csarn\u00f3ta": 156}, {"date": 2017, "Csarn\u00f3ta": 150}, {"date": 2018, "Csarn\u00f3ta": 148}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Miskolc"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2732": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Miskolc"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2732"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Miskolc"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2732"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Miskolc", "selection": "selector2732"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Miskolc"}}}], "data": {"name": "data-7a501bfef259c85465614916a04baf04"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-7a501bfef259c85465614916a04baf04": [{"date": 1986, "Miskolc": 206790}, {"date": 1987, "Miskolc": 206458}, {"date": 1988, "Miskolc": 205425}, {"date": 1989, "Miskolc": 204265}, {"date": 1990, "Miskolc": 203223}, {"date": 1991, "Miskolc": 201043}, {"date": 1992, "Miskolc": 199693}, {"date": 1993, "Miskolc": 198550}, {"date": 1994, "Miskolc": 196898}, {"date": 1995, "Miskolc": 195652}, {"date": 1996, "Miskolc": 193905}, {"date": 1997, "Miskolc": 192322}, {"date": 1998, "Miskolc": 189979}, {"date": 1999, "Miskolc": 188085}, {"date": 2000, "Miskolc": 186438}, {"date": 2001, "Miskolc": 184392}, {"date": 2002, "Miskolc": 182307}, {"date": 2003, "Miskolc": 181565}, {"date": 2004, "Miskolc": 178950}, {"date": 2005, "Miskolc": 176074}, {"date": 2006, "Miskolc": 175575}, {"date": 2007, "Miskolc": 173979}, {"date": 2008, "Miskolc": 172855}, {"date": 2009, "Miskolc": 171548}, {"date": 2010, "Miskolc": 170316}, {"date": 2011, "Miskolc": 168916}, {"date": 2012, "Miskolc": 167680}, {"date": 2013, "Miskolc": 166258}, {"date": 2014, "Miskolc": 165013}, {"date": 2015, "Miskolc": 163376}, {"date": 2016, "Miskolc": 162251}, {"date": 2017, "Miskolc": 161197}, {"date": 2018, "Miskolc": 160325}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

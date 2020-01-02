@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Berhida"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3162": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Berhida"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3162"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Berhida"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3162"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Berhida", "selection": "selector3162"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Berhida"}}}], "data": {"name": "data-5eaa3acc51d53400b6acaf04ce2340e4"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-5eaa3acc51d53400b6acaf04ce2340e4": [{"date": 1986, "Berhida": 5350}, {"date": 1987, "Berhida": 5372}, {"date": 1988, "Berhida": 5445}, {"date": 1989, "Berhida": 5485}, {"date": 1990, "Berhida": 5474}, {"date": 1991, "Berhida": 5461}, {"date": 1992, "Berhida": 5510}, {"date": 1993, "Berhida": 5601}, {"date": 1994, "Berhida": 5600}, {"date": 1995, "Berhida": 5602}, {"date": 1996, "Berhida": 5653}, {"date": 1997, "Berhida": 5816}, {"date": 1998, "Berhida": 5804}, {"date": 1999, "Berhida": 5822}, {"date": 2000, "Berhida": 5931}, {"date": 2001, "Berhida": 5963}, {"date": 2002, "Berhida": 5972}, {"date": 2003, "Berhida": 6063}, {"date": 2004, "Berhida": 6113}, {"date": 2005, "Berhida": 6061}, {"date": 2006, "Berhida": 6133}, {"date": 2007, "Berhida": 6112}, {"date": 2008, "Berhida": 6105}, {"date": 2009, "Berhida": 6112}, {"date": 2010, "Berhida": 6099}, {"date": 2011, "Berhida": 6072}, {"date": 2012, "Berhida": 6074}, {"date": 2013, "Berhida": 6118}, {"date": 2014, "Berhida": 6072}, {"date": 2015, "Berhida": 6038}, {"date": 2016, "Berhida": 6013}, {"date": 2017, "Berhida": 5963}, {"date": 2018, "Berhida": 5972}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

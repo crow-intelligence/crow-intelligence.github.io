@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szentbal\u00e1zs"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1713": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szentbal\u00e1zs"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1713"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szentbal\u00e1zs"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1713"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szentbal\u00e1zs", "selection": "selector1713"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szentbal\u00e1zs"}}}], "data": {"name": "data-457c5df2f0b308e4115146ed7734440e"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-457c5df2f0b308e4115146ed7734440e": [{"date": 1986, "Szentbal\u00e1zs": 350}, {"date": 1987, "Szentbal\u00e1zs": 334}, {"date": 1988, "Szentbal\u00e1zs": 329}, {"date": 1989, "Szentbal\u00e1zs": 327}, {"date": 1990, "Szentbal\u00e1zs": 326}, {"date": 1991, "Szentbal\u00e1zs": 331}, {"date": 1992, "Szentbal\u00e1zs": 331}, {"date": 1993, "Szentbal\u00e1zs": 345}, {"date": 1994, "Szentbal\u00e1zs": 343}, {"date": 1995, "Szentbal\u00e1zs": 343}, {"date": 1996, "Szentbal\u00e1zs": 348}, {"date": 1997, "Szentbal\u00e1zs": 348}, {"date": 1998, "Szentbal\u00e1zs": 351}, {"date": 1999, "Szentbal\u00e1zs": 359}, {"date": 2000, "Szentbal\u00e1zs": 365}, {"date": 2001, "Szentbal\u00e1zs": 355}, {"date": 2002, "Szentbal\u00e1zs": 346}, {"date": 2003, "Szentbal\u00e1zs": 339}, {"date": 2004, "Szentbal\u00e1zs": 343}, {"date": 2005, "Szentbal\u00e1zs": 352}, {"date": 2006, "Szentbal\u00e1zs": 356}, {"date": 2007, "Szentbal\u00e1zs": 358}, {"date": 2008, "Szentbal\u00e1zs": 353}, {"date": 2009, "Szentbal\u00e1zs": 342}, {"date": 2010, "Szentbal\u00e1zs": 330}, {"date": 2011, "Szentbal\u00e1zs": 340}, {"date": 2012, "Szentbal\u00e1zs": 335}, {"date": 2013, "Szentbal\u00e1zs": 326}, {"date": 2014, "Szentbal\u00e1zs": 314}, {"date": 2015, "Szentbal\u00e1zs": 315}, {"date": 2016, "Szentbal\u00e1zs": 309}, {"date": 2017, "Szentbal\u00e1zs": 312}, {"date": 2018, "Szentbal\u00e1zs": 315}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

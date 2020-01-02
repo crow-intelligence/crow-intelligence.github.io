@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Madaras"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector082": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Madaras"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector082"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Madaras"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector082"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Madaras", "selection": "selector082"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Madaras"}}}], "data": {"name": "data-dac52769820b67a3b6b8cf1da0d1dcd9"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-dac52769820b67a3b6b8cf1da0d1dcd9": [{"date": 1986, "Madaras": 3698}, {"date": 1987, "Madaras": 3629}, {"date": 1988, "Madaras": 3553}, {"date": 1989, "Madaras": 3513}, {"date": 1990, "Madaras": 3470}, {"date": 1991, "Madaras": 3462}, {"date": 1992, "Madaras": 3447}, {"date": 1993, "Madaras": 3399}, {"date": 1994, "Madaras": 3374}, {"date": 1995, "Madaras": 3339}, {"date": 1996, "Madaras": 3341}, {"date": 1997, "Madaras": 3290}, {"date": 1998, "Madaras": 3277}, {"date": 1999, "Madaras": 3258}, {"date": 2000, "Madaras": 3276}, {"date": 2001, "Madaras": 3289}, {"date": 2002, "Madaras": 3293}, {"date": 2003, "Madaras": 3282}, {"date": 2004, "Madaras": 3240}, {"date": 2005, "Madaras": 3283}, {"date": 2006, "Madaras": 3240}, {"date": 2007, "Madaras": 3198}, {"date": 2008, "Madaras": 3205}, {"date": 2009, "Madaras": 3148}, {"date": 2010, "Madaras": 3148}, {"date": 2011, "Madaras": 3063}, {"date": 2012, "Madaras": 3059}, {"date": 2013, "Madaras": 2995}, {"date": 2014, "Madaras": 2990}, {"date": 2015, "Madaras": 3000}, {"date": 2016, "Madaras": 2960}, {"date": 2017, "Madaras": 2913}, {"date": 2018, "Madaras": 2858}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bihartorda"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1067": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bihartorda"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1067"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bihartorda"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1067"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bihartorda", "selection": "selector1067"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bihartorda"}}}], "data": {"name": "data-c117d06d3ccfbb528db8a8c0554dc6a5"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-c117d06d3ccfbb528db8a8c0554dc6a5": [{"date": 1986, "Bihartorda": 1200}, {"date": 1987, "Bihartorda": 1175}, {"date": 1988, "Bihartorda": 1159}, {"date": 1989, "Bihartorda": 1129}, {"date": 1990, "Bihartorda": 1122}, {"date": 1991, "Bihartorda": 1080}, {"date": 1992, "Bihartorda": 1070}, {"date": 1993, "Bihartorda": 1077}, {"date": 1994, "Bihartorda": 1069}, {"date": 1995, "Bihartorda": 1035}, {"date": 1996, "Bihartorda": 1055}, {"date": 1997, "Bihartorda": 1066}, {"date": 1998, "Bihartorda": 1053}, {"date": 1999, "Bihartorda": 1057}, {"date": 2000, "Bihartorda": 1033}, {"date": 2001, "Bihartorda": 1030}, {"date": 2002, "Bihartorda": 1025}, {"date": 2003, "Bihartorda": 1017}, {"date": 2004, "Bihartorda": 1001}, {"date": 2005, "Bihartorda": 984}, {"date": 2006, "Bihartorda": 979}, {"date": 2007, "Bihartorda": 1004}, {"date": 2008, "Bihartorda": 1006}, {"date": 2009, "Bihartorda": 1005}, {"date": 2010, "Bihartorda": 1021}, {"date": 2011, "Bihartorda": 1004}, {"date": 2012, "Bihartorda": 1005}, {"date": 2013, "Bihartorda": 1009}, {"date": 2014, "Bihartorda": 1006}, {"date": 2015, "Bihartorda": 994}, {"date": 2016, "Bihartorda": 994}, {"date": 2017, "Bihartorda": 972}, {"date": 2018, "Bihartorda": 953}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

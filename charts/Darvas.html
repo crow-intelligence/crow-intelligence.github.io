@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Darvas"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1070": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Darvas"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1070"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Darvas"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1070"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Darvas", "selection": "selector1070"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Darvas"}}}], "data": {"name": "data-4533f08150549060046df78d9ab9fba6"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-4533f08150549060046df78d9ab9fba6": [{"date": 1986, "Darvas": 800}, {"date": 1987, "Darvas": 778}, {"date": 1988, "Darvas": 752}, {"date": 1989, "Darvas": 749}, {"date": 1990, "Darvas": 744}, {"date": 1991, "Darvas": 732}, {"date": 1992, "Darvas": 735}, {"date": 1993, "Darvas": 742}, {"date": 1994, "Darvas": 756}, {"date": 1995, "Darvas": 739}, {"date": 1996, "Darvas": 754}, {"date": 1997, "Darvas": 753}, {"date": 1998, "Darvas": 736}, {"date": 1999, "Darvas": 752}, {"date": 2000, "Darvas": 738}, {"date": 2001, "Darvas": 732}, {"date": 2002, "Darvas": 721}, {"date": 2003, "Darvas": 735}, {"date": 2004, "Darvas": 732}, {"date": 2005, "Darvas": 722}, {"date": 2006, "Darvas": 702}, {"date": 2007, "Darvas": 692}, {"date": 2008, "Darvas": 684}, {"date": 2009, "Darvas": 656}, {"date": 2010, "Darvas": 640}, {"date": 2011, "Darvas": 629}, {"date": 2012, "Darvas": 626}, {"date": 2013, "Darvas": 629}, {"date": 2014, "Darvas": 621}, {"date": 2015, "Darvas": 598}, {"date": 2016, "Darvas": 596}, {"date": 2017, "Darvas": 583}, {"date": 2018, "Darvas": 554}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

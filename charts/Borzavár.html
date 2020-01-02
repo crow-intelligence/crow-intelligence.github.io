@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borzav\u00e1r"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2318": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Borzav\u00e1r"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2318"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borzav\u00e1r"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2318"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Borzav\u00e1r", "selection": "selector2318"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borzav\u00e1r"}}}], "data": {"name": "data-9195a47632cccd91416146d60be4907b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-9195a47632cccd91416146d60be4907b": [{"date": 1986, "Borzav\u00e1r": 965}, {"date": 1987, "Borzav\u00e1r": 924}, {"date": 1988, "Borzav\u00e1r": 903}, {"date": 1989, "Borzav\u00e1r": 893}, {"date": 1990, "Borzav\u00e1r": 864}, {"date": 1991, "Borzav\u00e1r": 850}, {"date": 1992, "Borzav\u00e1r": 856}, {"date": 1993, "Borzav\u00e1r": 831}, {"date": 1994, "Borzav\u00e1r": 844}, {"date": 1995, "Borzav\u00e1r": 836}, {"date": 1996, "Borzav\u00e1r": 835}, {"date": 1997, "Borzav\u00e1r": 837}, {"date": 1998, "Borzav\u00e1r": 820}, {"date": 1999, "Borzav\u00e1r": 811}, {"date": 2000, "Borzav\u00e1r": 816}, {"date": 2001, "Borzav\u00e1r": 826}, {"date": 2002, "Borzav\u00e1r": 824}, {"date": 2003, "Borzav\u00e1r": 812}, {"date": 2004, "Borzav\u00e1r": 811}, {"date": 2005, "Borzav\u00e1r": 812}, {"date": 2006, "Borzav\u00e1r": 803}, {"date": 2007, "Borzav\u00e1r": 780}, {"date": 2008, "Borzav\u00e1r": 762}, {"date": 2009, "Borzav\u00e1r": 756}, {"date": 2010, "Borzav\u00e1r": 748}, {"date": 2011, "Borzav\u00e1r": 741}, {"date": 2012, "Borzav\u00e1r": 746}, {"date": 2013, "Borzav\u00e1r": 744}, {"date": 2014, "Borzav\u00e1r": 742}, {"date": 2015, "Borzav\u00e1r": 751}, {"date": 2016, "Borzav\u00e1r": 744}, {"date": 2017, "Borzav\u00e1r": 730}, {"date": 2018, "Borzav\u00e1r": 752}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

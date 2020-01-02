@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Karancss\u00e1g"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1330": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Karancss\u00e1g"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1330"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Karancss\u00e1g"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1330"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Karancss\u00e1g", "selection": "selector1330"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Karancss\u00e1g"}}}], "data": {"name": "data-a30ac52c63be74aa9f1a80dbc85d629c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a30ac52c63be74aa9f1a80dbc85d629c": [{"date": 1986, "Karancss\u00e1g": 1534}, {"date": 1987, "Karancss\u00e1g": 1532}, {"date": 1988, "Karancss\u00e1g": 1488}, {"date": 1989, "Karancss\u00e1g": 1483}, {"date": 1990, "Karancss\u00e1g": 1488}, {"date": 1991, "Karancss\u00e1g": 1477}, {"date": 1992, "Karancss\u00e1g": 1475}, {"date": 1993, "Karancss\u00e1g": 1208}, {"date": 1994, "Karancss\u00e1g": 1222}, {"date": 1995, "Karancss\u00e1g": 1217}, {"date": 1996, "Karancss\u00e1g": 1195}, {"date": 1997, "Karancss\u00e1g": 1195}, {"date": 1998, "Karancss\u00e1g": 1166}, {"date": 1999, "Karancss\u00e1g": 1145}, {"date": 2000, "Karancss\u00e1g": 1164}, {"date": 2001, "Karancss\u00e1g": 1160}, {"date": 2002, "Karancss\u00e1g": 2122}, {"date": 2003, "Karancss\u00e1g": 1192}, {"date": 2004, "Karancss\u00e1g": 1218}, {"date": 2005, "Karancss\u00e1g": 1234}, {"date": 2006, "Karancss\u00e1g": 1236}, {"date": 2007, "Karancss\u00e1g": 1231}, {"date": 2008, "Karancss\u00e1g": 1221}, {"date": 2009, "Karancss\u00e1g": 1212}, {"date": 2010, "Karancss\u00e1g": 1222}, {"date": 2011, "Karancss\u00e1g": 1223}, {"date": 2012, "Karancss\u00e1g": 1234}, {"date": 2013, "Karancss\u00e1g": 1269}, {"date": 2014, "Karancss\u00e1g": 1263}, {"date": 2015, "Karancss\u00e1g": 1285}, {"date": 2016, "Karancss\u00e1g": 1287}, {"date": 2017, "Karancss\u00e1g": 1287}, {"date": 2018, "Karancss\u00e1g": 1312}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

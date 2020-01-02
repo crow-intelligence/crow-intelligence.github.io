@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gagyb\u00e1tor"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector537": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Gagyb\u00e1tor"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector537"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gagyb\u00e1tor"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector537"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Gagyb\u00e1tor", "selection": "selector537"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gagyb\u00e1tor"}}}], "data": {"name": "data-41fa75a6c64b5110f493fef5c22e3cd4"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-41fa75a6c64b5110f493fef5c22e3cd4": [{"date": 1986, "Gagyb\u00e1tor": 322}, {"date": 1987, "Gagyb\u00e1tor": 317}, {"date": 1988, "Gagyb\u00e1tor": 316}, {"date": 1989, "Gagyb\u00e1tor": 317}, {"date": 1990, "Gagyb\u00e1tor": 315}, {"date": 1991, "Gagyb\u00e1tor": 304}, {"date": 1992, "Gagyb\u00e1tor": 301}, {"date": 1993, "Gagyb\u00e1tor": 300}, {"date": 1994, "Gagyb\u00e1tor": 291}, {"date": 1995, "Gagyb\u00e1tor": 296}, {"date": 1996, "Gagyb\u00e1tor": 287}, {"date": 1997, "Gagyb\u00e1tor": 280}, {"date": 1998, "Gagyb\u00e1tor": 278}, {"date": 1999, "Gagyb\u00e1tor": 277}, {"date": 2000, "Gagyb\u00e1tor": 271}, {"date": 2001, "Gagyb\u00e1tor": 271}, {"date": 2002, "Gagyb\u00e1tor": 270}, {"date": 2003, "Gagyb\u00e1tor": 279}, {"date": 2004, "Gagyb\u00e1tor": 277}, {"date": 2005, "Gagyb\u00e1tor": 271}, {"date": 2006, "Gagyb\u00e1tor": 261}, {"date": 2007, "Gagyb\u00e1tor": 228}, {"date": 2008, "Gagyb\u00e1tor": 222}, {"date": 2009, "Gagyb\u00e1tor": 223}, {"date": 2010, "Gagyb\u00e1tor": 223}, {"date": 2011, "Gagyb\u00e1tor": 215}, {"date": 2012, "Gagyb\u00e1tor": 213}, {"date": 2013, "Gagyb\u00e1tor": 212}, {"date": 2014, "Gagyb\u00e1tor": 211}, {"date": 2015, "Gagyb\u00e1tor": 218}, {"date": 2016, "Gagyb\u00e1tor": 219}, {"date": 2017, "Gagyb\u00e1tor": 220}, {"date": 2018, "Gagyb\u00e1tor": 215}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

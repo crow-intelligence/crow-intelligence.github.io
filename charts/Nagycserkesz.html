@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagycserkesz"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1831": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nagycserkesz"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1831"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagycserkesz"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1831"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nagycserkesz", "selection": "selector1831"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagycserkesz"}}}], "data": {"name": "data-d996bb0f3017ad1aea6f0bd4b887c5c4"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d996bb0f3017ad1aea6f0bd4b887c5c4": [{"date": 1986, "Nagycserkesz": 2035}, {"date": 1987, "Nagycserkesz": 2015}, {"date": 1988, "Nagycserkesz": 1967}, {"date": 1989, "Nagycserkesz": 1955}, {"date": 1990, "Nagycserkesz": 1909}, {"date": 1991, "Nagycserkesz": 1853}, {"date": 1992, "Nagycserkesz": 1866}, {"date": 1993, "Nagycserkesz": 1897}, {"date": 1994, "Nagycserkesz": 1886}, {"date": 1995, "Nagycserkesz": 1866}, {"date": 1996, "Nagycserkesz": 1885}, {"date": 1997, "Nagycserkesz": 1888}, {"date": 1998, "Nagycserkesz": 1892}, {"date": 1999, "Nagycserkesz": 1911}, {"date": 2000, "Nagycserkesz": 1923}, {"date": 2001, "Nagycserkesz": 1907}, {"date": 2002, "Nagycserkesz": 1921}, {"date": 2003, "Nagycserkesz": 1913}, {"date": 2004, "Nagycserkesz": 1919}, {"date": 2005, "Nagycserkesz": 1892}, {"date": 2006, "Nagycserkesz": 1896}, {"date": 2007, "Nagycserkesz": 1904}, {"date": 2008, "Nagycserkesz": 1897}, {"date": 2009, "Nagycserkesz": 1883}, {"date": 2010, "Nagycserkesz": 1895}, {"date": 2011, "Nagycserkesz": 1873}, {"date": 2012, "Nagycserkesz": 1859}, {"date": 2013, "Nagycserkesz": 1851}, {"date": 2014, "Nagycserkesz": 1845}, {"date": 2015, "Nagycserkesz": 1835}, {"date": 2016, "Nagycserkesz": 1840}, {"date": 2017, "Nagycserkesz": 1772}, {"date": 2018, "Nagycserkesz": 1777}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

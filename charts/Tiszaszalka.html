@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaszalka"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1914": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszaszalka"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1914"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaszalka"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1914"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszaszalka", "selection": "selector1914"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaszalka"}}}], "data": {"name": "data-18419483d9e040c41ac51368b30fb378"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-18419483d9e040c41ac51368b30fb378": [{"date": 1986, "Tiszaszalka": 1624}, {"date": 1987, "Tiszaszalka": 1626}, {"date": 1988, "Tiszaszalka": 1636}, {"date": 1989, "Tiszaszalka": 1585}, {"date": 1990, "Tiszaszalka": 1140}, {"date": 1991, "Tiszaszalka": 1172}, {"date": 1992, "Tiszaszalka": 1180}, {"date": 1993, "Tiszaszalka": 1079}, {"date": 1994, "Tiszaszalka": 1059}, {"date": 1995, "Tiszaszalka": 1047}, {"date": 1996, "Tiszaszalka": 1034}, {"date": 1997, "Tiszaszalka": 1039}, {"date": 1998, "Tiszaszalka": 1028}, {"date": 1999, "Tiszaszalka": 1022}, {"date": 2000, "Tiszaszalka": 1018}, {"date": 2001, "Tiszaszalka": 1028}, {"date": 2002, "Tiszaszalka": 1024}, {"date": 2003, "Tiszaszalka": 1014}, {"date": 2004, "Tiszaszalka": 999}, {"date": 2005, "Tiszaszalka": 990}, {"date": 2006, "Tiszaszalka": 998}, {"date": 2007, "Tiszaszalka": 974}, {"date": 2008, "Tiszaszalka": 969}, {"date": 2009, "Tiszaszalka": 975}, {"date": 2010, "Tiszaszalka": 962}, {"date": 2011, "Tiszaszalka": 944}, {"date": 2012, "Tiszaszalka": 944}, {"date": 2013, "Tiszaszalka": 939}, {"date": 2014, "Tiszaszalka": 925}, {"date": 2015, "Tiszaszalka": 925}, {"date": 2016, "Tiszaszalka": 933}, {"date": 2017, "Tiszaszalka": 947}, {"date": 2018, "Tiszaszalka": 948}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

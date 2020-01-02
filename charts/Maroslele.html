@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Maroslele"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector790": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Maroslele"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector790"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Maroslele"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector790"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Maroslele", "selection": "selector790"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Maroslele"}}}], "data": {"name": "data-f09d557f265211477a27bdda71eb0568"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f09d557f265211477a27bdda71eb0568": [{"date": 1986, "Maroslele": 2273}, {"date": 1987, "Maroslele": 2268}, {"date": 1988, "Maroslele": 2264}, {"date": 1989, "Maroslele": 2262}, {"date": 1990, "Maroslele": 2286}, {"date": 1991, "Maroslele": 2302}, {"date": 1992, "Maroslele": 2289}, {"date": 1993, "Maroslele": 2252}, {"date": 1994, "Maroslele": 2275}, {"date": 1995, "Maroslele": 2293}, {"date": 1996, "Maroslele": 2291}, {"date": 1997, "Maroslele": 2284}, {"date": 1998, "Maroslele": 2271}, {"date": 1999, "Maroslele": 2245}, {"date": 2000, "Maroslele": 2225}, {"date": 2001, "Maroslele": 2236}, {"date": 2002, "Maroslele": 2232}, {"date": 2003, "Maroslele": 2254}, {"date": 2004, "Maroslele": 2247}, {"date": 2005, "Maroslele": 2240}, {"date": 2006, "Maroslele": 2240}, {"date": 2007, "Maroslele": 2215}, {"date": 2008, "Maroslele": 2191}, {"date": 2009, "Maroslele": 2166}, {"date": 2010, "Maroslele": 2162}, {"date": 2011, "Maroslele": 2160}, {"date": 2012, "Maroslele": 2158}, {"date": 2013, "Maroslele": 2115}, {"date": 2014, "Maroslele": 2116}, {"date": 2015, "Maroslele": 2087}, {"date": 2016, "Maroslele": 2092}, {"date": 2017, "Maroslele": 2095}, {"date": 2018, "Maroslele": 2069}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

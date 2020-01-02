@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogyb\u00fckk\u00f6sd"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1688": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Somogyb\u00fckk\u00f6sd"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1688"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogyb\u00fckk\u00f6sd"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1688"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Somogyb\u00fckk\u00f6sd", "selection": "selector1688"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somogyb\u00fckk\u00f6sd"}}}], "data": {"name": "data-883db865012359ddabf0d42769940025"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-883db865012359ddabf0d42769940025": [{"date": 1986, "Somogyb\u00fckk\u00f6sd": 168}, {"date": 1987, "Somogyb\u00fckk\u00f6sd": 167}, {"date": 1988, "Somogyb\u00fckk\u00f6sd": 166}, {"date": 1989, "Somogyb\u00fckk\u00f6sd": 166}, {"date": 1990, "Somogyb\u00fckk\u00f6sd": 164}, {"date": 1991, "Somogyb\u00fckk\u00f6sd": 157}, {"date": 1992, "Somogyb\u00fckk\u00f6sd": 156}, {"date": 1993, "Somogyb\u00fckk\u00f6sd": 143}, {"date": 1994, "Somogyb\u00fckk\u00f6sd": 140}, {"date": 1995, "Somogyb\u00fckk\u00f6sd": 136}, {"date": 1996, "Somogyb\u00fckk\u00f6sd": 137}, {"date": 1997, "Somogyb\u00fckk\u00f6sd": 136}, {"date": 1998, "Somogyb\u00fckk\u00f6sd": 134}, {"date": 1999, "Somogyb\u00fckk\u00f6sd": 138}, {"date": 2000, "Somogyb\u00fckk\u00f6sd": 131}, {"date": 2001, "Somogyb\u00fckk\u00f6sd": 128}, {"date": 2002, "Somogyb\u00fckk\u00f6sd": 129}, {"date": 2003, "Somogyb\u00fckk\u00f6sd": 123}, {"date": 2004, "Somogyb\u00fckk\u00f6sd": 117}, {"date": 2005, "Somogyb\u00fckk\u00f6sd": 112}, {"date": 2006, "Somogyb\u00fckk\u00f6sd": 104}, {"date": 2007, "Somogyb\u00fckk\u00f6sd": 106}, {"date": 2008, "Somogyb\u00fckk\u00f6sd": 98}, {"date": 2009, "Somogyb\u00fckk\u00f6sd": 96}, {"date": 2010, "Somogyb\u00fckk\u00f6sd": 105}, {"date": 2011, "Somogyb\u00fckk\u00f6sd": 108}, {"date": 2012, "Somogyb\u00fckk\u00f6sd": 104}, {"date": 2013, "Somogyb\u00fckk\u00f6sd": 101}, {"date": 2014, "Somogyb\u00fckk\u00f6sd": 100}, {"date": 2015, "Somogyb\u00fckk\u00f6sd": 103}, {"date": 2016, "Somogyb\u00fckk\u00f6sd": 94}, {"date": 2017, "Somogyb\u00fckk\u00f6sd": 88}, {"date": 2018, "Somogyb\u00fckk\u00f6sd": 89}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

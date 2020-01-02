@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dr\u00e1vaszerdahely"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector173": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dr\u00e1vaszerdahely"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector173"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dr\u00e1vaszerdahely"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector173"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dr\u00e1vaszerdahely", "selection": "selector173"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dr\u00e1vaszerdahely"}}}], "data": {"name": "data-684ae7bbb8e8b7bab98d27dcbe2d5d3a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-684ae7bbb8e8b7bab98d27dcbe2d5d3a": [{"date": 1986, "Dr\u00e1vaszerdahely": 255}, {"date": 1987, "Dr\u00e1vaszerdahely": 256}, {"date": 1988, "Dr\u00e1vaszerdahely": 241}, {"date": 1989, "Dr\u00e1vaszerdahely": 232}, {"date": 1990, "Dr\u00e1vaszerdahely": 229}, {"date": 1991, "Dr\u00e1vaszerdahely": 237}, {"date": 1992, "Dr\u00e1vaszerdahely": 235}, {"date": 1993, "Dr\u00e1vaszerdahely": 230}, {"date": 1994, "Dr\u00e1vaszerdahely": 227}, {"date": 1995, "Dr\u00e1vaszerdahely": 223}, {"date": 1996, "Dr\u00e1vaszerdahely": 228}, {"date": 1997, "Dr\u00e1vaszerdahely": 229}, {"date": 1998, "Dr\u00e1vaszerdahely": 237}, {"date": 1999, "Dr\u00e1vaszerdahely": 226}, {"date": 2000, "Dr\u00e1vaszerdahely": 228}, {"date": 2001, "Dr\u00e1vaszerdahely": 223}, {"date": 2002, "Dr\u00e1vaszerdahely": 215}, {"date": 2003, "Dr\u00e1vaszerdahely": 215}, {"date": 2004, "Dr\u00e1vaszerdahely": 220}, {"date": 2005, "Dr\u00e1vaszerdahely": 218}, {"date": 2006, "Dr\u00e1vaszerdahely": 216}, {"date": 2007, "Dr\u00e1vaszerdahely": 228}, {"date": 2008, "Dr\u00e1vaszerdahely": 221}, {"date": 2009, "Dr\u00e1vaszerdahely": 220}, {"date": 2010, "Dr\u00e1vaszerdahely": 214}, {"date": 2011, "Dr\u00e1vaszerdahely": 211}, {"date": 2012, "Dr\u00e1vaszerdahely": 212}, {"date": 2013, "Dr\u00e1vaszerdahely": 212}, {"date": 2014, "Dr\u00e1vaszerdahely": 210}, {"date": 2015, "Dr\u00e1vaszerdahely": 207}, {"date": 2016, "Dr\u00e1vaszerdahely": 201}, {"date": 2017, "Dr\u00e1vaszerdahely": 180}, {"date": 2018, "Dr\u00e1vaszerdahely": 180}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

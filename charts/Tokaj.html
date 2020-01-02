@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tokaj"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2938": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tokaj"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2938"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tokaj"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2938"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tokaj", "selection": "selector2938"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tokaj"}}}], "data": {"name": "data-fd9409597d6437cfa8f7d9151b1ca8fc"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-fd9409597d6437cfa8f7d9151b1ca8fc": [{"date": 1986, "Tokaj": 4811}, {"date": 1987, "Tokaj": 4786}, {"date": 1988, "Tokaj": 4748}, {"date": 1989, "Tokaj": 4758}, {"date": 1990, "Tokaj": 4737}, {"date": 1991, "Tokaj": 4721}, {"date": 1992, "Tokaj": 4727}, {"date": 1993, "Tokaj": 4729}, {"date": 1994, "Tokaj": 4745}, {"date": 1995, "Tokaj": 4693}, {"date": 1996, "Tokaj": 4660}, {"date": 1997, "Tokaj": 4630}, {"date": 1998, "Tokaj": 4593}, {"date": 1999, "Tokaj": 4506}, {"date": 2000, "Tokaj": 4503}, {"date": 2001, "Tokaj": 4462}, {"date": 2002, "Tokaj": 10512}, {"date": 2003, "Tokaj": 4452}, {"date": 2004, "Tokaj": 4358}, {"date": 2005, "Tokaj": 4323}, {"date": 2006, "Tokaj": 4303}, {"date": 2007, "Tokaj": 4292}, {"date": 2008, "Tokaj": 4254}, {"date": 2009, "Tokaj": 4243}, {"date": 2010, "Tokaj": 4236}, {"date": 2011, "Tokaj": 4206}, {"date": 2012, "Tokaj": 4164}, {"date": 2013, "Tokaj": 4154}, {"date": 2014, "Tokaj": 4113}, {"date": 2015, "Tokaj": 4099}, {"date": 2016, "Tokaj": 4044}, {"date": 2017, "Tokaj": 3978}, {"date": 2018, "Tokaj": 3909}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

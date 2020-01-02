@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fony"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector528": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Fony"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector528"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fony"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector528"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Fony", "selection": "selector528"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Fony"}}}], "data": {"name": "data-38a8267218f232df3a59e961a9002b93"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-38a8267218f232df3a59e961a9002b93": [{"date": 1986, "Fony": 517}, {"date": 1987, "Fony": 508}, {"date": 1988, "Fony": 497}, {"date": 1989, "Fony": 487}, {"date": 1990, "Fony": 451}, {"date": 1991, "Fony": 436}, {"date": 1992, "Fony": 436}, {"date": 1993, "Fony": 421}, {"date": 1994, "Fony": 417}, {"date": 1995, "Fony": 408}, {"date": 1996, "Fony": 415}, {"date": 1997, "Fony": 424}, {"date": 1998, "Fony": 429}, {"date": 1999, "Fony": 431}, {"date": 2000, "Fony": 418}, {"date": 2001, "Fony": 430}, {"date": 2002, "Fony": 421}, {"date": 2003, "Fony": 410}, {"date": 2004, "Fony": 403}, {"date": 2005, "Fony": 396}, {"date": 2006, "Fony": 391}, {"date": 2007, "Fony": 390}, {"date": 2008, "Fony": 388}, {"date": 2009, "Fony": 380}, {"date": 2010, "Fony": 389}, {"date": 2011, "Fony": 385}, {"date": 2012, "Fony": 369}, {"date": 2013, "Fony": 367}, {"date": 2014, "Fony": 352}, {"date": 2015, "Fony": 351}, {"date": 2016, "Fony": 354}, {"date": 2017, "Fony": 342}, {"date": 2018, "Fony": 337}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lajosmizse"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2870": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Lajosmizse"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2870"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lajosmizse"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2870"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Lajosmizse", "selection": "selector2870"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lajosmizse"}}}], "data": {"name": "data-313b8125be50ed50950596cb4ed9e717"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-313b8125be50ed50950596cb4ed9e717": [{"date": 1986, "Lajosmizse": 12063}, {"date": 1987, "Lajosmizse": 12015}, {"date": 1988, "Lajosmizse": 11778}, {"date": 1989, "Lajosmizse": 11688}, {"date": 1990, "Lajosmizse": 11648}, {"date": 1991, "Lajosmizse": 11534}, {"date": 1992, "Lajosmizse": 11510}, {"date": 1993, "Lajosmizse": 11484}, {"date": 1994, "Lajosmizse": 11480}, {"date": 1995, "Lajosmizse": 11562}, {"date": 1996, "Lajosmizse": 11566}, {"date": 1997, "Lajosmizse": 11548}, {"date": 1998, "Lajosmizse": 11516}, {"date": 1999, "Lajosmizse": 11537}, {"date": 2000, "Lajosmizse": 11507}, {"date": 2001, "Lajosmizse": 11579}, {"date": 2002, "Lajosmizse": 9098}, {"date": 2003, "Lajosmizse": 11650}, {"date": 2004, "Lajosmizse": 11615}, {"date": 2005, "Lajosmizse": 11626}, {"date": 2006, "Lajosmizse": 11632}, {"date": 2007, "Lajosmizse": 11623}, {"date": 2008, "Lajosmizse": 11678}, {"date": 2009, "Lajosmizse": 11665}, {"date": 2010, "Lajosmizse": 11695}, {"date": 2011, "Lajosmizse": 11700}, {"date": 2012, "Lajosmizse": 11656}, {"date": 2013, "Lajosmizse": 11720}, {"date": 2014, "Lajosmizse": 11760}, {"date": 2015, "Lajosmizse": 11842}, {"date": 2016, "Lajosmizse": 11917}, {"date": 2017, "Lajosmizse": 11989}, {"date": 2018, "Lajosmizse": 12002}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

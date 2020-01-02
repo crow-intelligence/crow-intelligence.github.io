@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monostorp\u00e1lyi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1091": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Monostorp\u00e1lyi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1091"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monostorp\u00e1lyi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1091"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Monostorp\u00e1lyi", "selection": "selector1091"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monostorp\u00e1lyi"}}}], "data": {"name": "data-01f089d2197e82f0df2cb8aa3e5c30b7"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-01f089d2197e82f0df2cb8aa3e5c30b7": [{"date": 1986, "Monostorp\u00e1lyi": 2333}, {"date": 1987, "Monostorp\u00e1lyi": 2278}, {"date": 1988, "Monostorp\u00e1lyi": 2225}, {"date": 1989, "Monostorp\u00e1lyi": 2230}, {"date": 1990, "Monostorp\u00e1lyi": 2210}, {"date": 1991, "Monostorp\u00e1lyi": 2171}, {"date": 1992, "Monostorp\u00e1lyi": 2150}, {"date": 1993, "Monostorp\u00e1lyi": 2132}, {"date": 1994, "Monostorp\u00e1lyi": 2141}, {"date": 1995, "Monostorp\u00e1lyi": 2149}, {"date": 1996, "Monostorp\u00e1lyi": 2153}, {"date": 1997, "Monostorp\u00e1lyi": 2134}, {"date": 1998, "Monostorp\u00e1lyi": 2127}, {"date": 1999, "Monostorp\u00e1lyi": 2140}, {"date": 2000, "Monostorp\u00e1lyi": 2165}, {"date": 2001, "Monostorp\u00e1lyi": 2221}, {"date": 2002, "Monostorp\u00e1lyi": 2226}, {"date": 2003, "Monostorp\u00e1lyi": 2238}, {"date": 2004, "Monostorp\u00e1lyi": 2222}, {"date": 2005, "Monostorp\u00e1lyi": 2220}, {"date": 2006, "Monostorp\u00e1lyi": 2214}, {"date": 2007, "Monostorp\u00e1lyi": 2231}, {"date": 2008, "Monostorp\u00e1lyi": 2245}, {"date": 2009, "Monostorp\u00e1lyi": 2259}, {"date": 2010, "Monostorp\u00e1lyi": 2233}, {"date": 2011, "Monostorp\u00e1lyi": 2204}, {"date": 2012, "Monostorp\u00e1lyi": 2195}, {"date": 2013, "Monostorp\u00e1lyi": 2190}, {"date": 2014, "Monostorp\u00e1lyi": 2178}, {"date": 2015, "Monostorp\u00e1lyi": 2192}, {"date": 2016, "Monostorp\u00e1lyi": 2162}, {"date": 2017, "Monostorp\u00e1lyi": 2184}, {"date": 2018, "Monostorp\u00e1lyi": 2188}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonszabadi"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1533": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Balatonszabadi"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1533"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonszabadi"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1533"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Balatonszabadi", "selection": "selector1533"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Balatonszabadi"}}}], "data": {"name": "data-5b4fae422eb2cffbafcfc560577f07f0"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-5b4fae422eb2cffbafcfc560577f07f0": [{"date": 1986, "Balatonszabadi": 2627}, {"date": 1987, "Balatonszabadi": 2645}, {"date": 1988, "Balatonszabadi": 2634}, {"date": 1989, "Balatonszabadi": 2725}, {"date": 1990, "Balatonszabadi": 2754}, {"date": 1991, "Balatonszabadi": 2744}, {"date": 1992, "Balatonszabadi": 2786}, {"date": 1993, "Balatonszabadi": 2810}, {"date": 1994, "Balatonszabadi": 2838}, {"date": 1995, "Balatonszabadi": 2817}, {"date": 1996, "Balatonszabadi": 2766}, {"date": 1997, "Balatonszabadi": 2824}, {"date": 1998, "Balatonszabadi": 2861}, {"date": 1999, "Balatonszabadi": 2899}, {"date": 2000, "Balatonszabadi": 2877}, {"date": 2001, "Balatonszabadi": 2885}, {"date": 2002, "Balatonszabadi": 2897}, {"date": 2003, "Balatonszabadi": 2898}, {"date": 2004, "Balatonszabadi": 2916}, {"date": 2005, "Balatonszabadi": 2947}, {"date": 2006, "Balatonszabadi": 2990}, {"date": 2007, "Balatonszabadi": 2972}, {"date": 2008, "Balatonszabadi": 3014}, {"date": 2009, "Balatonszabadi": 3041}, {"date": 2010, "Balatonszabadi": 3027}, {"date": 2011, "Balatonszabadi": 3026}, {"date": 2012, "Balatonszabadi": 2994}, {"date": 2013, "Balatonszabadi": 2996}, {"date": 2014, "Balatonszabadi": 2988}, {"date": 2015, "Balatonszabadi": 2978}, {"date": 2016, "Balatonszabadi": 2974}, {"date": 2017, "Balatonszabadi": 2957}, {"date": 2018, "Balatonszabadi": 3007}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

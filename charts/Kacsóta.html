@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kacs\u00f3ta"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector218": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kacs\u00f3ta"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector218"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kacs\u00f3ta"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector218"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kacs\u00f3ta", "selection": "selector218"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kacs\u00f3ta"}}}], "data": {"name": "data-baff680fdb6e1257d3fa89429ecb3898"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-baff680fdb6e1257d3fa89429ecb3898": [{"date": 1986, "Kacs\u00f3ta": 297}, {"date": 1987, "Kacs\u00f3ta": 317}, {"date": 1988, "Kacs\u00f3ta": 313}, {"date": 1989, "Kacs\u00f3ta": 305}, {"date": 1990, "Kacs\u00f3ta": 303}, {"date": 1991, "Kacs\u00f3ta": 313}, {"date": 1992, "Kacs\u00f3ta": 298}, {"date": 1993, "Kacs\u00f3ta": 283}, {"date": 1994, "Kacs\u00f3ta": 288}, {"date": 1995, "Kacs\u00f3ta": 289}, {"date": 1996, "Kacs\u00f3ta": 294}, {"date": 1997, "Kacs\u00f3ta": 289}, {"date": 1998, "Kacs\u00f3ta": 291}, {"date": 1999, "Kacs\u00f3ta": 285}, {"date": 2000, "Kacs\u00f3ta": 289}, {"date": 2001, "Kacs\u00f3ta": 293}, {"date": 2002, "Kacs\u00f3ta": 296}, {"date": 2003, "Kacs\u00f3ta": 297}, {"date": 2004, "Kacs\u00f3ta": 295}, {"date": 2005, "Kacs\u00f3ta": 292}, {"date": 2006, "Kacs\u00f3ta": 293}, {"date": 2007, "Kacs\u00f3ta": 280}, {"date": 2008, "Kacs\u00f3ta": 276}, {"date": 2009, "Kacs\u00f3ta": 270}, {"date": 2010, "Kacs\u00f3ta": 280}, {"date": 2011, "Kacs\u00f3ta": 283}, {"date": 2012, "Kacs\u00f3ta": 283}, {"date": 2013, "Kacs\u00f3ta": 287}, {"date": 2014, "Kacs\u00f3ta": 278}, {"date": 2015, "Kacs\u00f3ta": 289}, {"date": 2016, "Kacs\u00f3ta": 291}, {"date": 2017, "Kacs\u00f3ta": 284}, {"date": 2018, "Kacs\u00f3ta": 281}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

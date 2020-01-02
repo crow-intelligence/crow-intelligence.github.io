@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaszentgy\u00f6rgy"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2004": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dunaszentgy\u00f6rgy"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2004"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaszentgy\u00f6rgy"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2004"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dunaszentgy\u00f6rgy", "selection": "selector2004"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaszentgy\u00f6rgy"}}}], "data": {"name": "data-ebd98417688add93550ac02ef6e94816"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ebd98417688add93550ac02ef6e94816": [{"date": 1986, "Dunaszentgy\u00f6rgy": 2765}, {"date": 1987, "Dunaszentgy\u00f6rgy": 2772}, {"date": 1988, "Dunaszentgy\u00f6rgy": 2811}, {"date": 1989, "Dunaszentgy\u00f6rgy": 2807}, {"date": 1990, "Dunaszentgy\u00f6rgy": 2812}, {"date": 1991, "Dunaszentgy\u00f6rgy": 2806}, {"date": 1992, "Dunaszentgy\u00f6rgy": 2814}, {"date": 1993, "Dunaszentgy\u00f6rgy": 2762}, {"date": 1994, "Dunaszentgy\u00f6rgy": 2775}, {"date": 1995, "Dunaszentgy\u00f6rgy": 2769}, {"date": 1996, "Dunaszentgy\u00f6rgy": 2781}, {"date": 1997, "Dunaszentgy\u00f6rgy": 2770}, {"date": 1998, "Dunaszentgy\u00f6rgy": 2745}, {"date": 1999, "Dunaszentgy\u00f6rgy": 2701}, {"date": 2000, "Dunaszentgy\u00f6rgy": 2697}, {"date": 2001, "Dunaszentgy\u00f6rgy": 2711}, {"date": 2002, "Dunaszentgy\u00f6rgy": 2719}, {"date": 2003, "Dunaszentgy\u00f6rgy": 2720}, {"date": 2004, "Dunaszentgy\u00f6rgy": 2726}, {"date": 2005, "Dunaszentgy\u00f6rgy": 2728}, {"date": 2006, "Dunaszentgy\u00f6rgy": 2699}, {"date": 2007, "Dunaszentgy\u00f6rgy": 2668}, {"date": 2008, "Dunaszentgy\u00f6rgy": 2653}, {"date": 2009, "Dunaszentgy\u00f6rgy": 2617}, {"date": 2010, "Dunaszentgy\u00f6rgy": 2610}, {"date": 2011, "Dunaszentgy\u00f6rgy": 2604}, {"date": 2012, "Dunaszentgy\u00f6rgy": 2607}, {"date": 2013, "Dunaszentgy\u00f6rgy": 2586}, {"date": 2014, "Dunaszentgy\u00f6rgy": 2603}, {"date": 2015, "Dunaszentgy\u00f6rgy": 2614}, {"date": 2016, "Dunaszentgy\u00f6rgy": 2587}, {"date": 2017, "Dunaszentgy\u00f6rgy": 2611}, {"date": 2018, "Dunaszentgy\u00f6rgy": 2598}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

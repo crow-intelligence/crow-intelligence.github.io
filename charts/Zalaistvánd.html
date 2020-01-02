@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaistv\u00e1nd"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2708": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zalaistv\u00e1nd"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2708"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaistv\u00e1nd"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2708"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zalaistv\u00e1nd", "selection": "selector2708"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaistv\u00e1nd"}}}], "data": {"name": "data-1dbeab08ec51970251d80e87ae0c137c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1dbeab08ec51970251d80e87ae0c137c": [{"date": 1986, "Zalaistv\u00e1nd": 496}, {"date": 1987, "Zalaistv\u00e1nd": 492}, {"date": 1988, "Zalaistv\u00e1nd": 478}, {"date": 1989, "Zalaistv\u00e1nd": 473}, {"date": 1990, "Zalaistv\u00e1nd": 474}, {"date": 1991, "Zalaistv\u00e1nd": 460}, {"date": 1992, "Zalaistv\u00e1nd": 456}, {"date": 1993, "Zalaistv\u00e1nd": 459}, {"date": 1994, "Zalaistv\u00e1nd": 455}, {"date": 1995, "Zalaistv\u00e1nd": 456}, {"date": 1996, "Zalaistv\u00e1nd": 445}, {"date": 1997, "Zalaistv\u00e1nd": 433}, {"date": 1998, "Zalaistv\u00e1nd": 427}, {"date": 1999, "Zalaistv\u00e1nd": 429}, {"date": 2000, "Zalaistv\u00e1nd": 414}, {"date": 2001, "Zalaistv\u00e1nd": 414}, {"date": 2002, "Zalaistv\u00e1nd": 407}, {"date": 2003, "Zalaistv\u00e1nd": 406}, {"date": 2004, "Zalaistv\u00e1nd": 391}, {"date": 2005, "Zalaistv\u00e1nd": 386}, {"date": 2006, "Zalaistv\u00e1nd": 382}, {"date": 2007, "Zalaistv\u00e1nd": 376}, {"date": 2008, "Zalaistv\u00e1nd": 378}, {"date": 2009, "Zalaistv\u00e1nd": 375}, {"date": 2010, "Zalaistv\u00e1nd": 368}, {"date": 2011, "Zalaistv\u00e1nd": 372}, {"date": 2012, "Zalaistv\u00e1nd": 372}, {"date": 2013, "Zalaistv\u00e1nd": 368}, {"date": 2014, "Zalaistv\u00e1nd": 371}, {"date": 2015, "Zalaistv\u00e1nd": 373}, {"date": 2016, "Zalaistv\u00e1nd": 386}, {"date": 2017, "Zalaistv\u00e1nd": 371}, {"date": 2018, "Zalaistv\u00e1nd": 371}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

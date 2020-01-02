@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Galgam\u00e1csa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1428": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Galgam\u00e1csa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1428"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Galgam\u00e1csa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1428"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Galgam\u00e1csa", "selection": "selector1428"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Galgam\u00e1csa"}}}], "data": {"name": "data-bdcedd29468ec078a22451aab04f8151"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-bdcedd29468ec078a22451aab04f8151": [{"date": 1986, "Galgam\u00e1csa": 1819}, {"date": 1987, "Galgam\u00e1csa": 1810}, {"date": 1988, "Galgam\u00e1csa": 1782}, {"date": 1989, "Galgam\u00e1csa": 1770}, {"date": 1990, "Galgam\u00e1csa": 1728}, {"date": 1991, "Galgam\u00e1csa": 1613}, {"date": 1992, "Galgam\u00e1csa": 1667}, {"date": 1993, "Galgam\u00e1csa": 1636}, {"date": 1994, "Galgam\u00e1csa": 1649}, {"date": 1995, "Galgam\u00e1csa": 1775}, {"date": 1996, "Galgam\u00e1csa": 1833}, {"date": 1997, "Galgam\u00e1csa": 1863}, {"date": 1998, "Galgam\u00e1csa": 1935}, {"date": 1999, "Galgam\u00e1csa": 1919}, {"date": 2000, "Galgam\u00e1csa": 1950}, {"date": 2001, "Galgam\u00e1csa": 1950}, {"date": 2002, "Galgam\u00e1csa": 1948}, {"date": 2003, "Galgam\u00e1csa": 1954}, {"date": 2004, "Galgam\u00e1csa": 1952}, {"date": 2005, "Galgam\u00e1csa": 1954}, {"date": 2006, "Galgam\u00e1csa": 1962}, {"date": 2007, "Galgam\u00e1csa": 1956}, {"date": 2008, "Galgam\u00e1csa": 1945}, {"date": 2009, "Galgam\u00e1csa": 1970}, {"date": 2010, "Galgam\u00e1csa": 1953}, {"date": 2011, "Galgam\u00e1csa": 1932}, {"date": 2012, "Galgam\u00e1csa": 1935}, {"date": 2013, "Galgam\u00e1csa": 1902}, {"date": 2014, "Galgam\u00e1csa": 1900}, {"date": 2015, "Galgam\u00e1csa": 1868}, {"date": 2016, "Galgam\u00e1csa": 1876}, {"date": 2017, "Galgam\u00e1csa": 1887}, {"date": 2018, "Galgam\u00e1csa": 1923}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

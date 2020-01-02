@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hajd\u00fabagos"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1078": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Hajd\u00fabagos"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1078"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hajd\u00fabagos"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1078"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Hajd\u00fabagos", "selection": "selector1078"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hajd\u00fabagos"}}}], "data": {"name": "data-2f03128d558ab37e730c26e446ce5822"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2f03128d558ab37e730c26e446ce5822": [{"date": 1986, "Hajd\u00fabagos": 2005}, {"date": 1987, "Hajd\u00fabagos": 1983}, {"date": 1988, "Hajd\u00fabagos": 1975}, {"date": 1989, "Hajd\u00fabagos": 1980}, {"date": 1990, "Hajd\u00fabagos": 1973}, {"date": 1991, "Hajd\u00fabagos": 1962}, {"date": 1992, "Hajd\u00fabagos": 1952}, {"date": 1993, "Hajd\u00fabagos": 1937}, {"date": 1994, "Hajd\u00fabagos": 1944}, {"date": 1995, "Hajd\u00fabagos": 1946}, {"date": 1996, "Hajd\u00fabagos": 1944}, {"date": 1997, "Hajd\u00fabagos": 1934}, {"date": 1998, "Hajd\u00fabagos": 1958}, {"date": 1999, "Hajd\u00fabagos": 1979}, {"date": 2000, "Hajd\u00fabagos": 2006}, {"date": 2001, "Hajd\u00fabagos": 1986}, {"date": 2002, "Hajd\u00fabagos": 1997}, {"date": 2003, "Hajd\u00fabagos": 2000}, {"date": 2004, "Hajd\u00fabagos": 2006}, {"date": 2005, "Hajd\u00fabagos": 1981}, {"date": 2006, "Hajd\u00fabagos": 1993}, {"date": 2007, "Hajd\u00fabagos": 2058}, {"date": 2008, "Hajd\u00fabagos": 2044}, {"date": 2009, "Hajd\u00fabagos": 2037}, {"date": 2010, "Hajd\u00fabagos": 2054}, {"date": 2011, "Hajd\u00fabagos": 2037}, {"date": 2012, "Hajd\u00fabagos": 2022}, {"date": 2013, "Hajd\u00fabagos": 2043}, {"date": 2014, "Hajd\u00fabagos": 2044}, {"date": 2015, "Hajd\u00fabagos": 2095}, {"date": 2016, "Hajd\u00fabagos": 2102}, {"date": 2017, "Hajd\u00fabagos": 2094}, {"date": 2018, "Hajd\u00fabagos": 2103}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

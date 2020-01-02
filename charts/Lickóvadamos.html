@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lick\u00f3vadamos"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2590": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Lick\u00f3vadamos"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2590"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lick\u00f3vadamos"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2590"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Lick\u00f3vadamos", "selection": "selector2590"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lick\u00f3vadamos"}}}], "data": {"name": "data-90f6d2c65dfa808b33454d1c344b8d6c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-90f6d2c65dfa808b33454d1c344b8d6c": [{"date": 1986, "Lick\u00f3vadamos": 347}, {"date": 1987, "Lick\u00f3vadamos": 335}, {"date": 1988, "Lick\u00f3vadamos": 329}, {"date": 1989, "Lick\u00f3vadamos": 311}, {"date": 1990, "Lick\u00f3vadamos": 301}, {"date": 1991, "Lick\u00f3vadamos": 289}, {"date": 1992, "Lick\u00f3vadamos": 284}, {"date": 1993, "Lick\u00f3vadamos": 271}, {"date": 1994, "Lick\u00f3vadamos": 270}, {"date": 1995, "Lick\u00f3vadamos": 275}, {"date": 1996, "Lick\u00f3vadamos": 268}, {"date": 1997, "Lick\u00f3vadamos": 273}, {"date": 1998, "Lick\u00f3vadamos": 259}, {"date": 1999, "Lick\u00f3vadamos": 252}, {"date": 2000, "Lick\u00f3vadamos": 249}, {"date": 2001, "Lick\u00f3vadamos": 244}, {"date": 2002, "Lick\u00f3vadamos": 242}, {"date": 2003, "Lick\u00f3vadamos": 230}, {"date": 2004, "Lick\u00f3vadamos": 225}, {"date": 2005, "Lick\u00f3vadamos": 225}, {"date": 2006, "Lick\u00f3vadamos": 222}, {"date": 2007, "Lick\u00f3vadamos": 217}, {"date": 2008, "Lick\u00f3vadamos": 222}, {"date": 2009, "Lick\u00f3vadamos": 226}, {"date": 2010, "Lick\u00f3vadamos": 229}, {"date": 2011, "Lick\u00f3vadamos": 224}, {"date": 2012, "Lick\u00f3vadamos": 216}, {"date": 2013, "Lick\u00f3vadamos": 215}, {"date": 2014, "Lick\u00f3vadamos": 210}, {"date": 2015, "Lick\u00f3vadamos": 201}, {"date": 2016, "Lick\u00f3vadamos": 203}, {"date": 2017, "Lick\u00f3vadamos": 202}, {"date": 2018, "Lick\u00f3vadamos": 190}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

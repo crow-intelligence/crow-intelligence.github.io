@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszatelek"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1916": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszatelek"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1916"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszatelek"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1916"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszatelek", "selection": "selector1916"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszatelek"}}}], "data": {"name": "data-6e0fcaa04bfa7bb64c64a7a1ef87c398"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-6e0fcaa04bfa7bb64c64a7a1ef87c398": [{"date": 1986, "Tiszatelek": 1634}, {"date": 1987, "Tiszatelek": 1640}, {"date": 1988, "Tiszatelek": 1622}, {"date": 1989, "Tiszatelek": 1602}, {"date": 1990, "Tiszatelek": 1576}, {"date": 1991, "Tiszatelek": 1544}, {"date": 1992, "Tiszatelek": 1543}, {"date": 1993, "Tiszatelek": 1575}, {"date": 1994, "Tiszatelek": 1578}, {"date": 1995, "Tiszatelek": 1581}, {"date": 1996, "Tiszatelek": 1573}, {"date": 1997, "Tiszatelek": 1593}, {"date": 1998, "Tiszatelek": 1588}, {"date": 1999, "Tiszatelek": 1566}, {"date": 2000, "Tiszatelek": 1560}, {"date": 2001, "Tiszatelek": 1551}, {"date": 2002, "Tiszatelek": 1530}, {"date": 2003, "Tiszatelek": 1543}, {"date": 2004, "Tiszatelek": 1530}, {"date": 2005, "Tiszatelek": 1533}, {"date": 2006, "Tiszatelek": 1548}, {"date": 2007, "Tiszatelek": 1572}, {"date": 2008, "Tiszatelek": 1578}, {"date": 2009, "Tiszatelek": 1543}, {"date": 2010, "Tiszatelek": 1504}, {"date": 2011, "Tiszatelek": 1476}, {"date": 2012, "Tiszatelek": 1462}, {"date": 2013, "Tiszatelek": 1468}, {"date": 2014, "Tiszatelek": 1455}, {"date": 2015, "Tiszatelek": 1431}, {"date": 2016, "Tiszatelek": 1430}, {"date": 2017, "Tiszatelek": 1427}, {"date": 2018, "Tiszatelek": 1409}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

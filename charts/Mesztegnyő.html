@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Mesztegny\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1633": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Mesztegny\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1633"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Mesztegny\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1633"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Mesztegny\u0151", "selection": "selector1633"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Mesztegny\u0151"}}}], "data": {"name": "data-a39acc75ebe05a514789098e92a91dd3"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a39acc75ebe05a514789098e92a91dd3": [{"date": 1986, "Mesztegny\u0151": 1515}, {"date": 1987, "Mesztegny\u0151": 1505}, {"date": 1988, "Mesztegny\u0151": 1506}, {"date": 1989, "Mesztegny\u0151": 1515}, {"date": 1990, "Mesztegny\u0151": 1492}, {"date": 1991, "Mesztegny\u0151": 1499}, {"date": 1992, "Mesztegny\u0151": 1533}, {"date": 1993, "Mesztegny\u0151": 1527}, {"date": 1994, "Mesztegny\u0151": 1540}, {"date": 1995, "Mesztegny\u0151": 1517}, {"date": 1996, "Mesztegny\u0151": 1507}, {"date": 1997, "Mesztegny\u0151": 1477}, {"date": 1998, "Mesztegny\u0151": 1487}, {"date": 1999, "Mesztegny\u0151": 1461}, {"date": 2000, "Mesztegny\u0151": 1464}, {"date": 2001, "Mesztegny\u0151": 1474}, {"date": 2002, "Mesztegny\u0151": 1472}, {"date": 2003, "Mesztegny\u0151": 1479}, {"date": 2004, "Mesztegny\u0151": 1467}, {"date": 2005, "Mesztegny\u0151": 1433}, {"date": 2006, "Mesztegny\u0151": 1442}, {"date": 2007, "Mesztegny\u0151": 1429}, {"date": 2008, "Mesztegny\u0151": 1419}, {"date": 2009, "Mesztegny\u0151": 1389}, {"date": 2010, "Mesztegny\u0151": 1369}, {"date": 2011, "Mesztegny\u0151": 1366}, {"date": 2012, "Mesztegny\u0151": 1365}, {"date": 2013, "Mesztegny\u0151": 1370}, {"date": 2014, "Mesztegny\u0151": 1366}, {"date": 2015, "Mesztegny\u0151": 1373}, {"date": 2016, "Mesztegny\u0151": 1337}, {"date": 2017, "Mesztegny\u0151": 1323}, {"date": 2018, "Mesztegny\u0151": 1304}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

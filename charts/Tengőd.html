@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Teng\u0151d"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1728": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Teng\u0151d"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1728"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Teng\u0151d"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1728"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Teng\u0151d", "selection": "selector1728"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Teng\u0151d"}}}], "data": {"name": "data-a7b35103cdbf61ea58654b1f43e73e8c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a7b35103cdbf61ea58654b1f43e73e8c": [{"date": 1986, "Teng\u0151d": 713}, {"date": 1987, "Teng\u0151d": 696}, {"date": 1988, "Teng\u0151d": 693}, {"date": 1989, "Teng\u0151d": 683}, {"date": 1990, "Teng\u0151d": 673}, {"date": 1991, "Teng\u0151d": 661}, {"date": 1992, "Teng\u0151d": 677}, {"date": 1993, "Teng\u0151d": 682}, {"date": 1994, "Teng\u0151d": 667}, {"date": 1995, "Teng\u0151d": 674}, {"date": 1996, "Teng\u0151d": 655}, {"date": 1997, "Teng\u0151d": 648}, {"date": 1998, "Teng\u0151d": 639}, {"date": 1999, "Teng\u0151d": 616}, {"date": 2000, "Teng\u0151d": 593}, {"date": 2001, "Teng\u0151d": 594}, {"date": 2002, "Teng\u0151d": 582}, {"date": 2003, "Teng\u0151d": 568}, {"date": 2004, "Teng\u0151d": 547}, {"date": 2005, "Teng\u0151d": 546}, {"date": 2006, "Teng\u0151d": 534}, {"date": 2007, "Teng\u0151d": 528}, {"date": 2008, "Teng\u0151d": 522}, {"date": 2009, "Teng\u0151d": 502}, {"date": 2010, "Teng\u0151d": 496}, {"date": 2011, "Teng\u0151d": 485}, {"date": 2012, "Teng\u0151d": 489}, {"date": 2013, "Teng\u0151d": 478}, {"date": 2014, "Teng\u0151d": 468}, {"date": 2015, "Teng\u0151d": 477}, {"date": 2016, "Teng\u0151d": 466}, {"date": 2017, "Teng\u0151d": 462}, {"date": 2018, "Teng\u0151d": 449}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

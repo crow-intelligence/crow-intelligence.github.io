@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyszombathely"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1227": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bakonyszombathely"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1227"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyszombathely"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1227"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bakonyszombathely", "selection": "selector1227"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyszombathely"}}}], "data": {"name": "data-289c938327d19dbc96c7de27b8f464f2"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-289c938327d19dbc96c7de27b8f464f2": [{"date": 1986, "Bakonyszombathely": 1664}, {"date": 1987, "Bakonyszombathely": 1680}, {"date": 1988, "Bakonyszombathely": 1656}, {"date": 1989, "Bakonyszombathely": 1644}, {"date": 1990, "Bakonyszombathely": 1630}, {"date": 1991, "Bakonyszombathely": 1604}, {"date": 1992, "Bakonyszombathely": 1605}, {"date": 1993, "Bakonyszombathely": 1613}, {"date": 1994, "Bakonyszombathely": 1606}, {"date": 1995, "Bakonyszombathely": 1595}, {"date": 1996, "Bakonyszombathely": 1576}, {"date": 1997, "Bakonyszombathely": 1537}, {"date": 1998, "Bakonyszombathely": 1519}, {"date": 1999, "Bakonyszombathely": 1510}, {"date": 2000, "Bakonyszombathely": 1513}, {"date": 2001, "Bakonyszombathely": 1503}, {"date": 2002, "Bakonyszombathely": 1512}, {"date": 2003, "Bakonyszombathely": 1507}, {"date": 2004, "Bakonyszombathely": 1509}, {"date": 2005, "Bakonyszombathely": 1489}, {"date": 2006, "Bakonyszombathely": 1498}, {"date": 2007, "Bakonyszombathely": 1491}, {"date": 2008, "Bakonyszombathely": 1464}, {"date": 2009, "Bakonyszombathely": 1472}, {"date": 2010, "Bakonyszombathely": 1451}, {"date": 2011, "Bakonyszombathely": 1445}, {"date": 2012, "Bakonyszombathely": 1437}, {"date": 2013, "Bakonyszombathely": 1439}, {"date": 2014, "Bakonyszombathely": 1436}, {"date": 2015, "Bakonyszombathely": 1438}, {"date": 2016, "Bakonyszombathely": 1417}, {"date": 2017, "Bakonyszombathely": 1403}, {"date": 2018, "Bakonyszombathely": 1395}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

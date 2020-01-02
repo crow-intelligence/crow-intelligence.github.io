@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaderzs"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1968": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszaderzs"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1968"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaderzs"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1968"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszaderzs", "selection": "selector1968"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszaderzs"}}}], "data": {"name": "data-a6817b4bfe579664dc24cf7b421aca9d"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a6817b4bfe579664dc24cf7b421aca9d": [{"date": 1986, "Tiszaderzs": 1745}, {"date": 1987, "Tiszaderzs": 1716}, {"date": 1988, "Tiszaderzs": 1679}, {"date": 1989, "Tiszaderzs": 1624}, {"date": 1990, "Tiszaderzs": 1588}, {"date": 1991, "Tiszaderzs": 1544}, {"date": 1992, "Tiszaderzs": 1535}, {"date": 1993, "Tiszaderzs": 1523}, {"date": 1994, "Tiszaderzs": 1514}, {"date": 1995, "Tiszaderzs": 1497}, {"date": 1996, "Tiszaderzs": 1485}, {"date": 1997, "Tiszaderzs": 1465}, {"date": 1998, "Tiszaderzs": 1474}, {"date": 1999, "Tiszaderzs": 1478}, {"date": 2000, "Tiszaderzs": 1473}, {"date": 2001, "Tiszaderzs": 1459}, {"date": 2002, "Tiszaderzs": 1433}, {"date": 2003, "Tiszaderzs": 1383}, {"date": 2004, "Tiszaderzs": 1364}, {"date": 2005, "Tiszaderzs": 1349}, {"date": 2006, "Tiszaderzs": 1320}, {"date": 2007, "Tiszaderzs": 1317}, {"date": 2008, "Tiszaderzs": 1293}, {"date": 2009, "Tiszaderzs": 1261}, {"date": 2010, "Tiszaderzs": 1238}, {"date": 2011, "Tiszaderzs": 1255}, {"date": 2012, "Tiszaderzs": 1243}, {"date": 2013, "Tiszaderzs": 1221}, {"date": 2014, "Tiszaderzs": 1211}, {"date": 2015, "Tiszaderzs": 1178}, {"date": 2016, "Tiszaderzs": 1176}, {"date": 2017, "Tiszaderzs": 1160}, {"date": 2018, "Tiszaderzs": 1151}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

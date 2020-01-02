@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemeskereszt\u00far"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2198": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nemeskereszt\u00far"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2198"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemeskereszt\u00far"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2198"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nemeskereszt\u00far", "selection": "selector2198"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemeskereszt\u00far"}}}], "data": {"name": "data-d0f8d0ec527fb8d72b11ffd252dab7b0"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d0f8d0ec527fb8d72b11ffd252dab7b0": [{"date": 1986, "Nemeskereszt\u00far": 449}, {"date": 1987, "Nemeskereszt\u00far": 441}, {"date": 1988, "Nemeskereszt\u00far": 425}, {"date": 1989, "Nemeskereszt\u00far": 420}, {"date": 1990, "Nemeskereszt\u00far": 418}, {"date": 1991, "Nemeskereszt\u00far": 416}, {"date": 1992, "Nemeskereszt\u00far": 400}, {"date": 1993, "Nemeskereszt\u00far": 380}, {"date": 1994, "Nemeskereszt\u00far": 373}, {"date": 1995, "Nemeskereszt\u00far": 358}, {"date": 1996, "Nemeskereszt\u00far": 358}, {"date": 1997, "Nemeskereszt\u00far": 356}, {"date": 1998, "Nemeskereszt\u00far": 353}, {"date": 1999, "Nemeskereszt\u00far": 355}, {"date": 2000, "Nemeskereszt\u00far": 352}, {"date": 2001, "Nemeskereszt\u00far": 346}, {"date": 2002, "Nemeskereszt\u00far": 339}, {"date": 2003, "Nemeskereszt\u00far": 332}, {"date": 2004, "Nemeskereszt\u00far": 317}, {"date": 2005, "Nemeskereszt\u00far": 320}, {"date": 2006, "Nemeskereszt\u00far": 321}, {"date": 2007, "Nemeskereszt\u00far": 318}, {"date": 2008, "Nemeskereszt\u00far": 318}, {"date": 2009, "Nemeskereszt\u00far": 306}, {"date": 2010, "Nemeskereszt\u00far": 307}, {"date": 2011, "Nemeskereszt\u00far": 302}, {"date": 2012, "Nemeskereszt\u00far": 300}, {"date": 2013, "Nemeskereszt\u00far": 297}, {"date": 2014, "Nemeskereszt\u00far": 293}, {"date": 2015, "Nemeskereszt\u00far": 289}, {"date": 2016, "Nemeskereszt\u00far": 291}, {"date": 2017, "Nemeskereszt\u00far": 290}, {"date": 2018, "Nemeskereszt\u00far": 287}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

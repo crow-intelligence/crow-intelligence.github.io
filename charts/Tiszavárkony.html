@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszav\u00e1rkony"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1982": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszav\u00e1rkony"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1982"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszav\u00e1rkony"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1982"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszav\u00e1rkony", "selection": "selector1982"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszav\u00e1rkony"}}}], "data": {"name": "data-343f324c15acfa60f278b0ece4cfed55"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-343f324c15acfa60f278b0ece4cfed55": [{"date": 1986, "Tiszav\u00e1rkony": 1779}, {"date": 1987, "Tiszav\u00e1rkony": 1759}, {"date": 1988, "Tiszav\u00e1rkony": 1758}, {"date": 1989, "Tiszav\u00e1rkony": 1763}, {"date": 1990, "Tiszav\u00e1rkony": 1762}, {"date": 1991, "Tiszav\u00e1rkony": 1750}, {"date": 1992, "Tiszav\u00e1rkony": 1739}, {"date": 1993, "Tiszav\u00e1rkony": 1740}, {"date": 1994, "Tiszav\u00e1rkony": 1764}, {"date": 1995, "Tiszav\u00e1rkony": 1750}, {"date": 1996, "Tiszav\u00e1rkony": 1724}, {"date": 1997, "Tiszav\u00e1rkony": 1724}, {"date": 1998, "Tiszav\u00e1rkony": 1755}, {"date": 1999, "Tiszav\u00e1rkony": 1732}, {"date": 2000, "Tiszav\u00e1rkony": 1750}, {"date": 2001, "Tiszav\u00e1rkony": 1724}, {"date": 2002, "Tiszav\u00e1rkony": 1702}, {"date": 2003, "Tiszav\u00e1rkony": 1720}, {"date": 2004, "Tiszav\u00e1rkony": 1707}, {"date": 2005, "Tiszav\u00e1rkony": 1673}, {"date": 2006, "Tiszav\u00e1rkony": 1668}, {"date": 2007, "Tiszav\u00e1rkony": 1638}, {"date": 2008, "Tiszav\u00e1rkony": 1623}, {"date": 2009, "Tiszav\u00e1rkony": 1620}, {"date": 2010, "Tiszav\u00e1rkony": 1608}, {"date": 2011, "Tiszav\u00e1rkony": 1586}, {"date": 2012, "Tiszav\u00e1rkony": 1569}, {"date": 2013, "Tiszav\u00e1rkony": 1564}, {"date": 2014, "Tiszav\u00e1rkony": 1551}, {"date": 2015, "Tiszav\u00e1rkony": 1568}, {"date": 2016, "Tiszav\u00e1rkony": 1565}, {"date": 2017, "Tiszav\u00e1rkony": 1566}, {"date": 2018, "Tiszav\u00e1rkony": 1540}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

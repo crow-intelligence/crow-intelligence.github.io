@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Salk\u00f6vesk\u00fat"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2236": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Salk\u00f6vesk\u00fat"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2236"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Salk\u00f6vesk\u00fat"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2236"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Salk\u00f6vesk\u00fat", "selection": "selector2236"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Salk\u00f6vesk\u00fat"}}}], "data": {"name": "data-33af399c26358aca44a37d0773dd90c3"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-33af399c26358aca44a37d0773dd90c3": [{"date": 1986, "Salk\u00f6vesk\u00fat": 463}, {"date": 1987, "Salk\u00f6vesk\u00fat": 461}, {"date": 1988, "Salk\u00f6vesk\u00fat": 450}, {"date": 1989, "Salk\u00f6vesk\u00fat": 443}, {"date": 1990, "Salk\u00f6vesk\u00fat": 440}, {"date": 1991, "Salk\u00f6vesk\u00fat": 449}, {"date": 1992, "Salk\u00f6vesk\u00fat": 435}, {"date": 1993, "Salk\u00f6vesk\u00fat": 428}, {"date": 1994, "Salk\u00f6vesk\u00fat": 434}, {"date": 1995, "Salk\u00f6vesk\u00fat": 424}, {"date": 1996, "Salk\u00f6vesk\u00fat": 429}, {"date": 1997, "Salk\u00f6vesk\u00fat": 417}, {"date": 1998, "Salk\u00f6vesk\u00fat": 410}, {"date": 1999, "Salk\u00f6vesk\u00fat": 411}, {"date": 2000, "Salk\u00f6vesk\u00fat": 410}, {"date": 2001, "Salk\u00f6vesk\u00fat": 418}, {"date": 2002, "Salk\u00f6vesk\u00fat": 409}, {"date": 2003, "Salk\u00f6vesk\u00fat": 418}, {"date": 2004, "Salk\u00f6vesk\u00fat": 432}, {"date": 2005, "Salk\u00f6vesk\u00fat": 442}, {"date": 2006, "Salk\u00f6vesk\u00fat": 450}, {"date": 2007, "Salk\u00f6vesk\u00fat": 476}, {"date": 2008, "Salk\u00f6vesk\u00fat": 487}, {"date": 2009, "Salk\u00f6vesk\u00fat": 487}, {"date": 2010, "Salk\u00f6vesk\u00fat": 491}, {"date": 2011, "Salk\u00f6vesk\u00fat": 488}, {"date": 2012, "Salk\u00f6vesk\u00fat": 491}, {"date": 2013, "Salk\u00f6vesk\u00fat": 478}, {"date": 2014, "Salk\u00f6vesk\u00fat": 476}, {"date": 2015, "Salk\u00f6vesk\u00fat": 477}, {"date": 2016, "Salk\u00f6vesk\u00fat": 480}, {"date": 2017, "Salk\u00f6vesk\u00fat": 483}, {"date": 2018, "Salk\u00f6vesk\u00fat": 489}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

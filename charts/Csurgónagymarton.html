@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csurg\u00f3nagymarton"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1559": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Csurg\u00f3nagymarton"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1559"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csurg\u00f3nagymarton"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1559"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Csurg\u00f3nagymarton", "selection": "selector1559"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csurg\u00f3nagymarton"}}}], "data": {"name": "data-5c15d20342bbf8d4f1b43379879cdf8b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-5c15d20342bbf8d4f1b43379879cdf8b": [{"date": 1986, "Csurg\u00f3nagymarton": 235}, {"date": 1987, "Csurg\u00f3nagymarton": 226}, {"date": 1988, "Csurg\u00f3nagymarton": 221}, {"date": 1989, "Csurg\u00f3nagymarton": 223}, {"date": 1990, "Csurg\u00f3nagymarton": 215}, {"date": 1991, "Csurg\u00f3nagymarton": 211}, {"date": 1992, "Csurg\u00f3nagymarton": 206}, {"date": 1993, "Csurg\u00f3nagymarton": 205}, {"date": 1994, "Csurg\u00f3nagymarton": 207}, {"date": 1995, "Csurg\u00f3nagymarton": 206}, {"date": 1996, "Csurg\u00f3nagymarton": 211}, {"date": 1997, "Csurg\u00f3nagymarton": 207}, {"date": 1998, "Csurg\u00f3nagymarton": 206}, {"date": 1999, "Csurg\u00f3nagymarton": 201}, {"date": 2000, "Csurg\u00f3nagymarton": 202}, {"date": 2001, "Csurg\u00f3nagymarton": 210}, {"date": 2002, "Csurg\u00f3nagymarton": 210}, {"date": 2003, "Csurg\u00f3nagymarton": 213}, {"date": 2004, "Csurg\u00f3nagymarton": 208}, {"date": 2005, "Csurg\u00f3nagymarton": 195}, {"date": 2006, "Csurg\u00f3nagymarton": 190}, {"date": 2007, "Csurg\u00f3nagymarton": 197}, {"date": 2008, "Csurg\u00f3nagymarton": 185}, {"date": 2009, "Csurg\u00f3nagymarton": 186}, {"date": 2010, "Csurg\u00f3nagymarton": 184}, {"date": 2011, "Csurg\u00f3nagymarton": 173}, {"date": 2012, "Csurg\u00f3nagymarton": 171}, {"date": 2013, "Csurg\u00f3nagymarton": 172}, {"date": 2014, "Csurg\u00f3nagymarton": 175}, {"date": 2015, "Csurg\u00f3nagymarton": 176}, {"date": 2016, "Csurg\u00f3nagymarton": 182}, {"date": 2017, "Csurg\u00f3nagymarton": 164}, {"date": 2018, "Csurg\u00f3nagymarton": 172}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Aranyosgad\u00e1ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector122": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Aranyosgad\u00e1ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector122"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Aranyosgad\u00e1ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector122"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Aranyosgad\u00e1ny", "selection": "selector122"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Aranyosgad\u00e1ny"}}}], "data": {"name": "data-a9393f80896318f8898610f695977cf6"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a9393f80896318f8898610f695977cf6": [{"date": 1986, "Aranyosgad\u00e1ny": 339}, {"date": 1987, "Aranyosgad\u00e1ny": 310}, {"date": 1988, "Aranyosgad\u00e1ny": 301}, {"date": 1989, "Aranyosgad\u00e1ny": 299}, {"date": 1990, "Aranyosgad\u00e1ny": 297}, {"date": 1991, "Aranyosgad\u00e1ny": 292}, {"date": 1992, "Aranyosgad\u00e1ny": 295}, {"date": 1993, "Aranyosgad\u00e1ny": 307}, {"date": 1994, "Aranyosgad\u00e1ny": 322}, {"date": 1995, "Aranyosgad\u00e1ny": 330}, {"date": 1996, "Aranyosgad\u00e1ny": 336}, {"date": 1997, "Aranyosgad\u00e1ny": 339}, {"date": 1998, "Aranyosgad\u00e1ny": 346}, {"date": 1999, "Aranyosgad\u00e1ny": 354}, {"date": 2000, "Aranyosgad\u00e1ny": 393}, {"date": 2001, "Aranyosgad\u00e1ny": 371}, {"date": 2002, "Aranyosgad\u00e1ny": 371}, {"date": 2003, "Aranyosgad\u00e1ny": 380}, {"date": 2004, "Aranyosgad\u00e1ny": 381}, {"date": 2005, "Aranyosgad\u00e1ny": 390}, {"date": 2006, "Aranyosgad\u00e1ny": 403}, {"date": 2007, "Aranyosgad\u00e1ny": 397}, {"date": 2008, "Aranyosgad\u00e1ny": 395}, {"date": 2009, "Aranyosgad\u00e1ny": 381}, {"date": 2010, "Aranyosgad\u00e1ny": 389}, {"date": 2011, "Aranyosgad\u00e1ny": 385}, {"date": 2012, "Aranyosgad\u00e1ny": 387}, {"date": 2013, "Aranyosgad\u00e1ny": 392}, {"date": 2014, "Aranyosgad\u00e1ny": 391}, {"date": 2015, "Aranyosgad\u00e1ny": 395}, {"date": 2016, "Aranyosgad\u00e1ny": 395}, {"date": 2017, "Aranyosgad\u00e1ny": 393}, {"date": 2018, "Aranyosgad\u00e1ny": 381}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

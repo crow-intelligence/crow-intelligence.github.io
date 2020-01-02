@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Osli"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector996": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Osli"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector996"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Osli"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector996"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Osli", "selection": "selector996"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Osli"}}}], "data": {"name": "data-937beaebffb169dde9b1f2e8e4e0ffed"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-937beaebffb169dde9b1f2e8e4e0ffed": [{"date": 1986, "Osli": 1193}, {"date": 1987, "Osli": 1157}, {"date": 1988, "Osli": 1130}, {"date": 1989, "Osli": 1114}, {"date": 1990, "Osli": 1106}, {"date": 1991, "Osli": 1085}, {"date": 1992, "Osli": 1077}, {"date": 1993, "Osli": 1058}, {"date": 1994, "Osli": 1062}, {"date": 1995, "Osli": 1045}, {"date": 1996, "Osli": 1042}, {"date": 1997, "Osli": 1041}, {"date": 1998, "Osli": 1023}, {"date": 1999, "Osli": 998}, {"date": 2000, "Osli": 980}, {"date": 2001, "Osli": 986}, {"date": 2002, "Osli": 958}, {"date": 2003, "Osli": 931}, {"date": 2004, "Osli": 928}, {"date": 2005, "Osli": 924}, {"date": 2006, "Osli": 930}, {"date": 2007, "Osli": 924}, {"date": 2008, "Osli": 943}, {"date": 2009, "Osli": 937}, {"date": 2010, "Osli": 941}, {"date": 2011, "Osli": 936}, {"date": 2012, "Osli": 915}, {"date": 2013, "Osli": 902}, {"date": 2014, "Osli": 893}, {"date": 2015, "Osli": 888}, {"date": 2016, "Osli": 876}, {"date": 2017, "Osli": 877}, {"date": 2018, "Osli": 881}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

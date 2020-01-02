@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tornaszentjakab"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector741": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tornaszentjakab"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector741"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tornaszentjakab"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector741"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tornaszentjakab", "selection": "selector741"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tornaszentjakab"}}}], "data": {"name": "data-5890a31c9f76cf8bf9faf0c66af801ff"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-5890a31c9f76cf8bf9faf0c66af801ff": [{"date": 1986, "Tornaszentjakab": 390}, {"date": 1987, "Tornaszentjakab": 376}, {"date": 1988, "Tornaszentjakab": 365}, {"date": 1989, "Tornaszentjakab": 342}, {"date": 1990, "Tornaszentjakab": 335}, {"date": 1991, "Tornaszentjakab": 336}, {"date": 1992, "Tornaszentjakab": 335}, {"date": 1993, "Tornaszentjakab": 314}, {"date": 1994, "Tornaszentjakab": 302}, {"date": 1995, "Tornaszentjakab": 301}, {"date": 1996, "Tornaszentjakab": 288}, {"date": 1997, "Tornaszentjakab": 286}, {"date": 1998, "Tornaszentjakab": 286}, {"date": 1999, "Tornaszentjakab": 290}, {"date": 2000, "Tornaszentjakab": 281}, {"date": 2001, "Tornaszentjakab": 280}, {"date": 2002, "Tornaszentjakab": 273}, {"date": 2003, "Tornaszentjakab": 277}, {"date": 2004, "Tornaszentjakab": 270}, {"date": 2005, "Tornaszentjakab": 260}, {"date": 2006, "Tornaszentjakab": 257}, {"date": 2007, "Tornaszentjakab": 247}, {"date": 2008, "Tornaszentjakab": 246}, {"date": 2009, "Tornaszentjakab": 235}, {"date": 2010, "Tornaszentjakab": 239}, {"date": 2011, "Tornaszentjakab": 233}, {"date": 2012, "Tornaszentjakab": 236}, {"date": 2013, "Tornaszentjakab": 220}, {"date": 2014, "Tornaszentjakab": 213}, {"date": 2015, "Tornaszentjakab": 214}, {"date": 2016, "Tornaszentjakab": 219}, {"date": 2017, "Tornaszentjakab": 229}, {"date": 2018, "Tornaszentjakab": 220}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

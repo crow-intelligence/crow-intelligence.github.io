@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Medgyesbodz\u00e1s"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector426": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Medgyesbodz\u00e1s"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector426"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Medgyesbodz\u00e1s"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector426"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Medgyesbodz\u00e1s", "selection": "selector426"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Medgyesbodz\u00e1s"}}}], "data": {"name": "data-38e13a00af586f2d4dca49a76e6feade"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-38e13a00af586f2d4dca49a76e6feade": [{"date": 1986, "Medgyesbodz\u00e1s": 1561}, {"date": 1987, "Medgyesbodz\u00e1s": 1549}, {"date": 1988, "Medgyesbodz\u00e1s": 1505}, {"date": 1989, "Medgyesbodz\u00e1s": 1503}, {"date": 1990, "Medgyesbodz\u00e1s": 1476}, {"date": 1991, "Medgyesbodz\u00e1s": 1435}, {"date": 1992, "Medgyesbodz\u00e1s": 1429}, {"date": 1993, "Medgyesbodz\u00e1s": 1419}, {"date": 1994, "Medgyesbodz\u00e1s": 1404}, {"date": 1995, "Medgyesbodz\u00e1s": 1381}, {"date": 1996, "Medgyesbodz\u00e1s": 1360}, {"date": 1997, "Medgyesbodz\u00e1s": 1344}, {"date": 1998, "Medgyesbodz\u00e1s": 1317}, {"date": 1999, "Medgyesbodz\u00e1s": 1318}, {"date": 2000, "Medgyesbodz\u00e1s": 1298}, {"date": 2001, "Medgyesbodz\u00e1s": 1294}, {"date": 2002, "Medgyesbodz\u00e1s": 1262}, {"date": 2003, "Medgyesbodz\u00e1s": 1241}, {"date": 2004, "Medgyesbodz\u00e1s": 1237}, {"date": 2005, "Medgyesbodz\u00e1s": 1217}, {"date": 2006, "Medgyesbodz\u00e1s": 1232}, {"date": 2007, "Medgyesbodz\u00e1s": 1202}, {"date": 2008, "Medgyesbodz\u00e1s": 1202}, {"date": 2009, "Medgyesbodz\u00e1s": 1180}, {"date": 2010, "Medgyesbodz\u00e1s": 1165}, {"date": 2011, "Medgyesbodz\u00e1s": 1162}, {"date": 2012, "Medgyesbodz\u00e1s": 1146}, {"date": 2013, "Medgyesbodz\u00e1s": 1147}, {"date": 2014, "Medgyesbodz\u00e1s": 1115}, {"date": 2015, "Medgyesbodz\u00e1s": 1103}, {"date": 2016, "Medgyesbodz\u00e1s": 1073}, {"date": 2017, "Medgyesbodz\u00e1s": 1049}, {"date": 2018, "Medgyesbodz\u00e1s": 1043}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

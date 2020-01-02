@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rozs\u00e1ly"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1881": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Rozs\u00e1ly"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1881"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rozs\u00e1ly"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1881"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Rozs\u00e1ly", "selection": "selector1881"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Rozs\u00e1ly"}}}], "data": {"name": "data-4c74ed56ac192cd562fe918bc869c59d"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-4c74ed56ac192cd562fe918bc869c59d": [{"date": 1986, "Rozs\u00e1ly": 816}, {"date": 1987, "Rozs\u00e1ly": 811}, {"date": 1988, "Rozs\u00e1ly": 782}, {"date": 1989, "Rozs\u00e1ly": 781}, {"date": 1990, "Rozs\u00e1ly": 791}, {"date": 1991, "Rozs\u00e1ly": 774}, {"date": 1992, "Rozs\u00e1ly": 764}, {"date": 1993, "Rozs\u00e1ly": 779}, {"date": 1994, "Rozs\u00e1ly": 796}, {"date": 1995, "Rozs\u00e1ly": 803}, {"date": 1996, "Rozs\u00e1ly": 799}, {"date": 1997, "Rozs\u00e1ly": 794}, {"date": 1998, "Rozs\u00e1ly": 797}, {"date": 1999, "Rozs\u00e1ly": 786}, {"date": 2000, "Rozs\u00e1ly": 798}, {"date": 2001, "Rozs\u00e1ly": 801}, {"date": 2002, "Rozs\u00e1ly": 801}, {"date": 2003, "Rozs\u00e1ly": 795}, {"date": 2004, "Rozs\u00e1ly": 797}, {"date": 2005, "Rozs\u00e1ly": 802}, {"date": 2006, "Rozs\u00e1ly": 806}, {"date": 2007, "Rozs\u00e1ly": 791}, {"date": 2008, "Rozs\u00e1ly": 811}, {"date": 2009, "Rozs\u00e1ly": 810}, {"date": 2010, "Rozs\u00e1ly": 811}, {"date": 2011, "Rozs\u00e1ly": 817}, {"date": 2012, "Rozs\u00e1ly": 837}, {"date": 2013, "Rozs\u00e1ly": 819}, {"date": 2014, "Rozs\u00e1ly": 813}, {"date": 2015, "Rozs\u00e1ly": 828}, {"date": 2016, "Rozs\u00e1ly": 812}, {"date": 2017, "Rozs\u00e1ly": 792}, {"date": 2018, "Rozs\u00e1ly": 790}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

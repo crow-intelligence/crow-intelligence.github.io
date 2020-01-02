@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somodor"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1683": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Somodor"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1683"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somodor"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1683"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Somodor", "selection": "selector1683"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Somodor"}}}], "data": {"name": "data-ebbf4f63dfedd9e28643ba4e8b3e0a04"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ebbf4f63dfedd9e28643ba4e8b3e0a04": [{"date": 1986, "Somodor": 510}, {"date": 1987, "Somodor": 480}, {"date": 1988, "Somodor": 490}, {"date": 1989, "Somodor": 488}, {"date": 1990, "Somodor": 491}, {"date": 1991, "Somodor": 477}, {"date": 1992, "Somodor": 479}, {"date": 1993, "Somodor": 488}, {"date": 1994, "Somodor": 470}, {"date": 1995, "Somodor": 470}, {"date": 1996, "Somodor": 455}, {"date": 1997, "Somodor": 450}, {"date": 1998, "Somodor": 463}, {"date": 1999, "Somodor": 467}, {"date": 2000, "Somodor": 463}, {"date": 2001, "Somodor": 465}, {"date": 2002, "Somodor": 457}, {"date": 2003, "Somodor": 452}, {"date": 2004, "Somodor": 429}, {"date": 2005, "Somodor": 431}, {"date": 2006, "Somodor": 443}, {"date": 2007, "Somodor": 460}, {"date": 2008, "Somodor": 444}, {"date": 2009, "Somodor": 452}, {"date": 2010, "Somodor": 456}, {"date": 2011, "Somodor": 444}, {"date": 2012, "Somodor": 444}, {"date": 2013, "Somodor": 450}, {"date": 2014, "Somodor": 441}, {"date": 2015, "Somodor": 436}, {"date": 2016, "Somodor": 419}, {"date": 2017, "Somodor": 416}, {"date": 2018, "Somodor": 403}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

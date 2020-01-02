@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemesk\u00e9r"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector993": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nemesk\u00e9r"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector993"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemesk\u00e9r"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector993"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nemesk\u00e9r", "selection": "selector993"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemesk\u00e9r"}}}], "data": {"name": "data-3ba82ac01f71fdf4e8c3fc6465abbf55"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-3ba82ac01f71fdf4e8c3fc6465abbf55": [{"date": 1986, "Nemesk\u00e9r": 310}, {"date": 1987, "Nemesk\u00e9r": 304}, {"date": 1988, "Nemesk\u00e9r": 295}, {"date": 1989, "Nemesk\u00e9r": 289}, {"date": 1990, "Nemesk\u00e9r": 283}, {"date": 1991, "Nemesk\u00e9r": 279}, {"date": 1992, "Nemesk\u00e9r": 275}, {"date": 1993, "Nemesk\u00e9r": 275}, {"date": 1994, "Nemesk\u00e9r": 279}, {"date": 1995, "Nemesk\u00e9r": 268}, {"date": 1996, "Nemesk\u00e9r": 265}, {"date": 1997, "Nemesk\u00e9r": 260}, {"date": 1998, "Nemesk\u00e9r": 254}, {"date": 1999, "Nemesk\u00e9r": 246}, {"date": 2000, "Nemesk\u00e9r": 246}, {"date": 2001, "Nemesk\u00e9r": 242}, {"date": 2002, "Nemesk\u00e9r": 238}, {"date": 2003, "Nemesk\u00e9r": 240}, {"date": 2004, "Nemesk\u00e9r": 235}, {"date": 2005, "Nemesk\u00e9r": 230}, {"date": 2006, "Nemesk\u00e9r": 236}, {"date": 2007, "Nemesk\u00e9r": 232}, {"date": 2008, "Nemesk\u00e9r": 223}, {"date": 2009, "Nemesk\u00e9r": 229}, {"date": 2010, "Nemesk\u00e9r": 222}, {"date": 2011, "Nemesk\u00e9r": 215}, {"date": 2012, "Nemesk\u00e9r": 217}, {"date": 2013, "Nemesk\u00e9r": 212}, {"date": 2014, "Nemesk\u00e9r": 214}, {"date": 2015, "Nemesk\u00e9r": 217}, {"date": 2016, "Nemesk\u00e9r": 211}, {"date": 2017, "Nemesk\u00e9r": 207}, {"date": 2018, "Nemesk\u00e9r": 204}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

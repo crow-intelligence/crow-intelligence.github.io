@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sarkadkereszt\u00far"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector436": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Sarkadkereszt\u00far"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector436"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sarkadkereszt\u00far"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector436"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Sarkadkereszt\u00far", "selection": "selector436"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sarkadkereszt\u00far"}}}], "data": {"name": "data-423b9507fd565ebbdb32227c272bdca0"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-423b9507fd565ebbdb32227c272bdca0": [{"date": 1986, "Sarkadkereszt\u00far": 2178}, {"date": 1987, "Sarkadkereszt\u00far": 2154}, {"date": 1988, "Sarkadkereszt\u00far": 2139}, {"date": 1989, "Sarkadkereszt\u00far": 2106}, {"date": 1990, "Sarkadkereszt\u00far": 2090}, {"date": 1991, "Sarkadkereszt\u00far": 2073}, {"date": 1992, "Sarkadkereszt\u00far": 2078}, {"date": 1993, "Sarkadkereszt\u00far": 2054}, {"date": 1994, "Sarkadkereszt\u00far": 2023}, {"date": 1995, "Sarkadkereszt\u00far": 2007}, {"date": 1996, "Sarkadkereszt\u00far": 1994}, {"date": 1997, "Sarkadkereszt\u00far": 2005}, {"date": 1998, "Sarkadkereszt\u00far": 1981}, {"date": 1999, "Sarkadkereszt\u00far": 1971}, {"date": 2000, "Sarkadkereszt\u00far": 1971}, {"date": 2001, "Sarkadkereszt\u00far": 1961}, {"date": 2002, "Sarkadkereszt\u00far": 1963}, {"date": 2003, "Sarkadkereszt\u00far": 1935}, {"date": 2004, "Sarkadkereszt\u00far": 1894}, {"date": 2005, "Sarkadkereszt\u00far": 1868}, {"date": 2006, "Sarkadkereszt\u00far": 1855}, {"date": 2007, "Sarkadkereszt\u00far": 1809}, {"date": 2008, "Sarkadkereszt\u00far": 1772}, {"date": 2009, "Sarkadkereszt\u00far": 1757}, {"date": 2010, "Sarkadkereszt\u00far": 1741}, {"date": 2011, "Sarkadkereszt\u00far": 1728}, {"date": 2012, "Sarkadkereszt\u00far": 1679}, {"date": 2013, "Sarkadkereszt\u00far": 1672}, {"date": 2014, "Sarkadkereszt\u00far": 1635}, {"date": 2015, "Sarkadkereszt\u00far": 1612}, {"date": 2016, "Sarkadkereszt\u00far": 1580}, {"date": 2017, "Sarkadkereszt\u00far": 1564}, {"date": 2018, "Sarkadkereszt\u00far": 1551}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

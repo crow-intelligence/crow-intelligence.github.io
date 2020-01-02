@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaberki"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1375": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Pusztaberki"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1375"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaberki"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1375"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Pusztaberki", "selection": "selector1375"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaberki"}}}], "data": {"name": "data-e42b70f6595c463227d288509749e914"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e42b70f6595c463227d288509749e914": [{"date": 1986, "Pusztaberki": 139}, {"date": 1987, "Pusztaberki": 132}, {"date": 1988, "Pusztaberki": 130}, {"date": 1989, "Pusztaberki": 125}, {"date": 1990, "Pusztaberki": 125}, {"date": 1991, "Pusztaberki": 131}, {"date": 1992, "Pusztaberki": 124}, {"date": 1993, "Pusztaberki": 128}, {"date": 1994, "Pusztaberki": 126}, {"date": 1995, "Pusztaberki": 125}, {"date": 1996, "Pusztaberki": 127}, {"date": 1997, "Pusztaberki": 120}, {"date": 1998, "Pusztaberki": 119}, {"date": 1999, "Pusztaberki": 118}, {"date": 2000, "Pusztaberki": 123}, {"date": 2001, "Pusztaberki": 123}, {"date": 2002, "Pusztaberki": 131}, {"date": 2003, "Pusztaberki": 130}, {"date": 2004, "Pusztaberki": 138}, {"date": 2005, "Pusztaberki": 135}, {"date": 2006, "Pusztaberki": 142}, {"date": 2007, "Pusztaberki": 148}, {"date": 2008, "Pusztaberki": 140}, {"date": 2009, "Pusztaberki": 136}, {"date": 2010, "Pusztaberki": 132}, {"date": 2011, "Pusztaberki": 130}, {"date": 2012, "Pusztaberki": 132}, {"date": 2013, "Pusztaberki": 138}, {"date": 2014, "Pusztaberki": 140}, {"date": 2015, "Pusztaberki": 143}, {"date": 2016, "Pusztaberki": 142}, {"date": 2017, "Pusztaberki": 133}, {"date": 2018, "Pusztaberki": 136}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

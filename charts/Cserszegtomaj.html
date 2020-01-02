@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Cserszegtomaj"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2517": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Cserszegtomaj"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2517"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Cserszegtomaj"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2517"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Cserszegtomaj", "selection": "selector2517"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Cserszegtomaj"}}}], "data": {"name": "data-f565c6a9ec64d49bcb816000cec28f98"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f565c6a9ec64d49bcb816000cec28f98": [{"date": 1986, "Cserszegtomaj": 1296}, {"date": 1987, "Cserszegtomaj": 1343}, {"date": 1988, "Cserszegtomaj": 1401}, {"date": 1989, "Cserszegtomaj": 1429}, {"date": 1990, "Cserszegtomaj": 1486}, {"date": 1991, "Cserszegtomaj": 1519}, {"date": 1992, "Cserszegtomaj": 1536}, {"date": 1993, "Cserszegtomaj": 1504}, {"date": 1994, "Cserszegtomaj": 1476}, {"date": 1995, "Cserszegtomaj": 1551}, {"date": 1996, "Cserszegtomaj": 1530}, {"date": 1997, "Cserszegtomaj": 1593}, {"date": 1998, "Cserszegtomaj": 1751}, {"date": 1999, "Cserszegtomaj": 1818}, {"date": 2000, "Cserszegtomaj": 1864}, {"date": 2001, "Cserszegtomaj": 1900}, {"date": 2002, "Cserszegtomaj": 1982}, {"date": 2003, "Cserszegtomaj": 2032}, {"date": 2004, "Cserszegtomaj": 2104}, {"date": 2005, "Cserszegtomaj": 2223}, {"date": 2006, "Cserszegtomaj": 2334}, {"date": 2007, "Cserszegtomaj": 2443}, {"date": 2008, "Cserszegtomaj": 2582}, {"date": 2009, "Cserszegtomaj": 2676}, {"date": 2010, "Cserszegtomaj": 2757}, {"date": 2011, "Cserszegtomaj": 2857}, {"date": 2012, "Cserszegtomaj": 2914}, {"date": 2013, "Cserszegtomaj": 2961}, {"date": 2014, "Cserszegtomaj": 3023}, {"date": 2015, "Cserszegtomaj": 3079}, {"date": 2016, "Cserszegtomaj": 3141}, {"date": 2017, "Cserszegtomaj": 3117}, {"date": 2018, "Cserszegtomaj": 3202}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

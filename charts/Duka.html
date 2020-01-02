@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Duka"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2112": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Duka"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2112"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Duka"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2112"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Duka", "selection": "selector2112"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Duka"}}}], "data": {"name": "data-ee2a8f7a2d1ba975e67af96db0a6f1ee"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ee2a8f7a2d1ba975e67af96db0a6f1ee": [{"date": 1986, "Duka": 372}, {"date": 1987, "Duka": 373}, {"date": 1988, "Duka": 366}, {"date": 1989, "Duka": 357}, {"date": 1990, "Duka": 364}, {"date": 1991, "Duka": 365}, {"date": 1992, "Duka": 368}, {"date": 1993, "Duka": 378}, {"date": 1994, "Duka": 375}, {"date": 1995, "Duka": 362}, {"date": 1996, "Duka": 366}, {"date": 1997, "Duka": 364}, {"date": 1998, "Duka": 332}, {"date": 1999, "Duka": 324}, {"date": 2000, "Duka": 319}, {"date": 2001, "Duka": 315}, {"date": 2002, "Duka": 301}, {"date": 2003, "Duka": 298}, {"date": 2004, "Duka": 291}, {"date": 2005, "Duka": 297}, {"date": 2006, "Duka": 300}, {"date": 2007, "Duka": 292}, {"date": 2008, "Duka": 285}, {"date": 2009, "Duka": 290}, {"date": 2010, "Duka": 283}, {"date": 2011, "Duka": 280}, {"date": 2012, "Duka": 277}, {"date": 2013, "Duka": 268}, {"date": 2014, "Duka": 264}, {"date": 2015, "Duka": 261}, {"date": 2016, "Duka": 253}, {"date": 2017, "Duka": 259}, {"date": 2018, "Duka": 262}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

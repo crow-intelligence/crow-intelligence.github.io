@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Feked"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector185": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Feked"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector185"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Feked"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector185"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Feked", "selection": "selector185"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Feked"}}}], "data": {"name": "data-bb1054959111e1511fd1e55dad67fab8"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-bb1054959111e1511fd1e55dad67fab8": [{"date": 1986, "Feked": 397}, {"date": 1987, "Feked": 379}, {"date": 1988, "Feked": 362}, {"date": 1989, "Feked": 359}, {"date": 1990, "Feked": 353}, {"date": 1991, "Feked": 343}, {"date": 1992, "Feked": 323}, {"date": 1993, "Feked": 307}, {"date": 1994, "Feked": 313}, {"date": 1995, "Feked": 307}, {"date": 1996, "Feked": 310}, {"date": 1997, "Feked": 302}, {"date": 1998, "Feked": 285}, {"date": 1999, "Feked": 279}, {"date": 2000, "Feked": 277}, {"date": 2001, "Feked": 265}, {"date": 2002, "Feked": 249}, {"date": 2003, "Feked": 239}, {"date": 2004, "Feked": 232}, {"date": 2005, "Feked": 251}, {"date": 2006, "Feked": 234}, {"date": 2007, "Feked": 225}, {"date": 2008, "Feked": 218}, {"date": 2009, "Feked": 216}, {"date": 2010, "Feked": 209}, {"date": 2011, "Feked": 213}, {"date": 2012, "Feked": 217}, {"date": 2013, "Feked": 219}, {"date": 2014, "Feked": 224}, {"date": 2015, "Feked": 220}, {"date": 2016, "Feked": 227}, {"date": 2017, "Feked": 229}, {"date": 2018, "Feked": 218}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

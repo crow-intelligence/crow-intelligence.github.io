@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kunmadaras"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2845": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kunmadaras"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2845"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kunmadaras"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2845"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kunmadaras", "selection": "selector2845"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kunmadaras"}}}], "data": {"name": "data-fada10fb160e8994174885def8128562"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-fada10fb160e8994174885def8128562": [{"date": 1986, "Kunmadaras": 6538}, {"date": 1987, "Kunmadaras": 6490}, {"date": 1988, "Kunmadaras": 6403}, {"date": 1989, "Kunmadaras": 6363}, {"date": 1990, "Kunmadaras": 6335}, {"date": 1991, "Kunmadaras": 6334}, {"date": 1992, "Kunmadaras": 6333}, {"date": 1993, "Kunmadaras": 6317}, {"date": 1994, "Kunmadaras": 6296}, {"date": 1995, "Kunmadaras": 6293}, {"date": 1996, "Kunmadaras": 6275}, {"date": 1997, "Kunmadaras": 6251}, {"date": 1998, "Kunmadaras": 6234}, {"date": 1999, "Kunmadaras": 6194}, {"date": 2000, "Kunmadaras": 6163}, {"date": 2001, "Kunmadaras": 6187}, {"date": 2002, "Kunmadaras": 6175}, {"date": 2003, "Kunmadaras": 6164}, {"date": 2004, "Kunmadaras": 6069}, {"date": 2005, "Kunmadaras": 6064}, {"date": 2006, "Kunmadaras": 6051}, {"date": 2007, "Kunmadaras": 5953}, {"date": 2008, "Kunmadaras": 5894}, {"date": 2009, "Kunmadaras": 5872}, {"date": 2010, "Kunmadaras": 5878}, {"date": 2011, "Kunmadaras": 5854}, {"date": 2012, "Kunmadaras": 5819}, {"date": 2013, "Kunmadaras": 5785}, {"date": 2014, "Kunmadaras": 5769}, {"date": 2015, "Kunmadaras": 5733}, {"date": 2016, "Kunmadaras": 5739}, {"date": 2017, "Kunmadaras": 5678}, {"date": 2018, "Kunmadaras": 5626}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

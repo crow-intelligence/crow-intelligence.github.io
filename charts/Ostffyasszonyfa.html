@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ostffyasszonyfa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2209": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Ostffyasszonyfa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2209"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ostffyasszonyfa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2209"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Ostffyasszonyfa", "selection": "selector2209"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ostffyasszonyfa"}}}], "data": {"name": "data-16b7f4d70bd0e3670c6bd410a4750677"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-16b7f4d70bd0e3670c6bd410a4750677": [{"date": 1986, "Ostffyasszonyfa": 985}, {"date": 1987, "Ostffyasszonyfa": 969}, {"date": 1988, "Ostffyasszonyfa": 948}, {"date": 1989, "Ostffyasszonyfa": 945}, {"date": 1990, "Ostffyasszonyfa": 934}, {"date": 1991, "Ostffyasszonyfa": 930}, {"date": 1992, "Ostffyasszonyfa": 933}, {"date": 1993, "Ostffyasszonyfa": 941}, {"date": 1994, "Ostffyasszonyfa": 930}, {"date": 1995, "Ostffyasszonyfa": 910}, {"date": 1996, "Ostffyasszonyfa": 905}, {"date": 1997, "Ostffyasszonyfa": 891}, {"date": 1998, "Ostffyasszonyfa": 892}, {"date": 1999, "Ostffyasszonyfa": 885}, {"date": 2000, "Ostffyasszonyfa": 866}, {"date": 2001, "Ostffyasszonyfa": 862}, {"date": 2002, "Ostffyasszonyfa": 865}, {"date": 2003, "Ostffyasszonyfa": 862}, {"date": 2004, "Ostffyasszonyfa": 865}, {"date": 2005, "Ostffyasszonyfa": 884}, {"date": 2006, "Ostffyasszonyfa": 883}, {"date": 2007, "Ostffyasszonyfa": 875}, {"date": 2008, "Ostffyasszonyfa": 868}, {"date": 2009, "Ostffyasszonyfa": 855}, {"date": 2010, "Ostffyasszonyfa": 842}, {"date": 2011, "Ostffyasszonyfa": 833}, {"date": 2012, "Ostffyasszonyfa": 837}, {"date": 2013, "Ostffyasszonyfa": 830}, {"date": 2014, "Ostffyasszonyfa": 832}, {"date": 2015, "Ostffyasszonyfa": 823}, {"date": 2016, "Ostffyasszonyfa": 809}, {"date": 2017, "Ostffyasszonyfa": 795}, {"date": 2018, "Ostffyasszonyfa": 778}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

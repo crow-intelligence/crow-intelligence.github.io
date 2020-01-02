@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunapataj"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2754": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dunapataj"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2754"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunapataj"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2754"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dunapataj", "selection": "selector2754"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunapataj"}}}], "data": {"name": "data-d6e44c960b6a1ef25555f06b7917d865"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d6e44c960b6a1ef25555f06b7917d865": [{"date": 1986, "Dunapataj": 4145}, {"date": 1987, "Dunapataj": 4085}, {"date": 1988, "Dunapataj": 4008}, {"date": 1989, "Dunapataj": 3994}, {"date": 1990, "Dunapataj": 3969}, {"date": 1991, "Dunapataj": 3944}, {"date": 1992, "Dunapataj": 3963}, {"date": 1993, "Dunapataj": 3971}, {"date": 1994, "Dunapataj": 3921}, {"date": 1995, "Dunapataj": 3893}, {"date": 1996, "Dunapataj": 3887}, {"date": 1997, "Dunapataj": 3871}, {"date": 1998, "Dunapataj": 3819}, {"date": 1999, "Dunapataj": 3791}, {"date": 2000, "Dunapataj": 3766}, {"date": 2001, "Dunapataj": 3752}, {"date": 2002, "Dunapataj": 3044}, {"date": 2003, "Dunapataj": 3728}, {"date": 2004, "Dunapataj": 3690}, {"date": 2005, "Dunapataj": 3675}, {"date": 2006, "Dunapataj": 3646}, {"date": 2007, "Dunapataj": 3620}, {"date": 2008, "Dunapataj": 3568}, {"date": 2009, "Dunapataj": 3507}, {"date": 2010, "Dunapataj": 3449}, {"date": 2011, "Dunapataj": 3380}, {"date": 2012, "Dunapataj": 3373}, {"date": 2013, "Dunapataj": 3337}, {"date": 2014, "Dunapataj": 3292}, {"date": 2015, "Dunapataj": 3246}, {"date": 2016, "Dunapataj": 3235}, {"date": 2017, "Dunapataj": 3184}, {"date": 2018, "Dunapataj": 3191}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

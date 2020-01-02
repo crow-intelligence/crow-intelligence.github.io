@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monyor\u00f3d"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector289": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Monyor\u00f3d"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector289"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monyor\u00f3d"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector289"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Monyor\u00f3d", "selection": "selector289"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Monyor\u00f3d"}}}], "data": {"name": "data-6e6502f8a9c95a957c8d2df336df0d61"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-6e6502f8a9c95a957c8d2df336df0d61": [{"date": 1986, "Monyor\u00f3d": 261}, {"date": 1987, "Monyor\u00f3d": 266}, {"date": 1988, "Monyor\u00f3d": 282}, {"date": 1989, "Monyor\u00f3d": 266}, {"date": 1990, "Monyor\u00f3d": 250}, {"date": 1991, "Monyor\u00f3d": 250}, {"date": 1992, "Monyor\u00f3d": 246}, {"date": 1993, "Monyor\u00f3d": 246}, {"date": 1994, "Monyor\u00f3d": 232}, {"date": 1995, "Monyor\u00f3d": 220}, {"date": 1996, "Monyor\u00f3d": 218}, {"date": 1997, "Monyor\u00f3d": 202}, {"date": 1998, "Monyor\u00f3d": 197}, {"date": 1999, "Monyor\u00f3d": 203}, {"date": 2000, "Monyor\u00f3d": 201}, {"date": 2001, "Monyor\u00f3d": 207}, {"date": 2002, "Monyor\u00f3d": 206}, {"date": 2003, "Monyor\u00f3d": 207}, {"date": 2004, "Monyor\u00f3d": 193}, {"date": 2005, "Monyor\u00f3d": 188}, {"date": 2006, "Monyor\u00f3d": 194}, {"date": 2007, "Monyor\u00f3d": 185}, {"date": 2008, "Monyor\u00f3d": 203}, {"date": 2009, "Monyor\u00f3d": 203}, {"date": 2010, "Monyor\u00f3d": 194}, {"date": 2011, "Monyor\u00f3d": 190}, {"date": 2012, "Monyor\u00f3d": 190}, {"date": 2013, "Monyor\u00f3d": 191}, {"date": 2014, "Monyor\u00f3d": 181}, {"date": 2015, "Monyor\u00f3d": 179}, {"date": 2016, "Monyor\u00f3d": 176}, {"date": 2017, "Monyor\u00f3d": 177}, {"date": 2018, "Monyor\u00f3d": 176}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Garbolc"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1782": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Garbolc"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1782"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Garbolc"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1782"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Garbolc", "selection": "selector1782"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Garbolc"}}}], "data": {"name": "data-5bb3e24a8721beb487a0274b6233415f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-5bb3e24a8721beb487a0274b6233415f": [{"date": 1986, "Garbolc": 173}, {"date": 1987, "Garbolc": 171}, {"date": 1988, "Garbolc": 165}, {"date": 1989, "Garbolc": 162}, {"date": 1990, "Garbolc": 168}, {"date": 1991, "Garbolc": 160}, {"date": 1992, "Garbolc": 152}, {"date": 1993, "Garbolc": 145}, {"date": 1994, "Garbolc": 138}, {"date": 1995, "Garbolc": 146}, {"date": 1996, "Garbolc": 141}, {"date": 1997, "Garbolc": 139}, {"date": 1998, "Garbolc": 144}, {"date": 1999, "Garbolc": 135}, {"date": 2000, "Garbolc": 130}, {"date": 2001, "Garbolc": 130}, {"date": 2002, "Garbolc": 136}, {"date": 2003, "Garbolc": 138}, {"date": 2004, "Garbolc": 141}, {"date": 2005, "Garbolc": 145}, {"date": 2006, "Garbolc": 142}, {"date": 2007, "Garbolc": 153}, {"date": 2008, "Garbolc": 150}, {"date": 2009, "Garbolc": 147}, {"date": 2010, "Garbolc": 150}, {"date": 2011, "Garbolc": 151}, {"date": 2012, "Garbolc": 153}, {"date": 2013, "Garbolc": 157}, {"date": 2014, "Garbolc": 160}, {"date": 2015, "Garbolc": 162}, {"date": 2016, "Garbolc": 157}, {"date": 2017, "Garbolc": 163}, {"date": 2018, "Garbolc": 153}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szentkir\u00e1lyszabadja"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2451": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szentkir\u00e1lyszabadja"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2451"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szentkir\u00e1lyszabadja"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2451"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szentkir\u00e1lyszabadja", "selection": "selector2451"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szentkir\u00e1lyszabadja"}}}], "data": {"name": "data-20dffedf1e353f991ce997a83f793cc8"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-20dffedf1e353f991ce997a83f793cc8": [{"date": 1986, "Szentkir\u00e1lyszabadja": 1577}, {"date": 1987, "Szentkir\u00e1lyszabadja": 1581}, {"date": 1988, "Szentkir\u00e1lyszabadja": 1618}, {"date": 1989, "Szentkir\u00e1lyszabadja": 1645}, {"date": 1990, "Szentkir\u00e1lyszabadja": 1693}, {"date": 1991, "Szentkir\u00e1lyszabadja": 1709}, {"date": 1992, "Szentkir\u00e1lyszabadja": 1719}, {"date": 1993, "Szentkir\u00e1lyszabadja": 1732}, {"date": 1994, "Szentkir\u00e1lyszabadja": 1776}, {"date": 1995, "Szentkir\u00e1lyszabadja": 1801}, {"date": 1996, "Szentkir\u00e1lyszabadja": 1837}, {"date": 1997, "Szentkir\u00e1lyszabadja": 1871}, {"date": 1998, "Szentkir\u00e1lyszabadja": 1913}, {"date": 1999, "Szentkir\u00e1lyszabadja": 1914}, {"date": 2000, "Szentkir\u00e1lyszabadja": 1952}, {"date": 2001, "Szentkir\u00e1lyszabadja": 1973}, {"date": 2002, "Szentkir\u00e1lyszabadja": 2012}, {"date": 2003, "Szentkir\u00e1lyszabadja": 2068}, {"date": 2004, "Szentkir\u00e1lyszabadja": 2114}, {"date": 2005, "Szentkir\u00e1lyszabadja": 2148}, {"date": 2006, "Szentkir\u00e1lyszabadja": 2166}, {"date": 2007, "Szentkir\u00e1lyszabadja": 2117}, {"date": 2008, "Szentkir\u00e1lyszabadja": 2122}, {"date": 2009, "Szentkir\u00e1lyszabadja": 2118}, {"date": 2010, "Szentkir\u00e1lyszabadja": 2096}, {"date": 2011, "Szentkir\u00e1lyszabadja": 2124}, {"date": 2012, "Szentkir\u00e1lyszabadja": 2131}, {"date": 2013, "Szentkir\u00e1lyszabadja": 2111}, {"date": 2014, "Szentkir\u00e1lyszabadja": 2094}, {"date": 2015, "Szentkir\u00e1lyszabadja": 2075}, {"date": 2016, "Szentkir\u00e1lyszabadja": 2103}, {"date": 2017, "Szentkir\u00e1lyszabadja": 2099}, {"date": 2018, "Szentkir\u00e1lyszabadja": 2099}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

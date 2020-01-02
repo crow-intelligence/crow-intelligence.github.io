@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sopron"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2749": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Sopron"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2749"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sopron"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2749"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Sopron", "selection": "selector2749"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sopron"}}}], "data": {"name": "data-b21a37232a6637dc9f87fd037bd076e3"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b21a37232a6637dc9f87fd037bd076e3": [{"date": 1986, "Sopron": 54318}, {"date": 1987, "Sopron": 54474}, {"date": 1988, "Sopron": 54562}, {"date": 1989, "Sopron": 54604}, {"date": 1990, "Sopron": 54560}, {"date": 1991, "Sopron": 54367}, {"date": 1992, "Sopron": 54444}, {"date": 1993, "Sopron": 54559}, {"date": 1994, "Sopron": 54471}, {"date": 1995, "Sopron": 54372}, {"date": 1996, "Sopron": 54311}, {"date": 1997, "Sopron": 54280}, {"date": 1998, "Sopron": 54322}, {"date": 1999, "Sopron": 54293}, {"date": 2000, "Sopron": 54425}, {"date": 2001, "Sopron": 54471}, {"date": 2002, "Sopron": 54674}, {"date": 2003, "Sopron": 54910}, {"date": 2004, "Sopron": 54981}, {"date": 2005, "Sopron": 55333}, {"date": 2006, "Sopron": 55860}, {"date": 2007, "Sopron": 56206}, {"date": 2008, "Sopron": 56661}, {"date": 2009, "Sopron": 57244}, {"date": 2010, "Sopron": 57578}, {"date": 2011, "Sopron": 57889}, {"date": 2012, "Sopron": 58214}, {"date": 2013, "Sopron": 58612}, {"date": 2014, "Sopron": 58662}, {"date": 2015, "Sopron": 58692}, {"date": 2016, "Sopron": 58758}, {"date": 2017, "Sopron": 58611}, {"date": 2018, "Sopron": 58458}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

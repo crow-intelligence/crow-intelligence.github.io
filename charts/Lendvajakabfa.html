@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lendvajakabfa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2589": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Lendvajakabfa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2589"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lendvajakabfa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2589"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Lendvajakabfa", "selection": "selector2589"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lendvajakabfa"}}}], "data": {"name": "data-7d55dd3fd6c8cb356eb5419a5e5efd68"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-7d55dd3fd6c8cb356eb5419a5e5efd68": [{"date": 1986, "Lendvajakabfa": 83}, {"date": 1987, "Lendvajakabfa": 74}, {"date": 1988, "Lendvajakabfa": 75}, {"date": 1989, "Lendvajakabfa": 67}, {"date": 1990, "Lendvajakabfa": 66}, {"date": 1991, "Lendvajakabfa": 64}, {"date": 1992, "Lendvajakabfa": 61}, {"date": 1993, "Lendvajakabfa": 55}, {"date": 1994, "Lendvajakabfa": 53}, {"date": 1995, "Lendvajakabfa": 46}, {"date": 1996, "Lendvajakabfa": 45}, {"date": 1997, "Lendvajakabfa": 48}, {"date": 1998, "Lendvajakabfa": 43}, {"date": 1999, "Lendvajakabfa": 44}, {"date": 2000, "Lendvajakabfa": 43}, {"date": 2001, "Lendvajakabfa": 42}, {"date": 2002, "Lendvajakabfa": 40}, {"date": 2003, "Lendvajakabfa": 38}, {"date": 2004, "Lendvajakabfa": 32}, {"date": 2005, "Lendvajakabfa": 28}, {"date": 2006, "Lendvajakabfa": 26}, {"date": 2007, "Lendvajakabfa": 30}, {"date": 2008, "Lendvajakabfa": 28}, {"date": 2009, "Lendvajakabfa": 33}, {"date": 2010, "Lendvajakabfa": 33}, {"date": 2011, "Lendvajakabfa": 39}, {"date": 2012, "Lendvajakabfa": 39}, {"date": 2013, "Lendvajakabfa": 37}, {"date": 2014, "Lendvajakabfa": 33}, {"date": 2015, "Lendvajakabfa": 33}, {"date": 2016, "Lendvajakabfa": 38}, {"date": 2017, "Lendvajakabfa": 34}, {"date": 2018, "Lendvajakabfa": 41}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

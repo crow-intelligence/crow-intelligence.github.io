@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Herny\u00e9k"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2552": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Herny\u00e9k"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2552"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Herny\u00e9k"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2552"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Herny\u00e9k", "selection": "selector2552"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Herny\u00e9k"}}}], "data": {"name": "data-60382020551da6418375750b748983e7"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-60382020551da6418375750b748983e7": [{"date": 1986, "Herny\u00e9k": 185}, {"date": 1987, "Herny\u00e9k": 188}, {"date": 1988, "Herny\u00e9k": 179}, {"date": 1989, "Herny\u00e9k": 172}, {"date": 1990, "Herny\u00e9k": 160}, {"date": 1991, "Herny\u00e9k": 154}, {"date": 1992, "Herny\u00e9k": 147}, {"date": 1993, "Herny\u00e9k": 144}, {"date": 1994, "Herny\u00e9k": 142}, {"date": 1995, "Herny\u00e9k": 138}, {"date": 1996, "Herny\u00e9k": 132}, {"date": 1997, "Herny\u00e9k": 128}, {"date": 1998, "Herny\u00e9k": 129}, {"date": 1999, "Herny\u00e9k": 124}, {"date": 2000, "Herny\u00e9k": 122}, {"date": 2001, "Herny\u00e9k": 119}, {"date": 2002, "Herny\u00e9k": 114}, {"date": 2003, "Herny\u00e9k": 108}, {"date": 2004, "Herny\u00e9k": 112}, {"date": 2005, "Herny\u00e9k": 108}, {"date": 2006, "Herny\u00e9k": 102}, {"date": 2007, "Herny\u00e9k": 102}, {"date": 2008, "Herny\u00e9k": 102}, {"date": 2009, "Herny\u00e9k": 105}, {"date": 2010, "Herny\u00e9k": 110}, {"date": 2011, "Herny\u00e9k": 113}, {"date": 2012, "Herny\u00e9k": 106}, {"date": 2013, "Herny\u00e9k": 106}, {"date": 2014, "Herny\u00e9k": 105}, {"date": 2015, "Herny\u00e9k": 99}, {"date": 2016, "Herny\u00e9k": 99}, {"date": 2017, "Herny\u00e9k": 86}, {"date": 2018, "Herny\u00e9k": 85}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

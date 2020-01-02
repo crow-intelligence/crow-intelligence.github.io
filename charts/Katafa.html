@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Katafa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2150": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Katafa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2150"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Katafa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2150"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Katafa", "selection": "selector2150"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Katafa"}}}], "data": {"name": "data-1b3bbcafd014f8f333dd269e1dd9c8e3"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1b3bbcafd014f8f333dd269e1dd9c8e3": [{"date": 1986, "Katafa": 409}, {"date": 1987, "Katafa": 392}, {"date": 1988, "Katafa": 392}, {"date": 1989, "Katafa": 385}, {"date": 1990, "Katafa": 379}, {"date": 1991, "Katafa": 368}, {"date": 1992, "Katafa": 367}, {"date": 1993, "Katafa": 364}, {"date": 1994, "Katafa": 356}, {"date": 1995, "Katafa": 351}, {"date": 1996, "Katafa": 354}, {"date": 1997, "Katafa": 350}, {"date": 1998, "Katafa": 366}, {"date": 1999, "Katafa": 365}, {"date": 2000, "Katafa": 362}, {"date": 2001, "Katafa": 375}, {"date": 2002, "Katafa": 384}, {"date": 2003, "Katafa": 390}, {"date": 2004, "Katafa": 385}, {"date": 2005, "Katafa": 371}, {"date": 2006, "Katafa": 383}, {"date": 2007, "Katafa": 396}, {"date": 2008, "Katafa": 388}, {"date": 2009, "Katafa": 377}, {"date": 2010, "Katafa": 379}, {"date": 2011, "Katafa": 375}, {"date": 2012, "Katafa": 368}, {"date": 2013, "Katafa": 368}, {"date": 2014, "Katafa": 369}, {"date": 2015, "Katafa": 366}, {"date": 2016, "Katafa": 352}, {"date": 2017, "Katafa": 358}, {"date": 2018, "Katafa": 346}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

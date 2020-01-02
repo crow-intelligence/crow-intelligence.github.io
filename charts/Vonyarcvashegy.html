@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Vonyarcvashegy"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2855": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Vonyarcvashegy"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2855"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Vonyarcvashegy"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2855"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Vonyarcvashegy", "selection": "selector2855"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Vonyarcvashegy"}}}], "data": {"name": "data-fba563e97e60d3e6036df1e41a851831"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-fba563e97e60d3e6036df1e41a851831": [{"date": 1986, "Vonyarcvashegy": 1567}, {"date": 1987, "Vonyarcvashegy": 1609}, {"date": 1988, "Vonyarcvashegy": 1658}, {"date": 1989, "Vonyarcvashegy": 1702}, {"date": 1990, "Vonyarcvashegy": 1707}, {"date": 1991, "Vonyarcvashegy": 1738}, {"date": 1992, "Vonyarcvashegy": 1742}, {"date": 1993, "Vonyarcvashegy": 1764}, {"date": 1994, "Vonyarcvashegy": 1787}, {"date": 1995, "Vonyarcvashegy": 1831}, {"date": 1996, "Vonyarcvashegy": 1833}, {"date": 1997, "Vonyarcvashegy": 1861}, {"date": 1998, "Vonyarcvashegy": 1852}, {"date": 1999, "Vonyarcvashegy": 1854}, {"date": 2000, "Vonyarcvashegy": 1858}, {"date": 2001, "Vonyarcvashegy": 1863}, {"date": 2002, "Vonyarcvashegy": 1917}, {"date": 2003, "Vonyarcvashegy": 1961}, {"date": 2004, "Vonyarcvashegy": 1970}, {"date": 2005, "Vonyarcvashegy": 2014}, {"date": 2006, "Vonyarcvashegy": 2081}, {"date": 2007, "Vonyarcvashegy": 2117}, {"date": 2008, "Vonyarcvashegy": 2185}, {"date": 2009, "Vonyarcvashegy": 2275}, {"date": 2010, "Vonyarcvashegy": 2342}, {"date": 2011, "Vonyarcvashegy": 2362}, {"date": 2012, "Vonyarcvashegy": 2399}, {"date": 2013, "Vonyarcvashegy": 2421}, {"date": 2014, "Vonyarcvashegy": 2443}, {"date": 2015, "Vonyarcvashegy": 2461}, {"date": 2016, "Vonyarcvashegy": 2474}, {"date": 2017, "Vonyarcvashegy": 2532}, {"date": 2018, "Vonyarcvashegy": 2550}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

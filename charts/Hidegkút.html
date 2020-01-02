@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hidegk\u00fat"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2351": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Hidegk\u00fat"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2351"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hidegk\u00fat"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2351"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Hidegk\u00fat", "selection": "selector2351"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hidegk\u00fat"}}}], "data": {"name": "data-2abe4def18cc9c4049ea3068ff087d36"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2abe4def18cc9c4049ea3068ff087d36": [{"date": 1986, "Hidegk\u00fat": 402}, {"date": 1987, "Hidegk\u00fat": 396}, {"date": 1988, "Hidegk\u00fat": 382}, {"date": 1989, "Hidegk\u00fat": 381}, {"date": 1990, "Hidegk\u00fat": 383}, {"date": 1991, "Hidegk\u00fat": 400}, {"date": 1992, "Hidegk\u00fat": 407}, {"date": 1993, "Hidegk\u00fat": 408}, {"date": 1994, "Hidegk\u00fat": 401}, {"date": 1995, "Hidegk\u00fat": 406}, {"date": 1996, "Hidegk\u00fat": 409}, {"date": 1997, "Hidegk\u00fat": 411}, {"date": 1998, "Hidegk\u00fat": 418}, {"date": 1999, "Hidegk\u00fat": 416}, {"date": 2000, "Hidegk\u00fat": 406}, {"date": 2001, "Hidegk\u00fat": 402}, {"date": 2002, "Hidegk\u00fat": 400}, {"date": 2003, "Hidegk\u00fat": 410}, {"date": 2004, "Hidegk\u00fat": 424}, {"date": 2005, "Hidegk\u00fat": 426}, {"date": 2006, "Hidegk\u00fat": 428}, {"date": 2007, "Hidegk\u00fat": 431}, {"date": 2008, "Hidegk\u00fat": 430}, {"date": 2009, "Hidegk\u00fat": 447}, {"date": 2010, "Hidegk\u00fat": 456}, {"date": 2011, "Hidegk\u00fat": 445}, {"date": 2012, "Hidegk\u00fat": 446}, {"date": 2013, "Hidegk\u00fat": 448}, {"date": 2014, "Hidegk\u00fat": 455}, {"date": 2015, "Hidegk\u00fat": 457}, {"date": 2016, "Hidegk\u00fat": 454}, {"date": 2017, "Hidegk\u00fat": 469}, {"date": 2018, "Hidegk\u00fat": 469}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

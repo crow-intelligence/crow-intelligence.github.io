@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Homokb\u00f6d\u00f6ge"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2352": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Homokb\u00f6d\u00f6ge"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2352"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Homokb\u00f6d\u00f6ge"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2352"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Homokb\u00f6d\u00f6ge", "selection": "selector2352"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Homokb\u00f6d\u00f6ge"}}}], "data": {"name": "data-24bc7bd3fa00ad20a2d9edecaa048c64"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-24bc7bd3fa00ad20a2d9edecaa048c64": [{"date": 1986, "Homokb\u00f6d\u00f6ge": 878}, {"date": 1987, "Homokb\u00f6d\u00f6ge": 871}, {"date": 1988, "Homokb\u00f6d\u00f6ge": 857}, {"date": 1989, "Homokb\u00f6d\u00f6ge": 843}, {"date": 1990, "Homokb\u00f6d\u00f6ge": 821}, {"date": 1991, "Homokb\u00f6d\u00f6ge": 830}, {"date": 1992, "Homokb\u00f6d\u00f6ge": 827}, {"date": 1993, "Homokb\u00f6d\u00f6ge": 825}, {"date": 1994, "Homokb\u00f6d\u00f6ge": 812}, {"date": 1995, "Homokb\u00f6d\u00f6ge": 803}, {"date": 1996, "Homokb\u00f6d\u00f6ge": 807}, {"date": 1997, "Homokb\u00f6d\u00f6ge": 795}, {"date": 1998, "Homokb\u00f6d\u00f6ge": 778}, {"date": 1999, "Homokb\u00f6d\u00f6ge": 762}, {"date": 2000, "Homokb\u00f6d\u00f6ge": 764}, {"date": 2001, "Homokb\u00f6d\u00f6ge": 769}, {"date": 2002, "Homokb\u00f6d\u00f6ge": 773}, {"date": 2003, "Homokb\u00f6d\u00f6ge": 765}, {"date": 2004, "Homokb\u00f6d\u00f6ge": 743}, {"date": 2005, "Homokb\u00f6d\u00f6ge": 745}, {"date": 2006, "Homokb\u00f6d\u00f6ge": 749}, {"date": 2007, "Homokb\u00f6d\u00f6ge": 757}, {"date": 2008, "Homokb\u00f6d\u00f6ge": 767}, {"date": 2009, "Homokb\u00f6d\u00f6ge": 767}, {"date": 2010, "Homokb\u00f6d\u00f6ge": 763}, {"date": 2011, "Homokb\u00f6d\u00f6ge": 751}, {"date": 2012, "Homokb\u00f6d\u00f6ge": 744}, {"date": 2013, "Homokb\u00f6d\u00f6ge": 736}, {"date": 2014, "Homokb\u00f6d\u00f6ge": 731}, {"date": 2015, "Homokb\u00f6d\u00f6ge": 740}, {"date": 2016, "Homokb\u00f6d\u00f6ge": 723}, {"date": 2017, "Homokb\u00f6d\u00f6ge": 695}, {"date": 2018, "Homokb\u00f6d\u00f6ge": 703}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

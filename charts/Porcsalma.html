@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Porcsalma"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2837": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Porcsalma"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2837"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Porcsalma"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2837"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Porcsalma", "selection": "selector2837"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Porcsalma"}}}], "data": {"name": "data-bf9251515f4d5eaffa433e2821c0c35c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-bf9251515f4d5eaffa433e2821c0c35c": [{"date": 1986, "Porcsalma": 3059}, {"date": 1987, "Porcsalma": 3047}, {"date": 1988, "Porcsalma": 3000}, {"date": 1989, "Porcsalma": 2965}, {"date": 1990, "Porcsalma": 2938}, {"date": 1991, "Porcsalma": 2921}, {"date": 1992, "Porcsalma": 2885}, {"date": 1993, "Porcsalma": 2875}, {"date": 1994, "Porcsalma": 2911}, {"date": 1995, "Porcsalma": 2905}, {"date": 1996, "Porcsalma": 2894}, {"date": 1997, "Porcsalma": 2902}, {"date": 1998, "Porcsalma": 2892}, {"date": 1999, "Porcsalma": 2893}, {"date": 2000, "Porcsalma": 2912}, {"date": 2001, "Porcsalma": 2915}, {"date": 2002, "Porcsalma": 2906}, {"date": 2003, "Porcsalma": 2901}, {"date": 2004, "Porcsalma": 2887}, {"date": 2005, "Porcsalma": 2880}, {"date": 2006, "Porcsalma": 2827}, {"date": 2007, "Porcsalma": 2813}, {"date": 2008, "Porcsalma": 2832}, {"date": 2009, "Porcsalma": 2811}, {"date": 2010, "Porcsalma": 2771}, {"date": 2011, "Porcsalma": 2757}, {"date": 2012, "Porcsalma": 2729}, {"date": 2013, "Porcsalma": 2729}, {"date": 2014, "Porcsalma": 2748}, {"date": 2015, "Porcsalma": 2790}, {"date": 2016, "Porcsalma": 2864}, {"date": 2017, "Porcsalma": 2895}, {"date": 2018, "Porcsalma": 2920}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

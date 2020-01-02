@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarnaszentmikl\u00f3s"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1203": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tarnaszentmikl\u00f3s"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1203"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarnaszentmikl\u00f3s"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1203"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tarnaszentmikl\u00f3s", "selection": "selector1203"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarnaszentmikl\u00f3s"}}}], "data": {"name": "data-7b4a32763362033bfbe41d2ae3b798bf"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-7b4a32763362033bfbe41d2ae3b798bf": [{"date": 1986, "Tarnaszentmikl\u00f3s": 1141}, {"date": 1987, "Tarnaszentmikl\u00f3s": 1114}, {"date": 1988, "Tarnaszentmikl\u00f3s": 1133}, {"date": 1989, "Tarnaszentmikl\u00f3s": 1141}, {"date": 1990, "Tarnaszentmikl\u00f3s": 1144}, {"date": 1991, "Tarnaszentmikl\u00f3s": 1138}, {"date": 1992, "Tarnaszentmikl\u00f3s": 1116}, {"date": 1993, "Tarnaszentmikl\u00f3s": 1123}, {"date": 1994, "Tarnaszentmikl\u00f3s": 1113}, {"date": 1995, "Tarnaszentmikl\u00f3s": 1076}, {"date": 1996, "Tarnaszentmikl\u00f3s": 1075}, {"date": 1997, "Tarnaszentmikl\u00f3s": 1071}, {"date": 1998, "Tarnaszentmikl\u00f3s": 1042}, {"date": 1999, "Tarnaszentmikl\u00f3s": 1028}, {"date": 2000, "Tarnaszentmikl\u00f3s": 1018}, {"date": 2001, "Tarnaszentmikl\u00f3s": 1015}, {"date": 2002, "Tarnaszentmikl\u00f3s": 1007}, {"date": 2003, "Tarnaszentmikl\u00f3s": 991}, {"date": 2004, "Tarnaszentmikl\u00f3s": 992}, {"date": 2005, "Tarnaszentmikl\u00f3s": 955}, {"date": 2006, "Tarnaszentmikl\u00f3s": 955}, {"date": 2007, "Tarnaszentmikl\u00f3s": 952}, {"date": 2008, "Tarnaszentmikl\u00f3s": 951}, {"date": 2009, "Tarnaszentmikl\u00f3s": 941}, {"date": 2010, "Tarnaszentmikl\u00f3s": 918}, {"date": 2011, "Tarnaszentmikl\u00f3s": 899}, {"date": 2012, "Tarnaszentmikl\u00f3s": 893}, {"date": 2013, "Tarnaszentmikl\u00f3s": 884}, {"date": 2014, "Tarnaszentmikl\u00f3s": 866}, {"date": 2015, "Tarnaszentmikl\u00f3s": 873}, {"date": 2016, "Tarnaszentmikl\u00f3s": 857}, {"date": 2017, "Tarnaszentmikl\u00f3s": 850}, {"date": 2018, "Tarnaszentmikl\u00f3s": 847}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

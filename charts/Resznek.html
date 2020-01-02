@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Resznek"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2654": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Resznek"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2654"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Resznek"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2654"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Resznek", "selection": "selector2654"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Resznek"}}}], "data": {"name": "data-5ed3e4eec07f33732ca6360dd19626ee"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-5ed3e4eec07f33732ca6360dd19626ee": [{"date": 1986, "Resznek": 456}, {"date": 1987, "Resznek": 447}, {"date": 1988, "Resznek": 433}, {"date": 1989, "Resznek": 425}, {"date": 1990, "Resznek": 415}, {"date": 1991, "Resznek": 405}, {"date": 1992, "Resznek": 411}, {"date": 1993, "Resznek": 405}, {"date": 1994, "Resznek": 413}, {"date": 1995, "Resznek": 408}, {"date": 1996, "Resznek": 403}, {"date": 1997, "Resznek": 402}, {"date": 1998, "Resznek": 406}, {"date": 1999, "Resznek": 381}, {"date": 2000, "Resznek": 381}, {"date": 2001, "Resznek": 372}, {"date": 2002, "Resznek": 366}, {"date": 2003, "Resznek": 355}, {"date": 2004, "Resznek": 351}, {"date": 2005, "Resznek": 341}, {"date": 2006, "Resznek": 331}, {"date": 2007, "Resznek": 341}, {"date": 2008, "Resznek": 333}, {"date": 2009, "Resznek": 320}, {"date": 2010, "Resznek": 314}, {"date": 2011, "Resznek": 308}, {"date": 2012, "Resznek": 303}, {"date": 2013, "Resznek": 305}, {"date": 2014, "Resznek": 322}, {"date": 2015, "Resznek": 312}, {"date": 2016, "Resznek": 301}, {"date": 2017, "Resznek": 283}, {"date": 2018, "Resznek": 278}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

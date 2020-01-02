@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Beloiannisz"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector819": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Beloiannisz"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector819"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Beloiannisz"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector819"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Beloiannisz", "selection": "selector819"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Beloiannisz"}}}], "data": {"name": "data-83083b1cf77f6d05f27583224c9c7c6b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-83083b1cf77f6d05f27583224c9c7c6b": [{"date": 1986, "Beloiannisz": 1431}, {"date": 1987, "Beloiannisz": 1414}, {"date": 1988, "Beloiannisz": 1431}, {"date": 1989, "Beloiannisz": 1401}, {"date": 1990, "Beloiannisz": 1231}, {"date": 1991, "Beloiannisz": 1232}, {"date": 1992, "Beloiannisz": 1232}, {"date": 1993, "Beloiannisz": 1229}, {"date": 1994, "Beloiannisz": 1234}, {"date": 1995, "Beloiannisz": 1253}, {"date": 1996, "Beloiannisz": 1257}, {"date": 1997, "Beloiannisz": 1251}, {"date": 1998, "Beloiannisz": 1193}, {"date": 1999, "Beloiannisz": 1209}, {"date": 2000, "Beloiannisz": 1200}, {"date": 2001, "Beloiannisz": 1206}, {"date": 2002, "Beloiannisz": 1186}, {"date": 2003, "Beloiannisz": 1237}, {"date": 2004, "Beloiannisz": 1238}, {"date": 2005, "Beloiannisz": 1193}, {"date": 2006, "Beloiannisz": 1255}, {"date": 2007, "Beloiannisz": 1230}, {"date": 2008, "Beloiannisz": 1227}, {"date": 2009, "Beloiannisz": 1217}, {"date": 2010, "Beloiannisz": 1203}, {"date": 2011, "Beloiannisz": 1209}, {"date": 2012, "Beloiannisz": 1190}, {"date": 2013, "Beloiannisz": 1176}, {"date": 2014, "Beloiannisz": 1158}, {"date": 2015, "Beloiannisz": 1145}, {"date": 2016, "Beloiannisz": 1140}, {"date": 2017, "Beloiannisz": 1149}, {"date": 2018, "Beloiannisz": 1151}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

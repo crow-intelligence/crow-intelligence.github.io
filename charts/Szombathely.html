@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szombathely"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2744": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szombathely"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2744"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szombathely"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2744"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szombathely", "selection": "selector2744"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szombathely"}}}], "data": {"name": "data-328f0015702d84a576b74d6788ed8058"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-328f0015702d84a576b74d6788ed8058": [{"date": 1986, "Szombathely": 84319}, {"date": 1987, "Szombathely": 84494}, {"date": 1988, "Szombathely": 85000}, {"date": 1989, "Szombathely": 85242}, {"date": 1990, "Szombathely": 85311}, {"date": 1991, "Szombathely": 85350}, {"date": 1992, "Szombathely": 85448}, {"date": 1993, "Szombathely": 85336}, {"date": 1994, "Szombathely": 85182}, {"date": 1995, "Szombathely": 85059}, {"date": 1996, "Szombathely": 84745}, {"date": 1997, "Szombathely": 84528}, {"date": 1998, "Szombathely": 84019}, {"date": 1999, "Szombathely": 83415}, {"date": 2000, "Szombathely": 82844}, {"date": 2001, "Szombathely": 82234}, {"date": 2002, "Szombathely": 81723}, {"date": 2003, "Szombathely": 81373}, {"date": 2004, "Szombathely": 80767}, {"date": 2005, "Szombathely": 80201}, {"date": 2006, "Szombathely": 80140}, {"date": 2007, "Szombathely": 79640}, {"date": 2008, "Szombathely": 79347}, {"date": 2009, "Szombathely": 79235}, {"date": 2010, "Szombathely": 78946}, {"date": 2011, "Szombathely": 78789}, {"date": 2012, "Szombathely": 78462}, {"date": 2013, "Szombathely": 78207}, {"date": 2014, "Szombathely": 77930}, {"date": 2015, "Szombathely": 77666}, {"date": 2016, "Szombathely": 77345}, {"date": 2017, "Szombathely": 76857}, {"date": 2018, "Szombathely": 76528}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

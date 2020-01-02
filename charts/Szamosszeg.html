@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szamosszeg"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1892": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szamosszeg"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1892"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szamosszeg"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1892"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szamosszeg", "selection": "selector1892"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szamosszeg"}}}], "data": {"name": "data-6a18ba020be52246ff5525ceb682786f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-6a18ba020be52246ff5525ceb682786f": [{"date": 1986, "Szamosszeg": 2435}, {"date": 1987, "Szamosszeg": 2402}, {"date": 1988, "Szamosszeg": 2320}, {"date": 1989, "Szamosszeg": 2297}, {"date": 1990, "Szamosszeg": 2280}, {"date": 1991, "Szamosszeg": 2269}, {"date": 1992, "Szamosszeg": 2246}, {"date": 1993, "Szamosszeg": 2238}, {"date": 1994, "Szamosszeg": 2228}, {"date": 1995, "Szamosszeg": 2241}, {"date": 1996, "Szamosszeg": 2261}, {"date": 1997, "Szamosszeg": 2239}, {"date": 1998, "Szamosszeg": 2209}, {"date": 1999, "Szamosszeg": 2219}, {"date": 2000, "Szamosszeg": 2188}, {"date": 2001, "Szamosszeg": 2179}, {"date": 2002, "Szamosszeg": 2168}, {"date": 2003, "Szamosszeg": 2146}, {"date": 2004, "Szamosszeg": 2152}, {"date": 2005, "Szamosszeg": 2149}, {"date": 2006, "Szamosszeg": 2148}, {"date": 2007, "Szamosszeg": 2106}, {"date": 2008, "Szamosszeg": 2082}, {"date": 2009, "Szamosszeg": 2049}, {"date": 2010, "Szamosszeg": 2020}, {"date": 2011, "Szamosszeg": 2005}, {"date": 2012, "Szamosszeg": 2001}, {"date": 2013, "Szamosszeg": 1990}, {"date": 2014, "Szamosszeg": 1975}, {"date": 2015, "Szamosszeg": 1989}, {"date": 2016, "Szamosszeg": 2002}, {"date": 2017, "Szamosszeg": 1958}, {"date": 2018, "Szamosszeg": 1925}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

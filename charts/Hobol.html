@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hobol"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector208": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Hobol"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector208"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hobol"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector208"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Hobol", "selection": "selector208"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hobol"}}}], "data": {"name": "data-884742c47021b3a48978db0a69b9ed32"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-884742c47021b3a48978db0a69b9ed32": [{"date": 1986, "Hobol": 0}, {"date": 1987, "Hobol": 0}, {"date": 1988, "Hobol": 0}, {"date": 1989, "Hobol": 0}, {"date": 1990, "Hobol": 0}, {"date": 1991, "Hobol": 0}, {"date": 1992, "Hobol": 1023}, {"date": 1993, "Hobol": 1019}, {"date": 1994, "Hobol": 1007}, {"date": 1995, "Hobol": 1013}, {"date": 1996, "Hobol": 1008}, {"date": 1997, "Hobol": 1018}, {"date": 1998, "Hobol": 1003}, {"date": 1999, "Hobol": 1015}, {"date": 2000, "Hobol": 1028}, {"date": 2001, "Hobol": 1062}, {"date": 2002, "Hobol": 1043}, {"date": 2003, "Hobol": 1049}, {"date": 2004, "Hobol": 1033}, {"date": 2005, "Hobol": 1043}, {"date": 2006, "Hobol": 1046}, {"date": 2007, "Hobol": 1017}, {"date": 2008, "Hobol": 1013}, {"date": 2009, "Hobol": 1006}, {"date": 2010, "Hobol": 1004}, {"date": 2011, "Hobol": 982}, {"date": 2012, "Hobol": 980}, {"date": 2013, "Hobol": 986}, {"date": 2014, "Hobol": 993}, {"date": 2015, "Hobol": 984}, {"date": 2016, "Hobol": 975}, {"date": 2017, "Hobol": 976}, {"date": 2018, "Hobol": 966}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

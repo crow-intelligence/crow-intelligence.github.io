@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szirmabeseny\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2775": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szirmabeseny\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2775"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szirmabeseny\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2775"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szirmabeseny\u0151", "selection": "selector2775"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szirmabeseny\u0151"}}}], "data": {"name": "data-36038efc5c8af50ad317990ca074dc70"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-36038efc5c8af50ad317990ca074dc70": [{"date": 1986, "Szirmabeseny\u0151": 4736}, {"date": 1987, "Szirmabeseny\u0151": 4789}, {"date": 1988, "Szirmabeseny\u0151": 4845}, {"date": 1989, "Szirmabeseny\u0151": 4868}, {"date": 1990, "Szirmabeseny\u0151": 4856}, {"date": 1991, "Szirmabeseny\u0151": 4914}, {"date": 1992, "Szirmabeseny\u0151": 4867}, {"date": 1993, "Szirmabeseny\u0151": 4881}, {"date": 1994, "Szirmabeseny\u0151": 4882}, {"date": 1995, "Szirmabeseny\u0151": 4900}, {"date": 1996, "Szirmabeseny\u0151": 4907}, {"date": 1997, "Szirmabeseny\u0151": 4897}, {"date": 1998, "Szirmabeseny\u0151": 4877}, {"date": 1999, "Szirmabeseny\u0151": 4819}, {"date": 2000, "Szirmabeseny\u0151": 4780}, {"date": 2001, "Szirmabeseny\u0151": 4817}, {"date": 2002, "Szirmabeseny\u0151": 4805}, {"date": 2003, "Szirmabeseny\u0151": 4770}, {"date": 2004, "Szirmabeseny\u0151": 4724}, {"date": 2005, "Szirmabeseny\u0151": 4680}, {"date": 2006, "Szirmabeseny\u0151": 4658}, {"date": 2007, "Szirmabeseny\u0151": 4646}, {"date": 2008, "Szirmabeseny\u0151": 4605}, {"date": 2009, "Szirmabeseny\u0151": 4606}, {"date": 2010, "Szirmabeseny\u0151": 4588}, {"date": 2011, "Szirmabeseny\u0151": 4533}, {"date": 2012, "Szirmabeseny\u0151": 4476}, {"date": 2013, "Szirmabeseny\u0151": 4486}, {"date": 2014, "Szirmabeseny\u0151": 4436}, {"date": 2015, "Szirmabeseny\u0151": 4406}, {"date": 2016, "Szirmabeseny\u0151": 4353}, {"date": 2017, "Szirmabeseny\u0151": 4354}, {"date": 2018, "Szirmabeseny\u0151": 4326}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

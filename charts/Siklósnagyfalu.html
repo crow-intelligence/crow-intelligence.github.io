@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sikl\u00f3snagyfalu"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector337": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Sikl\u00f3snagyfalu"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector337"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sikl\u00f3snagyfalu"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector337"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Sikl\u00f3snagyfalu", "selection": "selector337"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Sikl\u00f3snagyfalu"}}}], "data": {"name": "data-dd79ec0cc795f32d2de51514d5a876c0"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-dd79ec0cc795f32d2de51514d5a876c0": [{"date": 1986, "Sikl\u00f3snagyfalu": 403}, {"date": 1987, "Sikl\u00f3snagyfalu": 404}, {"date": 1988, "Sikl\u00f3snagyfalu": 396}, {"date": 1989, "Sikl\u00f3snagyfalu": 404}, {"date": 1990, "Sikl\u00f3snagyfalu": 403}, {"date": 1991, "Sikl\u00f3snagyfalu": 401}, {"date": 1992, "Sikl\u00f3snagyfalu": 412}, {"date": 1993, "Sikl\u00f3snagyfalu": 405}, {"date": 1994, "Sikl\u00f3snagyfalu": 414}, {"date": 1995, "Sikl\u00f3snagyfalu": 404}, {"date": 1996, "Sikl\u00f3snagyfalu": 402}, {"date": 1997, "Sikl\u00f3snagyfalu": 404}, {"date": 1998, "Sikl\u00f3snagyfalu": 403}, {"date": 1999, "Sikl\u00f3snagyfalu": 397}, {"date": 2000, "Sikl\u00f3snagyfalu": 419}, {"date": 2001, "Sikl\u00f3snagyfalu": 431}, {"date": 2002, "Sikl\u00f3snagyfalu": 443}, {"date": 2003, "Sikl\u00f3snagyfalu": 442}, {"date": 2004, "Sikl\u00f3snagyfalu": 459}, {"date": 2005, "Sikl\u00f3snagyfalu": 444}, {"date": 2006, "Sikl\u00f3snagyfalu": 445}, {"date": 2007, "Sikl\u00f3snagyfalu": 437}, {"date": 2008, "Sikl\u00f3snagyfalu": 442}, {"date": 2009, "Sikl\u00f3snagyfalu": 444}, {"date": 2010, "Sikl\u00f3snagyfalu": 438}, {"date": 2011, "Sikl\u00f3snagyfalu": 450}, {"date": 2012, "Sikl\u00f3snagyfalu": 471}, {"date": 2013, "Sikl\u00f3snagyfalu": 466}, {"date": 2014, "Sikl\u00f3snagyfalu": 447}, {"date": 2015, "Sikl\u00f3snagyfalu": 480}, {"date": 2016, "Sikl\u00f3snagyfalu": 472}, {"date": 2017, "Sikl\u00f3snagyfalu": 472}, {"date": 2018, "Sikl\u00f3snagyfalu": 466}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

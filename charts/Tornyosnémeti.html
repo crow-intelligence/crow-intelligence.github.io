@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tornyosn\u00e9meti"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector742": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tornyosn\u00e9meti"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector742"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tornyosn\u00e9meti"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector742"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tornyosn\u00e9meti", "selection": "selector742"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tornyosn\u00e9meti"}}}], "data": {"name": "data-b7e40a7fb280de5b3bcb784da8cefb60"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b7e40a7fb280de5b3bcb784da8cefb60": [{"date": 1986, "Tornyosn\u00e9meti": 709}, {"date": 1987, "Tornyosn\u00e9meti": 699}, {"date": 1988, "Tornyosn\u00e9meti": 700}, {"date": 1989, "Tornyosn\u00e9meti": 693}, {"date": 1990, "Tornyosn\u00e9meti": 691}, {"date": 1991, "Tornyosn\u00e9meti": 685}, {"date": 1992, "Tornyosn\u00e9meti": 677}, {"date": 1993, "Tornyosn\u00e9meti": 676}, {"date": 1994, "Tornyosn\u00e9meti": 674}, {"date": 1995, "Tornyosn\u00e9meti": 677}, {"date": 1996, "Tornyosn\u00e9meti": 666}, {"date": 1997, "Tornyosn\u00e9meti": 668}, {"date": 1998, "Tornyosn\u00e9meti": 647}, {"date": 1999, "Tornyosn\u00e9meti": 631}, {"date": 2000, "Tornyosn\u00e9meti": 629}, {"date": 2001, "Tornyosn\u00e9meti": 635}, {"date": 2002, "Tornyosn\u00e9meti": 639}, {"date": 2003, "Tornyosn\u00e9meti": 619}, {"date": 2004, "Tornyosn\u00e9meti": 615}, {"date": 2005, "Tornyosn\u00e9meti": 591}, {"date": 2006, "Tornyosn\u00e9meti": 599}, {"date": 2007, "Tornyosn\u00e9meti": 587}, {"date": 2008, "Tornyosn\u00e9meti": 572}, {"date": 2009, "Tornyosn\u00e9meti": 561}, {"date": 2010, "Tornyosn\u00e9meti": 527}, {"date": 2011, "Tornyosn\u00e9meti": 514}, {"date": 2012, "Tornyosn\u00e9meti": 498}, {"date": 2013, "Tornyosn\u00e9meti": 488}, {"date": 2014, "Tornyosn\u00e9meti": 486}, {"date": 2015, "Tornyosn\u00e9meti": 457}, {"date": 2016, "Tornyosn\u00e9meti": 459}, {"date": 2017, "Tornyosn\u00e9meti": 467}, {"date": 2018, "Tornyosn\u00e9meti": 496}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

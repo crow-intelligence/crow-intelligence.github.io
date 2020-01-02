@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisfalud"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector969": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kisfalud"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector969"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisfalud"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector969"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kisfalud", "selection": "selector969"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisfalud"}}}], "data": {"name": "data-882c7b2e6396fb37eadcb36187064cad"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-882c7b2e6396fb37eadcb36187064cad": [{"date": 1986, "Kisfalud": 0}, {"date": 1987, "Kisfalud": 0}, {"date": 1988, "Kisfalud": 0}, {"date": 1989, "Kisfalud": 0}, {"date": 1990, "Kisfalud": 676}, {"date": 1991, "Kisfalud": 671}, {"date": 1992, "Kisfalud": 662}, {"date": 1993, "Kisfalud": 905}, {"date": 1994, "Kisfalud": 904}, {"date": 1995, "Kisfalud": 901}, {"date": 1996, "Kisfalud": 910}, {"date": 1997, "Kisfalud": 907}, {"date": 1998, "Kisfalud": 906}, {"date": 1999, "Kisfalud": 887}, {"date": 2000, "Kisfalud": 871}, {"date": 2001, "Kisfalud": 852}, {"date": 2002, "Kisfalud": 852}, {"date": 2003, "Kisfalud": 834}, {"date": 2004, "Kisfalud": 835}, {"date": 2005, "Kisfalud": 826}, {"date": 2006, "Kisfalud": 814}, {"date": 2007, "Kisfalud": 806}, {"date": 2008, "Kisfalud": 800}, {"date": 2009, "Kisfalud": 782}, {"date": 2010, "Kisfalud": 780}, {"date": 2011, "Kisfalud": 769}, {"date": 2012, "Kisfalud": 757}, {"date": 2013, "Kisfalud": 759}, {"date": 2014, "Kisfalud": 759}, {"date": 2015, "Kisfalud": 746}, {"date": 2016, "Kisfalud": 736}, {"date": 2017, "Kisfalud": 726}, {"date": 2018, "Kisfalud": 735}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

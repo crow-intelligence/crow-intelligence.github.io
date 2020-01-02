@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemesvita"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2411": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nemesvita"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2411"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemesvita"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2411"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nemesvita", "selection": "selector2411"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemesvita"}}}], "data": {"name": "data-79e07f00f1da4c162dbdd91c84a43163"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-79e07f00f1da4c162dbdd91c84a43163": [{"date": 1986, "Nemesvita": 486}, {"date": 1987, "Nemesvita": 478}, {"date": 1988, "Nemesvita": 454}, {"date": 1989, "Nemesvita": 444}, {"date": 1990, "Nemesvita": 437}, {"date": 1991, "Nemesvita": 431}, {"date": 1992, "Nemesvita": 410}, {"date": 1993, "Nemesvita": 407}, {"date": 1994, "Nemesvita": 414}, {"date": 1995, "Nemesvita": 406}, {"date": 1996, "Nemesvita": 406}, {"date": 1997, "Nemesvita": 399}, {"date": 1998, "Nemesvita": 396}, {"date": 1999, "Nemesvita": 401}, {"date": 2000, "Nemesvita": 395}, {"date": 2001, "Nemesvita": 399}, {"date": 2002, "Nemesvita": 407}, {"date": 2003, "Nemesvita": 399}, {"date": 2004, "Nemesvita": 396}, {"date": 2005, "Nemesvita": 390}, {"date": 2006, "Nemesvita": 391}, {"date": 2007, "Nemesvita": 392}, {"date": 2008, "Nemesvita": 387}, {"date": 2009, "Nemesvita": 391}, {"date": 2010, "Nemesvita": 390}, {"date": 2011, "Nemesvita": 391}, {"date": 2012, "Nemesvita": 382}, {"date": 2013, "Nemesvita": 369}, {"date": 2014, "Nemesvita": 382}, {"date": 2015, "Nemesvita": 367}, {"date": 2016, "Nemesvita": 363}, {"date": 2017, "Nemesvita": 358}, {"date": 2018, "Nemesvita": 352}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

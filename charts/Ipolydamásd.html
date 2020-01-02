@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipolydam\u00e1sd"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1435": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Ipolydam\u00e1sd"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1435"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipolydam\u00e1sd"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1435"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Ipolydam\u00e1sd", "selection": "selector1435"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipolydam\u00e1sd"}}}], "data": {"name": "data-d2fcb71c754ac82195f3c65880beb77a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-d2fcb71c754ac82195f3c65880beb77a": [{"date": 1986, "Ipolydam\u00e1sd": 494}, {"date": 1987, "Ipolydam\u00e1sd": 462}, {"date": 1988, "Ipolydam\u00e1sd": 444}, {"date": 1989, "Ipolydam\u00e1sd": 433}, {"date": 1990, "Ipolydam\u00e1sd": 427}, {"date": 1991, "Ipolydam\u00e1sd": 412}, {"date": 1992, "Ipolydam\u00e1sd": 409}, {"date": 1993, "Ipolydam\u00e1sd": 406}, {"date": 1994, "Ipolydam\u00e1sd": 399}, {"date": 1995, "Ipolydam\u00e1sd": 394}, {"date": 1996, "Ipolydam\u00e1sd": 396}, {"date": 1997, "Ipolydam\u00e1sd": 389}, {"date": 1998, "Ipolydam\u00e1sd": 406}, {"date": 1999, "Ipolydam\u00e1sd": 394}, {"date": 2000, "Ipolydam\u00e1sd": 389}, {"date": 2001, "Ipolydam\u00e1sd": 403}, {"date": 2002, "Ipolydam\u00e1sd": 392}, {"date": 2003, "Ipolydam\u00e1sd": 391}, {"date": 2004, "Ipolydam\u00e1sd": 390}, {"date": 2005, "Ipolydam\u00e1sd": 380}, {"date": 2006, "Ipolydam\u00e1sd": 383}, {"date": 2007, "Ipolydam\u00e1sd": 385}, {"date": 2008, "Ipolydam\u00e1sd": 381}, {"date": 2009, "Ipolydam\u00e1sd": 383}, {"date": 2010, "Ipolydam\u00e1sd": 372}, {"date": 2011, "Ipolydam\u00e1sd": 387}, {"date": 2012, "Ipolydam\u00e1sd": 379}, {"date": 2013, "Ipolydam\u00e1sd": 379}, {"date": 2014, "Ipolydam\u00e1sd": 385}, {"date": 2015, "Ipolydam\u00e1sd": 386}, {"date": 2016, "Ipolydam\u00e1sd": 397}, {"date": 2017, "Ipolydam\u00e1sd": 388}, {"date": 2018, "Ipolydam\u00e1sd": 397}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

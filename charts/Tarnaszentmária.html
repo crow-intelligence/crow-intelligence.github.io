@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarnaszentm\u00e1ria"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1202": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tarnaszentm\u00e1ria"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1202"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarnaszentm\u00e1ria"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1202"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tarnaszentm\u00e1ria", "selection": "selector1202"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tarnaszentm\u00e1ria"}}}], "data": {"name": "data-74f4a9f67c75986e9da127ec663da4f6"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-74f4a9f67c75986e9da127ec663da4f6": [{"date": 1986, "Tarnaszentm\u00e1ria": 416}, {"date": 1987, "Tarnaszentm\u00e1ria": 412}, {"date": 1988, "Tarnaszentm\u00e1ria": 409}, {"date": 1989, "Tarnaszentm\u00e1ria": 401}, {"date": 1990, "Tarnaszentm\u00e1ria": 404}, {"date": 1991, "Tarnaszentm\u00e1ria": 386}, {"date": 1992, "Tarnaszentm\u00e1ria": 378}, {"date": 1993, "Tarnaszentm\u00e1ria": 370}, {"date": 1994, "Tarnaszentm\u00e1ria": 355}, {"date": 1995, "Tarnaszentm\u00e1ria": 353}, {"date": 1996, "Tarnaszentm\u00e1ria": 344}, {"date": 1997, "Tarnaszentm\u00e1ria": 332}, {"date": 1998, "Tarnaszentm\u00e1ria": 324}, {"date": 1999, "Tarnaszentm\u00e1ria": 317}, {"date": 2000, "Tarnaszentm\u00e1ria": 306}, {"date": 2001, "Tarnaszentm\u00e1ria": 302}, {"date": 2002, "Tarnaszentm\u00e1ria": 299}, {"date": 2003, "Tarnaszentm\u00e1ria": 302}, {"date": 2004, "Tarnaszentm\u00e1ria": 291}, {"date": 2005, "Tarnaszentm\u00e1ria": 280}, {"date": 2006, "Tarnaszentm\u00e1ria": 280}, {"date": 2007, "Tarnaszentm\u00e1ria": 272}, {"date": 2008, "Tarnaszentm\u00e1ria": 270}, {"date": 2009, "Tarnaszentm\u00e1ria": 262}, {"date": 2010, "Tarnaszentm\u00e1ria": 252}, {"date": 2011, "Tarnaszentm\u00e1ria": 245}, {"date": 2012, "Tarnaszentm\u00e1ria": 244}, {"date": 2013, "Tarnaszentm\u00e1ria": 244}, {"date": 2014, "Tarnaszentm\u00e1ria": 239}, {"date": 2015, "Tarnaszentm\u00e1ria": 239}, {"date": 2016, "Tarnaszentm\u00e1ria": 243}, {"date": 2017, "Tarnaszentm\u00e1ria": 244}, {"date": 2018, "Tarnaszentm\u00e1ria": 236}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

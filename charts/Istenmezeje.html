@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Istenmezeje"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1154": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Istenmezeje"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1154"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Istenmezeje"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1154"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Istenmezeje", "selection": "selector1154"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Istenmezeje"}}}], "data": {"name": "data-02b1b055b2ad0d7918c8db53c138eb69"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-02b1b055b2ad0d7918c8db53c138eb69": [{"date": 1986, "Istenmezeje": 2234}, {"date": 1987, "Istenmezeje": 2214}, {"date": 1988, "Istenmezeje": 2193}, {"date": 1989, "Istenmezeje": 2163}, {"date": 1990, "Istenmezeje": 2138}, {"date": 1991, "Istenmezeje": 2125}, {"date": 1992, "Istenmezeje": 2113}, {"date": 1993, "Istenmezeje": 2102}, {"date": 1994, "Istenmezeje": 2072}, {"date": 1995, "Istenmezeje": 2065}, {"date": 1996, "Istenmezeje": 2037}, {"date": 1997, "Istenmezeje": 2043}, {"date": 1998, "Istenmezeje": 2005}, {"date": 1999, "Istenmezeje": 1983}, {"date": 2000, "Istenmezeje": 1967}, {"date": 2001, "Istenmezeje": 1936}, {"date": 2002, "Istenmezeje": 1935}, {"date": 2003, "Istenmezeje": 1914}, {"date": 2004, "Istenmezeje": 1890}, {"date": 2005, "Istenmezeje": 1868}, {"date": 2006, "Istenmezeje": 1847}, {"date": 2007, "Istenmezeje": 1793}, {"date": 2008, "Istenmezeje": 1764}, {"date": 2009, "Istenmezeje": 1749}, {"date": 2010, "Istenmezeje": 1720}, {"date": 2011, "Istenmezeje": 1684}, {"date": 2012, "Istenmezeje": 1661}, {"date": 2013, "Istenmezeje": 1612}, {"date": 2014, "Istenmezeje": 1587}, {"date": 2015, "Istenmezeje": 1571}, {"date": 2016, "Istenmezeje": 1528}, {"date": 2017, "Istenmezeje": 1488}, {"date": 2018, "Istenmezeje": 1447}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

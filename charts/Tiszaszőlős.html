@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszasz\u0151l\u0151s"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1980": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszasz\u0151l\u0151s"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1980"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszasz\u0151l\u0151s"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1980"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszasz\u0151l\u0151s", "selection": "selector1980"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszasz\u0151l\u0151s"}}}], "data": {"name": "data-547cc1c4377256a422d84e403708dce3"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-547cc1c4377256a422d84e403708dce3": [{"date": 1986, "Tiszasz\u0151l\u0151s": 0}, {"date": 1987, "Tiszasz\u0151l\u0151s": 0}, {"date": 1988, "Tiszasz\u0151l\u0151s": 0}, {"date": 1989, "Tiszasz\u0151l\u0151s": 0}, {"date": 1990, "Tiszasz\u0151l\u0151s": 0}, {"date": 1991, "Tiszasz\u0151l\u0151s": 0}, {"date": 1992, "Tiszasz\u0151l\u0151s": 0}, {"date": 1993, "Tiszasz\u0151l\u0151s": 0}, {"date": 1994, "Tiszasz\u0151l\u0151s": 0}, {"date": 1995, "Tiszasz\u0151l\u0151s": 0}, {"date": 1996, "Tiszasz\u0151l\u0151s": 0}, {"date": 1997, "Tiszasz\u0151l\u0151s": 0}, {"date": 1998, "Tiszasz\u0151l\u0151s": 0}, {"date": 1999, "Tiszasz\u0151l\u0151s": 0}, {"date": 2000, "Tiszasz\u0151l\u0151s": 0}, {"date": 2001, "Tiszasz\u0151l\u0151s": 0}, {"date": 2002, "Tiszasz\u0151l\u0151s": 0}, {"date": 2003, "Tiszasz\u0151l\u0151s": 1781}, {"date": 2004, "Tiszasz\u0151l\u0151s": 1773}, {"date": 2005, "Tiszasz\u0151l\u0151s": 1737}, {"date": 2006, "Tiszasz\u0151l\u0151s": 1714}, {"date": 2007, "Tiszasz\u0151l\u0151s": 1690}, {"date": 2008, "Tiszasz\u0151l\u0151s": 1687}, {"date": 2009, "Tiszasz\u0151l\u0151s": 1655}, {"date": 2010, "Tiszasz\u0151l\u0151s": 1621}, {"date": 2011, "Tiszasz\u0151l\u0151s": 1607}, {"date": 2012, "Tiszasz\u0151l\u0151s": 1586}, {"date": 2013, "Tiszasz\u0151l\u0151s": 1573}, {"date": 2014, "Tiszasz\u0151l\u0151s": 1573}, {"date": 2015, "Tiszasz\u0151l\u0151s": 1578}, {"date": 2016, "Tiszasz\u0151l\u0151s": 1566}, {"date": 2017, "Tiszasz\u0151l\u0151s": 1558}, {"date": 2018, "Tiszasz\u0151l\u0151s": 1556}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

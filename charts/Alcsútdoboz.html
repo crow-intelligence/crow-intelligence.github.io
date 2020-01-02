@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Alcs\u00fatdoboz"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector812": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Alcs\u00fatdoboz"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector812"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Alcs\u00fatdoboz"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector812"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Alcs\u00fatdoboz", "selection": "selector812"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Alcs\u00fatdoboz"}}}], "data": {"name": "data-e71175e86f9737705b4d3e0e3ecfb977"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e71175e86f9737705b4d3e0e3ecfb977": [{"date": 1986, "Alcs\u00fatdoboz": 1547}, {"date": 1987, "Alcs\u00fatdoboz": 1491}, {"date": 1988, "Alcs\u00fatdoboz": 1483}, {"date": 1989, "Alcs\u00fatdoboz": 1483}, {"date": 1990, "Alcs\u00fatdoboz": 1459}, {"date": 1991, "Alcs\u00fatdoboz": 1437}, {"date": 1992, "Alcs\u00fatdoboz": 1452}, {"date": 1993, "Alcs\u00fatdoboz": 1471}, {"date": 1994, "Alcs\u00fatdoboz": 1479}, {"date": 1995, "Alcs\u00fatdoboz": 1499}, {"date": 1996, "Alcs\u00fatdoboz": 1486}, {"date": 1997, "Alcs\u00fatdoboz": 1475}, {"date": 1998, "Alcs\u00fatdoboz": 1461}, {"date": 1999, "Alcs\u00fatdoboz": 1461}, {"date": 2000, "Alcs\u00fatdoboz": 1477}, {"date": 2001, "Alcs\u00fatdoboz": 1527}, {"date": 2002, "Alcs\u00fatdoboz": 1539}, {"date": 2003, "Alcs\u00fatdoboz": 1517}, {"date": 2004, "Alcs\u00fatdoboz": 1514}, {"date": 2005, "Alcs\u00fatdoboz": 1514}, {"date": 2006, "Alcs\u00fatdoboz": 1523}, {"date": 2007, "Alcs\u00fatdoboz": 1496}, {"date": 2008, "Alcs\u00fatdoboz": 1494}, {"date": 2009, "Alcs\u00fatdoboz": 1490}, {"date": 2010, "Alcs\u00fatdoboz": 1480}, {"date": 2011, "Alcs\u00fatdoboz": 1467}, {"date": 2012, "Alcs\u00fatdoboz": 1464}, {"date": 2013, "Alcs\u00fatdoboz": 1461}, {"date": 2014, "Alcs\u00fatdoboz": 1459}, {"date": 2015, "Alcs\u00fatdoboz": 1457}, {"date": 2016, "Alcs\u00fatdoboz": 1461}, {"date": 2017, "Alcs\u00fatdoboz": 1442}, {"date": 2018, "Alcs\u00fatdoboz": 1439}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

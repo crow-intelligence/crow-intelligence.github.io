@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Telekgerend\u00e1s"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector439": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Telekgerend\u00e1s"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector439"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Telekgerend\u00e1s"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector439"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Telekgerend\u00e1s", "selection": "selector439"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Telekgerend\u00e1s"}}}], "data": {"name": "data-4fb3277bfddccd9a332811800685549f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-4fb3277bfddccd9a332811800685549f": [{"date": 1986, "Telekgerend\u00e1s": 1645}, {"date": 1987, "Telekgerend\u00e1s": 1636}, {"date": 1988, "Telekgerend\u00e1s": 1635}, {"date": 1989, "Telekgerend\u00e1s": 1632}, {"date": 1990, "Telekgerend\u00e1s": 1623}, {"date": 1991, "Telekgerend\u00e1s": 1630}, {"date": 1992, "Telekgerend\u00e1s": 1649}, {"date": 1993, "Telekgerend\u00e1s": 1682}, {"date": 1994, "Telekgerend\u00e1s": 1681}, {"date": 1995, "Telekgerend\u00e1s": 1707}, {"date": 1996, "Telekgerend\u00e1s": 1702}, {"date": 1997, "Telekgerend\u00e1s": 1691}, {"date": 1998, "Telekgerend\u00e1s": 1718}, {"date": 1999, "Telekgerend\u00e1s": 1715}, {"date": 2000, "Telekgerend\u00e1s": 1689}, {"date": 2001, "Telekgerend\u00e1s": 1725}, {"date": 2002, "Telekgerend\u00e1s": 1716}, {"date": 2003, "Telekgerend\u00e1s": 1702}, {"date": 2004, "Telekgerend\u00e1s": 1724}, {"date": 2005, "Telekgerend\u00e1s": 1728}, {"date": 2006, "Telekgerend\u00e1s": 1722}, {"date": 2007, "Telekgerend\u00e1s": 1704}, {"date": 2008, "Telekgerend\u00e1s": 1675}, {"date": 2009, "Telekgerend\u00e1s": 1658}, {"date": 2010, "Telekgerend\u00e1s": 1656}, {"date": 2011, "Telekgerend\u00e1s": 1631}, {"date": 2012, "Telekgerend\u00e1s": 1603}, {"date": 2013, "Telekgerend\u00e1s": 1582}, {"date": 2014, "Telekgerend\u00e1s": 1576}, {"date": 2015, "Telekgerend\u00e1s": 1582}, {"date": 2016, "Telekgerend\u00e1s": 1554}, {"date": 2017, "Telekgerend\u00e1s": 1548}, {"date": 2018, "Telekgerend\u00e1s": 1528}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

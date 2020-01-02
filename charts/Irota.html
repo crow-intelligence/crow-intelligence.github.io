@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Irota"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector579": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Irota"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector579"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Irota"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector579"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Irota", "selection": "selector579"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Irota"}}}], "data": {"name": "data-fe565cf102f8e3280975646caedab691"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-fe565cf102f8e3280975646caedab691": [{"date": 1986, "Irota": 201}, {"date": 1987, "Irota": 202}, {"date": 1988, "Irota": 202}, {"date": 1989, "Irota": 196}, {"date": 1990, "Irota": 196}, {"date": 1991, "Irota": 185}, {"date": 1992, "Irota": 182}, {"date": 1993, "Irota": 168}, {"date": 1994, "Irota": 165}, {"date": 1995, "Irota": 163}, {"date": 1996, "Irota": 140}, {"date": 1997, "Irota": 142}, {"date": 1998, "Irota": 139}, {"date": 1999, "Irota": 134}, {"date": 2000, "Irota": 126}, {"date": 2001, "Irota": 129}, {"date": 2002, "Irota": 128}, {"date": 2003, "Irota": 118}, {"date": 2004, "Irota": 118}, {"date": 2005, "Irota": 111}, {"date": 2006, "Irota": 107}, {"date": 2007, "Irota": 107}, {"date": 2008, "Irota": 100}, {"date": 2009, "Irota": 89}, {"date": 2010, "Irota": 88}, {"date": 2011, "Irota": 90}, {"date": 2012, "Irota": 85}, {"date": 2013, "Irota": 78}, {"date": 2014, "Irota": 77}, {"date": 2015, "Irota": 80}, {"date": 2016, "Irota": 76}, {"date": 2017, "Irota": 78}, {"date": 2018, "Irota": 77}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

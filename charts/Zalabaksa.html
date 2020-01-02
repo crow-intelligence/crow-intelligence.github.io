@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalabaksa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2701": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zalabaksa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2701"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalabaksa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2701"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zalabaksa", "selection": "selector2701"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalabaksa"}}}], "data": {"name": "data-34b880d52a4f5b7f3580ee55d372d12c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-34b880d52a4f5b7f3580ee55d372d12c": [{"date": 1986, "Zalabaksa": 850}, {"date": 1987, "Zalabaksa": 832}, {"date": 1988, "Zalabaksa": 834}, {"date": 1989, "Zalabaksa": 844}, {"date": 1990, "Zalabaksa": 824}, {"date": 1991, "Zalabaksa": 823}, {"date": 1992, "Zalabaksa": 792}, {"date": 1993, "Zalabaksa": 776}, {"date": 1994, "Zalabaksa": 767}, {"date": 1995, "Zalabaksa": 760}, {"date": 1996, "Zalabaksa": 745}, {"date": 1997, "Zalabaksa": 734}, {"date": 1998, "Zalabaksa": 736}, {"date": 1999, "Zalabaksa": 732}, {"date": 2000, "Zalabaksa": 716}, {"date": 2001, "Zalabaksa": 724}, {"date": 2002, "Zalabaksa": 714}, {"date": 2003, "Zalabaksa": 715}, {"date": 2004, "Zalabaksa": 700}, {"date": 2005, "Zalabaksa": 683}, {"date": 2006, "Zalabaksa": 673}, {"date": 2007, "Zalabaksa": 681}, {"date": 2008, "Zalabaksa": 671}, {"date": 2009, "Zalabaksa": 697}, {"date": 2010, "Zalabaksa": 713}, {"date": 2011, "Zalabaksa": 709}, {"date": 2012, "Zalabaksa": 705}, {"date": 2013, "Zalabaksa": 696}, {"date": 2014, "Zalabaksa": 696}, {"date": 2015, "Zalabaksa": 691}, {"date": 2016, "Zalabaksa": 689}, {"date": 2017, "Zalabaksa": 679}, {"date": 2018, "Zalabaksa": 663}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

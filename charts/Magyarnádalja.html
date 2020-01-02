@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarn\u00e1dalja"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2176": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Magyarn\u00e1dalja"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2176"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarn\u00e1dalja"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2176"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Magyarn\u00e1dalja", "selection": "selector2176"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarn\u00e1dalja"}}}], "data": {"name": "data-75b905763ec0c5f5e6d90209f28e097e"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-75b905763ec0c5f5e6d90209f28e097e": [{"date": 1986, "Magyarn\u00e1dalja": 205}, {"date": 1987, "Magyarn\u00e1dalja": 211}, {"date": 1988, "Magyarn\u00e1dalja": 207}, {"date": 1989, "Magyarn\u00e1dalja": 203}, {"date": 1990, "Magyarn\u00e1dalja": 187}, {"date": 1991, "Magyarn\u00e1dalja": 182}, {"date": 1992, "Magyarn\u00e1dalja": 177}, {"date": 1993, "Magyarn\u00e1dalja": 176}, {"date": 1994, "Magyarn\u00e1dalja": 174}, {"date": 1995, "Magyarn\u00e1dalja": 177}, {"date": 1996, "Magyarn\u00e1dalja": 180}, {"date": 1997, "Magyarn\u00e1dalja": 191}, {"date": 1998, "Magyarn\u00e1dalja": 191}, {"date": 1999, "Magyarn\u00e1dalja": 201}, {"date": 2000, "Magyarn\u00e1dalja": 202}, {"date": 2001, "Magyarn\u00e1dalja": 207}, {"date": 2002, "Magyarn\u00e1dalja": 209}, {"date": 2003, "Magyarn\u00e1dalja": 208}, {"date": 2004, "Magyarn\u00e1dalja": 210}, {"date": 2005, "Magyarn\u00e1dalja": 215}, {"date": 2006, "Magyarn\u00e1dalja": 212}, {"date": 2007, "Magyarn\u00e1dalja": 218}, {"date": 2008, "Magyarn\u00e1dalja": 226}, {"date": 2009, "Magyarn\u00e1dalja": 223}, {"date": 2010, "Magyarn\u00e1dalja": 228}, {"date": 2011, "Magyarn\u00e1dalja": 225}, {"date": 2012, "Magyarn\u00e1dalja": 229}, {"date": 2013, "Magyarn\u00e1dalja": 228}, {"date": 2014, "Magyarn\u00e1dalja": 227}, {"date": 2015, "Magyarn\u00e1dalja": 220}, {"date": 2016, "Magyarn\u00e1dalja": 218}, {"date": 2017, "Magyarn\u00e1dalja": 240}, {"date": 2018, "Magyarn\u00e1dalja": 242}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipolyvece"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1323": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Ipolyvece"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1323"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipolyvece"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1323"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Ipolyvece", "selection": "selector1323"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ipolyvece"}}}], "data": {"name": "data-78c620fea88e2c98d22f73c93c5a2912"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-78c620fea88e2c98d22f73c93c5a2912": [{"date": 1986, "Ipolyvece": 927}, {"date": 1987, "Ipolyvece": 932}, {"date": 1988, "Ipolyvece": 914}, {"date": 1989, "Ipolyvece": 910}, {"date": 1990, "Ipolyvece": 889}, {"date": 1991, "Ipolyvece": 882}, {"date": 1992, "Ipolyvece": 873}, {"date": 1993, "Ipolyvece": 886}, {"date": 1994, "Ipolyvece": 892}, {"date": 1995, "Ipolyvece": 890}, {"date": 1996, "Ipolyvece": 884}, {"date": 1997, "Ipolyvece": 882}, {"date": 1998, "Ipolyvece": 891}, {"date": 1999, "Ipolyvece": 887}, {"date": 2000, "Ipolyvece": 874}, {"date": 2001, "Ipolyvece": 861}, {"date": 2002, "Ipolyvece": 2247}, {"date": 2003, "Ipolyvece": 884}, {"date": 2004, "Ipolyvece": 887}, {"date": 2005, "Ipolyvece": 879}, {"date": 2006, "Ipolyvece": 875}, {"date": 2007, "Ipolyvece": 882}, {"date": 2008, "Ipolyvece": 888}, {"date": 2009, "Ipolyvece": 882}, {"date": 2010, "Ipolyvece": 858}, {"date": 2011, "Ipolyvece": 855}, {"date": 2012, "Ipolyvece": 836}, {"date": 2013, "Ipolyvece": 832}, {"date": 2014, "Ipolyvece": 826}, {"date": 2015, "Ipolyvece": 824}, {"date": 2016, "Ipolyvece": 815}, {"date": 2017, "Ipolyvece": 812}, {"date": 2018, "Ipolyvece": 813}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

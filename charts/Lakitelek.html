@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lakitelek"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2756": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Lakitelek"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2756"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lakitelek"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2756"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Lakitelek", "selection": "selector2756"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lakitelek"}}}], "data": {"name": "data-b781d228b7725329637d97185d9dfff4"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b781d228b7725329637d97185d9dfff4": [{"date": 1986, "Lakitelek": 4529}, {"date": 1987, "Lakitelek": 4549}, {"date": 1988, "Lakitelek": 4520}, {"date": 1989, "Lakitelek": 4549}, {"date": 1990, "Lakitelek": 4555}, {"date": 1991, "Lakitelek": 4521}, {"date": 1992, "Lakitelek": 4541}, {"date": 1993, "Lakitelek": 4544}, {"date": 1994, "Lakitelek": 4564}, {"date": 1995, "Lakitelek": 4538}, {"date": 1996, "Lakitelek": 4545}, {"date": 1997, "Lakitelek": 4549}, {"date": 1998, "Lakitelek": 4562}, {"date": 1999, "Lakitelek": 4591}, {"date": 2000, "Lakitelek": 4594}, {"date": 2001, "Lakitelek": 4595}, {"date": 2002, "Lakitelek": 4605}, {"date": 2003, "Lakitelek": 4627}, {"date": 2004, "Lakitelek": 4641}, {"date": 2005, "Lakitelek": 4613}, {"date": 2006, "Lakitelek": 4615}, {"date": 2007, "Lakitelek": 4645}, {"date": 2008, "Lakitelek": 4686}, {"date": 2009, "Lakitelek": 4666}, {"date": 2010, "Lakitelek": 4669}, {"date": 2011, "Lakitelek": 4646}, {"date": 2012, "Lakitelek": 4660}, {"date": 2013, "Lakitelek": 4654}, {"date": 2014, "Lakitelek": 4646}, {"date": 2015, "Lakitelek": 4658}, {"date": 2016, "Lakitelek": 4675}, {"date": 2017, "Lakitelek": 4724}, {"date": 2018, "Lakitelek": 4757}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

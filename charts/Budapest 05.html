@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budapest 05"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector005": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Budapest 05"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector005"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budapest 05"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector005"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Budapest 05", "selection": "selector005"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Budapest 05"}}}], "data": {"name": "data-1490f022f846fe736af3917f0087379f"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1490f022f846fe736af3917f0087379f": [{"date": 1986, "Budapest 05": 46770}, {"date": 1987, "Budapest 05": 46325}, {"date": 1988, "Budapest 05": 46027}, {"date": 1989, "Budapest 05": 45809}, {"date": 1990, "Budapest 05": 45435}, {"date": 1991, "Budapest 05": 44995}, {"date": 1992, "Budapest 05": 44164}, {"date": 1993, "Budapest 05": 43199}, {"date": 1994, "Budapest 05": 41820}, {"date": 1995, "Budapest 05": 40206}, {"date": 1996, "Budapest 05": 38654}, {"date": 1997, "Budapest 05": 37688}, {"date": 1998, "Budapest 05": 35925}, {"date": 1999, "Budapest 05": 34375}, {"date": 2000, "Budapest 05": 32630}, {"date": 2001, "Budapest 05": 31510}, {"date": 2002, "Budapest 05": 30668}, {"date": 2003, "Budapest 05": 30223}, {"date": 2004, "Budapest 05": 29289}, {"date": 2005, "Budapest 05": 28148}, {"date": 2006, "Budapest 05": 28001}, {"date": 2007, "Budapest 05": 27411}, {"date": 2008, "Budapest 05": 27117}, {"date": 2009, "Budapest 05": 26973}, {"date": 2010, "Budapest 05": 26738}, {"date": 2011, "Budapest 05": 26604}, {"date": 2012, "Budapest 05": 26484}, {"date": 2013, "Budapest 05": 26300}, {"date": 2014, "Budapest 05": 26270}, {"date": 2015, "Budapest 05": 26403}, {"date": 2016, "Budapest 05": 26166}, {"date": 2017, "Budapest 05": 25857}, {"date": 2018, "Budapest 05": 25877}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

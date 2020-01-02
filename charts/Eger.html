@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Eger"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2737": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Eger"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2737"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Eger"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2737"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Eger", "selection": "selector2737"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Eger"}}}], "data": {"name": "data-e6c68ba4e10c7675f262ea6f70cce90a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e6c68ba4e10c7675f262ea6f70cce90a": [{"date": 1986, "Eger": 60090}, {"date": 1987, "Eger": 60535}, {"date": 1988, "Eger": 61048}, {"date": 1989, "Eger": 61008}, {"date": 1990, "Eger": 61072}, {"date": 1991, "Eger": 61311}, {"date": 1992, "Eger": 61593}, {"date": 1993, "Eger": 61674}, {"date": 1994, "Eger": 61437}, {"date": 1995, "Eger": 60995}, {"date": 1996, "Eger": 60445}, {"date": 1997, "Eger": 59935}, {"date": 1998, "Eger": 59261}, {"date": 1999, "Eger": 58716}, {"date": 2000, "Eger": 58204}, {"date": 2001, "Eger": 57693}, {"date": 2002, "Eger": 57308}, {"date": 2003, "Eger": 56957}, {"date": 2004, "Eger": 56412}, {"date": 2005, "Eger": 55795}, {"date": 2006, "Eger": 55899}, {"date": 2007, "Eger": 55863}, {"date": 2008, "Eger": 55673}, {"date": 2009, "Eger": 55431}, {"date": 2010, "Eger": 55156}, {"date": 2011, "Eger": 54846}, {"date": 2012, "Eger": 54624}, {"date": 2013, "Eger": 54493}, {"date": 2014, "Eger": 54315}, {"date": 2015, "Eger": 54167}, {"date": 2016, "Eger": 53937}, {"date": 2017, "Eger": 53505}, {"date": 2018, "Eger": 53091}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

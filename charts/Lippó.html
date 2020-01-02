@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lipp\u00f3"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector258": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Lipp\u00f3"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector258"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lipp\u00f3"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector258"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Lipp\u00f3", "selection": "selector258"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lipp\u00f3"}}}], "data": {"name": "data-a2249ca7d5ef86623bc721d8855775a1"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a2249ca7d5ef86623bc721d8855775a1": [{"date": 1986, "Lipp\u00f3": 671}, {"date": 1987, "Lipp\u00f3": 673}, {"date": 1988, "Lipp\u00f3": 669}, {"date": 1989, "Lipp\u00f3": 671}, {"date": 1990, "Lipp\u00f3": 673}, {"date": 1991, "Lipp\u00f3": 668}, {"date": 1992, "Lipp\u00f3": 653}, {"date": 1993, "Lipp\u00f3": 664}, {"date": 1994, "Lipp\u00f3": 656}, {"date": 1995, "Lipp\u00f3": 658}, {"date": 1996, "Lipp\u00f3": 652}, {"date": 1997, "Lipp\u00f3": 655}, {"date": 1998, "Lipp\u00f3": 650}, {"date": 1999, "Lipp\u00f3": 642}, {"date": 2000, "Lipp\u00f3": 630}, {"date": 2001, "Lipp\u00f3": 631}, {"date": 2002, "Lipp\u00f3": 624}, {"date": 2003, "Lipp\u00f3": 617}, {"date": 2004, "Lipp\u00f3": 610}, {"date": 2005, "Lipp\u00f3": 604}, {"date": 2006, "Lipp\u00f3": 602}, {"date": 2007, "Lipp\u00f3": 584}, {"date": 2008, "Lipp\u00f3": 568}, {"date": 2009, "Lipp\u00f3": 546}, {"date": 2010, "Lipp\u00f3": 561}, {"date": 2011, "Lipp\u00f3": 544}, {"date": 2012, "Lipp\u00f3": 537}, {"date": 2013, "Lipp\u00f3": 536}, {"date": 2014, "Lipp\u00f3": 532}, {"date": 2015, "Lipp\u00f3": 520}, {"date": 2016, "Lipp\u00f3": 515}, {"date": 2017, "Lipp\u00f3": 519}, {"date": 2018, "Lipp\u00f3": 510}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

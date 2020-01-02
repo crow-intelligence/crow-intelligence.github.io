@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kerekharaszt"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1159": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kerekharaszt"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1159"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kerekharaszt"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1159"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kerekharaszt", "selection": "selector1159"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kerekharaszt"}}}], "data": {"name": "data-a8b563026b60b950c08076f74e61a81b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a8b563026b60b950c08076f74e61a81b": [{"date": 1986, "Kerekharaszt": 0}, {"date": 1987, "Kerekharaszt": 0}, {"date": 1988, "Kerekharaszt": 0}, {"date": 1989, "Kerekharaszt": 0}, {"date": 1990, "Kerekharaszt": 0}, {"date": 1991, "Kerekharaszt": 0}, {"date": 1992, "Kerekharaszt": 0}, {"date": 1993, "Kerekharaszt": 0}, {"date": 1994, "Kerekharaszt": 0}, {"date": 1995, "Kerekharaszt": 0}, {"date": 1996, "Kerekharaszt": 0}, {"date": 1997, "Kerekharaszt": 0}, {"date": 1998, "Kerekharaszt": 0}, {"date": 1999, "Kerekharaszt": 0}, {"date": 2000, "Kerekharaszt": 0}, {"date": 2001, "Kerekharaszt": 0}, {"date": 2002, "Kerekharaszt": 0}, {"date": 2003, "Kerekharaszt": 0}, {"date": 2004, "Kerekharaszt": 0}, {"date": 2005, "Kerekharaszt": 0}, {"date": 2006, "Kerekharaszt": 0}, {"date": 2007, "Kerekharaszt": 1018}, {"date": 2008, "Kerekharaszt": 1046}, {"date": 2009, "Kerekharaszt": 1033}, {"date": 2010, "Kerekharaszt": 1021}, {"date": 2011, "Kerekharaszt": 1034}, {"date": 2012, "Kerekharaszt": 1023}, {"date": 2013, "Kerekharaszt": 1018}, {"date": 2014, "Kerekharaszt": 1031}, {"date": 2015, "Kerekharaszt": 1032}, {"date": 2016, "Kerekharaszt": 1027}, {"date": 2017, "Kerekharaszt": 1002}, {"date": 2018, "Kerekharaszt": 1007}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

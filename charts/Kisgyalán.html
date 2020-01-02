@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisgyal\u00e1n"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1617": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kisgyal\u00e1n"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1617"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisgyal\u00e1n"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1617"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kisgyal\u00e1n", "selection": "selector1617"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kisgyal\u00e1n"}}}], "data": {"name": "data-79a787b9b5ef1c1ebb2caff0542207df"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-79a787b9b5ef1c1ebb2caff0542207df": [{"date": 1986, "Kisgyal\u00e1n": 294}, {"date": 1987, "Kisgyal\u00e1n": 293}, {"date": 1988, "Kisgyal\u00e1n": 299}, {"date": 1989, "Kisgyal\u00e1n": 307}, {"date": 1990, "Kisgyal\u00e1n": 304}, {"date": 1991, "Kisgyal\u00e1n": 308}, {"date": 1992, "Kisgyal\u00e1n": 295}, {"date": 1993, "Kisgyal\u00e1n": 285}, {"date": 1994, "Kisgyal\u00e1n": 281}, {"date": 1995, "Kisgyal\u00e1n": 264}, {"date": 1996, "Kisgyal\u00e1n": 266}, {"date": 1997, "Kisgyal\u00e1n": 265}, {"date": 1998, "Kisgyal\u00e1n": 278}, {"date": 1999, "Kisgyal\u00e1n": 264}, {"date": 2000, "Kisgyal\u00e1n": 269}, {"date": 2001, "Kisgyal\u00e1n": 257}, {"date": 2002, "Kisgyal\u00e1n": 257}, {"date": 2003, "Kisgyal\u00e1n": 261}, {"date": 2004, "Kisgyal\u00e1n": 247}, {"date": 2005, "Kisgyal\u00e1n": 234}, {"date": 2006, "Kisgyal\u00e1n": 229}, {"date": 2007, "Kisgyal\u00e1n": 226}, {"date": 2008, "Kisgyal\u00e1n": 218}, {"date": 2009, "Kisgyal\u00e1n": 215}, {"date": 2010, "Kisgyal\u00e1n": 213}, {"date": 2011, "Kisgyal\u00e1n": 213}, {"date": 2012, "Kisgyal\u00e1n": 221}, {"date": 2013, "Kisgyal\u00e1n": 215}, {"date": 2014, "Kisgyal\u00e1n": 222}, {"date": 2015, "Kisgyal\u00e1n": 222}, {"date": 2016, "Kisgyal\u00e1n": 222}, {"date": 2017, "Kisgyal\u00e1n": 220}, {"date": 2018, "Kisgyal\u00e1n": 224}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

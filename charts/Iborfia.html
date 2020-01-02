@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Iborfia"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2556": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Iborfia"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2556"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Iborfia"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2556"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Iborfia", "selection": "selector2556"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Iborfia"}}}], "data": {"name": "data-fe6cba94a65e07cd37cb334be64ec240"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-fe6cba94a65e07cd37cb334be64ec240": [{"date": 1986, "Iborfia": 45}, {"date": 1987, "Iborfia": 40}, {"date": 1988, "Iborfia": 38}, {"date": 1989, "Iborfia": 35}, {"date": 1990, "Iborfia": 33}, {"date": 1991, "Iborfia": 31}, {"date": 1992, "Iborfia": 31}, {"date": 1993, "Iborfia": 31}, {"date": 1994, "Iborfia": 30}, {"date": 1995, "Iborfia": 25}, {"date": 1996, "Iborfia": 23}, {"date": 1997, "Iborfia": 22}, {"date": 1998, "Iborfia": 20}, {"date": 1999, "Iborfia": 20}, {"date": 2000, "Iborfia": 19}, {"date": 2001, "Iborfia": 17}, {"date": 2002, "Iborfia": 15}, {"date": 2003, "Iborfia": 18}, {"date": 2004, "Iborfia": 16}, {"date": 2005, "Iborfia": 15}, {"date": 2006, "Iborfia": 14}, {"date": 2007, "Iborfia": 21}, {"date": 2008, "Iborfia": 16}, {"date": 2009, "Iborfia": 10}, {"date": 2010, "Iborfia": 11}, {"date": 2011, "Iborfia": 13}, {"date": 2012, "Iborfia": 13}, {"date": 2013, "Iborfia": 12}, {"date": 2014, "Iborfia": 12}, {"date": 2015, "Iborfia": 13}, {"date": 2016, "Iborfia": 10}, {"date": 2017, "Iborfia": 9}, {"date": 2018, "Iborfia": 9}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

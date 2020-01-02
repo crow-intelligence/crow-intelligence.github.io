@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarhomorog"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1087": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Magyarhomorog"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1087"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarhomorog"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1087"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Magyarhomorog", "selection": "selector1087"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarhomorog"}}}], "data": {"name": "data-70a4eac58593eaaf1b85bf373d044d9e"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-70a4eac58593eaaf1b85bf373d044d9e": [{"date": 1986, "Magyarhomorog": 1143}, {"date": 1987, "Magyarhomorog": 1144}, {"date": 1988, "Magyarhomorog": 1138}, {"date": 1989, "Magyarhomorog": 1149}, {"date": 1990, "Magyarhomorog": 1122}, {"date": 1991, "Magyarhomorog": 1111}, {"date": 1992, "Magyarhomorog": 1128}, {"date": 1993, "Magyarhomorog": 1113}, {"date": 1994, "Magyarhomorog": 1127}, {"date": 1995, "Magyarhomorog": 1104}, {"date": 1996, "Magyarhomorog": 1095}, {"date": 1997, "Magyarhomorog": 1084}, {"date": 1998, "Magyarhomorog": 1066}, {"date": 1999, "Magyarhomorog": 1053}, {"date": 2000, "Magyarhomorog": 1050}, {"date": 2001, "Magyarhomorog": 1027}, {"date": 2002, "Magyarhomorog": 1017}, {"date": 2003, "Magyarhomorog": 1019}, {"date": 2004, "Magyarhomorog": 1009}, {"date": 2005, "Magyarhomorog": 1019}, {"date": 2006, "Magyarhomorog": 1025}, {"date": 2007, "Magyarhomorog": 1010}, {"date": 2008, "Magyarhomorog": 1010}, {"date": 2009, "Magyarhomorog": 984}, {"date": 2010, "Magyarhomorog": 973}, {"date": 2011, "Magyarhomorog": 968}, {"date": 2012, "Magyarhomorog": 1003}, {"date": 2013, "Magyarhomorog": 971}, {"date": 2014, "Magyarhomorog": 970}, {"date": 2015, "Magyarhomorog": 943}, {"date": 2016, "Magyarhomorog": 936}, {"date": 2017, "Magyarhomorog": 907}, {"date": 2018, "Magyarhomorog": 898}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

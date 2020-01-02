@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hetyef\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2350": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Hetyef\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2350"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hetyef\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2350"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Hetyef\u0151", "selection": "selector2350"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hetyef\u0151"}}}], "data": {"name": "data-1b2eae797a8cc98f3aa5f64b7544d3c9"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1b2eae797a8cc98f3aa5f64b7544d3c9": [{"date": 1986, "Hetyef\u0151": 131}, {"date": 1987, "Hetyef\u0151": 126}, {"date": 1988, "Hetyef\u0151": 121}, {"date": 1989, "Hetyef\u0151": 119}, {"date": 1990, "Hetyef\u0151": 121}, {"date": 1991, "Hetyef\u0151": 108}, {"date": 1992, "Hetyef\u0151": 111}, {"date": 1993, "Hetyef\u0151": 118}, {"date": 1994, "Hetyef\u0151": 124}, {"date": 1995, "Hetyef\u0151": 134}, {"date": 1996, "Hetyef\u0151": 135}, {"date": 1997, "Hetyef\u0151": 127}, {"date": 1998, "Hetyef\u0151": 119}, {"date": 1999, "Hetyef\u0151": 114}, {"date": 2000, "Hetyef\u0151": 108}, {"date": 2001, "Hetyef\u0151": 110}, {"date": 2002, "Hetyef\u0151": 105}, {"date": 2003, "Hetyef\u0151": 102}, {"date": 2004, "Hetyef\u0151": 98}, {"date": 2005, "Hetyef\u0151": 106}, {"date": 2006, "Hetyef\u0151": 99}, {"date": 2007, "Hetyef\u0151": 107}, {"date": 2008, "Hetyef\u0151": 98}, {"date": 2009, "Hetyef\u0151": 95}, {"date": 2010, "Hetyef\u0151": 93}, {"date": 2011, "Hetyef\u0151": 93}, {"date": 2012, "Hetyef\u0151": 93}, {"date": 2013, "Hetyef\u0151": 93}, {"date": 2014, "Hetyef\u0151": 86}, {"date": 2015, "Hetyef\u0151": 89}, {"date": 2016, "Hetyef\u0151": 89}, {"date": 2017, "Hetyef\u0151": 96}, {"date": 2018, "Hetyef\u0151": 94}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

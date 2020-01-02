@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsodgeszt"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector484": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Borsodgeszt"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector484"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsodgeszt"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector484"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Borsodgeszt", "selection": "selector484"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsodgeszt"}}}], "data": {"name": "data-7e203f63462e67dc70cabff46f7b98e6"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-7e203f63462e67dc70cabff46f7b98e6": [{"date": 1986, "Borsodgeszt": 428}, {"date": 1987, "Borsodgeszt": 414}, {"date": 1988, "Borsodgeszt": 404}, {"date": 1989, "Borsodgeszt": 390}, {"date": 1990, "Borsodgeszt": 383}, {"date": 1991, "Borsodgeszt": 373}, {"date": 1992, "Borsodgeszt": 364}, {"date": 1993, "Borsodgeszt": 366}, {"date": 1994, "Borsodgeszt": 359}, {"date": 1995, "Borsodgeszt": 359}, {"date": 1996, "Borsodgeszt": 343}, {"date": 1997, "Borsodgeszt": 347}, {"date": 1998, "Borsodgeszt": 342}, {"date": 1999, "Borsodgeszt": 337}, {"date": 2000, "Borsodgeszt": 328}, {"date": 2001, "Borsodgeszt": 334}, {"date": 2002, "Borsodgeszt": 326}, {"date": 2003, "Borsodgeszt": 334}, {"date": 2004, "Borsodgeszt": 324}, {"date": 2005, "Borsodgeszt": 324}, {"date": 2006, "Borsodgeszt": 318}, {"date": 2007, "Borsodgeszt": 305}, {"date": 2008, "Borsodgeszt": 310}, {"date": 2009, "Borsodgeszt": 301}, {"date": 2010, "Borsodgeszt": 294}, {"date": 2011, "Borsodgeszt": 286}, {"date": 2012, "Borsodgeszt": 274}, {"date": 2013, "Borsodgeszt": 269}, {"date": 2014, "Borsodgeszt": 271}, {"date": 2015, "Borsodgeszt": 284}, {"date": 2016, "Borsodgeszt": 282}, {"date": 2017, "Borsodgeszt": 288}, {"date": 2018, "Borsodgeszt": 288}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

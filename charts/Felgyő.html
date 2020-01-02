@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Felgy\u0151"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector780": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Felgy\u0151"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector780"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Felgy\u0151"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector780"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Felgy\u0151", "selection": "selector780"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Felgy\u0151"}}}], "data": {"name": "data-122587cc180c3aef29b09d1894b49e87"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-122587cc180c3aef29b09d1894b49e87": [{"date": 1986, "Felgy\u0151": 1549}, {"date": 1987, "Felgy\u0151": 1527}, {"date": 1988, "Felgy\u0151": 1476}, {"date": 1989, "Felgy\u0151": 1453}, {"date": 1990, "Felgy\u0151": 1448}, {"date": 1991, "Felgy\u0151": 1464}, {"date": 1992, "Felgy\u0151": 1454}, {"date": 1993, "Felgy\u0151": 1444}, {"date": 1994, "Felgy\u0151": 1433}, {"date": 1995, "Felgy\u0151": 1463}, {"date": 1996, "Felgy\u0151": 1449}, {"date": 1997, "Felgy\u0151": 1461}, {"date": 1998, "Felgy\u0151": 1477}, {"date": 1999, "Felgy\u0151": 1474}, {"date": 2000, "Felgy\u0151": 1431}, {"date": 2001, "Felgy\u0151": 1438}, {"date": 2002, "Felgy\u0151": 1446}, {"date": 2003, "Felgy\u0151": 1445}, {"date": 2004, "Felgy\u0151": 1435}, {"date": 2005, "Felgy\u0151": 1427}, {"date": 2006, "Felgy\u0151": 1385}, {"date": 2007, "Felgy\u0151": 1367}, {"date": 2008, "Felgy\u0151": 1345}, {"date": 2009, "Felgy\u0151": 1317}, {"date": 2010, "Felgy\u0151": 1303}, {"date": 2011, "Felgy\u0151": 1300}, {"date": 2012, "Felgy\u0151": 1290}, {"date": 2013, "Felgy\u0151": 1270}, {"date": 2014, "Felgy\u0151": 1251}, {"date": 2015, "Felgy\u0151": 1247}, {"date": 2016, "Felgy\u0151": 1231}, {"date": 2017, "Felgy\u0151": 1210}, {"date": 2018, "Felgy\u0151": 1202}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

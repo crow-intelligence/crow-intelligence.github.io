@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Marcali"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3080": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Marcali"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3080"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Marcali"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3080"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Marcali", "selection": "selector3080"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Marcali"}}}], "data": {"name": "data-9a188a17148ebd552fad85646c969d8e"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-9a188a17148ebd552fad85646c969d8e": [{"date": 1986, "Marcali": 13053}, {"date": 1987, "Marcali": 13129}, {"date": 1988, "Marcali": 13093}, {"date": 1989, "Marcali": 13091}, {"date": 1990, "Marcali": 13111}, {"date": 1991, "Marcali": 13202}, {"date": 1992, "Marcali": 13269}, {"date": 1993, "Marcali": 13218}, {"date": 1994, "Marcali": 13172}, {"date": 1995, "Marcali": 13115}, {"date": 1996, "Marcali": 13102}, {"date": 1997, "Marcali": 13117}, {"date": 1998, "Marcali": 13026}, {"date": 1999, "Marcali": 12957}, {"date": 2000, "Marcali": 12916}, {"date": 2001, "Marcali": 12817}, {"date": 2002, "Marcali": 12746}, {"date": 2003, "Marcali": 12682}, {"date": 2004, "Marcali": 12559}, {"date": 2005, "Marcali": 12450}, {"date": 2006, "Marcali": 12346}, {"date": 2007, "Marcali": 12302}, {"date": 2008, "Marcali": 12240}, {"date": 2009, "Marcali": 12128}, {"date": 2010, "Marcali": 12027}, {"date": 2011, "Marcali": 11950}, {"date": 2012, "Marcali": 11899}, {"date": 2013, "Marcali": 11849}, {"date": 2014, "Marcali": 11806}, {"date": 2015, "Marcali": 11745}, {"date": 2016, "Marcali": 11647}, {"date": 2017, "Marcali": 11517}, {"date": 2018, "Marcali": 11500}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

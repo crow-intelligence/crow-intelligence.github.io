@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Leps\u00e9ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2784": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Leps\u00e9ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2784"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Leps\u00e9ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2784"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Leps\u00e9ny", "selection": "selector2784"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Leps\u00e9ny"}}}], "data": {"name": "data-ffa1cb001b63e2e3b9a54dd6f31fb891"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ffa1cb001b63e2e3b9a54dd6f31fb891": [{"date": 1986, "Leps\u00e9ny": 2977}, {"date": 1987, "Leps\u00e9ny": 2956}, {"date": 1988, "Leps\u00e9ny": 2996}, {"date": 1989, "Leps\u00e9ny": 3033}, {"date": 1990, "Leps\u00e9ny": 3031}, {"date": 1991, "Leps\u00e9ny": 3065}, {"date": 1992, "Leps\u00e9ny": 3093}, {"date": 1993, "Leps\u00e9ny": 3098}, {"date": 1994, "Leps\u00e9ny": 3100}, {"date": 1995, "Leps\u00e9ny": 3107}, {"date": 1996, "Leps\u00e9ny": 3189}, {"date": 1997, "Leps\u00e9ny": 3208}, {"date": 1998, "Leps\u00e9ny": 3226}, {"date": 1999, "Leps\u00e9ny": 3198}, {"date": 2000, "Leps\u00e9ny": 3246}, {"date": 2001, "Leps\u00e9ny": 3289}, {"date": 2002, "Leps\u00e9ny": 3287}, {"date": 2003, "Leps\u00e9ny": 3263}, {"date": 2004, "Leps\u00e9ny": 3277}, {"date": 2005, "Leps\u00e9ny": 3298}, {"date": 2006, "Leps\u00e9ny": 3300}, {"date": 2007, "Leps\u00e9ny": 3318}, {"date": 2008, "Leps\u00e9ny": 3331}, {"date": 2009, "Leps\u00e9ny": 3306}, {"date": 2010, "Leps\u00e9ny": 3284}, {"date": 2011, "Leps\u00e9ny": 3242}, {"date": 2012, "Leps\u00e9ny": 3225}, {"date": 2013, "Leps\u00e9ny": 3175}, {"date": 2014, "Leps\u00e9ny": 3176}, {"date": 2015, "Leps\u00e9ny": 3164}, {"date": 2016, "Leps\u00e9ny": 3185}, {"date": 2017, "Leps\u00e9ny": 3193}, {"date": 2018, "Leps\u00e9ny": 3189}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

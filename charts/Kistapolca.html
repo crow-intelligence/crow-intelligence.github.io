@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kistapolca"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector244": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kistapolca"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector244"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kistapolca"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector244"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kistapolca", "selection": "selector244"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kistapolca"}}}], "data": {"name": "data-bef87ea308cf711c052f8023b2b9cc18"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-bef87ea308cf711c052f8023b2b9cc18": [{"date": 1986, "Kistapolca": 219}, {"date": 1987, "Kistapolca": 222}, {"date": 1988, "Kistapolca": 218}, {"date": 1989, "Kistapolca": 213}, {"date": 1990, "Kistapolca": 216}, {"date": 1991, "Kistapolca": 211}, {"date": 1992, "Kistapolca": 215}, {"date": 1993, "Kistapolca": 213}, {"date": 1994, "Kistapolca": 218}, {"date": 1995, "Kistapolca": 224}, {"date": 1996, "Kistapolca": 227}, {"date": 1997, "Kistapolca": 231}, {"date": 1998, "Kistapolca": 229}, {"date": 1999, "Kistapolca": 236}, {"date": 2000, "Kistapolca": 219}, {"date": 2001, "Kistapolca": 220}, {"date": 2002, "Kistapolca": 229}, {"date": 2003, "Kistapolca": 228}, {"date": 2004, "Kistapolca": 225}, {"date": 2005, "Kistapolca": 233}, {"date": 2006, "Kistapolca": 220}, {"date": 2007, "Kistapolca": 215}, {"date": 2008, "Kistapolca": 212}, {"date": 2009, "Kistapolca": 210}, {"date": 2010, "Kistapolca": 209}, {"date": 2011, "Kistapolca": 215}, {"date": 2012, "Kistapolca": 209}, {"date": 2013, "Kistapolca": 212}, {"date": 2014, "Kistapolca": 205}, {"date": 2015, "Kistapolca": 210}, {"date": 2016, "Kistapolca": 210}, {"date": 2017, "Kistapolca": 201}, {"date": 2018, "Kistapolca": 203}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

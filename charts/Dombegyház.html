@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dombegyh\u00e1z"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2765": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dombegyh\u00e1z"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2765"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dombegyh\u00e1z"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2765"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dombegyh\u00e1z", "selection": "selector2765"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dombegyh\u00e1z"}}}], "data": {"name": "data-a7d96f8fd7ff8489eb17f17c37461353"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-a7d96f8fd7ff8489eb17f17c37461353": [{"date": 1986, "Dombegyh\u00e1z": 2766}, {"date": 1987, "Dombegyh\u00e1z": 2734}, {"date": 1988, "Dombegyh\u00e1z": 2713}, {"date": 1989, "Dombegyh\u00e1z": 2693}, {"date": 1990, "Dombegyh\u00e1z": 2673}, {"date": 1991, "Dombegyh\u00e1z": 2678}, {"date": 1992, "Dombegyh\u00e1z": 2674}, {"date": 1993, "Dombegyh\u00e1z": 2661}, {"date": 1994, "Dombegyh\u00e1z": 2638}, {"date": 1995, "Dombegyh\u00e1z": 2633}, {"date": 1996, "Dombegyh\u00e1z": 2593}, {"date": 1997, "Dombegyh\u00e1z": 2558}, {"date": 1998, "Dombegyh\u00e1z": 2523}, {"date": 1999, "Dombegyh\u00e1z": 2503}, {"date": 2000, "Dombegyh\u00e1z": 2464}, {"date": 2001, "Dombegyh\u00e1z": 2470}, {"date": 2002, "Dombegyh\u00e1z": 4669}, {"date": 2003, "Dombegyh\u00e1z": 2424}, {"date": 2004, "Dombegyh\u00e1z": 2432}, {"date": 2005, "Dombegyh\u00e1z": 2389}, {"date": 2006, "Dombegyh\u00e1z": 2386}, {"date": 2007, "Dombegyh\u00e1z": 2362}, {"date": 2008, "Dombegyh\u00e1z": 2314}, {"date": 2009, "Dombegyh\u00e1z": 2213}, {"date": 2010, "Dombegyh\u00e1z": 2215}, {"date": 2011, "Dombegyh\u00e1z": 2181}, {"date": 2012, "Dombegyh\u00e1z": 2131}, {"date": 2013, "Dombegyh\u00e1z": 2144}, {"date": 2014, "Dombegyh\u00e1z": 2160}, {"date": 2015, "Dombegyh\u00e1z": 2153}, {"date": 2016, "Dombegyh\u00e1z": 2141}, {"date": 2017, "Dombegyh\u00e1z": 2147}, {"date": 2018, "Dombegyh\u00e1z": 2134}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

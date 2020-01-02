@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gosztola"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2546": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Gosztola"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2546"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gosztola"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2546"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Gosztola", "selection": "selector2546"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gosztola"}}}], "data": {"name": "data-442a6f2e1357b9c5b86e5793e4860ba6"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-442a6f2e1357b9c5b86e5793e4860ba6": [{"date": 1986, "Gosztola": 25}, {"date": 1987, "Gosztola": 24}, {"date": 1988, "Gosztola": 22}, {"date": 1989, "Gosztola": 22}, {"date": 1990, "Gosztola": 21}, {"date": 1991, "Gosztola": 20}, {"date": 1992, "Gosztola": 18}, {"date": 1993, "Gosztola": 17}, {"date": 1994, "Gosztola": 19}, {"date": 1995, "Gosztola": 19}, {"date": 1996, "Gosztola": 17}, {"date": 1997, "Gosztola": 22}, {"date": 1998, "Gosztola": 17}, {"date": 1999, "Gosztola": 19}, {"date": 2000, "Gosztola": 21}, {"date": 2001, "Gosztola": 20}, {"date": 2002, "Gosztola": 21}, {"date": 2003, "Gosztola": 52}, {"date": 2004, "Gosztola": 41}, {"date": 2005, "Gosztola": 41}, {"date": 2006, "Gosztola": 44}, {"date": 2007, "Gosztola": 45}, {"date": 2008, "Gosztola": 49}, {"date": 2009, "Gosztola": 52}, {"date": 2010, "Gosztola": 54}, {"date": 2011, "Gosztola": 52}, {"date": 2012, "Gosztola": 60}, {"date": 2013, "Gosztola": 62}, {"date": 2014, "Gosztola": 63}, {"date": 2015, "Gosztola": 64}, {"date": 2016, "Gosztola": 66}, {"date": 2017, "Gosztola": 63}, {"date": 2018, "Gosztola": 63}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

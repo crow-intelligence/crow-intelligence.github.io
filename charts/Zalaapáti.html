@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaap\u00e1ti"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2700": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Zalaap\u00e1ti"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2700"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaap\u00e1ti"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2700"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Zalaap\u00e1ti", "selection": "selector2700"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Zalaap\u00e1ti"}}}], "data": {"name": "data-19176897d88db12e6458028be06d3400"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-19176897d88db12e6458028be06d3400": [{"date": 1986, "Zalaap\u00e1ti": 1856}, {"date": 1987, "Zalaap\u00e1ti": 1839}, {"date": 1988, "Zalaap\u00e1ti": 1856}, {"date": 1989, "Zalaap\u00e1ti": 1881}, {"date": 1990, "Zalaap\u00e1ti": 1866}, {"date": 1991, "Zalaap\u00e1ti": 1860}, {"date": 1992, "Zalaap\u00e1ti": 1830}, {"date": 1993, "Zalaap\u00e1ti": 1835}, {"date": 1994, "Zalaap\u00e1ti": 1819}, {"date": 1995, "Zalaap\u00e1ti": 1828}, {"date": 1996, "Zalaap\u00e1ti": 1822}, {"date": 1997, "Zalaap\u00e1ti": 1793}, {"date": 1998, "Zalaap\u00e1ti": 1771}, {"date": 1999, "Zalaap\u00e1ti": 1738}, {"date": 2000, "Zalaap\u00e1ti": 1713}, {"date": 2001, "Zalaap\u00e1ti": 1701}, {"date": 2002, "Zalaap\u00e1ti": 1710}, {"date": 2003, "Zalaap\u00e1ti": 1698}, {"date": 2004, "Zalaap\u00e1ti": 1700}, {"date": 2005, "Zalaap\u00e1ti": 1656}, {"date": 2006, "Zalaap\u00e1ti": 1657}, {"date": 2007, "Zalaap\u00e1ti": 1642}, {"date": 2008, "Zalaap\u00e1ti": 1656}, {"date": 2009, "Zalaap\u00e1ti": 1675}, {"date": 2010, "Zalaap\u00e1ti": 1667}, {"date": 2011, "Zalaap\u00e1ti": 1713}, {"date": 2012, "Zalaap\u00e1ti": 1682}, {"date": 2013, "Zalaap\u00e1ti": 1713}, {"date": 2014, "Zalaap\u00e1ti": 1735}, {"date": 2015, "Zalaap\u00e1ti": 1731}, {"date": 2016, "Zalaap\u00e1ti": 1733}, {"date": 2017, "Zalaap\u00e1ti": 1706}, {"date": 2018, "Zalaap\u00e1ti": 1693}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

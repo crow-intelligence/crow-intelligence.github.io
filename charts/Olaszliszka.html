@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Olaszliszka"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector646": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Olaszliszka"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector646"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Olaszliszka"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector646"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Olaszliszka", "selection": "selector646"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Olaszliszka"}}}], "data": {"name": "data-8f845115e3f7a95364c00dd98559aa1a"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-8f845115e3f7a95364c00dd98559aa1a": [{"date": 1986, "Olaszliszka": 2176}, {"date": 1987, "Olaszliszka": 2142}, {"date": 1988, "Olaszliszka": 2091}, {"date": 1989, "Olaszliszka": 2079}, {"date": 1990, "Olaszliszka": 2048}, {"date": 1991, "Olaszliszka": 2015}, {"date": 1992, "Olaszliszka": 2020}, {"date": 1993, "Olaszliszka": 1979}, {"date": 1994, "Olaszliszka": 1947}, {"date": 1995, "Olaszliszka": 1965}, {"date": 1996, "Olaszliszka": 1945}, {"date": 1997, "Olaszliszka": 1928}, {"date": 1998, "Olaszliszka": 1898}, {"date": 1999, "Olaszliszka": 1887}, {"date": 2000, "Olaszliszka": 1864}, {"date": 2001, "Olaszliszka": 1839}, {"date": 2002, "Olaszliszka": 1834}, {"date": 2003, "Olaszliszka": 1827}, {"date": 2004, "Olaszliszka": 1824}, {"date": 2005, "Olaszliszka": 1790}, {"date": 2006, "Olaszliszka": 1778}, {"date": 2007, "Olaszliszka": 1769}, {"date": 2008, "Olaszliszka": 1754}, {"date": 2009, "Olaszliszka": 1739}, {"date": 2010, "Olaszliszka": 1739}, {"date": 2011, "Olaszliszka": 1730}, {"date": 2012, "Olaszliszka": 1723}, {"date": 2013, "Olaszliszka": 1740}, {"date": 2014, "Olaszliszka": 1725}, {"date": 2015, "Olaszliszka": 1709}, {"date": 2016, "Olaszliszka": 1725}, {"date": 2017, "Olaszliszka": 1737}, {"date": 2018, "Olaszliszka": 1713}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gerde"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector189": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Gerde"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector189"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gerde"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector189"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Gerde", "selection": "selector189"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Gerde"}}}], "data": {"name": "data-0117dee961ca20177a046646791e98c2"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-0117dee961ca20177a046646791e98c2": [{"date": 1986, "Gerde": 562}, {"date": 1987, "Gerde": 551}, {"date": 1988, "Gerde": 522}, {"date": 1989, "Gerde": 515}, {"date": 1990, "Gerde": 516}, {"date": 1991, "Gerde": 518}, {"date": 1992, "Gerde": 500}, {"date": 1993, "Gerde": 500}, {"date": 1994, "Gerde": 517}, {"date": 1995, "Gerde": 525}, {"date": 1996, "Gerde": 525}, {"date": 1997, "Gerde": 541}, {"date": 1998, "Gerde": 539}, {"date": 1999, "Gerde": 535}, {"date": 2000, "Gerde": 549}, {"date": 2001, "Gerde": 575}, {"date": 2002, "Gerde": 594}, {"date": 2003, "Gerde": 597}, {"date": 2004, "Gerde": 609}, {"date": 2005, "Gerde": 597}, {"date": 2006, "Gerde": 592}, {"date": 2007, "Gerde": 603}, {"date": 2008, "Gerde": 615}, {"date": 2009, "Gerde": 623}, {"date": 2010, "Gerde": 614}, {"date": 2011, "Gerde": 594}, {"date": 2012, "Gerde": 607}, {"date": 2013, "Gerde": 601}, {"date": 2014, "Gerde": 602}, {"date": 2015, "Gerde": 590}, {"date": 2016, "Gerde": 579}, {"date": 2017, "Gerde": 569}, {"date": 2018, "Gerde": 571}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kerkaszentkir\u00e1ly"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2571": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kerkaszentkir\u00e1ly"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2571"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kerkaszentkir\u00e1ly"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2571"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kerkaszentkir\u00e1ly", "selection": "selector2571"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kerkaszentkir\u00e1ly"}}}], "data": {"name": "data-e4e59d4cfe33de4b62205750f3e9e980"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e4e59d4cfe33de4b62205750f3e9e980": [{"date": 1986, "Kerkaszentkir\u00e1ly": 380}, {"date": 1987, "Kerkaszentkir\u00e1ly": 372}, {"date": 1988, "Kerkaszentkir\u00e1ly": 369}, {"date": 1989, "Kerkaszentkir\u00e1ly": 369}, {"date": 1990, "Kerkaszentkir\u00e1ly": 365}, {"date": 1991, "Kerkaszentkir\u00e1ly": 353}, {"date": 1992, "Kerkaszentkir\u00e1ly": 338}, {"date": 1993, "Kerkaszentkir\u00e1ly": 339}, {"date": 1994, "Kerkaszentkir\u00e1ly": 328}, {"date": 1995, "Kerkaszentkir\u00e1ly": 322}, {"date": 1996, "Kerkaszentkir\u00e1ly": 318}, {"date": 1997, "Kerkaszentkir\u00e1ly": 304}, {"date": 1998, "Kerkaszentkir\u00e1ly": 297}, {"date": 1999, "Kerkaszentkir\u00e1ly": 303}, {"date": 2000, "Kerkaszentkir\u00e1ly": 297}, {"date": 2001, "Kerkaszentkir\u00e1ly": 291}, {"date": 2002, "Kerkaszentkir\u00e1ly": 286}, {"date": 2003, "Kerkaszentkir\u00e1ly": 288}, {"date": 2004, "Kerkaszentkir\u00e1ly": 285}, {"date": 2005, "Kerkaszentkir\u00e1ly": 282}, {"date": 2006, "Kerkaszentkir\u00e1ly": 276}, {"date": 2007, "Kerkaszentkir\u00e1ly": 283}, {"date": 2008, "Kerkaszentkir\u00e1ly": 277}, {"date": 2009, "Kerkaszentkir\u00e1ly": 271}, {"date": 2010, "Kerkaszentkir\u00e1ly": 267}, {"date": 2011, "Kerkaszentkir\u00e1ly": 261}, {"date": 2012, "Kerkaszentkir\u00e1ly": 261}, {"date": 2013, "Kerkaszentkir\u00e1ly": 251}, {"date": 2014, "Kerkaszentkir\u00e1ly": 246}, {"date": 2015, "Kerkaszentkir\u00e1ly": 244}, {"date": 2016, "Kerkaszentkir\u00e1ly": 237}, {"date": 2017, "Kerkaszentkir\u00e1ly": 241}, {"date": 2018, "Kerkaszentkir\u00e1ly": 241}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

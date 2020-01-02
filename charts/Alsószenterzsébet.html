@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Als\u00f3szenterzs\u00e9bet"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2488": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Als\u00f3szenterzs\u00e9bet"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2488"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Als\u00f3szenterzs\u00e9bet"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2488"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Als\u00f3szenterzs\u00e9bet", "selection": "selector2488"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Als\u00f3szenterzs\u00e9bet"}}}], "data": {"name": "data-b2f0451ee9e4662f6aba7a9f2c5417af"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-b2f0451ee9e4662f6aba7a9f2c5417af": [{"date": 1986, "Als\u00f3szenterzs\u00e9bet": 127}, {"date": 1987, "Als\u00f3szenterzs\u00e9bet": 126}, {"date": 1988, "Als\u00f3szenterzs\u00e9bet": 125}, {"date": 1989, "Als\u00f3szenterzs\u00e9bet": 122}, {"date": 1990, "Als\u00f3szenterzs\u00e9bet": 118}, {"date": 1991, "Als\u00f3szenterzs\u00e9bet": 114}, {"date": 1992, "Als\u00f3szenterzs\u00e9bet": 112}, {"date": 1993, "Als\u00f3szenterzs\u00e9bet": 103}, {"date": 1994, "Als\u00f3szenterzs\u00e9bet": 102}, {"date": 1995, "Als\u00f3szenterzs\u00e9bet": 104}, {"date": 1996, "Als\u00f3szenterzs\u00e9bet": 104}, {"date": 1997, "Als\u00f3szenterzs\u00e9bet": 101}, {"date": 1998, "Als\u00f3szenterzs\u00e9bet": 99}, {"date": 1999, "Als\u00f3szenterzs\u00e9bet": 93}, {"date": 2000, "Als\u00f3szenterzs\u00e9bet": 94}, {"date": 2001, "Als\u00f3szenterzs\u00e9bet": 92}, {"date": 2002, "Als\u00f3szenterzs\u00e9bet": 92}, {"date": 2003, "Als\u00f3szenterzs\u00e9bet": 93}, {"date": 2004, "Als\u00f3szenterzs\u00e9bet": 86}, {"date": 2005, "Als\u00f3szenterzs\u00e9bet": 79}, {"date": 2006, "Als\u00f3szenterzs\u00e9bet": 81}, {"date": 2007, "Als\u00f3szenterzs\u00e9bet": 82}, {"date": 2008, "Als\u00f3szenterzs\u00e9bet": 82}, {"date": 2009, "Als\u00f3szenterzs\u00e9bet": 80}, {"date": 2010, "Als\u00f3szenterzs\u00e9bet": 79}, {"date": 2011, "Als\u00f3szenterzs\u00e9bet": 78}, {"date": 2012, "Als\u00f3szenterzs\u00e9bet": 73}, {"date": 2013, "Als\u00f3szenterzs\u00e9bet": 74}, {"date": 2014, "Als\u00f3szenterzs\u00e9bet": 65}, {"date": 2015, "Als\u00f3szenterzs\u00e9bet": 67}, {"date": 2016, "Als\u00f3szenterzs\u00e9bet": 63}, {"date": 2017, "Als\u00f3szenterzs\u00e9bet": 64}, {"date": 2018, "Als\u00f3szenterzs\u00e9bet": 61}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

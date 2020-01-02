@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szulim\u00e1n"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector367": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szulim\u00e1n"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector367"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szulim\u00e1n"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector367"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szulim\u00e1n", "selection": "selector367"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szulim\u00e1n"}}}], "data": {"name": "data-8b006cc8343acbdb344bf8c0e34e93e7"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-8b006cc8343acbdb344bf8c0e34e93e7": [{"date": 1986, "Szulim\u00e1n": 322}, {"date": 1987, "Szulim\u00e1n": 323}, {"date": 1988, "Szulim\u00e1n": 324}, {"date": 1989, "Szulim\u00e1n": 328}, {"date": 1990, "Szulim\u00e1n": 338}, {"date": 1991, "Szulim\u00e1n": 324}, {"date": 1992, "Szulim\u00e1n": 324}, {"date": 1993, "Szulim\u00e1n": 326}, {"date": 1994, "Szulim\u00e1n": 326}, {"date": 1995, "Szulim\u00e1n": 326}, {"date": 1996, "Szulim\u00e1n": 329}, {"date": 1997, "Szulim\u00e1n": 319}, {"date": 1998, "Szulim\u00e1n": 311}, {"date": 1999, "Szulim\u00e1n": 302}, {"date": 2000, "Szulim\u00e1n": 302}, {"date": 2001, "Szulim\u00e1n": 305}, {"date": 2002, "Szulim\u00e1n": 315}, {"date": 2003, "Szulim\u00e1n": 299}, {"date": 2004, "Szulim\u00e1n": 291}, {"date": 2005, "Szulim\u00e1n": 273}, {"date": 2006, "Szulim\u00e1n": 264}, {"date": 2007, "Szulim\u00e1n": 263}, {"date": 2008, "Szulim\u00e1n": 266}, {"date": 2009, "Szulim\u00e1n": 263}, {"date": 2010, "Szulim\u00e1n": 256}, {"date": 2011, "Szulim\u00e1n": 260}, {"date": 2012, "Szulim\u00e1n": 257}, {"date": 2013, "Szulim\u00e1n": 252}, {"date": 2014, "Szulim\u00e1n": 250}, {"date": 2015, "Szulim\u00e1n": 249}, {"date": 2016, "Szulim\u00e1n": 254}, {"date": 2017, "Szulim\u00e1n": 258}, {"date": 2018, "Szulim\u00e1n": 264}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

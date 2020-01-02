@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Beregsur\u00e1ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1757": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Beregsur\u00e1ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1757"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Beregsur\u00e1ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1757"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Beregsur\u00e1ny", "selection": "selector1757"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Beregsur\u00e1ny"}}}], "data": {"name": "data-4db1e58d4ef8544b25c98414004cd822"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-4db1e58d4ef8544b25c98414004cd822": [{"date": 1986, "Beregsur\u00e1ny": 688}, {"date": 1987, "Beregsur\u00e1ny": 674}, {"date": 1988, "Beregsur\u00e1ny": 646}, {"date": 1989, "Beregsur\u00e1ny": 645}, {"date": 1990, "Beregsur\u00e1ny": 625}, {"date": 1991, "Beregsur\u00e1ny": 617}, {"date": 1992, "Beregsur\u00e1ny": 604}, {"date": 1993, "Beregsur\u00e1ny": 603}, {"date": 1994, "Beregsur\u00e1ny": 590}, {"date": 1995, "Beregsur\u00e1ny": 594}, {"date": 1996, "Beregsur\u00e1ny": 598}, {"date": 1997, "Beregsur\u00e1ny": 588}, {"date": 1998, "Beregsur\u00e1ny": 598}, {"date": 1999, "Beregsur\u00e1ny": 590}, {"date": 2000, "Beregsur\u00e1ny": 602}, {"date": 2001, "Beregsur\u00e1ny": 611}, {"date": 2002, "Beregsur\u00e1ny": 609}, {"date": 2003, "Beregsur\u00e1ny": 611}, {"date": 2004, "Beregsur\u00e1ny": 606}, {"date": 2005, "Beregsur\u00e1ny": 608}, {"date": 2006, "Beregsur\u00e1ny": 619}, {"date": 2007, "Beregsur\u00e1ny": 607}, {"date": 2008, "Beregsur\u00e1ny": 598}, {"date": 2009, "Beregsur\u00e1ny": 589}, {"date": 2010, "Beregsur\u00e1ny": 591}, {"date": 2011, "Beregsur\u00e1ny": 601}, {"date": 2012, "Beregsur\u00e1ny": 601}, {"date": 2013, "Beregsur\u00e1ny": 639}, {"date": 2014, "Beregsur\u00e1ny": 751}, {"date": 2015, "Beregsur\u00e1ny": 952}, {"date": 2016, "Beregsur\u00e1ny": 1143}, {"date": 2017, "Beregsur\u00e1ny": 1161}, {"date": 2018, "Beregsur\u00e1ny": 1184}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

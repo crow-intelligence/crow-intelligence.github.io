@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Jobah\u00e1za"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector962": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Jobah\u00e1za"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector962"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Jobah\u00e1za"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector962"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Jobah\u00e1za", "selection": "selector962"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Jobah\u00e1za"}}}], "data": {"name": "data-e8e368e78e7b9489793a4c45914cb77b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e8e368e78e7b9489793a4c45914cb77b": [{"date": 1986, "Jobah\u00e1za": 604}, {"date": 1987, "Jobah\u00e1za": 599}, {"date": 1988, "Jobah\u00e1za": 594}, {"date": 1989, "Jobah\u00e1za": 591}, {"date": 1990, "Jobah\u00e1za": 584}, {"date": 1991, "Jobah\u00e1za": 571}, {"date": 1992, "Jobah\u00e1za": 578}, {"date": 1993, "Jobah\u00e1za": 591}, {"date": 1994, "Jobah\u00e1za": 594}, {"date": 1995, "Jobah\u00e1za": 581}, {"date": 1996, "Jobah\u00e1za": 577}, {"date": 1997, "Jobah\u00e1za": 574}, {"date": 1998, "Jobah\u00e1za": 578}, {"date": 1999, "Jobah\u00e1za": 588}, {"date": 2000, "Jobah\u00e1za": 588}, {"date": 2001, "Jobah\u00e1za": 582}, {"date": 2002, "Jobah\u00e1za": 580}, {"date": 2003, "Jobah\u00e1za": 594}, {"date": 2004, "Jobah\u00e1za": 587}, {"date": 2005, "Jobah\u00e1za": 580}, {"date": 2006, "Jobah\u00e1za": 572}, {"date": 2007, "Jobah\u00e1za": 561}, {"date": 2008, "Jobah\u00e1za": 575}, {"date": 2009, "Jobah\u00e1za": 581}, {"date": 2010, "Jobah\u00e1za": 568}, {"date": 2011, "Jobah\u00e1za": 562}, {"date": 2012, "Jobah\u00e1za": 554}, {"date": 2013, "Jobah\u00e1za": 551}, {"date": 2014, "Jobah\u00e1za": 544}, {"date": 2015, "Jobah\u00e1za": 549}, {"date": 2016, "Jobah\u00e1za": 554}, {"date": 2017, "Jobah\u00e1za": 547}, {"date": 2018, "Jobah\u00e1za": 557}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

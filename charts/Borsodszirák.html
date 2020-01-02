@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsodszir\u00e1k"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector487": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Borsodszir\u00e1k"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector487"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsodszir\u00e1k"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector487"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Borsodszir\u00e1k", "selection": "selector487"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsodszir\u00e1k"}}}], "data": {"name": "data-98372b6aae6097fd5e44671612e10663"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-98372b6aae6097fd5e44671612e10663": [{"date": 1986, "Borsodszir\u00e1k": 1177}, {"date": 1987, "Borsodszir\u00e1k": 1200}, {"date": 1988, "Borsodszir\u00e1k": 1197}, {"date": 1989, "Borsodszir\u00e1k": 1215}, {"date": 1990, "Borsodszir\u00e1k": 1206}, {"date": 1991, "Borsodszir\u00e1k": 1224}, {"date": 1992, "Borsodszir\u00e1k": 1222}, {"date": 1993, "Borsodszir\u00e1k": 1214}, {"date": 1994, "Borsodszir\u00e1k": 1207}, {"date": 1995, "Borsodszir\u00e1k": 1210}, {"date": 1996, "Borsodszir\u00e1k": 1224}, {"date": 1997, "Borsodszir\u00e1k": 1222}, {"date": 1998, "Borsodszir\u00e1k": 1246}, {"date": 1999, "Borsodszir\u00e1k": 1233}, {"date": 2000, "Borsodszir\u00e1k": 1245}, {"date": 2001, "Borsodszir\u00e1k": 1239}, {"date": 2002, "Borsodszir\u00e1k": 1235}, {"date": 2003, "Borsodszir\u00e1k": 1235}, {"date": 2004, "Borsodszir\u00e1k": 1236}, {"date": 2005, "Borsodszir\u00e1k": 1235}, {"date": 2006, "Borsodszir\u00e1k": 1242}, {"date": 2007, "Borsodszir\u00e1k": 1250}, {"date": 2008, "Borsodszir\u00e1k": 1252}, {"date": 2009, "Borsodszir\u00e1k": 1268}, {"date": 2010, "Borsodszir\u00e1k": 1260}, {"date": 2011, "Borsodszir\u00e1k": 1251}, {"date": 2012, "Borsodszir\u00e1k": 1262}, {"date": 2013, "Borsodszir\u00e1k": 1246}, {"date": 2014, "Borsodszir\u00e1k": 1230}, {"date": 2015, "Borsodszir\u00e1k": 1230}, {"date": 2016, "Borsodszir\u00e1k": 1233}, {"date": 2017, "Borsodszir\u00e1k": 1234}, {"date": 2018, "Borsodszir\u00e1k": 1213}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

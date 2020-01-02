@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemesszentandr\u00e1s"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2624": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nemesszentandr\u00e1s"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2624"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemesszentandr\u00e1s"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2624"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nemesszentandr\u00e1s", "selection": "selector2624"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nemesszentandr\u00e1s"}}}], "data": {"name": "data-efc8e2b8aa2ea272fd4c85afa97d47a6"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-efc8e2b8aa2ea272fd4c85afa97d47a6": [{"date": 1986, "Nemesszentandr\u00e1s": 336}, {"date": 1987, "Nemesszentandr\u00e1s": 311}, {"date": 1988, "Nemesszentandr\u00e1s": 301}, {"date": 1989, "Nemesszentandr\u00e1s": 308}, {"date": 1990, "Nemesszentandr\u00e1s": 297}, {"date": 1991, "Nemesszentandr\u00e1s": 310}, {"date": 1992, "Nemesszentandr\u00e1s": 306}, {"date": 1993, "Nemesszentandr\u00e1s": 298}, {"date": 1994, "Nemesszentandr\u00e1s": 293}, {"date": 1995, "Nemesszentandr\u00e1s": 275}, {"date": 1996, "Nemesszentandr\u00e1s": 272}, {"date": 1997, "Nemesszentandr\u00e1s": 281}, {"date": 1998, "Nemesszentandr\u00e1s": 277}, {"date": 1999, "Nemesszentandr\u00e1s": 267}, {"date": 2000, "Nemesszentandr\u00e1s": 264}, {"date": 2001, "Nemesszentandr\u00e1s": 263}, {"date": 2002, "Nemesszentandr\u00e1s": 268}, {"date": 2003, "Nemesszentandr\u00e1s": 273}, {"date": 2004, "Nemesszentandr\u00e1s": 285}, {"date": 2005, "Nemesszentandr\u00e1s": 291}, {"date": 2006, "Nemesszentandr\u00e1s": 285}, {"date": 2007, "Nemesszentandr\u00e1s": 287}, {"date": 2008, "Nemesszentandr\u00e1s": 297}, {"date": 2009, "Nemesszentandr\u00e1s": 296}, {"date": 2010, "Nemesszentandr\u00e1s": 292}, {"date": 2011, "Nemesszentandr\u00e1s": 292}, {"date": 2012, "Nemesszentandr\u00e1s": 288}, {"date": 2013, "Nemesszentandr\u00e1s": 287}, {"date": 2014, "Nemesszentandr\u00e1s": 285}, {"date": 2015, "Nemesszentandr\u00e1s": 280}, {"date": 2016, "Nemesszentandr\u00e1s": 277}, {"date": 2017, "Nemesszentandr\u00e1s": 284}, {"date": 2018, "Nemesszentandr\u00e1s": 275}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

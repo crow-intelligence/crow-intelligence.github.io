@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kokad"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1083": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kokad"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1083"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kokad"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1083"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kokad", "selection": "selector1083"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kokad"}}}], "data": {"name": "data-3ada78a0a05b5d84afc4358cb39cc86e"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-3ada78a0a05b5d84afc4358cb39cc86e": [{"date": 1986, "Kokad": 861}, {"date": 1987, "Kokad": 837}, {"date": 1988, "Kokad": 800}, {"date": 1989, "Kokad": 790}, {"date": 1990, "Kokad": 777}, {"date": 1991, "Kokad": 734}, {"date": 1992, "Kokad": 744}, {"date": 1993, "Kokad": 761}, {"date": 1994, "Kokad": 777}, {"date": 1995, "Kokad": 773}, {"date": 1996, "Kokad": 762}, {"date": 1997, "Kokad": 735}, {"date": 1998, "Kokad": 745}, {"date": 1999, "Kokad": 744}, {"date": 2000, "Kokad": 734}, {"date": 2001, "Kokad": 748}, {"date": 2002, "Kokad": 727}, {"date": 2003, "Kokad": 730}, {"date": 2004, "Kokad": 717}, {"date": 2005, "Kokad": 712}, {"date": 2006, "Kokad": 710}, {"date": 2007, "Kokad": 685}, {"date": 2008, "Kokad": 691}, {"date": 2009, "Kokad": 697}, {"date": 2010, "Kokad": 692}, {"date": 2011, "Kokad": 693}, {"date": 2012, "Kokad": 709}, {"date": 2013, "Kokad": 708}, {"date": 2014, "Kokad": 700}, {"date": 2015, "Kokad": 711}, {"date": 2016, "Kokad": 696}, {"date": 2017, "Kokad": 682}, {"date": 2018, "Kokad": 685}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

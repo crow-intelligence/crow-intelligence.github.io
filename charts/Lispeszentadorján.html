@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lispeszentadorj\u00e1n"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2592": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Lispeszentadorj\u00e1n"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2592"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lispeszentadorj\u00e1n"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2592"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Lispeszentadorj\u00e1n", "selection": "selector2592"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Lispeszentadorj\u00e1n"}}}], "data": {"name": "data-5420aad5278e7c4c9ee10914a9380ecc"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-5420aad5278e7c4c9ee10914a9380ecc": [{"date": 1986, "Lispeszentadorj\u00e1n": 499}, {"date": 1987, "Lispeszentadorj\u00e1n": 484}, {"date": 1988, "Lispeszentadorj\u00e1n": 477}, {"date": 1989, "Lispeszentadorj\u00e1n": 452}, {"date": 1990, "Lispeszentadorj\u00e1n": 443}, {"date": 1991, "Lispeszentadorj\u00e1n": 436}, {"date": 1992, "Lispeszentadorj\u00e1n": 431}, {"date": 1993, "Lispeszentadorj\u00e1n": 421}, {"date": 1994, "Lispeszentadorj\u00e1n": 413}, {"date": 1995, "Lispeszentadorj\u00e1n": 403}, {"date": 1996, "Lispeszentadorj\u00e1n": 398}, {"date": 1997, "Lispeszentadorj\u00e1n": 396}, {"date": 1998, "Lispeszentadorj\u00e1n": 395}, {"date": 1999, "Lispeszentadorj\u00e1n": 379}, {"date": 2000, "Lispeszentadorj\u00e1n": 380}, {"date": 2001, "Lispeszentadorj\u00e1n": 361}, {"date": 2002, "Lispeszentadorj\u00e1n": 353}, {"date": 2003, "Lispeszentadorj\u00e1n": 353}, {"date": 2004, "Lispeszentadorj\u00e1n": 343}, {"date": 2005, "Lispeszentadorj\u00e1n": 333}, {"date": 2006, "Lispeszentadorj\u00e1n": 335}, {"date": 2007, "Lispeszentadorj\u00e1n": 327}, {"date": 2008, "Lispeszentadorj\u00e1n": 329}, {"date": 2009, "Lispeszentadorj\u00e1n": 343}, {"date": 2010, "Lispeszentadorj\u00e1n": 323}, {"date": 2011, "Lispeszentadorj\u00e1n": 333}, {"date": 2012, "Lispeszentadorj\u00e1n": 327}, {"date": 2013, "Lispeszentadorj\u00e1n": 313}, {"date": 2014, "Lispeszentadorj\u00e1n": 313}, {"date": 2015, "Lispeszentadorj\u00e1n": 313}, {"date": 2016, "Lispeszentadorj\u00e1n": 306}, {"date": 2017, "Lispeszentadorj\u00e1n": 290}, {"date": 2018, "Lispeszentadorj\u00e1n": 287}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunavars\u00e1ny"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector3030": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dunavars\u00e1ny"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector3030"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunavars\u00e1ny"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector3030"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dunavars\u00e1ny", "selection": "selector3030"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunavars\u00e1ny"}}}], "data": {"name": "data-fcc6555667c587b16d0b6786fedda006"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-fcc6555667c587b16d0b6786fedda006": [{"date": 1986, "Dunavars\u00e1ny": 5084}, {"date": 1987, "Dunavars\u00e1ny": 5068}, {"date": 1988, "Dunavars\u00e1ny": 5063}, {"date": 1989, "Dunavars\u00e1ny": 5038}, {"date": 1990, "Dunavars\u00e1ny": 5039}, {"date": 1991, "Dunavars\u00e1ny": 5157}, {"date": 1992, "Dunavars\u00e1ny": 5114}, {"date": 1993, "Dunavars\u00e1ny": 5150}, {"date": 1994, "Dunavars\u00e1ny": 5201}, {"date": 1995, "Dunavars\u00e1ny": 5231}, {"date": 1996, "Dunavars\u00e1ny": 5263}, {"date": 1997, "Dunavars\u00e1ny": 5362}, {"date": 1998, "Dunavars\u00e1ny": 5422}, {"date": 1999, "Dunavars\u00e1ny": 5489}, {"date": 2000, "Dunavars\u00e1ny": 5609}, {"date": 2001, "Dunavars\u00e1ny": 5702}, {"date": 2002, "Dunavars\u00e1ny": 9388}, {"date": 2003, "Dunavars\u00e1ny": 6053}, {"date": 2004, "Dunavars\u00e1ny": 6156}, {"date": 2005, "Dunavars\u00e1ny": 6301}, {"date": 2006, "Dunavars\u00e1ny": 6498}, {"date": 2007, "Dunavars\u00e1ny": 6678}, {"date": 2008, "Dunavars\u00e1ny": 6927}, {"date": 2009, "Dunavars\u00e1ny": 7158}, {"date": 2010, "Dunavars\u00e1ny": 7295}, {"date": 2011, "Dunavars\u00e1ny": 7391}, {"date": 2012, "Dunavars\u00e1ny": 7484}, {"date": 2013, "Dunavars\u00e1ny": 7546}, {"date": 2014, "Dunavars\u00e1ny": 7620}, {"date": 2015, "Dunavars\u00e1ny": 7691}, {"date": 2016, "Dunavars\u00e1ny": 7805}, {"date": 2017, "Dunavars\u00e1ny": 7876}, {"date": 2018, "Dunavars\u00e1ny": 8099}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

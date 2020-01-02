@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Teleki"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1727": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Teleki"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1727"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Teleki"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1727"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Teleki", "selection": "selector1727"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Teleki"}}}], "data": {"name": "data-f6583e49977072a90aa7546fe92b15dd"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f6583e49977072a90aa7546fe92b15dd": [{"date": 1986, "Teleki": 307}, {"date": 1987, "Teleki": 295}, {"date": 1988, "Teleki": 284}, {"date": 1989, "Teleki": 281}, {"date": 1990, "Teleki": 273}, {"date": 1991, "Teleki": 269}, {"date": 1992, "Teleki": 273}, {"date": 1993, "Teleki": 273}, {"date": 1994, "Teleki": 269}, {"date": 1995, "Teleki": 263}, {"date": 1996, "Teleki": 258}, {"date": 1997, "Teleki": 241}, {"date": 1998, "Teleki": 240}, {"date": 1999, "Teleki": 243}, {"date": 2000, "Teleki": 235}, {"date": 2001, "Teleki": 230}, {"date": 2002, "Teleki": 239}, {"date": 2003, "Teleki": 235}, {"date": 2004, "Teleki": 236}, {"date": 2005, "Teleki": 232}, {"date": 2006, "Teleki": 238}, {"date": 2007, "Teleki": 240}, {"date": 2008, "Teleki": 237}, {"date": 2009, "Teleki": 222}, {"date": 2010, "Teleki": 230}, {"date": 2011, "Teleki": 222}, {"date": 2012, "Teleki": 215}, {"date": 2013, "Teleki": 209}, {"date": 2014, "Teleki": 216}, {"date": 2015, "Teleki": 212}, {"date": 2016, "Teleki": 218}, {"date": 2017, "Teleki": 222}, {"date": 2018, "Teleki": 229}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

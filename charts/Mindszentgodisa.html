@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Mindszentgodisa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector287": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Mindszentgodisa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector287"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Mindszentgodisa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector287"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Mindszentgodisa", "selection": "selector287"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Mindszentgodisa"}}}], "data": {"name": "data-0df108de17953dd6e4457a3428106a36"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-0df108de17953dd6e4457a3428106a36": [{"date": 1986, "Mindszentgodisa": 1165}, {"date": 1987, "Mindszentgodisa": 1121}, {"date": 1988, "Mindszentgodisa": 1094}, {"date": 1989, "Mindszentgodisa": 1043}, {"date": 1990, "Mindszentgodisa": 988}, {"date": 1991, "Mindszentgodisa": 1051}, {"date": 1992, "Mindszentgodisa": 1052}, {"date": 1993, "Mindszentgodisa": 1068}, {"date": 1994, "Mindszentgodisa": 1066}, {"date": 1995, "Mindszentgodisa": 1067}, {"date": 1996, "Mindszentgodisa": 1060}, {"date": 1997, "Mindszentgodisa": 1065}, {"date": 1998, "Mindszentgodisa": 1067}, {"date": 1999, "Mindszentgodisa": 1033}, {"date": 2000, "Mindszentgodisa": 1018}, {"date": 2001, "Mindszentgodisa": 1018}, {"date": 2002, "Mindszentgodisa": 1019}, {"date": 2003, "Mindszentgodisa": 1010}, {"date": 2004, "Mindszentgodisa": 1007}, {"date": 2005, "Mindszentgodisa": 977}, {"date": 2006, "Mindszentgodisa": 960}, {"date": 2007, "Mindszentgodisa": 941}, {"date": 2008, "Mindszentgodisa": 926}, {"date": 2009, "Mindszentgodisa": 904}, {"date": 2010, "Mindszentgodisa": 897}, {"date": 2011, "Mindszentgodisa": 872}, {"date": 2012, "Mindszentgodisa": 878}, {"date": 2013, "Mindszentgodisa": 873}, {"date": 2014, "Mindszentgodisa": 867}, {"date": 2015, "Mindszentgodisa": 882}, {"date": 2016, "Mindszentgodisa": 875}, {"date": 2017, "Mindszentgodisa": 885}, {"date": 2018, "Mindszentgodisa": 882}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hunya"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector410": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Hunya"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector410"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hunya"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector410"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Hunya", "selection": "selector410"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hunya"}}}], "data": {"name": "data-52afe23345d5dc1e4ebb0a324c3e00b6"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-52afe23345d5dc1e4ebb0a324c3e00b6": [{"date": 1986, "Hunya": 1055}, {"date": 1987, "Hunya": 1026}, {"date": 1988, "Hunya": 1010}, {"date": 1989, "Hunya": 1005}, {"date": 1990, "Hunya": 981}, {"date": 1991, "Hunya": 957}, {"date": 1992, "Hunya": 931}, {"date": 1993, "Hunya": 899}, {"date": 1994, "Hunya": 890}, {"date": 1995, "Hunya": 883}, {"date": 1996, "Hunya": 880}, {"date": 1997, "Hunya": 875}, {"date": 1998, "Hunya": 859}, {"date": 1999, "Hunya": 829}, {"date": 2000, "Hunya": 824}, {"date": 2001, "Hunya": 804}, {"date": 2002, "Hunya": 801}, {"date": 2003, "Hunya": 793}, {"date": 2004, "Hunya": 783}, {"date": 2005, "Hunya": 762}, {"date": 2006, "Hunya": 764}, {"date": 2007, "Hunya": 732}, {"date": 2008, "Hunya": 741}, {"date": 2009, "Hunya": 722}, {"date": 2010, "Hunya": 712}, {"date": 2011, "Hunya": 698}, {"date": 2012, "Hunya": 678}, {"date": 2013, "Hunya": 671}, {"date": 2014, "Hunya": 668}, {"date": 2015, "Hunya": 657}, {"date": 2016, "Hunya": 646}, {"date": 2017, "Hunya": 645}, {"date": 2018, "Hunya": 627}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

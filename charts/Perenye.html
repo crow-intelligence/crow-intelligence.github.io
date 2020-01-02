@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Perenye"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2217": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Perenye"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2217"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Perenye"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2217"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Perenye", "selection": "selector2217"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Perenye"}}}], "data": {"name": "data-9cea1ee05e6621e014f4d42f3b3f56de"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-9cea1ee05e6621e014f4d42f3b3f56de": [{"date": 1986, "Perenye": 649}, {"date": 1987, "Perenye": 644}, {"date": 1988, "Perenye": 655}, {"date": 1989, "Perenye": 656}, {"date": 1990, "Perenye": 644}, {"date": 1991, "Perenye": 642}, {"date": 1992, "Perenye": 650}, {"date": 1993, "Perenye": 648}, {"date": 1994, "Perenye": 646}, {"date": 1995, "Perenye": 647}, {"date": 1996, "Perenye": 642}, {"date": 1997, "Perenye": 637}, {"date": 1998, "Perenye": 643}, {"date": 1999, "Perenye": 649}, {"date": 2000, "Perenye": 648}, {"date": 2001, "Perenye": 647}, {"date": 2002, "Perenye": 658}, {"date": 2003, "Perenye": 659}, {"date": 2004, "Perenye": 669}, {"date": 2005, "Perenye": 669}, {"date": 2006, "Perenye": 681}, {"date": 2007, "Perenye": 687}, {"date": 2008, "Perenye": 703}, {"date": 2009, "Perenye": 701}, {"date": 2010, "Perenye": 706}, {"date": 2011, "Perenye": 707}, {"date": 2012, "Perenye": 706}, {"date": 2013, "Perenye": 697}, {"date": 2014, "Perenye": 693}, {"date": 2015, "Perenye": 690}, {"date": 2016, "Perenye": 684}, {"date": 2017, "Perenye": 681}, {"date": 2018, "Perenye": 669}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

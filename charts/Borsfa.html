@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsfa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2509": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Borsfa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2509"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsfa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2509"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Borsfa", "selection": "selector2509"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Borsfa"}}}], "data": {"name": "data-e2751ce52b5fd6cc72466b130b15e609"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-e2751ce52b5fd6cc72466b130b15e609": [{"date": 1986, "Borsfa": 889}, {"date": 1987, "Borsfa": 881}, {"date": 1988, "Borsfa": 862}, {"date": 1989, "Borsfa": 868}, {"date": 1990, "Borsfa": 854}, {"date": 1991, "Borsfa": 853}, {"date": 1992, "Borsfa": 849}, {"date": 1993, "Borsfa": 854}, {"date": 1994, "Borsfa": 844}, {"date": 1995, "Borsfa": 863}, {"date": 1996, "Borsfa": 856}, {"date": 1997, "Borsfa": 852}, {"date": 1998, "Borsfa": 825}, {"date": 1999, "Borsfa": 826}, {"date": 2000, "Borsfa": 814}, {"date": 2001, "Borsfa": 813}, {"date": 2002, "Borsfa": 812}, {"date": 2003, "Borsfa": 795}, {"date": 2004, "Borsfa": 791}, {"date": 2005, "Borsfa": 793}, {"date": 2006, "Borsfa": 785}, {"date": 2007, "Borsfa": 770}, {"date": 2008, "Borsfa": 774}, {"date": 2009, "Borsfa": 759}, {"date": 2010, "Borsfa": 767}, {"date": 2011, "Borsfa": 760}, {"date": 2012, "Borsfa": 752}, {"date": 2013, "Borsfa": 747}, {"date": 2014, "Borsfa": 731}, {"date": 2015, "Borsfa": 726}, {"date": 2016, "Borsfa": 744}, {"date": 2017, "Borsfa": 732}, {"date": 2018, "Borsfa": 712}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

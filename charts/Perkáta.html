@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Perk\u00e1ta"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2786": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Perk\u00e1ta"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2786"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Perk\u00e1ta"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2786"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Perk\u00e1ta", "selection": "selector2786"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Perk\u00e1ta"}}}], "data": {"name": "data-40be0e03f0f8695d55f9dfe3aa13aa20"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-40be0e03f0f8695d55f9dfe3aa13aa20": [{"date": 1986, "Perk\u00e1ta": 3863}, {"date": 1987, "Perk\u00e1ta": 3879}, {"date": 1988, "Perk\u00e1ta": 3892}, {"date": 1989, "Perk\u00e1ta": 3850}, {"date": 1990, "Perk\u00e1ta": 3875}, {"date": 1991, "Perk\u00e1ta": 3880}, {"date": 1992, "Perk\u00e1ta": 3889}, {"date": 1993, "Perk\u00e1ta": 3928}, {"date": 1994, "Perk\u00e1ta": 3936}, {"date": 1995, "Perk\u00e1ta": 3977}, {"date": 1996, "Perk\u00e1ta": 3996}, {"date": 1997, "Perk\u00e1ta": 4024}, {"date": 1998, "Perk\u00e1ta": 4045}, {"date": 1999, "Perk\u00e1ta": 4120}, {"date": 2000, "Perk\u00e1ta": 4127}, {"date": 2001, "Perk\u00e1ta": 4209}, {"date": 2002, "Perk\u00e1ta": 4211}, {"date": 2003, "Perk\u00e1ta": 4242}, {"date": 2004, "Perk\u00e1ta": 4210}, {"date": 2005, "Perk\u00e1ta": 4207}, {"date": 2006, "Perk\u00e1ta": 4198}, {"date": 2007, "Perk\u00e1ta": 4179}, {"date": 2008, "Perk\u00e1ta": 4161}, {"date": 2009, "Perk\u00e1ta": 4114}, {"date": 2010, "Perk\u00e1ta": 4080}, {"date": 2011, "Perk\u00e1ta": 4066}, {"date": 2012, "Perk\u00e1ta": 4073}, {"date": 2013, "Perk\u00e1ta": 4077}, {"date": 2014, "Perk\u00e1ta": 4045}, {"date": 2015, "Perk\u00e1ta": 4009}, {"date": 2016, "Perk\u00e1ta": 3994}, {"date": 2017, "Perk\u00e1ta": 4010}, {"date": 2018, "Perk\u00e1ta": 3986}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

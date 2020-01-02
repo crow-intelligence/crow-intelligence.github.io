@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagykanizsa"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2751": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nagykanizsa"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2751"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagykanizsa"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2751"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nagykanizsa", "selection": "selector2751"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nagykanizsa"}}}], "data": {"name": "data-cf1d82f1238d12bdf60b50e58a329768"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-cf1d82f1238d12bdf60b50e58a329768": [{"date": 1986, "Nagykanizsa": 56388}, {"date": 1987, "Nagykanizsa": 56690}, {"date": 1988, "Nagykanizsa": 56814}, {"date": 1989, "Nagykanizsa": 56803}, {"date": 1990, "Nagykanizsa": 56830}, {"date": 1991, "Nagykanizsa": 56617}, {"date": 1992, "Nagykanizsa": 56546}, {"date": 1993, "Nagykanizsa": 56405}, {"date": 1994, "Nagykanizsa": 56298}, {"date": 1995, "Nagykanizsa": 56008}, {"date": 1996, "Nagykanizsa": 55624}, {"date": 1997, "Nagykanizsa": 55158}, {"date": 1998, "Nagykanizsa": 54680}, {"date": 1999, "Nagykanizsa": 54339}, {"date": 2000, "Nagykanizsa": 53951}, {"date": 2001, "Nagykanizsa": 53470}, {"date": 2002, "Nagykanizsa": 53040}, {"date": 2003, "Nagykanizsa": 52733}, {"date": 2004, "Nagykanizsa": 52220}, {"date": 2005, "Nagykanizsa": 51694}, {"date": 2006, "Nagykanizsa": 51661}, {"date": 2007, "Nagykanizsa": 51546}, {"date": 2008, "Nagykanizsa": 51404}, {"date": 2009, "Nagykanizsa": 51099}, {"date": 2010, "Nagykanizsa": 50642}, {"date": 2011, "Nagykanizsa": 50253}, {"date": 2012, "Nagykanizsa": 49862}, {"date": 2013, "Nagykanizsa": 49425}, {"date": 2014, "Nagykanizsa": 49015}, {"date": 2015, "Nagykanizsa": 48620}, {"date": 2016, "Nagykanizsa": 48293}, {"date": 2017, "Nagykanizsa": 47789}, {"date": 2018, "Nagykanizsa": 47337}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

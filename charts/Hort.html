@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hort"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1153": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Hort"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1153"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hort"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1153"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Hort", "selection": "selector1153"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hort"}}}], "data": {"name": "data-32f9884afd8b28b12d7a52e352877bbf"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-32f9884afd8b28b12d7a52e352877bbf": [{"date": 1986, "Hort": 4175}, {"date": 1987, "Hort": 4147}, {"date": 1988, "Hort": 4126}, {"date": 1989, "Hort": 4054}, {"date": 1990, "Hort": 4019}, {"date": 1991, "Hort": 3993}, {"date": 1992, "Hort": 3975}, {"date": 1993, "Hort": 3963}, {"date": 1994, "Hort": 3931}, {"date": 1995, "Hort": 3917}, {"date": 1996, "Hort": 3885}, {"date": 1997, "Hort": 3896}, {"date": 1998, "Hort": 3873}, {"date": 1999, "Hort": 3891}, {"date": 2000, "Hort": 3862}, {"date": 2001, "Hort": 3877}, {"date": 2002, "Hort": 3874}, {"date": 2003, "Hort": 3868}, {"date": 2004, "Hort": 3890}, {"date": 2005, "Hort": 3871}, {"date": 2006, "Hort": 3866}, {"date": 2007, "Hort": 3864}, {"date": 2008, "Hort": 3854}, {"date": 2009, "Hort": 3877}, {"date": 2010, "Hort": 3871}, {"date": 2011, "Hort": 3804}, {"date": 2012, "Hort": 3761}, {"date": 2013, "Hort": 3704}, {"date": 2014, "Hort": 3677}, {"date": 2015, "Hort": 3656}, {"date": 2016, "Hort": 3619}, {"date": 2017, "Hort": 3622}, {"date": 2018, "Hort": 3601}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

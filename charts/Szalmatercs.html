@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szalmatercs"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1383": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szalmatercs"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1383"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szalmatercs"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1383"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szalmatercs", "selection": "selector1383"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szalmatercs"}}}], "data": {"name": "data-f675f11a66ee5a500b42d8c37556d165"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f675f11a66ee5a500b42d8c37556d165": [{"date": 1986, "Szalmatercs": 544}, {"date": 1987, "Szalmatercs": 558}, {"date": 1988, "Szalmatercs": 539}, {"date": 1989, "Szalmatercs": 534}, {"date": 1990, "Szalmatercs": 529}, {"date": 1991, "Szalmatercs": 519}, {"date": 1992, "Szalmatercs": 521}, {"date": 1993, "Szalmatercs": 521}, {"date": 1994, "Szalmatercs": 517}, {"date": 1995, "Szalmatercs": 511}, {"date": 1996, "Szalmatercs": 515}, {"date": 1997, "Szalmatercs": 523}, {"date": 1998, "Szalmatercs": 512}, {"date": 1999, "Szalmatercs": 519}, {"date": 2000, "Szalmatercs": 519}, {"date": 2001, "Szalmatercs": 520}, {"date": 2002, "Szalmatercs": 514}, {"date": 2003, "Szalmatercs": 514}, {"date": 2004, "Szalmatercs": 513}, {"date": 2005, "Szalmatercs": 511}, {"date": 2006, "Szalmatercs": 512}, {"date": 2007, "Szalmatercs": 513}, {"date": 2008, "Szalmatercs": 514}, {"date": 2009, "Szalmatercs": 506}, {"date": 2010, "Szalmatercs": 504}, {"date": 2011, "Szalmatercs": 502}, {"date": 2012, "Szalmatercs": 498}, {"date": 2013, "Szalmatercs": 490}, {"date": 2014, "Szalmatercs": 480}, {"date": 2015, "Szalmatercs": 459}, {"date": 2016, "Szalmatercs": 454}, {"date": 2017, "Szalmatercs": 460}, {"date": 2018, "Szalmatercs": 460}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

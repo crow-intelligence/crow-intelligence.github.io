@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Libickozma"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1628": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Libickozma"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1628"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Libickozma"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1628"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Libickozma", "selection": "selector1628"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Libickozma"}}}], "data": {"name": "data-64dd61ec8c0d752276f88b4c56fb3675"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-64dd61ec8c0d752276f88b4c56fb3675": [{"date": 1986, "Libickozma": 106}, {"date": 1987, "Libickozma": 98}, {"date": 1988, "Libickozma": 99}, {"date": 1989, "Libickozma": 93}, {"date": 1990, "Libickozma": 89}, {"date": 1991, "Libickozma": 81}, {"date": 1992, "Libickozma": 74}, {"date": 1993, "Libickozma": 69}, {"date": 1994, "Libickozma": 67}, {"date": 1995, "Libickozma": 67}, {"date": 1996, "Libickozma": 61}, {"date": 1997, "Libickozma": 61}, {"date": 1998, "Libickozma": 58}, {"date": 1999, "Libickozma": 55}, {"date": 2000, "Libickozma": 55}, {"date": 2001, "Libickozma": 53}, {"date": 2002, "Libickozma": 51}, {"date": 2003, "Libickozma": 49}, {"date": 2004, "Libickozma": 50}, {"date": 2005, "Libickozma": 50}, {"date": 2006, "Libickozma": 47}, {"date": 2007, "Libickozma": 49}, {"date": 2008, "Libickozma": 48}, {"date": 2009, "Libickozma": 43}, {"date": 2010, "Libickozma": 41}, {"date": 2011, "Libickozma": 62}, {"date": 2012, "Libickozma": 48}, {"date": 2013, "Libickozma": 45}, {"date": 2014, "Libickozma": 40}, {"date": 2015, "Libickozma": 41}, {"date": 2016, "Libickozma": 41}, {"date": 2017, "Libickozma": 42}, {"date": 2018, "Libickozma": 40}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

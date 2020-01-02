@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hortob\u00e1gy"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1081": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Hortob\u00e1gy"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1081"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hortob\u00e1gy"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1081"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Hortob\u00e1gy", "selection": "selector1081"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Hortob\u00e1gy"}}}], "data": {"name": "data-df7afd6edb2907fe491a4775d6601702"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-df7afd6edb2907fe491a4775d6601702": [{"date": 1986, "Hortob\u00e1gy": 1754}, {"date": 1987, "Hortob\u00e1gy": 1756}, {"date": 1988, "Hortob\u00e1gy": 1728}, {"date": 1989, "Hortob\u00e1gy": 1717}, {"date": 1990, "Hortob\u00e1gy": 1728}, {"date": 1991, "Hortob\u00e1gy": 1741}, {"date": 1992, "Hortob\u00e1gy": 1737}, {"date": 1993, "Hortob\u00e1gy": 1780}, {"date": 1994, "Hortob\u00e1gy": 1775}, {"date": 1995, "Hortob\u00e1gy": 1798}, {"date": 1996, "Hortob\u00e1gy": 1800}, {"date": 1997, "Hortob\u00e1gy": 1778}, {"date": 1998, "Hortob\u00e1gy": 1754}, {"date": 1999, "Hortob\u00e1gy": 1764}, {"date": 2000, "Hortob\u00e1gy": 1757}, {"date": 2001, "Hortob\u00e1gy": 1742}, {"date": 2002, "Hortob\u00e1gy": 1724}, {"date": 2003, "Hortob\u00e1gy": 1710}, {"date": 2004, "Hortob\u00e1gy": 1681}, {"date": 2005, "Hortob\u00e1gy": 1664}, {"date": 2006, "Hortob\u00e1gy": 1628}, {"date": 2007, "Hortob\u00e1gy": 1620}, {"date": 2008, "Hortob\u00e1gy": 1611}, {"date": 2009, "Hortob\u00e1gy": 1601}, {"date": 2010, "Hortob\u00e1gy": 1581}, {"date": 2011, "Hortob\u00e1gy": 1564}, {"date": 2012, "Hortob\u00e1gy": 1568}, {"date": 2013, "Hortob\u00e1gy": 1567}, {"date": 2014, "Hortob\u00e1gy": 1574}, {"date": 2015, "Hortob\u00e1gy": 1562}, {"date": 2016, "Hortob\u00e1gy": 1546}, {"date": 2017, "Hortob\u00e1gy": 1520}, {"date": 2018, "Hortob\u00e1gy": 1499}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

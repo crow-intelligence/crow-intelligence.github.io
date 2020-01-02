@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kardosk\u00fat"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector413": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kardosk\u00fat"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector413"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kardosk\u00fat"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector413"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kardosk\u00fat", "selection": "selector413"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kardosk\u00fat"}}}], "data": {"name": "data-adebcdbe921e4d7815bfeed767c5f764"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-adebcdbe921e4d7815bfeed767c5f764": [{"date": 1986, "Kardosk\u00fat": 966}, {"date": 1987, "Kardosk\u00fat": 964}, {"date": 1988, "Kardosk\u00fat": 954}, {"date": 1989, "Kardosk\u00fat": 957}, {"date": 1990, "Kardosk\u00fat": 963}, {"date": 1991, "Kardosk\u00fat": 969}, {"date": 1992, "Kardosk\u00fat": 986}, {"date": 1993, "Kardosk\u00fat": 1009}, {"date": 1994, "Kardosk\u00fat": 1025}, {"date": 1995, "Kardosk\u00fat": 1019}, {"date": 1996, "Kardosk\u00fat": 1013}, {"date": 1997, "Kardosk\u00fat": 1017}, {"date": 1998, "Kardosk\u00fat": 1029}, {"date": 1999, "Kardosk\u00fat": 1004}, {"date": 2000, "Kardosk\u00fat": 1010}, {"date": 2001, "Kardosk\u00fat": 998}, {"date": 2002, "Kardosk\u00fat": 999}, {"date": 2003, "Kardosk\u00fat": 993}, {"date": 2004, "Kardosk\u00fat": 978}, {"date": 2005, "Kardosk\u00fat": 982}, {"date": 2006, "Kardosk\u00fat": 981}, {"date": 2007, "Kardosk\u00fat": 963}, {"date": 2008, "Kardosk\u00fat": 950}, {"date": 2009, "Kardosk\u00fat": 940}, {"date": 2010, "Kardosk\u00fat": 929}, {"date": 2011, "Kardosk\u00fat": 921}, {"date": 2012, "Kardosk\u00fat": 915}, {"date": 2013, "Kardosk\u00fat": 908}, {"date": 2014, "Kardosk\u00fat": 906}, {"date": 2015, "Kardosk\u00fat": 903}, {"date": 2016, "Kardosk\u00fat": 885}, {"date": 2017, "Kardosk\u00fat": 841}, {"date": 2018, "Kardosk\u00fat": 839}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csorna"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2963": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Csorna"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2963"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csorna"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2963"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Csorna", "selection": "selector2963"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Csorna"}}}], "data": {"name": "data-ba34bc82857d78e7e83962b80dc8641c"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ba34bc82857d78e7e83962b80dc8641c": [{"date": 1986, "Csorna": 12755}, {"date": 1987, "Csorna": 12792}, {"date": 1988, "Csorna": 12781}, {"date": 1989, "Csorna": 12809}, {"date": 1990, "Csorna": 12862}, {"date": 1991, "Csorna": 12863}, {"date": 1992, "Csorna": 12912}, {"date": 1993, "Csorna": 11157}, {"date": 1994, "Csorna": 10998}, {"date": 1995, "Csorna": 11040}, {"date": 1996, "Csorna": 11052}, {"date": 1997, "Csorna": 11005}, {"date": 1998, "Csorna": 10988}, {"date": 1999, "Csorna": 10952}, {"date": 2000, "Csorna": 10920}, {"date": 2001, "Csorna": 10887}, {"date": 2002, "Csorna": 10894}, {"date": 2003, "Csorna": 10843}, {"date": 2004, "Csorna": 10828}, {"date": 2005, "Csorna": 10848}, {"date": 2006, "Csorna": 10819}, {"date": 2007, "Csorna": 10834}, {"date": 2008, "Csorna": 10777}, {"date": 2009, "Csorna": 10726}, {"date": 2010, "Csorna": 10652}, {"date": 2011, "Csorna": 10578}, {"date": 2012, "Csorna": 10569}, {"date": 2013, "Csorna": 10523}, {"date": 2014, "Csorna": 10461}, {"date": 2015, "Csorna": 10387}, {"date": 2016, "Csorna": 10323}, {"date": 2017, "Csorna": 10246}, {"date": 2018, "Csorna": 10137}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

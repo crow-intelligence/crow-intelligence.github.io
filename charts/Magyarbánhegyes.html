@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarb\u00e1nhegyes"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector424": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Magyarb\u00e1nhegyes"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector424"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarb\u00e1nhegyes"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector424"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Magyarb\u00e1nhegyes", "selection": "selector424"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Magyarb\u00e1nhegyes"}}}], "data": {"name": "data-77a9b63790acc2127c8bb10c4e45b8d2"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-77a9b63790acc2127c8bb10c4e45b8d2": [{"date": 1986, "Magyarb\u00e1nhegyes": 2871}, {"date": 1987, "Magyarb\u00e1nhegyes": 2840}, {"date": 1988, "Magyarb\u00e1nhegyes": 2800}, {"date": 1989, "Magyarb\u00e1nhegyes": 2765}, {"date": 1990, "Magyarb\u00e1nhegyes": 2725}, {"date": 1991, "Magyarb\u00e1nhegyes": 2717}, {"date": 1992, "Magyarb\u00e1nhegyes": 2709}, {"date": 1993, "Magyarb\u00e1nhegyes": 2739}, {"date": 1994, "Magyarb\u00e1nhegyes": 2709}, {"date": 1995, "Magyarb\u00e1nhegyes": 2709}, {"date": 1996, "Magyarb\u00e1nhegyes": 2713}, {"date": 1997, "Magyarb\u00e1nhegyes": 2716}, {"date": 1998, "Magyarb\u00e1nhegyes": 2718}, {"date": 1999, "Magyarb\u00e1nhegyes": 2703}, {"date": 2000, "Magyarb\u00e1nhegyes": 2648}, {"date": 2001, "Magyarb\u00e1nhegyes": 2667}, {"date": 2002, "Magyarb\u00e1nhegyes": 2650}, {"date": 2003, "Magyarb\u00e1nhegyes": 2639}, {"date": 2004, "Magyarb\u00e1nhegyes": 2614}, {"date": 2005, "Magyarb\u00e1nhegyes": 2590}, {"date": 2006, "Magyarb\u00e1nhegyes": 2540}, {"date": 2007, "Magyarb\u00e1nhegyes": 2529}, {"date": 2008, "Magyarb\u00e1nhegyes": 2486}, {"date": 2009, "Magyarb\u00e1nhegyes": 2478}, {"date": 2010, "Magyarb\u00e1nhegyes": 2460}, {"date": 2011, "Magyarb\u00e1nhegyes": 2458}, {"date": 2012, "Magyarb\u00e1nhegyes": 2414}, {"date": 2013, "Magyarb\u00e1nhegyes": 2378}, {"date": 2014, "Magyarb\u00e1nhegyes": 2355}, {"date": 2015, "Magyarb\u00e1nhegyes": 2341}, {"date": 2016, "Magyarb\u00e1nhegyes": 2318}, {"date": 2017, "Magyarb\u00e1nhegyes": 2283}, {"date": 2018, "Magyarb\u00e1nhegyes": 2233}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

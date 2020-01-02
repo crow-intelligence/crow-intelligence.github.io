@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszal\u00fac"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2777": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszal\u00fac"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2777"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszal\u00fac"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2777"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszal\u00fac", "selection": "selector2777"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszal\u00fac"}}}], "data": {"name": "data-bfa1b37e4d35cd3e35112a84c8b52608"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-bfa1b37e4d35cd3e35112a84c8b52608": [{"date": 1986, "Tiszal\u00fac": 5207}, {"date": 1987, "Tiszal\u00fac": 5196}, {"date": 1988, "Tiszal\u00fac": 5215}, {"date": 1989, "Tiszal\u00fac": 5234}, {"date": 1990, "Tiszal\u00fac": 5246}, {"date": 1991, "Tiszal\u00fac": 5274}, {"date": 1992, "Tiszal\u00fac": 5286}, {"date": 1993, "Tiszal\u00fac": 5322}, {"date": 1994, "Tiszal\u00fac": 5362}, {"date": 1995, "Tiszal\u00fac": 5372}, {"date": 1996, "Tiszal\u00fac": 5402}, {"date": 1997, "Tiszal\u00fac": 5458}, {"date": 1998, "Tiszal\u00fac": 5480}, {"date": 1999, "Tiszal\u00fac": 5500}, {"date": 2000, "Tiszal\u00fac": 5554}, {"date": 2001, "Tiszal\u00fac": 5613}, {"date": 2002, "Tiszal\u00fac": 5630}, {"date": 2003, "Tiszal\u00fac": 5657}, {"date": 2004, "Tiszal\u00fac": 5666}, {"date": 2005, "Tiszal\u00fac": 5703}, {"date": 2006, "Tiszal\u00fac": 5684}, {"date": 2007, "Tiszal\u00fac": 5643}, {"date": 2008, "Tiszal\u00fac": 5567}, {"date": 2009, "Tiszal\u00fac": 5536}, {"date": 2010, "Tiszal\u00fac": 5517}, {"date": 2011, "Tiszal\u00fac": 5504}, {"date": 2012, "Tiszal\u00fac": 5490}, {"date": 2013, "Tiszal\u00fac": 5411}, {"date": 2014, "Tiszal\u00fac": 5364}, {"date": 2015, "Tiszal\u00fac": 5317}, {"date": 2016, "Tiszal\u00fac": 5226}, {"date": 2017, "Tiszal\u00fac": 5177}, {"date": 2018, "Tiszal\u00fac": 5108}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

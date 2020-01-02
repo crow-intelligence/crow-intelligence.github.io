@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kerekegyh\u00e1za"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2864": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Kerekegyh\u00e1za"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2864"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kerekegyh\u00e1za"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2864"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Kerekegyh\u00e1za", "selection": "selector2864"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Kerekegyh\u00e1za"}}}], "data": {"name": "data-ce58c5139d376dee9e8fe22aca4144aa"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ce58c5139d376dee9e8fe22aca4144aa": [{"date": 1986, "Kerekegyh\u00e1za": 6096}, {"date": 1987, "Kerekegyh\u00e1za": 6008}, {"date": 1988, "Kerekegyh\u00e1za": 6004}, {"date": 1989, "Kerekegyh\u00e1za": 5999}, {"date": 1990, "Kerekegyh\u00e1za": 5937}, {"date": 1991, "Kerekegyh\u00e1za": 5903}, {"date": 1992, "Kerekegyh\u00e1za": 5923}, {"date": 1993, "Kerekegyh\u00e1za": 5934}, {"date": 1994, "Kerekegyh\u00e1za": 5949}, {"date": 1995, "Kerekegyh\u00e1za": 6023}, {"date": 1996, "Kerekegyh\u00e1za": 6017}, {"date": 1997, "Kerekegyh\u00e1za": 6001}, {"date": 1998, "Kerekegyh\u00e1za": 5994}, {"date": 1999, "Kerekegyh\u00e1za": 5989}, {"date": 2000, "Kerekegyh\u00e1za": 6017}, {"date": 2001, "Kerekegyh\u00e1za": 6079}, {"date": 2002, "Kerekegyh\u00e1za": 3927}, {"date": 2003, "Kerekegyh\u00e1za": 6133}, {"date": 2004, "Kerekegyh\u00e1za": 6146}, {"date": 2005, "Kerekegyh\u00e1za": 6165}, {"date": 2006, "Kerekegyh\u00e1za": 6230}, {"date": 2007, "Kerekegyh\u00e1za": 6262}, {"date": 2008, "Kerekegyh\u00e1za": 6312}, {"date": 2009, "Kerekegyh\u00e1za": 6389}, {"date": 2010, "Kerekegyh\u00e1za": 6469}, {"date": 2011, "Kerekegyh\u00e1za": 6479}, {"date": 2012, "Kerekegyh\u00e1za": 6469}, {"date": 2013, "Kerekegyh\u00e1za": 6513}, {"date": 2014, "Kerekegyh\u00e1za": 6509}, {"date": 2015, "Kerekegyh\u00e1za": 6579}, {"date": 2016, "Kerekegyh\u00e1za": 6635}, {"date": 2017, "Kerekegyh\u00e1za": 6652}, {"date": 2018, "Kerekegyh\u00e1za": 6687}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

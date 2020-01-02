@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyoszlop"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2294": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bakonyoszlop"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2294"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyoszlop"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2294"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bakonyoszlop", "selection": "selector2294"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyoszlop"}}}], "data": {"name": "data-7a8c7f2cb65c74d3e98c8304232bb446"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-7a8c7f2cb65c74d3e98c8304232bb446": [{"date": 1986, "Bakonyoszlop": 633}, {"date": 1987, "Bakonyoszlop": 625}, {"date": 1988, "Bakonyoszlop": 619}, {"date": 1989, "Bakonyoszlop": 608}, {"date": 1990, "Bakonyoszlop": 584}, {"date": 1991, "Bakonyoszlop": 559}, {"date": 1992, "Bakonyoszlop": 555}, {"date": 1993, "Bakonyoszlop": 559}, {"date": 1994, "Bakonyoszlop": 552}, {"date": 1995, "Bakonyoszlop": 546}, {"date": 1996, "Bakonyoszlop": 533}, {"date": 1997, "Bakonyoszlop": 541}, {"date": 1998, "Bakonyoszlop": 530}, {"date": 1999, "Bakonyoszlop": 534}, {"date": 2000, "Bakonyoszlop": 511}, {"date": 2001, "Bakonyoszlop": 511}, {"date": 2002, "Bakonyoszlop": 514}, {"date": 2003, "Bakonyoszlop": 517}, {"date": 2004, "Bakonyoszlop": 524}, {"date": 2005, "Bakonyoszlop": 518}, {"date": 2006, "Bakonyoszlop": 519}, {"date": 2007, "Bakonyoszlop": 521}, {"date": 2008, "Bakonyoszlop": 523}, {"date": 2009, "Bakonyoszlop": 510}, {"date": 2010, "Bakonyoszlop": 492}, {"date": 2011, "Bakonyoszlop": 489}, {"date": 2012, "Bakonyoszlop": 481}, {"date": 2013, "Bakonyoszlop": 475}, {"date": 2014, "Bakonyoszlop": 470}, {"date": 2015, "Bakonyoszlop": 458}, {"date": 2016, "Bakonyoszlop": 458}, {"date": 2017, "Bakonyoszlop": 460}, {"date": 2018, "Bakonyoszlop": 454}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

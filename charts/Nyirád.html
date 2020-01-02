@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nyir\u00e1d"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2416": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Nyir\u00e1d"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2416"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nyir\u00e1d"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2416"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Nyir\u00e1d", "selection": "selector2416"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Nyir\u00e1d"}}}], "data": {"name": "data-f771049a2c7c17a847d806ff47f1a6c3"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f771049a2c7c17a847d806ff47f1a6c3": [{"date": 1986, "Nyir\u00e1d": 1977}, {"date": 1987, "Nyir\u00e1d": 1975}, {"date": 1988, "Nyir\u00e1d": 1975}, {"date": 1989, "Nyir\u00e1d": 1944}, {"date": 1990, "Nyir\u00e1d": 1912}, {"date": 1991, "Nyir\u00e1d": 1935}, {"date": 1992, "Nyir\u00e1d": 1944}, {"date": 1993, "Nyir\u00e1d": 1958}, {"date": 1994, "Nyir\u00e1d": 1921}, {"date": 1995, "Nyir\u00e1d": 1939}, {"date": 1996, "Nyir\u00e1d": 1939}, {"date": 1997, "Nyir\u00e1d": 1925}, {"date": 1998, "Nyir\u00e1d": 1918}, {"date": 1999, "Nyir\u00e1d": 1944}, {"date": 2000, "Nyir\u00e1d": 1914}, {"date": 2001, "Nyir\u00e1d": 1909}, {"date": 2002, "Nyir\u00e1d": 1892}, {"date": 2003, "Nyir\u00e1d": 1908}, {"date": 2004, "Nyir\u00e1d": 1914}, {"date": 2005, "Nyir\u00e1d": 1929}, {"date": 2006, "Nyir\u00e1d": 1950}, {"date": 2007, "Nyir\u00e1d": 1967}, {"date": 2008, "Nyir\u00e1d": 1986}, {"date": 2009, "Nyir\u00e1d": 1981}, {"date": 2010, "Nyir\u00e1d": 1984}, {"date": 2011, "Nyir\u00e1d": 1992}, {"date": 2012, "Nyir\u00e1d": 1998}, {"date": 2013, "Nyir\u00e1d": 1984}, {"date": 2014, "Nyir\u00e1d": 1985}, {"date": 2015, "Nyir\u00e1d": 1973}, {"date": 2016, "Nyir\u00e1d": 1922}, {"date": 2017, "Nyir\u00e1d": 1917}, {"date": 2018, "Nyir\u00e1d": 1941}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

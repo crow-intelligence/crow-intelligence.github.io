@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyszentkir\u00e1ly"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2298": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Bakonyszentkir\u00e1ly"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2298"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyszentkir\u00e1ly"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2298"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Bakonyszentkir\u00e1ly", "selection": "selector2298"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Bakonyszentkir\u00e1ly"}}}], "data": {"name": "data-2235df6c8cc5f59e8c5d005b453b574e"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-2235df6c8cc5f59e8c5d005b453b574e": [{"date": 1986, "Bakonyszentkir\u00e1ly": 1006}, {"date": 1987, "Bakonyszentkir\u00e1ly": 996}, {"date": 1988, "Bakonyszentkir\u00e1ly": 1004}, {"date": 1989, "Bakonyszentkir\u00e1ly": 989}, {"date": 1990, "Bakonyszentkir\u00e1ly": 985}, {"date": 1991, "Bakonyszentkir\u00e1ly": 994}, {"date": 1992, "Bakonyszentkir\u00e1ly": 998}, {"date": 1993, "Bakonyszentkir\u00e1ly": 1004}, {"date": 1994, "Bakonyszentkir\u00e1ly": 999}, {"date": 1995, "Bakonyszentkir\u00e1ly": 1003}, {"date": 1996, "Bakonyszentkir\u00e1ly": 1006}, {"date": 1997, "Bakonyszentkir\u00e1ly": 995}, {"date": 1998, "Bakonyszentkir\u00e1ly": 996}, {"date": 1999, "Bakonyszentkir\u00e1ly": 993}, {"date": 2000, "Bakonyszentkir\u00e1ly": 988}, {"date": 2001, "Bakonyszentkir\u00e1ly": 985}, {"date": 2002, "Bakonyszentkir\u00e1ly": 971}, {"date": 2003, "Bakonyszentkir\u00e1ly": 962}, {"date": 2004, "Bakonyszentkir\u00e1ly": 941}, {"date": 2005, "Bakonyszentkir\u00e1ly": 948}, {"date": 2006, "Bakonyszentkir\u00e1ly": 940}, {"date": 2007, "Bakonyszentkir\u00e1ly": 935}, {"date": 2008, "Bakonyszentkir\u00e1ly": 938}, {"date": 2009, "Bakonyszentkir\u00e1ly": 942}, {"date": 2010, "Bakonyszentkir\u00e1ly": 943}, {"date": 2011, "Bakonyszentkir\u00e1ly": 925}, {"date": 2012, "Bakonyszentkir\u00e1ly": 905}, {"date": 2013, "Bakonyszentkir\u00e1ly": 879}, {"date": 2014, "Bakonyszentkir\u00e1ly": 867}, {"date": 2015, "Bakonyszentkir\u00e1ly": 853}, {"date": 2016, "Bakonyszentkir\u00e1ly": 839}, {"date": 2017, "Bakonyszentkir\u00e1ly": 850}, {"date": 2018, "Bakonyszentkir\u00e1ly": 839}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

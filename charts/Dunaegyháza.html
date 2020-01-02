@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaegyh\u00e1za"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector045": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Dunaegyh\u00e1za"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector045"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaegyh\u00e1za"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector045"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Dunaegyh\u00e1za", "selection": "selector045"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Dunaegyh\u00e1za"}}}], "data": {"name": "data-902198c27a392e498efe6730f594e757"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-902198c27a392e498efe6730f594e757": [{"date": 1986, "Dunaegyh\u00e1za": 1622}, {"date": 1987, "Dunaegyh\u00e1za": 1599}, {"date": 1988, "Dunaegyh\u00e1za": 1593}, {"date": 1989, "Dunaegyh\u00e1za": 1565}, {"date": 1990, "Dunaegyh\u00e1za": 1561}, {"date": 1991, "Dunaegyh\u00e1za": 1560}, {"date": 1992, "Dunaegyh\u00e1za": 1564}, {"date": 1993, "Dunaegyh\u00e1za": 1539}, {"date": 1994, "Dunaegyh\u00e1za": 1567}, {"date": 1995, "Dunaegyh\u00e1za": 1553}, {"date": 1996, "Dunaegyh\u00e1za": 1557}, {"date": 1997, "Dunaegyh\u00e1za": 1523}, {"date": 1998, "Dunaegyh\u00e1za": 1509}, {"date": 1999, "Dunaegyh\u00e1za": 1501}, {"date": 2000, "Dunaegyh\u00e1za": 1500}, {"date": 2001, "Dunaegyh\u00e1za": 1510}, {"date": 2002, "Dunaegyh\u00e1za": 1531}, {"date": 2003, "Dunaegyh\u00e1za": 1533}, {"date": 2004, "Dunaegyh\u00e1za": 1505}, {"date": 2005, "Dunaegyh\u00e1za": 1522}, {"date": 2006, "Dunaegyh\u00e1za": 1559}, {"date": 2007, "Dunaegyh\u00e1za": 1537}, {"date": 2008, "Dunaegyh\u00e1za": 1534}, {"date": 2009, "Dunaegyh\u00e1za": 1550}, {"date": 2010, "Dunaegyh\u00e1za": 1532}, {"date": 2011, "Dunaegyh\u00e1za": 1518}, {"date": 2012, "Dunaegyh\u00e1za": 1537}, {"date": 2013, "Dunaegyh\u00e1za": 1517}, {"date": 2014, "Dunaegyh\u00e1za": 1507}, {"date": 2015, "Dunaegyh\u00e1za": 1474}, {"date": 2016, "Dunaegyh\u00e1za": 1470}, {"date": 2017, "Dunaegyh\u00e1za": 1451}, {"date": 2018, "Dunaegyh\u00e1za": 1459}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

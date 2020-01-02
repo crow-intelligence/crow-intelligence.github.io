@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszadorogma"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector727": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Tiszadorogma"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector727"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszadorogma"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector727"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Tiszadorogma", "selection": "selector727"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Tiszadorogma"}}}], "data": {"name": "data-f1f8071d7c5d20b914a3a47460b6356e"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-f1f8071d7c5d20b914a3a47460b6356e": [{"date": 1986, "Tiszadorogma": 659}, {"date": 1987, "Tiszadorogma": 650}, {"date": 1988, "Tiszadorogma": 631}, {"date": 1989, "Tiszadorogma": 613}, {"date": 1990, "Tiszadorogma": 587}, {"date": 1991, "Tiszadorogma": 571}, {"date": 1992, "Tiszadorogma": 564}, {"date": 1993, "Tiszadorogma": 558}, {"date": 1994, "Tiszadorogma": 558}, {"date": 1995, "Tiszadorogma": 550}, {"date": 1996, "Tiszadorogma": 553}, {"date": 1997, "Tiszadorogma": 550}, {"date": 1998, "Tiszadorogma": 534}, {"date": 1999, "Tiszadorogma": 521}, {"date": 2000, "Tiszadorogma": 517}, {"date": 2001, "Tiszadorogma": 520}, {"date": 2002, "Tiszadorogma": 521}, {"date": 2003, "Tiszadorogma": 520}, {"date": 2004, "Tiszadorogma": 508}, {"date": 2005, "Tiszadorogma": 490}, {"date": 2006, "Tiszadorogma": 477}, {"date": 2007, "Tiszadorogma": 475}, {"date": 2008, "Tiszadorogma": 457}, {"date": 2009, "Tiszadorogma": 447}, {"date": 2010, "Tiszadorogma": 436}, {"date": 2011, "Tiszadorogma": 428}, {"date": 2012, "Tiszadorogma": 433}, {"date": 2013, "Tiszadorogma": 428}, {"date": 2014, "Tiszadorogma": 425}, {"date": 2015, "Tiszadorogma": 410}, {"date": 2016, "Tiszadorogma": 403}, {"date": 2017, "Tiszadorogma": 385}, {"date": 2018, "Tiszadorogma": 377}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

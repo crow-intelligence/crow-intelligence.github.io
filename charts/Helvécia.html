@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Helv\u00e9cia"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector063": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Helv\u00e9cia"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector063"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Helv\u00e9cia"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector063"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Helv\u00e9cia", "selection": "selector063"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Helv\u00e9cia"}}}], "data": {"name": "data-bb95a7aa3d93d8c72b8bff8a1b070355"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-bb95a7aa3d93d8c72b8bff8a1b070355": [{"date": 1986, "Helv\u00e9cia": 3727}, {"date": 1987, "Helv\u00e9cia": 3691}, {"date": 1988, "Helv\u00e9cia": 3709}, {"date": 1989, "Helv\u00e9cia": 3083}, {"date": 1990, "Helv\u00e9cia": 3125}, {"date": 1991, "Helv\u00e9cia": 3203}, {"date": 1992, "Helv\u00e9cia": 3291}, {"date": 1993, "Helv\u00e9cia": 3337}, {"date": 1994, "Helv\u00e9cia": 3387}, {"date": 1995, "Helv\u00e9cia": 3435}, {"date": 1996, "Helv\u00e9cia": 3534}, {"date": 1997, "Helv\u00e9cia": 3660}, {"date": 1998, "Helv\u00e9cia": 3714}, {"date": 1999, "Helv\u00e9cia": 3739}, {"date": 2000, "Helv\u00e9cia": 3807}, {"date": 2001, "Helv\u00e9cia": 3902}, {"date": 2002, "Helv\u00e9cia": 3988}, {"date": 2003, "Helv\u00e9cia": 4085}, {"date": 2004, "Helv\u00e9cia": 4135}, {"date": 2005, "Helv\u00e9cia": 4160}, {"date": 2006, "Helv\u00e9cia": 4207}, {"date": 2007, "Helv\u00e9cia": 4253}, {"date": 2008, "Helv\u00e9cia": 4333}, {"date": 2009, "Helv\u00e9cia": 4399}, {"date": 2010, "Helv\u00e9cia": 4497}, {"date": 2011, "Helv\u00e9cia": 4562}, {"date": 2012, "Helv\u00e9cia": 4620}, {"date": 2013, "Helv\u00e9cia": 4643}, {"date": 2014, "Helv\u00e9cia": 4648}, {"date": 2015, "Helv\u00e9cia": 4725}, {"date": 2016, "Helv\u00e9cia": 4754}, {"date": 2017, "Helv\u00e9cia": 4817}, {"date": 2018, "Helv\u00e9cia": 4814}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

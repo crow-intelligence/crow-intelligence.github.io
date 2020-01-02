@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaszemes"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1668": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Pusztaszemes"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1668"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaszemes"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1668"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Pusztaszemes", "selection": "selector1668"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Pusztaszemes"}}}], "data": {"name": "data-4e0a74224b172e58d64922fb64d33c19"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-4e0a74224b172e58d64922fb64d33c19": [{"date": 1986, "Pusztaszemes": 415}, {"date": 1987, "Pusztaszemes": 415}, {"date": 1988, "Pusztaszemes": 419}, {"date": 1989, "Pusztaszemes": 426}, {"date": 1990, "Pusztaszemes": 427}, {"date": 1991, "Pusztaszemes": 424}, {"date": 1992, "Pusztaszemes": 431}, {"date": 1993, "Pusztaszemes": 430}, {"date": 1994, "Pusztaszemes": 441}, {"date": 1995, "Pusztaszemes": 439}, {"date": 1996, "Pusztaszemes": 439}, {"date": 1997, "Pusztaszemes": 443}, {"date": 1998, "Pusztaszemes": 441}, {"date": 1999, "Pusztaszemes": 441}, {"date": 2000, "Pusztaszemes": 441}, {"date": 2001, "Pusztaszemes": 429}, {"date": 2002, "Pusztaszemes": 421}, {"date": 2003, "Pusztaszemes": 413}, {"date": 2004, "Pusztaszemes": 417}, {"date": 2005, "Pusztaszemes": 411}, {"date": 2006, "Pusztaszemes": 404}, {"date": 2007, "Pusztaszemes": 415}, {"date": 2008, "Pusztaszemes": 400}, {"date": 2009, "Pusztaszemes": 402}, {"date": 2010, "Pusztaszemes": 398}, {"date": 2011, "Pusztaszemes": 399}, {"date": 2012, "Pusztaszemes": 393}, {"date": 2013, "Pusztaszemes": 386}, {"date": 2014, "Pusztaszemes": 382}, {"date": 2015, "Pusztaszemes": 375}, {"date": 2016, "Pusztaszemes": 383}, {"date": 2017, "Pusztaszemes": 390}, {"date": 2018, "Pusztaszemes": 393}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szakonyfalu"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2247": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szakonyfalu"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2247"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szakonyfalu"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2247"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szakonyfalu", "selection": "selector2247"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szakonyfalu"}}}], "data": {"name": "data-1e808fe642455d040215e1d5de001143"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-1e808fe642455d040215e1d5de001143": [{"date": 1986, "Szakonyfalu": 433}, {"date": 1987, "Szakonyfalu": 429}, {"date": 1988, "Szakonyfalu": 427}, {"date": 1989, "Szakonyfalu": 421}, {"date": 1990, "Szakonyfalu": 411}, {"date": 1991, "Szakonyfalu": 408}, {"date": 1992, "Szakonyfalu": 417}, {"date": 1993, "Szakonyfalu": 416}, {"date": 1994, "Szakonyfalu": 407}, {"date": 1995, "Szakonyfalu": 404}, {"date": 1996, "Szakonyfalu": 407}, {"date": 1997, "Szakonyfalu": 397}, {"date": 1998, "Szakonyfalu": 391}, {"date": 1999, "Szakonyfalu": 397}, {"date": 2000, "Szakonyfalu": 394}, {"date": 2001, "Szakonyfalu": 392}, {"date": 2002, "Szakonyfalu": 393}, {"date": 2003, "Szakonyfalu": 391}, {"date": 2004, "Szakonyfalu": 392}, {"date": 2005, "Szakonyfalu": 398}, {"date": 2006, "Szakonyfalu": 411}, {"date": 2007, "Szakonyfalu": 405}, {"date": 2008, "Szakonyfalu": 401}, {"date": 2009, "Szakonyfalu": 388}, {"date": 2010, "Szakonyfalu": 386}, {"date": 2011, "Szakonyfalu": 388}, {"date": 2012, "Szakonyfalu": 384}, {"date": 2013, "Szakonyfalu": 382}, {"date": 2014, "Szakonyfalu": 379}, {"date": 2015, "Szakonyfalu": 375}, {"date": 2016, "Szakonyfalu": 373}, {"date": 2017, "Szakonyfalu": 372}, {"date": 2018, "Szakonyfalu": 375}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

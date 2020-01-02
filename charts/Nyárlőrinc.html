@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ny\u00e1rl\u0151rinc"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector088": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Ny\u00e1rl\u0151rinc"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector088"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ny\u00e1rl\u0151rinc"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector088"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Ny\u00e1rl\u0151rinc", "selection": "selector088"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Ny\u00e1rl\u0151rinc"}}}], "data": {"name": "data-ebc844ad278fc04de29e5f72d7c10a7e"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-ebc844ad278fc04de29e5f72d7c10a7e": [{"date": 1986, "Ny\u00e1rl\u0151rinc": 2545}, {"date": 1987, "Ny\u00e1rl\u0151rinc": 2539}, {"date": 1988, "Ny\u00e1rl\u0151rinc": 2513}, {"date": 1989, "Ny\u00e1rl\u0151rinc": 2491}, {"date": 1990, "Ny\u00e1rl\u0151rinc": 2490}, {"date": 1991, "Ny\u00e1rl\u0151rinc": 2485}, {"date": 1992, "Ny\u00e1rl\u0151rinc": 2480}, {"date": 1993, "Ny\u00e1rl\u0151rinc": 2487}, {"date": 1994, "Ny\u00e1rl\u0151rinc": 2498}, {"date": 1995, "Ny\u00e1rl\u0151rinc": 2519}, {"date": 1996, "Ny\u00e1rl\u0151rinc": 2519}, {"date": 1997, "Ny\u00e1rl\u0151rinc": 2499}, {"date": 1998, "Ny\u00e1rl\u0151rinc": 2471}, {"date": 1999, "Ny\u00e1rl\u0151rinc": 2431}, {"date": 2000, "Ny\u00e1rl\u0151rinc": 2424}, {"date": 2001, "Ny\u00e1rl\u0151rinc": 2425}, {"date": 2002, "Ny\u00e1rl\u0151rinc": 2425}, {"date": 2003, "Ny\u00e1rl\u0151rinc": 2406}, {"date": 2004, "Ny\u00e1rl\u0151rinc": 2401}, {"date": 2005, "Ny\u00e1rl\u0151rinc": 2418}, {"date": 2006, "Ny\u00e1rl\u0151rinc": 2419}, {"date": 2007, "Ny\u00e1rl\u0151rinc": 2409}, {"date": 2008, "Ny\u00e1rl\u0151rinc": 2436}, {"date": 2009, "Ny\u00e1rl\u0151rinc": 2416}, {"date": 2010, "Ny\u00e1rl\u0151rinc": 2380}, {"date": 2011, "Ny\u00e1rl\u0151rinc": 2342}, {"date": 2012, "Ny\u00e1rl\u0151rinc": 2332}, {"date": 2013, "Ny\u00e1rl\u0151rinc": 2307}, {"date": 2014, "Ny\u00e1rl\u0151rinc": 2301}, {"date": 2015, "Ny\u00e1rl\u0151rinc": 2304}, {"date": 2016, "Ny\u00e1rl\u0151rinc": 2320}, {"date": 2017, "Ny\u00e1rl\u0151rinc": 2324}, {"date": 2018, "Ny\u00e1rl\u0151rinc": 2338}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

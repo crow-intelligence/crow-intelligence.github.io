@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Aranyosap\u00e1ti"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector1751": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Aranyosap\u00e1ti"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector1751"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Aranyosap\u00e1ti"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector1751"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Aranyosap\u00e1ti", "selection": "selector1751"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Aranyosap\u00e1ti"}}}], "data": {"name": "data-3618c1aab135f72f192263f20e58d740"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-3618c1aab135f72f192263f20e58d740": [{"date": 1986, "Aranyosap\u00e1ti": 2231}, {"date": 1987, "Aranyosap\u00e1ti": 2217}, {"date": 1988, "Aranyosap\u00e1ti": 2203}, {"date": 1989, "Aranyosap\u00e1ti": 2158}, {"date": 1990, "Aranyosap\u00e1ti": 2129}, {"date": 1991, "Aranyosap\u00e1ti": 2074}, {"date": 1992, "Aranyosap\u00e1ti": 2074}, {"date": 1993, "Aranyosap\u00e1ti": 2069}, {"date": 1994, "Aranyosap\u00e1ti": 2103}, {"date": 1995, "Aranyosap\u00e1ti": 2130}, {"date": 1996, "Aranyosap\u00e1ti": 2116}, {"date": 1997, "Aranyosap\u00e1ti": 2127}, {"date": 1998, "Aranyosap\u00e1ti": 2138}, {"date": 1999, "Aranyosap\u00e1ti": 2164}, {"date": 2000, "Aranyosap\u00e1ti": 2157}, {"date": 2001, "Aranyosap\u00e1ti": 2141}, {"date": 2002, "Aranyosap\u00e1ti": 2163}, {"date": 2003, "Aranyosap\u00e1ti": 2158}, {"date": 2004, "Aranyosap\u00e1ti": 2185}, {"date": 2005, "Aranyosap\u00e1ti": 2159}, {"date": 2006, "Aranyosap\u00e1ti": 2160}, {"date": 2007, "Aranyosap\u00e1ti": 2134}, {"date": 2008, "Aranyosap\u00e1ti": 2105}, {"date": 2009, "Aranyosap\u00e1ti": 2062}, {"date": 2010, "Aranyosap\u00e1ti": 2062}, {"date": 2011, "Aranyosap\u00e1ti": 2070}, {"date": 2012, "Aranyosap\u00e1ti": 2085}, {"date": 2013, "Aranyosap\u00e1ti": 2098}, {"date": 2014, "Aranyosap\u00e1ti": 2118}, {"date": 2015, "Aranyosap\u00e1ti": 2119}, {"date": 2016, "Aranyosap\u00e1ti": 2140}, {"date": 2017, "Aranyosap\u00e1ti": 2155}, {"date": 2018, "Aranyosap\u00e1ti": 2197}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

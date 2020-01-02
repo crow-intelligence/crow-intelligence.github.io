@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.0.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line", "interpolate": "basis"}, "encoding": {"x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szakny\u00e9r"}}}, {"mark": "point", "encoding": {"opacity": {"value": 0}, "x": {"type": "quantitative", "field": "date"}}, "selection": {"selector2246": {"type": "single", "nearest": true, "on": "mouseover", "fields": ["Szakny\u00e9r"], "empty": "none"}}}, {"mark": "point", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector2246"}, "value": 0}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szakny\u00e9r"}}}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"x": {"type": "quantitative", "field": "date"}}, "transform": [{"filter": {"selection": "selector2246"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"text": {"condition": {"type": "quantitative", "field": "Szakny\u00e9r", "selection": "selector2246"}, "value": " "}, "x": {"type": "quantitative", "field": "date"}, "y": {"type": "quantitative", "field": "Szakny\u00e9r"}}}], "data": {"name": "data-0cdb4ef1b43954da656b2c80ea9bdd4b"}, "height": 300, "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0.json", "datasets": {"data-0cdb4ef1b43954da656b2c80ea9bdd4b": [{"date": 1986, "Szakny\u00e9r": 103}, {"date": 1987, "Szakny\u00e9r": 106}, {"date": 1988, "Szakny\u00e9r": 99}, {"date": 1989, "Szakny\u00e9r": 89}, {"date": 1990, "Szakny\u00e9r": 81}, {"date": 1991, "Szakny\u00e9r": 85}, {"date": 1992, "Szakny\u00e9r": 89}, {"date": 1993, "Szakny\u00e9r": 87}, {"date": 1994, "Szakny\u00e9r": 87}, {"date": 1995, "Szakny\u00e9r": 86}, {"date": 1996, "Szakny\u00e9r": 84}, {"date": 1997, "Szakny\u00e9r": 79}, {"date": 1998, "Szakny\u00e9r": 79}, {"date": 1999, "Szakny\u00e9r": 78}, {"date": 2000, "Szakny\u00e9r": 79}, {"date": 2001, "Szakny\u00e9r": 73}, {"date": 2002, "Szakny\u00e9r": 74}, {"date": 2003, "Szakny\u00e9r": 69}, {"date": 2004, "Szakny\u00e9r": 67}, {"date": 2005, "Szakny\u00e9r": 66}, {"date": 2006, "Szakny\u00e9r": 66}, {"date": 2007, "Szakny\u00e9r": 65}, {"date": 2008, "Szakny\u00e9r": 64}, {"date": 2009, "Szakny\u00e9r": 57}, {"date": 2010, "Szakny\u00e9r": 57}, {"date": 2011, "Szakny\u00e9r": 57}, {"date": 2012, "Szakny\u00e9r": 52}, {"date": 2013, "Szakny\u00e9r": 50}, {"date": 2014, "Szakny\u00e9r": 50}, {"date": 2015, "Szakny\u00e9r": 50}, {"date": 2016, "Szakny\u00e9r": 49}, {"date": 2017, "Szakny\u00e9r": 48}, {"date": 2018, "Szakny\u00e9r": 53}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
