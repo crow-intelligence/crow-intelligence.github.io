@@ -1,4 +1,4 @@
-var margin_020301 = {top: 40, right: 400, bottom: 130, left: 90};
+var margin_020301 = {top: 40, right: 200, bottom: 130, left: 90};
 
 var w_020301 = window.innerWidth - margin_020301.left - margin_020301.right;
 var h_020301 = window.innerHeight - margin_020301.top - margin_020301.bottom;
@@ -13,7 +13,7 @@ var scaleY_020301 = d3.scaleLinear()
 
 var color_020301 = d3.scaleOrdinal()
     //.range(["#385988", "#43B02A" , "#FF671F", "#A4343A", "#00AFD7", "#C4D600"]);
-    .range(["#045A8D", "#43B02A", "#74A9CF", "#FFFF00", "#00AFD7", "#980043", "#000000", "#DF65B0", "#736F6E","#B30000", "#E34A33", "#FC8D59", "#C4D600", "#FF671F"]);
+    .range(["#045A8D", "#2B8CBE", "#74A9CF", "#A6BDDB", "#D0D1E6", "#980043", "#DD1C77", "#DF65B0", "#C994C7","#B30000", "#E34A33", "#FC8D59", "#FDBB84", "#FDD49E"]);
 
 var xAxis_020301 = d3.axisBottom()
     .scale(scaleX_020301)
@@ -32,7 +32,7 @@ var svg_020301 = d3.select("body").append("svg")
     .append("g")
     .attr("transform", "translate("+margin_020301.left +", "+margin_020301.top+")")
 
-d3.csv("lakossag_nemek.csv", type_020301, function (error, data) {
+d3.csv("city.csv", type_020301, function (error, data) {
     if (error) throw error;
 
     var categories_020301 = data.columns.slice(1).map(function (name) {
@@ -64,14 +64,14 @@ var legend_020301 = svg_020301.selectAll("g")
     .attr("class", "legend_020301");
 
 legend_020301.append("rect")
-    .attr("x", w_020301 + 260)
+    .attr("x", w_020301 + 160)
     .attr("y", function(d, i) {return i * 20;} )
-    .attr("width", 10)
+    .attr("width", 5)
     .attr("height", 15)
     .style("fill", function(d) {return color_020301(d.name);} );
 
 legend_020301.append("text")
-    .attr("x", w_020301 + 250)
+    .attr("x", w_020301 + 150)
     .attr("y", function(d, i) {return (i * 20) + 12;} )
     .attr("font-size", function() {
         if (w_020301 <= 400) {return (w_020301 * 0.0005 + 0.5) + "em"}
@@ -106,14 +106,7 @@ svg_020301.append("g")
     .attr("class", "x axis_020301")
     .attr("transform", "translate(0, "+h_020301+")")
     .call(xAxis_020301)
-    .style("font", "12px sans-serif")
-    .selectAll("text")	
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", function(d) {
-                return "rotate(-65)" 
-                });
+    .style("font", "12px sans-serif");
 
 svg_020301.append("g")
     .attr("class", "y axis_020301")
@@ -127,7 +120,7 @@ svg_020301.append("text")
     .attr("y", 0 - (margin_020301.top / 2))
     .attr("text-anchor", "middle")
     .style("font", "20px sans-serif")
-    .text("Distribution of sexes by city size");
+    .text("A lakosság településtípus szerinti megoszlásának változása");
 
 
 svg_020301.append("text")
