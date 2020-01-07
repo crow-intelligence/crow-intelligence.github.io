@@ -64,15 +64,15 @@ var legend_020301 = svg_020301.selectAll("g")
     .attr("class", "legend_020301");
 
 legend_020301.append("rect")
-    .attr("x", margin_020301.top + 825)
-    .attr("y", function(d, i) {return i * 15 + 65;} )
+    .attr("x", margin_020301.top + (w_020301/2))
+    .attr("y", function(d, i) {return i * 15 + (h_020301 / 5);} )
     .attr("width", 10)
     .attr("height", 10)
     .style("fill", function(d) {return color_020301(d.name);} );
 
 legend_020301.append("text")
-    .attr("x", margin_020301.top + 815)
-    .attr("y", function(d, i) {return (i * 15) + 75;} )
+    .attr("x", margin_020301.top + (w_020301/2))
+    .attr("y", function(d, i) {return (i * 15) + (h_020301 / 5);} )
     .attr("font-size", function() {
         if (w_020301 <= 400) {return (w_020301 * 0.0005 + 0.5) + "em"}
         else 	{ return "12px" }

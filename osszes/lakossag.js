@@ -68,15 +68,15 @@ var legend_020301 = svg_020301.selectAll("g")
 legend_020301.append("rect")
     //.attr("x", (w_020301 / 3))             
     //.attr("y", 0 - (margin_020301.top / 11))
-    .attr("x", margin_020301.top + 830)
-    .attr("y", function(d, i) {return (i * 20) + 90;} )
+    .attr("x", margin_020301.top + (w_020301/2))
+    .attr("y", function(d, i) {return (i * 20) + (h_020301/5);} )
     .attr("width", 5)
     .attr("height", 15)
     .style("fill", function(d) {return color_020301(d.name);} );
 
 legend_020301.append("text")
-    .attr("x", margin_020301.top + 820)
-    .attr("y", function(d, i) {return (i * 20) + 100;} )
+    .attr("x", margin_020301.top + (w_020301/2))
+    .attr("y", function(d, i) {return (i * 20) + (h_020301/5);} )
     .attr("font-size", function() {
         if (w_020301 <= 400) {return (w_020301 * 0.0005 + 0.5) + "em"}
         else 	{ return "14px" }
