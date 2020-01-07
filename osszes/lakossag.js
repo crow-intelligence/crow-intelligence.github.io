@@ -1,6 +1,6 @@
 var margin_020301 = {top: window.innerHeight/25, right: window.innerWidth/25, bottom: window.innerHeight/25, left: window.innerWidth/25};
 
-var w_020301 = window.innerWidth - margin_020301.left - margin_020301.right - 10;
+var w_020301 = window.innerWidth - margin_020301.left - margin_020301.right - 20;
 var h_020301 = window.innerHeight - margin_020301.top - margin_020301.bottom - 20;
 
 var parseDate_020301 = d3.timeParse("%Y");

@@ -1,12 +1,12 @@
 var margin_020301 = {top: window.innerHeight/25, right: window.innerWidth/25, bottom: window.innerHeight/25, left: window.innerWidth/25};
 
-var w_020301 = window.innerWidth - margin_020301.left - margin_020301.right - 10;
-var h_020301 = window.innerHeight - margin_020301.top - margin_020301.bottom - 20;
+var w_020301 = (window.innerWidth - margin_020301.left - margin_020301.right) * 0.95;
+var h_020301 = (window.innerHeight - margin_020301.top - margin_020301.bottom) * 0.95;
 
 var parseDate_020301 = d3.timeParse("%Y");
 
 var scaleX_020301 = d3.scaleTime()
-    .range([0, w_020301]);
+    .range([0, w_020301-5]);
 
 var scaleY_020301 = d3.scaleLinear()
     .range([h_020301, 0]);
@@ -17,7 +17,7 @@ var color_020301 = d3.scaleOrdinal()
 
 var xAxis_020301 = d3.axisBottom()
     .scale(scaleX_020301)
-    .ticks(25);
+    .ticks(40);
 
 var yAxis_020301 = d3.axisLeft()
     .scale(scaleY_020301)
@@ -101,26 +101,25 @@ var points_020301 = svg_020301.selectAll('.points')
   .append('text');
 
 var timeScales_020301 = data.map(function(name) { return scaleX_020301(name.date); });
+var fontsize = Math.round(Math.log2(w_020301)).toString().concat("px sans-serif");
 
 svg_020301.append("g")
     .attr("class", "x axis_020301")
     .attr("transform", "translate(0, "+h_020301+")")
     .call(xAxis_020301)
-    .style("font", "12px sans-serif")
     .selectAll("text")	
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", function(d) {
-                return "rotate(-65)" 
-                });
-
+            .style("font", fontsize)
+            .attr("transform", "rotate(-30)" );
+    ;
+    
 svg_020301.append("g")
     .attr("class", "y axis_020301")
     .call(yAxis_020301)
-    .style("font", "12px sans-serif")
+    .selectAll("text")  
+            .style("font", fontsize)
+            .attr("transform", "rotate(-45)" );
     ;
-    
+    //.style("font", "10px sans-serif")
 svg_020301.append("text")
     .attr("class", "title_020301")
     .attr("x", (w_020301 / 2))             
