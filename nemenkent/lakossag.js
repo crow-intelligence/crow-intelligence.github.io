@@ -1,4 +1,4 @@
-var margin_020301 = {top: 40, right: 400, bottom: 130, left: 90};
+var margin_020301 = {top: window.innerHeight/20, right: window.innerWidth/20, bottom: window.innerHeight/20, left: window.innerWidth/20};
 
 var w_020301 = window.innerWidth - margin_020301.left - margin_020301.right;
 var h_020301 = window.innerHeight - margin_020301.top - margin_020301.bottom;
