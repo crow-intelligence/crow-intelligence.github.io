@@ -71,8 +71,8 @@ legend_020301.append("rect")
     .style("fill", function(d) {return color_020301(d.name);} );
 
 legend_020301.append("text")
-    .attr("x", margin_020301.top + (w_020301/2))
-    .attr("y", function(d, i) {return (i * 15) + (h_020301 / 5);} )
+    .attr("x", margin_020301.top + (w_020301/2.05))
+    .attr("y", function(d, i) {return (i * 15) + (h_020301 / 4.6);} )
     .attr("font-size", function() {
         if (w_020301 <= 400) {return (w_020301 * 0.0005 + 0.5) + "em"}
         else 	{ return "12px" }
@@ -99,7 +99,7 @@ var points_020301 = svg_020301.selectAll('.points')
   .append('g')
   .attr('class', 'points_020301')
   .append('text');
-
+//dsadsasdasdfadsfadsfasdfasdfadsfaesd//
 var timeScales_020301 = data.map(function(name) { return scaleX_020301(name.date); });
 var fontsize = Math.round(Math.log2(w_020301)).toString().concat("px sans-serif");
 
