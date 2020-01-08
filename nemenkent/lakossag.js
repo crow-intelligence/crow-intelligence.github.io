@@ -1,7 +1,7 @@
 var margin_020301 = {top: window.innerHeight/25, right: window.innerWidth/25, bottom: window.innerHeight/25, left: window.innerWidth/25};
 
 var w_020301 = (window.innerWidth - margin_020301.left - margin_020301.right) * 0.95;
-var h_020301 = (window.innerHeight - margin_020301.top - margin_020301.bottom) * 0.95;
+var h_020301 = (window.innerHeight - margin_020301.top - margin_020301.bottom) * 0.8;
 
 var parseDate_020301 = d3.timeParse("%Y");
 
@@ -65,14 +65,14 @@ var legend_020301 = svg_020301.selectAll("g")
 
 legend_020301.append("rect")
     .attr("x", margin_020301.top + (w_020301/2))
-    .attr("y", function(d, i) {return i * 15 + (h_020301 / 5);} )
+    .attr("y", function(d, i) {return i * 15 + (h_020301 / 7);} )
     .attr("width", 10)
     .attr("height", 10)
     .style("fill", function(d) {return color_020301(d.name);} );
 
 legend_020301.append("text")
     .attr("x", margin_020301.top + (w_020301/2.05))
-    .attr("y", function(d, i) {return (i * 15) + (h_020301 / 4.6);} )
+    .attr("y", function(d, i) {return (i * 15) + (h_020301 / 6.3);} )
     .attr("font-size", function() {
         if (w_020301 <= 400) {return (w_020301 * 0.0005 + 0.5) + "em"}
         else 	{ return "12px" }
@@ -101,7 +101,9 @@ var points_020301 = svg_020301.selectAll('.points')
   .append('text');
 //dsadsasdasdfadsfadsfasdfasdfadsfaesd//
 var timeScales_020301 = data.map(function(name) { return scaleX_020301(name.date); });
-var fontsize = Math.round(Math.log2(w_020301)).toString().concat("px sans-serif");
+var fontsize = Math.round(Math.log2(w_020301) * 0.60); // majd mérettel arányosra kell venni
+fontsize = fontsize.toString().concat("px sans-serif");
+
 
 svg_020301.append("g")
     .attr("class", "x axis_020301")
@@ -115,9 +117,9 @@ svg_020301.append("g")
 svg_020301.append("g")
     .attr("class", "y axis_020301")
     .call(yAxis_020301)
-    .selectAll("text")  
+    .selectAll("text")
             .style("font", fontsize)
-            .attr("transform", "rotate(-45)" );
+            .attr("transform", "rotate(35)" );
     ;
     //.style("font", "10px sans-serif")
 svg_020301.append("text")
@@ -125,7 +127,7 @@ svg_020301.append("text")
     .attr("x", (w_020301 / 2))             
     .attr("y", 0 - (margin_020301.top / 2))
     .attr("text-anchor", "middle")
-    .style("font", "20px sans-serif")
+    .style("font", "18px sans-serif")
     .text("Distribution of sexes by city size");
 
 
