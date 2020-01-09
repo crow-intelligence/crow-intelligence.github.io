@@ -105,8 +105,14 @@ var points_020301 = svg_020301.selectAll('.points')
   .append('text');
 
 var timeScales_020301 = data.map(function(name) { return scaleX_020301(name.date); });
-  
-var fontsize = Math.round(Math.log2(w_020301) * 0.60); // majd mérettel arányosra kell venni
+var fontsize = Math.round(Math.log2(w_020301));
+
+if (w_020301 < 500) {
+    fontsize *= 0.55;
+} else {
+    fontsize *= 0.7;
+}
+
 fontsize = fontsize.toString().concat("px sans-serif");
 
 /*
@@ -150,7 +156,7 @@ svg_020301.append("text")
     .attr("x", (w_020301 / 2))             
     .attr("y", 0 - (margin_020301.top / 2))
     .attr("text-anchor", "middle")
-    .style("font", "18px sans-serif")
+    .style("font", "16px sans-serif")
     .text("Distribution of the population by city size");
 
 
