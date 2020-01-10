@@ -148,14 +148,17 @@ d3.csv("lakossag_összes.csv", type_020301, function (error, data) {
         return scaleX_020301(name.date);
     });
     var fontsize = Math.round(Math.log2(w_020301));
-
+    var fontsizeY;
+    var fontsiteX;
     if (w_020301 < 500) {
-        fontsize *= 0.55;
+        fontsizeY = fontsize * 0.55;
     } else {
-        fontsize *= 0.7;
+        fontsizeY = fontsize * 0.7;
     }
+    fontsizeX = fontsize;
+    fontsizeY = fontsizeY.toString().concat("px sans-serif");
+    fontsizeX = fontsizeX.toString().concat("px sans-serif");
 
-    fontsize = fontsize.toString().concat("px sans-serif");
 
     /*
     svg_020301.append("g")
@@ -182,14 +185,14 @@ d3.csv("lakossag_összes.csv", type_020301, function (error, data) {
         .attr("transform", "translate(0, " + h_020301 + ")")
         .call(xAxis_020301)
         .selectAll("text")
-        .style("font", fontsize)
-        .attr("transform", "rotate(-30)");;
+        .style("font", fontsizeX)
+        .attr("transform", "rotate(-45)");;
 
     svg_020301.append("g")
         .attr("class", "y axis_020301")
         .call(yAxis_020301)
         .selectAll("text")
-        .style("font", fontsize)
+        .style("font", fontsizeY)
         .attr("transform", "rotate(35)");
 
     svg_020301.append("text")

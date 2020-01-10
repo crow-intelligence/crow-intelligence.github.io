@@ -144,183 +144,186 @@ d3.csv("lakossag_nemek.csv", type_020301, function (error, data) {
         return scaleX_020301(name.date);
     });
 
-var fontsize = Math.round(Math.log2(w_020301));
+    var fontsize = Math.round(Math.log2(w_020301));
+    var fontsizeY;
+    var fontsiteX;
     if (w_020301 < 500) {
-        fontsize *= 0.55;
+        fontsizeY = fontsize * 0.55;
     } else {
-        fontsize *= 0.7;
-}
-
-fontsize = fontsize.toString().concat("px sans-serif");
-
-
-svg_020301.append("g")
-.attr("class", "x axis_020301")
-.attr("transform", "translate(0, " + h_020301 + ")")
-.call(xAxis_020301)
-.selectAll("text")
-.style("font", fontsize)
-.attr("transform", "rotate(-30)");;
-
-svg_020301.append("g")
-.attr("class", "y axis_020301")
-.call(yAxis_020301)
-.selectAll("text")
-.style("font", fontsize)
-.attr("transform", "rotate(35)");;
-//.style("font", "10px sans-serif")
-svg_020301.append("text")
-.attr("class", "title_020301")
-.attr("x", (w_020301 / 2))
-.attr("y", 0 - (margin_020301.top / 2))
-.attr("text-anchor", "middle")
-.style("font", "16px sans-serif")
-.text("Distribution of sexes by city size");
+        fontsizeY = fontsize * 0.7;
+    }
+    fontsizeX = fontsize;
+    fontsizeY = fontsizeY.toString().concat("px sans-serif");
+    fontsizeX = fontsizeX.toString().concat("px sans-serif");
 
 
-svg_020301.append("text")
-.attr("class", "data_source_020301")
-.attr("x", w_020301)
-.attr("y", h_020301 + 50)
-.attr("font-size", function () {
-    if (w_020301 <= 400) {
-        return (w_020301 * 0.0005 + 0.5) + "em"
-    } else {
-        return "14px"
-    };
-})
-.style("text-anchor", "end")
-.on("mouseout", function () {
-    d3.select(this).style("cursor", "default");
-})
-.on("mousemove", function (d) {
-    d3.select(this).style("cursor", "pointer");
-});
+    svg_020301.append("g")
+        .attr("class", "x axis_020301")
+        .attr("transform", "translate(0, " + h_020301 + ")")
+        .call(xAxis_020301)
+        .selectAll("text")
+        .style("font", fontsizeX)
+        .attr("transform", "rotate(-45)");;
 
-var mouseG_020301 = svg_020301.append("g") // this the black vertical line to follow mouse
-    .attr("class", "mouse-over-effects_020301");
-
-mouseG_020301.append("path")
-.attr("class", "mouse-line_020301")
-.style("stroke", "black")
-.style("stroke-width", "1px")
-.style("opacity", "0");
+    svg_020301.append("g")
+        .attr("class", "y axis_020301")
+        .call(yAxis_020301)
+        .selectAll("text")
+        .style("font", fontsizeY)
+        .attr("transform", "rotate(35)");;
+    //.style("font", "10px sans-serif")
+    svg_020301.append("text")
+        .attr("class", "title_020301")
+        .attr("x", (w_020301 / 2))
+        .attr("y", 0 - (margin_020301.top / 2))
+        .attr("text-anchor", "middle")
+        .style("font", "16px sans-serif")
+        .text("Distribution of sexes by city size");
 
 
-var lines_020301 = document.getElementsByClassName("line_020301");
-
-var mousePerLine_020301 = mouseG_020301.selectAll(".mouse-per-line_020301")
-    .data(categories_020301)
-    .enter()
-    .append("g")
-    .attr("class", "mouse-per-line_020301");
-
-mousePerLine_020301.append("circle")
-.attr("r", 7)
-.style("stroke", function (d) {
-    return color_020301(d.name);
-})
-.style("fill", "none")
-.style("stroke-width", "1px")
-.style("opacity", "0");
-
-mousePerLine_020301.append("text")
-.attr("transform", "translate(10, 3)");
-
-mouseG_020301.append("rect")
-.attr("width", w_020301)
-.attr("height", h_020301)
-.attr("fill", "none")
-.attr("pointer-events", "all")
-.on("mouseout", function () {
-    d3.select(".mouse-line_020301").style("opacity", "0");
-    d3.selectAll(".mouse-per-line_020301 circle").style("opacity", "0");
-    d3.selectAll(".mouse-per-line_020301 text").style("opacity", "0")
-})
-.on("mouseover", function () {
-    d3.select(".mouse-line_020301").style("opacity", "1");
-    d3.selectAll(".mouse-per-line_020301 circle").style("opacity", "1");
-    d3.selectAll(".mouse-per-line_020301 text").style("opacity", "1")
-})
-.on("mousemove", function () {
-    var mouse_020301 = d3.mouse(this),
-        j_020301 = d3.bisect(timeScales_020301, mouse_020301[0], 1),
-        di_020301 = data[j_020301 - 1];
-
-    d3.select(".mouse-line_020301")
-        .attr("d", function () {
-            var d_020301 = "M" + mouse_020301[0] + ", " + h_020301;
-            d_020301 += " " + mouse_020301[0] + ", " + 0;
-            return d_020301;
-        })
-
-    var ypos_020301 = [];
-
-    d3.selectAll(".mouse-per-line_020301")
-        .attr("transform", function (d, i) {
-            var xDate_020301 = scaleX_020301.invert(mouse_020301[0]),
-                bisect_020301 = d3.bisector(function (d) {
-                    return d.date;
-                }).right;
-            idx_020301 = bisect_020301(d.values, xDate_020301);
-
-            var beginning_020301 = 0,
-                end_020301 = lines_020301[i].getTotalLength(),
-                target_020301 = null;
-
-            while (true) {
-                target_020301 = Math.floor((beginning_020301 + end_020301) / 2);
-
-                pos_020301 = lines_020301[i].getPointAtLength(target_020301);
-
-                if ((target_020301 === end_020301 || target_020301 === beginning_020301) && pos_020301.x !== mouse_020301[0]) {
-                    break;
-                }
-                if (pos_020301.x > mouse_020301[0]) end_020301 = target_020301;
-                else if (pos_020301.x < mouse_020301[0]) beginning_020301 = target_020301;
-                else break; //position found
-            }
-
-            d3.select(this).select('text')
-                .text(di_020301[keys_020301[i]]);
-
-            ypos_020301.push({
-                ind: i,
-                y: pos_020301.y,
-                off: 0
-            });
-
-            return "translate(" + mouse_020301[0] + ", " + pos_020301.y + ")"
-        })
-
-        .call(function (sel) {
-            ypos_020301.sort(function (a, b) {
-                return a.y - b.y;
-            });
-            ypos_020301.forEach(function (p, i) {
-                if (i > 0) {
-                    var last_020301 = ypos_020301[i - 1].y;
-                    ypos_020301[i].off = Math.max(0, (last_020301 + 15) - ypos_020301[i].y);
-                    ypos_020301[i].y += ypos_020301[i].off;
-                }
-            })
-            ypos_020301.sort(function (a, b) {
-                return a.ind - b.ind;
-            });
-        })
-
-        .select("text")
-        .attr("transform", function (d, i) {
-            return "translate(10, " + (3 + ypos_020301[i].off) + ")";
-        })
+    svg_020301.append("text")
+        .attr("class", "data_source_020301")
+        .attr("x", w_020301)
+        .attr("y", h_020301 + 50)
         .attr("font-size", function () {
             if (w_020301 <= 400) {
                 return (w_020301 * 0.0005 + 0.5) + "em"
             } else {
                 return "14px"
             };
+        })
+        .style("text-anchor", "end")
+        .on("mouseout", function () {
+            d3.select(this).style("cursor", "default");
+        })
+        .on("mousemove", function (d) {
+            d3.select(this).style("cursor", "pointer");
         });
-});
+
+    var mouseG_020301 = svg_020301.append("g") // this the black vertical line to follow mouse
+        .attr("class", "mouse-over-effects_020301");
+
+    mouseG_020301.append("path")
+        .attr("class", "mouse-line_020301")
+        .style("stroke", "black")
+        .style("stroke-width", "1px")
+        .style("opacity", "0");
+
+
+    var lines_020301 = document.getElementsByClassName("line_020301");
+
+    var mousePerLine_020301 = mouseG_020301.selectAll(".mouse-per-line_020301")
+        .data(categories_020301)
+        .enter()
+        .append("g")
+        .attr("class", "mouse-per-line_020301");
+
+    mousePerLine_020301.append("circle")
+        .attr("r", 7)
+        .style("stroke", function (d) {
+            return color_020301(d.name);
+        })
+        .style("fill", "none")
+        .style("stroke-width", "1px")
+        .style("opacity", "0");
+
+    mousePerLine_020301.append("text")
+        .attr("transform", "translate(10, 3)");
+
+    mouseG_020301.append("rect")
+        .attr("width", w_020301)
+        .attr("height", h_020301)
+        .attr("fill", "none")
+        .attr("pointer-events", "all")
+        .on("mouseout", function () {
+            d3.select(".mouse-line_020301").style("opacity", "0");
+            d3.selectAll(".mouse-per-line_020301 circle").style("opacity", "0");
+            d3.selectAll(".mouse-per-line_020301 text").style("opacity", "0")
+        })
+        .on("mouseover", function () {
+            d3.select(".mouse-line_020301").style("opacity", "1");
+            d3.selectAll(".mouse-per-line_020301 circle").style("opacity", "1");
+            d3.selectAll(".mouse-per-line_020301 text").style("opacity", "1")
+        })
+        .on("mousemove", function () {
+            var mouse_020301 = d3.mouse(this),
+                j_020301 = d3.bisect(timeScales_020301, mouse_020301[0], 1),
+                di_020301 = data[j_020301 - 1];
+
+            d3.select(".mouse-line_020301")
+                .attr("d", function () {
+                    var d_020301 = "M" + mouse_020301[0] + ", " + h_020301;
+                    d_020301 += " " + mouse_020301[0] + ", " + 0;
+                    return d_020301;
+                })
+
+            var ypos_020301 = [];
+
+            d3.selectAll(".mouse-per-line_020301")
+                .attr("transform", function (d, i) {
+                    var xDate_020301 = scaleX_020301.invert(mouse_020301[0]),
+                        bisect_020301 = d3.bisector(function (d) {
+                            return d.date;
+                        }).right;
+                    idx_020301 = bisect_020301(d.values, xDate_020301);
+
+                    var beginning_020301 = 0,
+                        end_020301 = lines_020301[i].getTotalLength(),
+                        target_020301 = null;
+
+                    while (true) {
+                        target_020301 = Math.floor((beginning_020301 + end_020301) / 2);
+
+                        pos_020301 = lines_020301[i].getPointAtLength(target_020301);
+
+                        if ((target_020301 === end_020301 || target_020301 === beginning_020301) && pos_020301.x !== mouse_020301[0]) {
+                            break;
+                        }
+                        if (pos_020301.x > mouse_020301[0]) end_020301 = target_020301;
+                        else if (pos_020301.x < mouse_020301[0]) beginning_020301 = target_020301;
+                        else break; //position found
+                    }
+
+                    d3.select(this).select('text')
+                        .text(di_020301[keys_020301[i]]);
+
+                    ypos_020301.push({
+                        ind: i,
+                        y: pos_020301.y,
+                        off: 0
+                    });
+
+                    return "translate(" + mouse_020301[0] + ", " + pos_020301.y + ")"
+                })
+
+                .call(function (sel) {
+                    ypos_020301.sort(function (a, b) {
+                        return a.y - b.y;
+                    });
+                    ypos_020301.forEach(function (p, i) {
+                        if (i > 0) {
+                            var last_020301 = ypos_020301[i - 1].y;
+                            ypos_020301[i].off = Math.max(0, (last_020301 + 15) - ypos_020301[i].y);
+                            ypos_020301[i].y += ypos_020301[i].off;
+                        }
+                    })
+                    ypos_020301.sort(function (a, b) {
+                        return a.ind - b.ind;
+                    });
+                })
+
+                .select("text")
+                .attr("transform", function (d, i) {
+                    return "translate(10, " + (3 + ypos_020301[i].off) + ")";
+                })
+                .attr("font-size", function () {
+                    if (w_020301 <= 400) {
+                        return (w_020301 * 0.0005 + 0.5) + "em"
+                    } else {
+                        return "14px"
+                    };
+                });
+        });
 });
 
 function type_020301(d, _, columns) {
