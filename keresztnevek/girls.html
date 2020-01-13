@@ -165,9 +165,9 @@ var graph = d3.csv(csvpath, function(data) {
       .attr("transform", "translate(" + width + ", 0)")
       .call(yAxis.orient("right"));
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis.orient("left"));
+  //svg.append("g")
+      //.attr("class", "y axis")
+      //.call(yAxis.orient("left"));
 
   svg.selectAll(".layer")
     .attr("opacity", 1)
