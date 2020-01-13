@@ -162,11 +162,14 @@ var graph = d3.csv(csvpath, function(data) {
   svg.append("g")
       .attr("class", "y axis")
       .attr("transform", "translate(" + width + ", 0)")
-      .call(yAxis.orient("right"));
+      .call(yAxis.orient("right"))
+      .selectAll("text")
+        .style("font", "12 px")
+        .attr("transform", "rotate(-45)");
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis.orient("left"));
+  //svg.append("g")
+      //.attr("class", "y axis")
+      //.call(yAxis.orient("left"));
 
   svg.selectAll(".layer")
     .attr("opacity", 1)
