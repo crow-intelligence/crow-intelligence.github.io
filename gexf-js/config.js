@@ -1,7 +1,7 @@
 /*** USE THIS FILE TO SET OPTIONS ***/
 
 GexfJS.setParams({
-    graphFile : "semanticnetwork.gexf",
+    graphFile : "semanticnetwork2.gexf",
         /*
             The GEXF file to show ! -- can be overriden by adding
             a hash to the document location, e.g. index.html#celegans.gexf
@@ -16,7 +16,7 @@ GexfJS.setParams({
         /*
             Default state of the "use lens" button. Set to null to disable button.
         */
-    zoomLevel : 0,
+    zoomLevel : 1,
         /*
             Default zoom level. At zoom = 0, the graph should fill a 800x700px zone
          */
@@ -25,16 +25,16 @@ GexfJS.setParams({
             False for curved edges, true for straight edges
             this setting can't be changed from the User Interface
         */
-    edgeWidthFactor : 1,
+    edgeWidthFactor : 10,
         /*
             Change this parameter for wider or narrower edges
             this setting can't be changed from the User Interface
         */
-    minEdgeWidth : 1,
-    maxEdgeWidth : 50,
-    textDisplayThreshold: 9,
-    fontSizeFactor : 1,
-    nodeSizeFactor : 1,
+    minEdgeWidth : 0,
+    maxEdgeWidth : 500000000000,
+    textDisplayThreshold: 1,
+    fontSizeFactor : 2,
+    nodeSizeFactor : 2,
         /*
             Change this parameter for smaller or larger nodes
            this setting can't be changed from the User Interface
