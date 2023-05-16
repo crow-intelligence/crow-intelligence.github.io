@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.8.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-ee334f85632239b929a11005b61d713e"}, "mark": {"type": "circle", "size": 100}, "encoding": {"color": {"field": "T\u00edpus", "type": "nominal"}, "tooltip": [{"field": "Name", "type": "nominal"}, {"field": "Gazdas\u00e1gi jobb/bal", "type": "quantitative"}, {"field": "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g", "type": "quantitative"}, {"field": "T\u00edpus", "type": "nominal"}], "x": {"field": "Gazdas\u00e1gi jobb/bal", "scale": {"domain": [-28, 28]}, "type": "quantitative"}, "y": {"field": "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g", "scale": {"domain": [-28, 28]}, "type": "quantitative"}}, "params": [{"name": "param_8", "select": {"type": "interval", "encodings": ["x", "y"]}, "bind": "scales"}], "$schema": "https://vega.github.io/schema/vega-lite/v5.8.0.json", "datasets": {"data-ee334f85632239b929a11005b61d713e": [{"Name": "horthy", "Gazdas\u00e1gi jobb/bal": 0, "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g": 0, "T\u00edpus": "t\u00f6rt\u00e9nelmi"}, {"Name": "rakosi", "Gazdas\u00e1gi jobb/bal": 3, "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g": 0, "T\u00edpus": "t\u00f6rt\u00e9nelmi"}, {"Name": "teleki", "Gazdas\u00e1gi jobb/bal": 2, "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g": 3, "T\u00edpus": "t\u00f6rt\u00e9nelmi"}, {"Name": "szalasi", "Gazdas\u00e1gi jobb/bal": -2, "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g": -2, "T\u00edpus": "t\u00f6rt\u00e9nelmi"}, {"Name": "kossuth", "Gazdas\u00e1gi jobb/bal": 0, "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g": 3, "T\u00edpus": "t\u00f6rt\u00e9nelmi"}, {"Name": "tisza", "Gazdas\u00e1gi jobb/bal": 2, "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g": 0, "T\u00edpus": "t\u00f6rt\u00e9nelmi"}, {"Name": "Orb\u00e1n", "Gazdas\u00e1gi jobb/bal": 14, "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g": 14, "T\u00edpus": "poliktikus"}, {"Name": "Gyurcs\u00e1ny", "Gazdas\u00e1gi jobb/bal": -14, "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g": -10, "T\u00edpus": "poliktikus"}, {"Name": "FIDESZ", "Gazdas\u00e1gi jobb/bal": 20, "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g": 20, "T\u00edpus": "p\u00e1rt"}, {"Name": "KDNP", "Gazdas\u00e1gi jobb/bal": 15, "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g": 25, "T\u00edpus": "p\u00e1rt"}, {"Name": "MSZP", "Gazdas\u00e1gi jobb/bal": -16, "T\u00e1rsadalmi nyitotts\u00e1g/z\u00e1rts\u00e1g": -20, "T\u00edpus": "p\u00e1rt"}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
