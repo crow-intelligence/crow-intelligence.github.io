@@ -1,40 +1,577 @@
-<!DOCTYPE html>
-<html lang="hu">
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Crow Intelligence | Decision Intelligence Consultancy</title>
+        <style>
+            :root {
+                --primary: #2a4365;
+                --secondary: #4299e1;
+                --accent: #f6ad55;
+                --light: #f7fafc;
+                --dark: #1a202c;
+            }
 
-<head>
-</head>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            }
 
-<body>
+            body {
+                background-color: var(--light);
+                color: var(--dark);
+                line-height: 1.6;
+            }
 
-    <h1>Content</h1>
-    <p>
-        <ul>
-            	<li><a href="population_trends/telepules.html">Population trends by municipalities</a></li>
-            	<li><a href="osszes/lakossag.html">A lakosság településtípus szerinti megoszlásának változása</a></li>
-            	<li><a href="nemenkent/lakossag.html">A lakosság nemek szerinti megoszlása településtípusonként</a></li>
-            	<li><a href="qgis2web_2020_01_02-21_29_35_910844/index.html">Population change - interactive map</a></li>
-            	<li><a href="keresztnevek/boys.html">Boy given names btw 2000 and 2017</a></li>
-            	<li><a href="keresztnevek/girls.html">Girl given names btw 2000 and 2017</a></li>
-            	<li><a href="countries/d3x3dbarmultiseries.html">Country rankings</a></li>
-		<li><a href="som/styled-scatter.html">Self-organizing map of country rankings</a></li>
-		<li><a href="countries_worldmap/index.html">Clusters on world map</a></li>
-            	<li><a href="keresztnevek/nevek.svg">Female names svg</a></li>
-		<li><a href="embedding_graph/viz.html">Graph, based on a word embedding</a></li>
-		<li><a href="gexf-js/index.html">Semantic language network, gexf-js version</a></li>
-		<li><a href="endings/index.html">Endings on map (Hungary)</a></li>
-		<li><a href="music-networks/">Hungarian music network</a></li>
-                <li><a href="country_bumps.html">Country rankings bump charts</a></li>
-                <li><a href="punch/punch_card.html">Country rankings punch card (open it on a big screen!)</a></li>
-                <li><a href="maps_altair.html">Country rankings altair maps</a></li>
-                <li><a href="maps_folium.html">Country rankings folium maps</a></li>
-                <li><a href="gpt_test/test.html">Politikai Iránytű & ChatGPT</a></li>
-                <li><a href="k-halo/name_embeddings.html">Name Embeddings</a></li>
-                <li><a href="k-halo/org_embeddings.html">Organization Embeddings</a></li>
-                
-        </ul>
-    </p>
+            header {
+                background-color: var(--primary);
+                color: white;
+                padding: 2rem 0;
+                text-align: center;
+            }
 
-</body>
+            .container {
+                width: 90%;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
 
+            .hero {
+                padding: 4rem 0;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                color: var(--primary);
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+                max-width: 800px;
+                margin: 0 auto 2rem;
+            }
+
+            .cta-button {
+                display: inline-block;
+                background-color: var(--accent);
+                color: var(--dark);
+                padding: 0.8rem 2rem;
+                text-decoration: none;
+                border-radius: 4px;
+                font-weight: bold;
+                transition: background-color 0.3s;
+            }
+
+            .cta-button:hover {
+                background-color: #e69f3b;
+            }
+
+            .expertise {
+                padding: 4rem 0;
+                background-color: white;
+            }
+
+            .section-title {
+                text-align: center;
+                margin-bottom: 3rem;
+                color: var(--primary);
+            }
+
+            .expertise-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+            }
+
+            .expertise-card {
+                background-color: var(--light);
+                padding: 2rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .expertise-card h3 {
+                color: var(--primary);
+                margin-bottom: 1rem;
+            }
+
+            .team {
+                padding: 4rem 0;
+            }
+
+            .team-profiles {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+
+            .profile {
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .profile-img {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                margin: 0 auto 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #999;
+                font-size: 0.8rem;
+                overflow: hidden;
+            }
+
+            .services {
+                padding: 4rem 0;
+                background-color: white;
+            }
+
+            .services-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+            }
+
+            .service-card {
+                padding: 2rem;
+                border-left: 4px solid var(--secondary);
+                background-color: var(--light);
+            }
+
+            .contact {
+                padding: 4rem 0;
+                text-align: center;
+            }
+
+            footer {
+                background-color: var(--primary);
+                color: white;
+                text-align: center;
+                padding: 2rem 0;
+                margin-top: 2rem;
+            }
+
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 2rem;
+                }
+
+                .expertise-grid,
+                .team-profiles,
+                .services-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h2>Crow Intelligence</h2>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="container">
+                <h1>Decision Intelligence Advisory</h1>
+                <p>
+                    Bridging cognitive science and technology to improve how
+                    organizations make decisions. Specialized consultancy
+                    focusing on the emerging field of decision intelligence.
+                </p>
+                <a href="#contact" class="cta-button">Get in Touch</a>
+            </div>
+        </section>
+
+        <section class="expertise">
+            <div class="container">
+                <h2 class="section-title">Our Expertise</h2>
+                <div class="expertise-grid">
+                    <div class="expertise-card">
+                        <h3>Natural Language Processing</h3>
+                        <p>
+                            Advanced text analysis, sentiment analysis, semantic
+                            understanding, and language modeling leveraging
+                            decades of experience in computational linguistics.
+                        </p>
+                    </div>
+                    <div class="expertise-card">
+                        <h3>Decision Intelligence</h3>
+                        <p>
+                            Combining data science with cognitive frameworks to
+                            enhance decision-making processes and create
+                            intelligent systems that augment human capabilities.
+                        </p>
+                    </div>
+                    <div class="expertise-card">
+                        <h3>Entrepreneurial Experience</h3>
+                        <p>
+                            Firsthand knowledge of building and scaling an AI
+                            startup (Complytron) to successful acquisition,
+                            bringing practical insights on AI implementation in
+                            business contexts.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team">
+            <div class="container">
+                <h2 class="section-title">Meet Our Team</h2>
+                <p style="text-align: center; margin-bottom: 2rem">
+                    Combining academic rigor with practical implementation
+                    expertise
+                </p>
+                <div class="team-profiles">
+                    <div class="profile">
+                        <div class="profile-img">
+                            <a
+                                href="https://www.linkedin.com/in/zoltanvarju/"
+                                target="_blank"
+                            >
+                                <img
+                                    src="portraits/zoli.jpeg"
+                                    alt="Zoltán Varjú"
+                                    style="
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
+                                        border-radius: 50%;
+                                    "
+                                />
+                            </a>
+                        </div>
+                        <h3>
+                            <a
+                                href="https://www.linkedin.com/in/zoltanvarju/"
+                                target="_blank"
+                                style="
+                                    color: var(--primary);
+                                    text-decoration: none;
+                                "
+                                >Zoltán Varjú</a
+                            >
+                        </h3>
+                        <p>
+                            Data Science Expert & Entrepreneur with 20 years of
+                            experience in NLP and data science, with background
+                            in philosophy and linguistics. Founded Complytron, a
+                            successful startup acquired by SEON in 2023.
+                            Developed courses for Manning and led numerous
+                            consulting projects.
+                        </p>
+                    </div>
+                    <div class="profile">
+                        <div class="profile-img">
+                            <a
+                                href="https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/"
+                                target="_blank"
+                            >
+                                <img
+                                    src="portraits/orsi.jpeg"
+                                    alt="Orsolya Putz, PhD"
+                                    style="
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
+                                        border-radius: 50%;
+                                    "
+                                />
+                            </a>
+                        </div>
+                        <h3>
+                            <a
+                                href="https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/"
+                                target="_blank"
+                                style="
+                                    color: var(--primary);
+                                    text-decoration: none;
+                                "
+                                >Orsolya Putz, PhD</a
+                            >
+                        </h3>
+                        <p>
+                            Adjunct Professor at Technical University of
+                            Budapest with PhD in cognitive linguistics. 10 years
+                            of academic experience combined with 5 years as an
+                            NLP engineer and industry professional.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; text-align: center">
+                    <h3>Thought Leadership</h3>
+                    <p style="max-width: 800px; margin: 1rem auto">
+                        We regularly share insights through our blog
+                        <a
+                            href="https://crowintelligence.org"
+                            style="
+                                color: var(--primary);
+                                text-decoration: none;
+                                font-weight: bold;
+                            "
+                            >Crow Intelligence</a
+                        >
+                        (named after the family name Varjú) and contribute
+                        popular science articles to
+                        <a
+                            href="https://www.nyest.hu/"
+                            style="
+                                color: var(--primary);
+                                text-decoration: none;
+                                font-weight: bold;
+                            "
+                            >Nyelv és Tudomány</a
+                        >, making complex AI and linguistic concepts accessible
+                        to broader audiences.
+                    </p>
+                    <p style="max-width: 800px; margin: 1rem auto">
+                        Our approach is deeply influenced by "The Decision
+                        Intelligence Handbook" (O'Reilly), which elegantly
+                        connects our backgrounds in cognitive sciences and
+                        technology to create practical frameworks for better
+                        organizational decision-making.
+                    </p>
+                    <p style="max-width: 800px; margin: 1rem auto">
+                        For over 12 years, we have organized the
+                        <a
+                            href="https://www.meetup.com/open-nlp/"
+                            style="
+                                color: var(--primary);
+                                text-decoration: none;
+                                font-weight: bold;
+                            "
+                            >Open Natural Language Processing Meetup</a
+                        >
+                        group, building a community of more than 2,500 NLP
+                        professionals and enthusiasts — one of Hungary's largest
+                        and longest-running technical communities. This
+                        extensive network gives us access to specialized talent
+                        and creates unique collaboration opportunities for
+                        complex projects.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="services">
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3>AI Strategy Consulting</h3>
+                        <p>
+                            Expert guidance on how to effectively integrate AI
+                            and NLP technologies into your organization's
+                            processes and decision-making.
+                        </p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Decision Intelligence Advisory</h3>
+                        <p>
+                            Strategic consultation on enhancing decision-making
+                            through data-driven approaches and cognitive
+                            frameworks.
+                        </p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Proof of Concept Development</h3>
+                        <p>
+                            Small-scale demonstrations and POCs to validate AI
+                            and decision intelligence concepts before major
+                            investments.
+                        </p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Data Analytics & Insights</h3>
+                        <p>
+                            Targeted data analysis to extract actionable
+                            insights, with a focus on NLP and decision support
+                            applications.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 4rem">
+                    <h2 class="section-title">Featured Projects</h2>
+                    <div
+                        style="
+                            display: grid;
+                            grid-template-columns: repeat(
+                                auto-fit,
+                                minmax(300px, 1fr)
+                            );
+                            gap: 2rem;
+                        "
+                    >
+                        <div
+                            style="
+                                background-color: var(--light);
+                                padding: 2rem;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                            "
+                        >
+                            <h3>Complytron (Acquired by SEON)</h3>
+                            <p>
+                                Founded and developed a RegTech company that
+                                automated background checks for financial
+                                institutions using advanced AI technologies.
+                                <a
+                                    href="https://forbes.hu/uzlet/complytron-seon-exit-hiventures-lebhardt/"
+                                    target="_blank"
+                                    style="color: var(--primary)"
+                                    >Successfully acquired by SEON in 2023</a
+                                >.
+                            </p>
+                        </div>
+                        <div
+                            style="
+                                background-color: var(--light);
+                                padding: 2rem;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                            "
+                        >
+                            <h3>Google Digital News Initiative</h3>
+                            <p>
+                                Led a project with civic radio stations to
+                                develop speech-to-text tools that made radio
+                                archives searchable through
+                                <a
+                                    href="https://www.radioship.org/"
+                                    target="_blank"
+                                    style="color: var(--primary)"
+                                    >Radioship</a
+                                >, funded by Google's Digital News Initiative.
+                            </p>
+                        </div>
+                        <div
+                            style="
+                                background-color: var(--light);
+                                padding: 2rem;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                            "
+                        >
+                            <h3>Advanced Survey Analysis</h3>
+                            <p>
+                                Pioneered innovative approaches to analyze
+                                open-ended survey questions using LLMs and
+                                external data sources. Collaborated with The
+                                Future Fox and Széchenyi University on research,
+                                including a
+                                <a
+                                    href="https://headconf.org/wp-content/uploads/pdfs/14601.pdf"
+                                    target="_blank"
+                                    style="color: var(--primary)"
+                                    >published academic paper</a
+                                >
+                                examining online education experiences.
+                            </p>
+                        </div>
+                        <div
+                            style="
+                                background-color: var(--light);
+                                padding: 2rem;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                            "
+                        >
+                            <h3>Manning Publications Courses</h3>
+                            <p>
+                                Developed a series of educational projects for
+                                Manning Publications including:
+                                <a
+                                    href="https://www.manning.com/liveproject/getting-started-with-jupyter-notebook"
+                                    target="_blank"
+                                    style="color: var(--primary)"
+                                    >Getting Started with Jupyter Notebook</a
+                                >,
+                                <a
+                                    href="https://www.manning.com/liveproject/getting-started-with-Google-Colab-using-PyTorch"
+                                    target="_blank"
+                                    style="color: var(--primary)"
+                                    >Google Colab Using PyTorch</a
+                                >,
+                                <a
+                                    href="https://www.manning.com/liveproject/getting-started-with-google-colab-using-tensorflow"
+                                    target="_blank"
+                                    style="color: var(--primary)"
+                                    >Google Colab Using TensorFlow</a
+                                >, and
+                                <a
+                                    href="https://www.manning.com/liveproject/sentiment-analysis-and-natural-language-processing-for-marketing"
+                                    target="_blank"
+                                    style="color: var(--primary)"
+                                    >Sentiment Analysis and NLP for Marketing</a
+                                >.
+                            </p>
+                        </div>
+                        <div
+                            style="
+                                background-color: var(--light);
+                                padding: 2rem;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                            "
+                        >
+                            <h3>Open Source Contribution</h3>
+                            <p>
+                                Created
+                                <a
+                                    href="https://pypi.org/project/chronowords/"
+                                    target="_blank"
+                                    style="color: var(--primary)"
+                                    >ChronoWords</a
+                                >, a specialized Python package for diachronic
+                                word embeddings, demonstrating our technical
+                                capabilities and commitment to advancing the
+                                field of computational linguistics.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2 class="section-title">Get in Touch</h2>
+                <p style="max-width: 600px; margin: 0 auto 1.5rem">
+                    Ready to transform your organization's approach to
+                    decision-making? Contact us for a consultation.
+                </p>
+                <p
+                    style="
+                        max-width: 600px;
+                        margin: 0 auto 2rem;
+                        font-style: italic;
+                    "
+                >
+                    Crow Intelligence is a collaboration between two independent
+                    consultants combining our expertise to serve clients more
+                    effectively.
+                </p>
+                <a href="mailto:hello@crowintelligence.org" class="cta-button"
+                    >Contact Us</a
+                >
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 Crow Intelligence. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
 </html>
-
