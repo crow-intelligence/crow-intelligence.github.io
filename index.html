@@ -3,19 +3,123 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            property="og:title"
-            content="Crow Intelligence | Decision Intelligence Consultancy"
-        />
-        <meta
-            property="og:description"
-            content="AI & NLP consulting focused on improving organizational decision-making through data science and cognitive frameworks."
-        />
-        <meta
-            property="og:image"
-            content="portraits/MS Paint _ Microsoft Paint Online.png"
-        />
-        <title>Crow Intelligence | Decision Intelligence Consultancy</title>
+
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SH38KZF2M9"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-SH38KZF2M9');
+        </script>
+
+        <!-- SEO Meta Tags -->
+        <title>AI Consultancy & Strategy | Decision Intelligence | AI Ethics Experts | Crow Intelligence</title>
+        <meta name="description" content="Leading AI consultancy specializing in AI strategy, decision intelligence & AI ethics. 20+ years experience, proven track record with startup exit. Expert guidance for responsible AI implementation.">
+        <meta name="keywords" content="AI consultancy, AI strategy, decision intelligence, AI ethics, artificial intelligence consulting, AI implementation, responsible AI, AI governance, machine learning strategy, AI transformation, cognitive AI, ethical AI consulting, AI advisory services, enterprise AI strategy">
+        <meta name="author" content="Crow Intelligence">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="https://crowintelligence.org">
+
+        <!-- Open Graph Meta Tags -->
+        <meta property="og:title" content="AI Consultancy & Strategy | Decision Intelligence | AI Ethics Experts">
+        <meta property="og:description" content="Leading AI consultancy specializing in AI strategy, decision intelligence & AI ethics. Expert guidance for responsible AI implementation with proven track record.">
+        <meta property="og:image" content="https://crowintelligence.org/portraits/MS Paint _ Microsoft Paint Online.png">
+        <meta property="og:url" content="https://crowintelligence.org">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Crow Intelligence">
+
+        <!-- Twitter Card Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="AI Consultancy & Strategy | Decision Intelligence | AI Ethics">
+        <meta name="twitter:description" content="Leading AI consultancy specializing in AI strategy, decision intelligence & AI ethics. Expert guidance for responsible AI implementation.">
+        <meta name="twitter:image" content="https://crowintelligence.org/portraits/MS Paint _ Microsoft Paint Online.png">
+
+        <!-- Schema.org Structured Data -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Crow Intelligence",
+            "url": "https://crowintelligence.org",
+            "logo": "https://crowintelligence.org/portraits/MS Paint _ Microsoft Paint Online.png",
+            "description": "Leading AI consultancy specializing in AI strategy, decision intelligence, and AI ethics",
+            "foundingDate": "2023",
+            "expertise": ["AI Strategy", "Decision Intelligence", "AI Ethics", "Artificial Intelligence Consulting", "Responsible AI", "AI Governance"],
+            "founder": [
+                {
+                    "@type": "Person",
+                    "name": "Zoltán Varjú",
+                    "jobTitle": "AI Strategy Expert & Entrepreneur",
+                    "description": "AI consultancy expert with 20 years in data science and NLP",
+                    "url": "https://www.linkedin.com/in/zoltanvarju/"
+                },
+                {
+                    "@type": "Person",
+                    "name": "Orsolya Putz",
+                    "jobTitle": "PhD in Cognitive Linguistics, AI Ethics Specialist",
+                    "description": "AI ethics and decision intelligence expert with academic and industry experience",
+                    "url": "https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/"
+                }
+            ],
+            "serviceArea": {
+                "@type": "Place",
+                "name": "Global"
+            },
+            "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "AI Consultancy Services",
+                "itemListElement": [
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "AI Strategy Consulting",
+                            "description": "Comprehensive AI strategy development and implementation guidance",
+                            "category": "AI Consultancy"
+                        }
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Decision Intelligence Advisory",
+                            "description": "Strategic consultation on data-driven decision-making and cognitive frameworks",
+                            "category": "Decision Intelligence"
+                        }
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "AI Ethics Consulting",
+                            "description": "Responsible AI implementation and ethical AI governance frameworks",
+                            "category": "AI Ethics"
+                        }
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "AI Implementation & POC Development",
+                            "description": "Proof of concept development and AI system implementation",
+                            "category": "AI Implementation"
+                        }
+                    }
+                ]
+            },
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "Business",
+                "email": "hello@crowintelligence.org"
+            },
+            "sameAs": [
+                "https://www.linkedin.com/in/zoltanvarju/",
+                "https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/"
+            ]
+        }
+        </script>
+
         <style>
             :root {
                 --primary: #2a4365;
@@ -193,13 +297,12 @@
 
         <section class="hero">
             <div class="container">
-                <h1>Decision Intelligence Advisory</h1>
+                <h1>AI Consultancy & Strategy Experts</h1>
                 <p>
-                    Bridging cognitive science and technology to improve how
-                    organizations make decisions. Specialized consultancy
-                    focusing on the emerging field of decision intelligence.
+                    Leading AI consultancy specializing in <strong>AI strategy</strong>, <strong>decision intelligence</strong>, and <strong>AI ethics</strong>.
+                    We help organizations implement responsible AI solutions that enhance decision-making while maintaining ethical standards and governance frameworks.
                 </p>
-                <a href="#contact" class="cta-button">Get in Touch</a>
+                <a href="#contact" class="cta-button" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Hero Button'});">Start Your AI Strategy</a>
             </div>
         </section>
 
@@ -208,28 +311,27 @@
                 <h2 class="section-title">Our Expertise</h2>
                 <div class="expertise-grid">
                     <div class="expertise-card">
-                        <h3>Natural Language Processing</h3>
+                        <h3>AI Strategy & Implementation</h3>
                         <p>
-                            Advanced text analysis, sentiment analysis, semantic
-                            understanding, and language modeling leveraging
-                            decades of experience in computational linguistics.
+                            Comprehensive <strong>AI strategy consulting</strong> and implementation guidance. We help organizations develop
+                            AI roadmaps, assess readiness, and implement AI solutions that align with business objectives while ensuring
+                            responsible AI practices and governance frameworks.
                         </p>
                     </div>
                     <div class="expertise-card">
                         <h3>Decision Intelligence</h3>
                         <p>
-                            Combining data science with cognitive frameworks to
-                            enhance decision-making processes and create
-                            intelligent systems that augment human capabilities.
+                            Transform organizational <strong>decision-making</strong> through advanced analytics and cognitive frameworks.
+                            Our decision intelligence approach combines data science with behavioral insights to create intelligent
+                            systems that augment human decision-making capabilities.
                         </p>
                     </div>
                     <div class="expertise-card">
-                        <h3>Entrepreneurial Experience</h3>
+                        <h3>AI Ethics & Governance</h3>
                         <p>
-                            Firsthand knowledge of building and scaling an AI
-                            startup (Complytron) to successful acquisition,
-                            bringing practical insights on AI implementation in
-                            business contexts.
+                            Expert guidance on <strong>AI ethics</strong>, responsible AI implementation, and governance frameworks.
+                            We help organizations navigate ethical considerations, bias mitigation, transparency requirements,
+                            and regulatory compliance in AI deployment.
                         </p>
                     </div>
                 </div>
@@ -249,10 +351,11 @@
                             <a
                                 href="https://www.linkedin.com/in/zoltanvarju/"
                                 target="_blank"
+                                onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Zoltan LinkedIn'});"
                             >
                                 <img
                                     src="portraits/zoli.jpeg"
-                                    alt="Zoltán Varjú"
+                                    alt="Zoltán Varjú - Data Science Expert & Entrepreneur"
                                     style="
                                         width: 100%;
                                         height: 100%;
@@ -270,16 +373,15 @@
                                     color: var(--primary);
                                     text-decoration: none;
                                 "
+                                onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Zoltan LinkedIn'});"
                                 >Zoltán Varjú</a
                             >
                         </h3>
                         <p>
-                            Data Science Expert & Entrepreneur with 20 years of
-                            experience in NLP and data science, with background
-                            in philosophy and linguistics. Founded Complytron, a
-                            successful startup acquired by SEON in 2023.
-                            Developed courses for Manning and led numerous
-                            consulting projects.
+                            <strong>AI Strategy Expert & Entrepreneur</strong> with 20 years of experience in AI consultancy,
+                            data science, and NLP. Founded Complytron, a successful AI startup acquired by SEON in 2023.
+                            Specializes in AI implementation, decision intelligence frameworks, and responsible AI governance
+                            for enterprise clients.
                         </p>
                     </div>
                     <div class="profile">
@@ -287,10 +389,11 @@
                             <a
                                 href="https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/"
                                 target="_blank"
+                                onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Orsolya LinkedIn'});"
                             >
                                 <img
                                     src="portraits/orsi.jpeg"
-                                    alt="Orsolya Putz, PhD"
+                                    alt="Orsolya Putz, PhD - Cognitive Linguistics Expert"
                                     style="
                                         width: 100%;
                                         height: 100%;
@@ -308,14 +411,15 @@
                                     color: var(--primary);
                                     text-decoration: none;
                                 "
+                                onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Orsolya LinkedIn'});"
                                 >Orsolya Putz, PhD</a
                             >
                         </h3>
                         <p>
-                            Adjunct Professor at Technical University of
-                            Budapest with PhD in cognitive linguistics. 10 years
-                            of academic experience combined with 5 years as an
-                            NLP engineer and industry professional.
+                            <strong>AI Ethics & Decision Intelligence Specialist</strong> with PhD in cognitive linguistics.
+                            Adjunct Professor at Technical University of Budapest combining 10 years of academic research
+                            with 5 years of industry experience in AI ethics, responsible AI implementation, and
+                            cognitive decision-making frameworks.
                         </p>
                     </div>
                 </div>
@@ -331,6 +435,7 @@
                                 text-decoration: none;
                                 font-weight: bold;
                             "
+                            onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Blog'});"
                             >Crow Intelligence</a
                         >
                         and contribute popular science articles to
@@ -341,6 +446,7 @@
                                 text-decoration: none;
                                 font-weight: bold;
                             "
+                            onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Nyelv es Tudomany'});"
                             >Nyelv és Tudomány</a
                         >, making complex AI and linguistic concepts accessible
                         to broader audiences.
@@ -361,6 +467,7 @@
                                 text-decoration: none;
                                 font-weight: bold;
                             "
+                            onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Meetup'});"
                             >Open Natural Language Processing Meetup</a
                         >
                         group, building a community of more than 2,500 NLP
@@ -381,33 +488,33 @@
                     <div class="service-card">
                         <h3>AI Strategy Consulting</h3>
                         <p>
-                            Expert guidance on how to effectively integrate AI
-                            and NLP technologies into your organization's
-                            processes and decision-making.
+                            Comprehensive <strong>AI consultancy</strong> services including AI readiness assessment,
+                            strategic roadmap development, technology selection, and implementation planning.
+                            We guide organizations through their entire AI transformation journey with proven methodologies.
                         </p>
                     </div>
                     <div class="service-card">
                         <h3>Decision Intelligence Advisory</h3>
                         <p>
-                            Strategic consultation on enhancing decision-making
-                            through data-driven approaches and cognitive
-                            frameworks.
+                            Strategic consultation on enhancing <strong>decision-making</strong> through data-driven approaches,
+                            cognitive frameworks, and AI-powered analytics. Transform how your organization makes critical
+                            decisions with our decision intelligence expertise.
                         </p>
                     </div>
                     <div class="service-card">
-                        <h3>Proof of Concept Development</h3>
+                        <h3>AI Ethics & Responsible AI</h3>
                         <p>
-                            Small-scale demonstrations and POCs to validate AI
-                            and decision intelligence concepts before major
-                            investments.
+                            Expert guidance on <strong>AI ethics</strong>, bias mitigation, fairness frameworks, and
+                            responsible AI governance. Ensure your AI implementations meet ethical standards and
+                            regulatory requirements while maintaining stakeholder trust.
                         </p>
                     </div>
                     <div class="service-card">
-                        <h3>Data Analytics & Insights</h3>
+                        <h3>AI Implementation & POC Development</h3>
                         <p>
-                            Targeted data analysis to extract actionable
-                            insights, with a focus on NLP and decision support
-                            applications.
+                            Hands-on <strong>AI implementation</strong> support including proof of concept development,
+                            pilot project management, and scaled deployment guidance. Validate AI concepts before
+                            major investments with our practical implementation expertise.
                         </p>
                     </div>
                 </div>
@@ -441,6 +548,7 @@
                                     href="https://forbes.hu/uzlet/complytron-seon-exit-hiventures-lebhardt/"
                                     target="_blank"
                                     style="color: var(--primary)"
+                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Forbes Complytron'});"
                                     >Successfully acquired by SEON in 2023</a
                                 >.
                             </p>
@@ -462,6 +570,7 @@
                                     href="https://www.radioship.org/"
                                     target="_blank"
                                     style="color: var(--primary)"
+                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Radioship'});"
                                     >Radioship</a
                                 >, funded by Google's Digital News Initiative.
                             </p>
@@ -485,6 +594,7 @@
                                     href="https://headconf.org/wp-content/uploads/pdfs/14601.pdf"
                                     target="_blank"
                                     style="color: var(--primary)"
+                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Academic Paper'});"
                                     >published academic paper</a
                                 >
                                 examining online education experiences.
@@ -506,24 +616,28 @@
                                     href="https://www.manning.com/liveproject/getting-started-with-jupyter-notebook"
                                     target="_blank"
                                     style="color: var(--primary)"
+                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Manning Jupyter'});"
                                     >Getting Started with Jupyter Notebook</a
                                 >,
                                 <a
                                     href="https://www.manning.com/liveproject/getting-started-with-Google-Colab-using-PyTorch"
                                     target="_blank"
                                     style="color: var(--primary)"
+                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Manning PyTorch'});"
                                     >Google Colab Using PyTorch</a
                                 >,
                                 <a
                                     href="https://www.manning.com/liveproject/getting-started-with-google-colab-using-tensorflow"
                                     target="_blank"
                                     style="color: var(--primary)"
+                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Manning TensorFlow'});"
                                     >Google Colab Using TensorFlow</a
                                 >, and
                                 <a
                                     href="https://www.manning.com/liveproject/sentiment-analysis-and-natural-language-processing-for-marketing"
                                     target="_blank"
                                     style="color: var(--primary)"
+                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Manning NLP'});"
                                     >Sentiment Analysis and NLP for Marketing</a
                                 >.
                             </p>
@@ -543,6 +657,7 @@
                                     href="https://pypi.org/project/chronowords/"
                                     target="_blank"
                                     style="color: var(--primary)"
+                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'ChronoWords'});"
                                     >ChronoWords</a
                                 >, a specialized Python package for diachronic
                                 word embeddings, demonstrating our technical
@@ -557,10 +672,10 @@
 
         <section class="contact" id="contact">
             <div class="container">
-                <h2 class="section-title">Get in Touch</h2>
+                <h2 class="section-title">Get Expert AI Consultancy</h2>
                 <p style="max-width: 600px; margin: 0 auto 1.5rem">
-                    Ready to transform your organization's approach to
-                    decision-making? Contact us for a consultation.
+                    Ready to transform your organization with strategic <strong>AI implementation</strong> and
+                    ethical decision intelligence frameworks? Contact our AI strategy experts for a consultation.
                 </p>
                 <p
                     style="
@@ -569,12 +684,11 @@
                         font-style: italic;
                     "
                 >
-                    Crow Intelligence is a collaboration between two independent
-                    consultants combining our expertise to serve clients more
-                    effectively.
+                    Crow Intelligence combines deep AI expertise with ethical frameworks to deliver
+                    responsible AI solutions that drive real business value.
                 </p>
-                <a href="mailto:hello@crowintelligence.org" class="cta-button"
-                    >Contact Us</a
+                <a href="mailto:hello@crowintelligence.org" class="cta-button" onclick="gtag('event', 'click', {'event_category': 'Contact', 'event_label': 'Email Button'});"
+                    >Get AI Strategy Consultation</a
                 >
             </div>
         </section>
