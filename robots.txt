@@ -1,0 +1,23 @@
+User-agent: *
+# Allow only the main page
+Allow: /index.html
+Allow: /$
+
+# Block everything else
+Disallow: /
+
+# Allow essential assets for the main page to display properly
+Allow: /portraits/zoli.jpeg
+Allow: /portraits/orsi.jpeg
+Allow: /portraits/MS Paint _ Microsoft Paint Online.png
+
+# Block all other files and directories
+Disallow: /*.txt$
+Disallow: /*.md$
+Disallow: /*.json$
+Disallow: /*.yml$
+Disallow: /*.yaml$
+Disallow: /.*
+
+# Future sitemap reference
+# Sitemap: https://crowintelligence.org/sitemap.xml
