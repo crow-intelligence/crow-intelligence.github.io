@@ -252,14 +252,24 @@
 
             .services-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 2rem;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 0.75rem;
             }
 
             .service-card {
-                padding: 2rem;
+                padding: 1rem 1.5rem;
                 border-left: 4px solid var(--secondary);
                 background-color: var(--light);
+            }
+
+            .service-card a {
+                color: var(--primary);
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+            .service-card a:hover {
+                color: var(--secondary);
             }
 
             .contact {
@@ -299,10 +309,14 @@
             <div class="container">
                 <h1>AI Consultancy & Strategy Experts</h1>
                 <p>
-                    Leading AI consultancy specializing in <strong>AI strategy</strong>, <strong>decision intelligence</strong>, and <strong>AI ethics</strong>.
-                    We help organizations implement responsible AI solutions that enhance decision-making while maintaining ethical standards and governance frameworks.
+                    We specialize in <strong>AI strategy</strong>, <strong>decision intelligence</strong>, and <strong>AI ethics</strong>,
+                    helping organizations implement responsible AI solutions.
                 </p>
-                <a href="#contact" class="cta-button" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Hero Button'});">Start Your AI Strategy</a>
+                <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://crowintelligence.org/" class="cta-button" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Blog'});">Read Our Blog</a>
+                    <a href="https://mindtheminds.substack.com/" class="cta-button" style="background-color: var(--secondary); color: white;" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Substack'});">Substack</a>
+                    <a href="mailto:hello@crowintelligence.org" class="cta-button" style="background-color: var(--primary); color: white;" onclick="gtag('event', 'click', {'event_category': 'Contact', 'event_label': 'Email Button'});">Contact Us</a>
+                </div>
             </div>
         </section>
 
@@ -341,355 +355,54 @@
         <section class="team">
             <div class="container">
                 <h2 class="section-title">Meet Our Team</h2>
-                <p style="text-align: center; margin-bottom: 2rem">
-                    Combining academic rigor with practical implementation
-                    expertise
-                </p>
                 <div class="team-profiles">
                     <div class="profile">
                         <div class="profile-img">
-                            <a
-                                href="https://www.linkedin.com/in/zoltanvarju/"
-                                target="_blank"
-                                onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Zoltan LinkedIn'});"
-                            >
-                                <img
-                                    src="portraits/zoli.jpeg"
-                                    alt="Zoltán Varjú - Data Science Expert & Entrepreneur"
-                                    style="
-                                        width: 100%;
-                                        height: 100%;
-                                        object-fit: cover;
-                                        border-radius: 50%;
-                                    "
-                                />
+                            <a href="https://www.linkedin.com/in/zoltanvarju/" target="_blank">
+                                <img src="portraits/zoli.jpeg" alt="Zoltán Varjú" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
                             </a>
                         </div>
-                        <h3>
-                            <a
-                                href="https://www.linkedin.com/in/zoltanvarju/"
-                                target="_blank"
-                                style="
-                                    color: var(--primary);
-                                    text-decoration: none;
-                                "
-                                onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Zoltan LinkedIn'});"
-                                >Zoltán Varjú</a
-                            >
-                        </h3>
-                        <p>
-                            <strong>AI Strategy Expert & Entrepreneur</strong> with 20 years of experience in AI consultancy,
-                            data science, and NLP. Founded Complytron, a successful AI startup acquired by SEON in 2023.
-                            Specializes in AI implementation, decision intelligence frameworks, and responsible AI governance
-                            for enterprise clients.
-                        </p>
+                        <h3><a href="https://www.linkedin.com/in/zoltanvarju/" target="_blank" style="color:var(--primary);text-decoration:none;">Zoltán Varjú</a></h3>
+                        <p><strong>AI Strategy Expert & Entrepreneur.</strong> 20 years in data science and NLP. Founded Complytron (acquired by SEON, 2023).</p>
                     </div>
                     <div class="profile">
                         <div class="profile-img">
-                            <a
-                                href="https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/"
-                                target="_blank"
-                                onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Orsolya LinkedIn'});"
-                            >
-                                <img
-                                    src="portraits/orsi.jpeg"
-                                    alt="Orsolya Putz, PhD - Cognitive Linguistics Expert"
-                                    style="
-                                        width: 100%;
-                                        height: 100%;
-                                        object-fit: cover;
-                                        border-radius: 50%;
-                                    "
-                                />
+                            <a href="https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/" target="_blank">
+                                <img src="portraits/orsi.jpeg" alt="Orsolya Putz, PhD" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
                             </a>
                         </div>
-                        <h3>
-                            <a
-                                href="https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/"
-                                target="_blank"
-                                style="
-                                    color: var(--primary);
-                                    text-decoration: none;
-                                "
-                                onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Orsolya LinkedIn'});"
-                                >Orsolya Putz, PhD</a
-                            >
-                        </h3>
-                        <p>
-                            <strong>AI Ethics & Decision Intelligence Specialist</strong> with PhD in cognitive linguistics.
-                            Adjunct Professor at Technical University of Budapest combining 10 years of academic research
-                            with 5 years of industry experience in AI ethics, responsible AI implementation, and
-                            cognitive decision-making frameworks.
-                        </p>
+                        <h3><a href="https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/" target="_blank" style="color:var(--primary);text-decoration:none;">Orsolya Putz, PhD</a></h3>
+                        <p><strong>AI Ethics & Decision Intelligence Specialist.</strong> PhD in cognitive linguistics. Adjunct Professor at BME.</p>
                     </div>
-                </div>
-
-                <div style="margin-top: 3rem; text-align: center">
-                    <h3>Thought Leadership</h3>
-                    <p style="max-width: 800px; margin: 1rem auto">
-                        We regularly share insights through our blog
-                        <a
-                            href="https://crowintelligence.org"
-                            style="
-                                color: var(--primary);
-                                text-decoration: none;
-                                font-weight: bold;
-                            "
-                            onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Blog'});"
-                            >Crow Intelligence</a
-                        >
-                        and contribute popular science articles to
-                        <a
-                            href="https://www.nyest.hu/"
-                            style="
-                                color: var(--primary);
-                                text-decoration: none;
-                                font-weight: bold;
-                            "
-                            onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Nyelv es Tudomany'});"
-                            >Nyelv és Tudomány</a
-                        >, making complex AI and linguistic concepts accessible
-                        to broader audiences.
-                    </p>
-                    <p style="max-width: 800px; margin: 1rem auto">
-                        Our approach is deeply influenced by "The Decision
-                        Intelligence Handbook" (O'Reilly), which elegantly
-                        connects our backgrounds in cognitive sciences and
-                        technology to create practical frameworks for better
-                        organizational decision-making.
-                    </p>
-                    <p style="max-width: 800px; margin: 1rem auto">
-                        For over 12 years, we have organized the
-                        <a
-                            href="https://www.meetup.com/open-nlp/"
-                            style="
-                                color: var(--primary);
-                                text-decoration: none;
-                                font-weight: bold;
-                            "
-                            onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Meetup'});"
-                            >Open Natural Language Processing Meetup</a
-                        >
-                        group, building a community of more than 2,500 NLP
-                        professionals and enthusiasts — one of Hungary's largest
-                        and longest-running technical communities. This
-                        extensive network gives us access to specialized talent
-                        and creates unique collaboration opportunities for
-                        complex projects.
-                    </p>
                 </div>
             </div>
         </section>
 
         <section class="services">
             <div class="container">
-                <h2 class="section-title">Our Services</h2>
+                <h2 class="section-title">Visualizations & Interactive Projects</h2>
                 <div class="services-grid">
-                    <div class="service-card">
-                        <h3>AI Strategy Consulting</h3>
-                        <p>
-                            Comprehensive <strong>AI consultancy</strong> services including AI readiness assessment,
-                            strategic roadmap development, technology selection, and implementation planning.
-                            We guide organizations through their entire AI transformation journey with proven methodologies.
-                        </p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Decision Intelligence Advisory</h3>
-                        <p>
-                            Strategic consultation on enhancing <strong>decision-making</strong> through data-driven approaches,
-                            cognitive frameworks, and AI-powered analytics. Transform how your organization makes critical
-                            decisions with our decision intelligence expertise.
-                        </p>
-                    </div>
-                    <div class="service-card">
-                        <h3>AI Ethics & Responsible AI</h3>
-                        <p>
-                            Expert guidance on <strong>AI ethics</strong>, bias mitigation, fairness frameworks, and
-                            responsible AI governance. Ensure your AI implementations meet ethical standards and
-                            regulatory requirements while maintaining stakeholder trust.
-                        </p>
-                    </div>
-                    <div class="service-card">
-                        <h3>AI Implementation & POC Development</h3>
-                        <p>
-                            Hands-on <strong>AI implementation</strong> support including proof of concept development,
-                            pilot project management, and scaled deployment guidance. Validate AI concepts before
-                            major investments with our practical implementation expertise.
-                        </p>
-                    </div>
+                    <div class="service-card"><a href="population_trends/telepules.html">Population trends by municipalities</a></div>
+                    <div class="service-card"><a href="osszes/lakossag.html">Population distribution by settlement type</a></div>
+                    <div class="service-card"><a href="nemenkent/lakossag.html">Population by gender and settlement type</a></div>
+                    <div class="service-card"><a href="qgis2web_2020_01_02-21_29_35_910844/index.html">Population change - interactive map</a></div>
+                    <div class="service-card"><a href="keresztnevek/boys.html">Boy given names (2000-2017)</a></div>
+                    <div class="service-card"><a href="keresztnevek/girls.html">Girl given names (2000-2017)</a></div>
+                    <div class="service-card"><a href="countries/d3x3dbarmultiseries.html">Country rankings</a></div>
+                    <div class="service-card"><a href="som/styled-scatter.html">Self-organizing map of country rankings</a></div>
+                    <div class="service-card"><a href="countries_worldmap/index.html">Clusters on world map</a></div>
+                    <div class="service-card"><a href="embedding_graph/viz.html">Word embedding graph</a></div>
+                    <div class="service-card"><a href="gexf-js/index.html">Semantic language network</a></div>
+                    <div class="service-card"><a href="endings/index.html">Place name endings on map (Hungary)</a></div>
+                    <div class="service-card"><a href="music-networks/">Hungarian music network</a></div>
+                    <div class="service-card"><a href="country_bumps.html">Country rankings bump charts</a></div>
+                    <div class="service-card"><a href="punch/punch_card.html">Country rankings punch card</a></div>
+                    <div class="service-card"><a href="maps_altair.html">Country rankings - Altair maps</a></div>
+                    <div class="service-card"><a href="maps_folium.html">Country rankings - Folium maps</a></div>
+                    <div class="service-card"><a href="gpt_test/test.html">Political Compass & ChatGPT</a></div>
+                    <div class="service-card"><a href="k-halo/name_embeddings.html">Name Embeddings</a></div>
+                    <div class="service-card"><a href="k-halo/org_embeddings.html">Organization Embeddings</a></div>
                 </div>
-
-                <div style="margin-top: 4rem">
-                    <h2 class="section-title">Featured Projects</h2>
-                    <div
-                        style="
-                            display: grid;
-                            grid-template-columns: repeat(
-                                auto-fit,
-                                minmax(300px, 1fr)
-                            );
-                            gap: 2rem;
-                        "
-                    >
-                        <div
-                            style="
-                                background-color: var(--light);
-                                padding: 2rem;
-                                border-radius: 8px;
-                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                            "
-                        >
-                            <h3>Complytron (Acquired by SEON)</h3>
-                            <p>
-                                Founded and developed a RegTech company that
-                                automated background checks for financial
-                                institutions using advanced AI technologies.
-                                <a
-                                    href="https://forbes.hu/uzlet/complytron-seon-exit-hiventures-lebhardt/"
-                                    target="_blank"
-                                    style="color: var(--primary)"
-                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Forbes Complytron'});"
-                                    >Successfully acquired by SEON in 2023</a
-                                >.
-                            </p>
-                        </div>
-                        <div
-                            style="
-                                background-color: var(--light);
-                                padding: 2rem;
-                                border-radius: 8px;
-                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                            "
-                        >
-                            <h3>Google Digital News Initiative</h3>
-                            <p>
-                                Led a project with civic radio stations to
-                                develop speech-to-text tools that made radio
-                                archives searchable through
-                                <a
-                                    href="https://www.radioship.org/"
-                                    target="_blank"
-                                    style="color: var(--primary)"
-                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Radioship'});"
-                                    >Radioship</a
-                                >, funded by Google's Digital News Initiative.
-                            </p>
-                        </div>
-                        <div
-                            style="
-                                background-color: var(--light);
-                                padding: 2rem;
-                                border-radius: 8px;
-                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                            "
-                        >
-                            <h3>Advanced Survey Analysis</h3>
-                            <p>
-                                Pioneered innovative approaches to analyze
-                                open-ended survey questions using LLMs and
-                                external data sources. Collaborated with The
-                                Future Fox and Széchenyi University on research,
-                                including a
-                                <a
-                                    href="https://headconf.org/wp-content/uploads/pdfs/14601.pdf"
-                                    target="_blank"
-                                    style="color: var(--primary)"
-                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Academic Paper'});"
-                                    >published academic paper</a
-                                >
-                                examining online education experiences.
-                            </p>
-                        </div>
-                        <div
-                            style="
-                                background-color: var(--light);
-                                padding: 2rem;
-                                border-radius: 8px;
-                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                            "
-                        >
-                            <h3>Manning Publications Courses</h3>
-                            <p>
-                                Developed a series of educational projects for
-                                Manning Publications including:
-                                <a
-                                    href="https://www.manning.com/liveproject/getting-started-with-jupyter-notebook"
-                                    target="_blank"
-                                    style="color: var(--primary)"
-                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Manning Jupyter'});"
-                                    >Getting Started with Jupyter Notebook</a
-                                >,
-                                <a
-                                    href="https://www.manning.com/liveproject/getting-started-with-Google-Colab-using-PyTorch"
-                                    target="_blank"
-                                    style="color: var(--primary)"
-                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Manning PyTorch'});"
-                                    >Google Colab Using PyTorch</a
-                                >,
-                                <a
-                                    href="https://www.manning.com/liveproject/getting-started-with-google-colab-using-tensorflow"
-                                    target="_blank"
-                                    style="color: var(--primary)"
-                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Manning TensorFlow'});"
-                                    >Google Colab Using TensorFlow</a
-                                >, and
-                                <a
-                                    href="https://www.manning.com/liveproject/sentiment-analysis-and-natural-language-processing-for-marketing"
-                                    target="_blank"
-                                    style="color: var(--primary)"
-                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'Manning NLP'});"
-                                    >Sentiment Analysis and NLP for Marketing</a
-                                >.
-                            </p>
-                        </div>
-                        <div
-                            style="
-                                background-color: var(--light);
-                                padding: 2rem;
-                                border-radius: 8px;
-                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                            "
-                        >
-                            <h3>Open Source Contribution</h3>
-                            <p>
-                                Created
-                                <a
-                                    href="https://pypi.org/project/chronowords/"
-                                    target="_blank"
-                                    style="color: var(--primary)"
-                                    onclick="gtag('event', 'click', {'event_category': 'External Link', 'event_label': 'ChronoWords'});"
-                                    >ChronoWords</a
-                                >, a specialized Python package for diachronic
-                                word embeddings, demonstrating our technical
-                                capabilities and commitment to advancing the
-                                field of computational linguistics.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="contact" id="contact">
-            <div class="container">
-                <h2 class="section-title">Get Expert AI Consultancy</h2>
-                <p style="max-width: 600px; margin: 0 auto 1.5rem">
-                    Ready to transform your organization with strategic <strong>AI implementation</strong> and
-                    ethical decision intelligence frameworks? Contact our AI strategy experts for a consultation.
-                </p>
-                <p
-                    style="
-                        max-width: 600px;
-                        margin: 0 auto 2rem;
-                        font-style: italic;
-                    "
-                >
-                    Crow Intelligence combines deep AI expertise with ethical frameworks to deliver
-                    responsible AI solutions that drive real business value.
-                </p>
-                <a href="mailto:hello@crowintelligence.org" class="cta-button" onclick="gtag('event', 'click', {'event_category': 'Contact', 'event_label': 'Email Button'});"
-                    >Get AI Strategy Consultation</a
-                >
             </div>
         </section>
 
