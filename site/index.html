@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Wealth of Nations — 250th Anniversary Digital Edition</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+  <!-- Hero -->
+  <section class="hero">
+    <h1>The Wealth of Nations</h1>
+    <p class="subtitle">Adam Smith, 1776</p>
+    <p class="edition">250th Anniversary Digital Edition</p>
+    <div class="cta-row">
+      <a href="reader.html" class="btn btn-primary">Start Reading</a>
+      <a href="#visualizations" class="btn btn-outline">Explore Visualizations</a>
+    </div>
+  </section>
+
+  <!-- Portrait + Bio -->
+  <div class="container-wide">
+    <section class="portrait-section">
+      <img src="img/adam_smith_portrait.png" alt="Adam Smith portrait">
+      <div class="bio">
+        <h2>Adam Smith (1723&ndash;1790)</h2>
+        <p>Scottish moral philosopher and pioneer of political economy. <em>An Inquiry into the Nature and Causes of the Wealth of Nations</em>, published on 9 March 1776, laid the foundations of classical economics. This digital edition applies modern NLP&mdash;topic modelling, named entity recognition, PageRank, and metaphor detection&mdash;to reveal patterns invisible to the naked eye.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Stats -->
+  <div class="container-wide">
+    <div class="stats-row" id="stats-row">
+      <div class="stat-card">
+        <div class="stat-value">9,540</div>
+        <div class="stat-label">Sentences</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">5</div>
+        <div class="stat-label">Books</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">32</div>
+        <div class="stat-label">Chapters</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">13</div>
+        <div class="stat-label">Topics</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">7,940</div>
+        <div class="stat-label">Metaphors</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">717</div>
+        <div class="stat-label">Named Entities</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pull quote -->
+  <div class="container">
+    <section class="pull-quote-section" id="pull-quote">
+      <blockquote id="pull-quote-text">
+        &ldquo;By preferring the support of domestic to that of foreign industry, he intends only his own security; and by directing that industry in such a manner as its produce may be of the greatest value, he intends only his own gain, and he is in this, as in many other cases, led by an <strong>invisible hand</strong> to promote an end which was no part of his intention.&rdquo;
+      </blockquote>
+      <div class="attribution">Book IV, Chapter II</div>
+      <span class="metaphor-tag rhetorical">rhetorical metaphor</span>
+    </section>
+  </div>
+
+  <!-- Rhetorical Metaphors -->
+  <div class="container">
+    <section class="rhetorical-section">
+      <span class="section-label">Rhetorical Metaphors</span>
+      <h2 class="section-title">Smith's Rhetorical Imagination</h2>
+      <p class="section-desc">85 moments where Smith reaches beyond convention to figure his economic world &mdash; from the invisible hand to the great wheel of circulation.</p>
+      <div id="rhetorical-cards"></div>
+    </section>
+  </div>
+
+  <!-- Visualizations -->
+  <div class="container-wide" id="visualizations">
+    <section class="viz-gallery">
+      <h2>Visualizations</h2>
+      <div class="viz-grid">
+        <div class="viz-card">
+          <img src="img/punchcard_topics.png" alt="Topic distribution punchcard">
+          <div class="viz-caption">
+            <h3>Topic Punchcard</h3>
+            <p>Distribution of 13 discovered topics across all books and chapters.</p>
+          </div>
+        </div>
+        <div class="viz-card">
+          <img src="img/punchcard_ner.png" alt="Named entity punchcard">
+          <div class="viz-caption">
+            <h3>Named Entity Punchcard</h3>
+            <p>Where Smith mentions people, places, and organizations throughout the text.</p>
+          </div>
+        </div>
+        <div class="viz-card">
+          <img src="img/punchcard_metaphors.png" alt="Metaphor punchcard">
+          <div class="viz-caption">
+            <h3>Metaphor Punchcard</h3>
+            <p>Orientational, structural, and rhetorical metaphors by chapter. Star marks the invisible hand.</p>
+          </div>
+        </div>
+        <div class="viz-card">
+          <img src="img/punctuation_spiral.png" alt="Punctuation spiral">
+          <div class="viz-caption">
+            <h3>Punctuation Spiral</h3>
+            <p>The rhythm of Smith's prose — every punctuation mark plotted in a spiral.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>Wealth of Nations 250th Anniversary Digital Edition &middot; Built with Python, spaCy, BERTopic, and Transformers</p>
+  </footer>
+
+  <script src="js/landing.js"></script>
+</body>
+</html>

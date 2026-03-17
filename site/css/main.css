@@ -1,0 +1,138 @@
+/* ============================================================
+   WEALTH OF NATIONS — Design Tokens & Base Styles
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Backgrounds */
+  --bg-page: #f5f0e8;
+  --bg-reader: #ffffff;
+  --bg-dark: #1a1a2e;
+  --bg-card: #fffdf8;
+  --bg-code: #f0ebe0;
+
+  /* Accent */
+  --accent-gold: #e8c97e;
+  --accent-dark: #c8852a;
+
+  /* Text */
+  --text-body: #2c2c2c;
+  --text-muted: #6b6b6b;
+  --text-light: #e0dcd4;
+
+  /* Entity colors */
+  --ent-person: #c8852a;
+  --ent-gpe: #3a7abf;
+  --ent-org: #4a9e6b;
+  --ent-norp: #9b59b6;
+  --ent-date: #6b6b6b;
+  --ent-other: #888888;
+
+  /* Metaphor colors */
+  --met-orientational: #aaaaaa;
+  --met-structural: #e8c97e;
+  --met-rhetorical: #c8852a;
+
+  /* Topic colors (tab20) */
+  --topic-neg1: #666666;
+  --topic-0: #1f77b4;
+  --topic-1: #aec7e8;
+  --topic-2: #ff7f0e;
+  --topic-3: #ffbb78;
+  --topic-4: #2ca02c;
+  --topic-5: #98df8a;
+  --topic-6: #d62728;
+  --topic-7: #ff9896;
+  --topic-8: #9467bd;
+  --topic-9: #c5b0d5;
+  --topic-10: #8c564b;
+  --topic-11: #c49c94;
+  --topic-12: #e377c2;
+
+  /* Layout */
+  --max-width: 680px;
+  --max-width-wide: 1100px;
+
+  /* Fonts */
+  --font-body: 'Lora', Georgia, serif;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-body);
+  background: var(--bg-page);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent-dark);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.mono { font-family: var(--font-mono); }
+.ui-text { font-family: var(--font-ui); }
+
+/* Utility */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+.container-wide { max-width: var(--max-width-wide); margin: 0 auto; padding: 0 1.5rem; }
+.text-muted { color: var(--text-muted); }
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+/* Buttons */
+.btn {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  display: inline-block;
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--accent-dark);
+  color: #fff;
+  border-color: var(--accent-dark);
+}
+.btn-primary:hover {
+  background: #b5741f;
+  text-decoration: none;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--text-body);
+  border-color: var(--text-muted);
+}
+.btn-outline:hover {
+  background: var(--bg-code);
+  text-decoration: none;
+}

@@ -1,0 +1,311 @@
+/* ============================================================
+   LANDING PAGE
+   ============================================================ */
+
+/* Hero */
+.hero {
+  background: var(--bg-dark);
+  color: var(--text-light);
+  padding: 4rem 1.5rem 3rem;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 2.5rem;
+  color: var(--accent-gold);
+  margin-bottom: 0.5rem;
+}
+.hero .subtitle {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  opacity: 0.85;
+  margin-bottom: 0.25rem;
+}
+.hero .edition {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent-gold);
+  opacity: 0.7;
+  margin-bottom: 2rem;
+}
+.hero .cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero .btn-primary {
+  background: var(--accent-gold);
+  color: var(--bg-dark);
+  border-color: var(--accent-gold);
+}
+.hero .btn-primary:hover {
+  background: #d4b56e;
+}
+.hero .btn-outline {
+  color: var(--text-light);
+  border-color: rgba(255,255,255,0.3);
+}
+.hero .btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Portrait */
+.portrait-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 0;
+}
+.portrait-section img {
+  width: 200px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.portrait-section .bio {
+  flex: 1;
+}
+.portrait-section .bio h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.portrait-section .bio p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Stats row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  padding: 2rem 0;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid #e0dcd4;
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-align: center;
+}
+.stat-card .stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+.stat-card .stat-label {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+/* Pull quote */
+.pull-quote-section {
+  background: var(--bg-card);
+  border-left: 4px solid var(--accent-gold);
+  padding: 2rem 2rem 2rem 2.5rem;
+  margin: 2rem 0;
+  border-radius: 0 8px 8px 0;
+}
+.pull-quote-section blockquote {
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--text-body);
+}
+.pull-quote-section .attribution {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+}
+.pull-quote-section .metaphor-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  margin-top: 0.5rem;
+}
+.pull-quote-section .metaphor-tag.rhetorical {
+  background: rgba(200, 133, 42, 0.15);
+  color: var(--met-rhetorical);
+  border: 1px solid var(--met-rhetorical);
+}
+.pull-quote-section .metaphor-tag.structural {
+  background: rgba(232, 201, 126, 0.15);
+  color: #b5941a;
+  border: 1px solid var(--met-structural);
+}
+
+/* Viz gallery */
+.viz-gallery {
+  padding: 3rem 0;
+}
+.viz-gallery h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.viz-card {
+  background: var(--bg-card);
+  border: 1px solid #e0dcd4;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.viz-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.viz-card img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  background: var(--bg-dark);
+  cursor: zoom-in;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.lightbox img {
+  max-width: 95vw;
+  max-height: 95vh;
+  object-fit: contain;
+}
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  font-family: var(--font-ui);
+}
+.viz-card .viz-caption {
+  padding: 1rem;
+}
+.viz-card .viz-caption h3 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+.viz-card .viz-caption p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Rhetorical metaphors section */
+.rhetorical-section {
+  padding: 3rem 0;
+}
+.section-label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-dark);
+}
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0.25rem 0 0.5rem;
+}
+.section-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+/* Metaphor cards */
+.met-card {
+  background: #fff;
+  border-radius: 8px;
+  border: 0.5px solid #e0dcd4;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.met-card-sentence {
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+.met-card-sentence .met-token {
+  color: var(--accent-dark);
+  font-weight: 700;
+  border-bottom: 2px solid var(--accent-gold);
+  background: none;
+}
+.met-card-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 0.5px solid #e0dcd4;
+}
+.met-badge-class {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  background: rgba(200,133,42,0.1);
+  color: var(--accent-dark);
+  border: 0.5px solid var(--accent-gold);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.met-badge-domain {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  background: rgba(232,201,126,0.15);
+  color: #8a6e1a;
+  border: 0.5px solid var(--accent-gold);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.met-badge-loc,
+.met-badge-conf {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Footer */
+.site-footer {
+  background: var(--bg-dark);
+  color: var(--text-light);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 1.75rem; }
+  .portrait-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  .portrait-section img { width: 150px; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+}

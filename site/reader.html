@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reader — The Wealth of Nations</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/reader.css">
+</head>
+<body class="layer-topics layer-entities layer-metaphors layer-pagerank">
+  <!-- Top bar -->
+  <header class="reader-topbar">
+    <a href="index.html" class="back-link">&larr; Home</a>
+    <span class="title">The Wealth of Nations</span>
+    <span></span>
+  </header>
+
+  <div class="reader-layout">
+    <!-- Sidebar -->
+    <aside class="reader-sidebar">
+      <!-- Search -->
+      <div class="sidebar-section">
+        <h3>Search</h3>
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Search the text...">
+        </div>
+        <div class="search-mode-toggle">
+          <button class="active" data-mode="keyword">Keyword</button>
+          <button data-mode="semantic">Semantic</button>
+        </div>
+        <div class="search-status" id="search-status"></div>
+        <div class="search-results" id="search-results"></div>
+      </div>
+
+      <!-- Layers -->
+      <div class="sidebar-section">
+        <h3>Layers</h3>
+        <label class="layer-toggle">
+          <input type="checkbox" checked data-layer="topics">
+          <span class="layer-swatch" style="background: var(--topic-0)"></span>
+          Topics
+        </label>
+        <label class="layer-toggle">
+          <input type="checkbox" checked data-layer="entities">
+          <span class="layer-swatch" style="background: var(--ent-person)"></span>
+          Entities
+        </label>
+        <label class="layer-toggle">
+          <input type="checkbox" checked data-layer="metaphors">
+          <span class="layer-swatch" style="background: var(--met-rhetorical)"></span>
+          Metaphors
+        </label>
+        <label class="layer-toggle">
+          <input type="checkbox" checked data-layer="pagerank">
+          <span class="layer-swatch" style="background: var(--accent-dark)"></span>
+          PageRank
+        </label>
+
+        <hr class="sidebar-divider">
+
+        <div class="legend-block" id="legend-topics">
+          <div class="legend-title">Topics</div>
+        </div>
+
+        <div class="legend-block" id="legend-entities">
+          <div class="legend-title">Entities</div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#c8852a"></div>
+            <span>Person</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#3a7abf"></div>
+            <span>Place (GPE)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#4a9e6b"></div>
+            <span>Organisation</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#9b59b6"></div>
+            <span>Nationality/Group</span>
+          </div>
+        </div>
+
+        <div class="legend-block" id="legend-metaphors">
+          <div class="legend-title">Metaphors</div>
+          <div class="legend-item">
+            <div class="legend-line" style="border-bottom:2px dotted #aaa"></div>
+            <span>Orientational</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-line" style="border-bottom:2px dashed #e8c97e"></div>
+            <span>Structural</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-line" style="border-bottom:2px solid #c8852a; background:rgba(232,201,126,0.2)"></div>
+            <span>Rhetorical</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOC -->
+      <div class="sidebar-section">
+        <h3>Contents</h3>
+        <ul class="toc-nav" id="toc-nav"></ul>
+      </div>
+    </aside>
+
+    <!-- Main reader -->
+    <main class="reader-main" id="reader-main">
+      <div class="loading-overlay" id="loading">
+        <div class="spinner"></div>
+        Loading text...
+      </div>
+    </main>
+  </div>
+
+  <script src="js/reader.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>
