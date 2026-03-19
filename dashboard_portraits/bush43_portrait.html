@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>The Nagel Index — George W. Bush</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.1.2/wordcloud2.min.js"></script>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue: #3B8BD4;
+    --blue-light: #5CA3E2;
+    --blue-dim: rgba(59,139,212,0.18);
+    --amber: #BA7517;
+    --amber-light: #D4912A;
+    --amber-dim: rgba(186,117,23,0.18);
+    --coral: #D85A30;
+    --gray-ns: #888780;
+    --bg: #1A1A1E;
+    --bg-card: #232328;
+    --bg-stat: #1E1E22;
+    --text: #E8E4DC;
+    --text-dim: #9C998F;
+    --serif: 'IM Fell English', Georgia, serif;
+    --mono: 'Courier Prime', 'Courier New', monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--serif);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .canvas {
+    width: 1200px;
+    height: 800px;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* === TOP BANNER === */
+  .banner {
+    text-align: center;
+    padding: 22px 0 10px;
+    border-bottom: 1px solid rgba(232,228,220,0.08);
+    flex-shrink: 0;
+  }
+  .banner-title {
+    font-family: var(--serif);
+    font-size: 15px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .banner-subject {
+    font-family: var(--serif);
+    font-size: 26px;
+    color: var(--text);
+    letter-spacing: 0.04em;
+  }
+  .banner-subject span {
+    color: var(--text-dim);
+    font-size: 18px;
+    margin-left: 8px;
+    font-style: italic;
+  }
+
+  /* === MAIN AREA === */
+  .main {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+    padding: 14px 28px 10px;
+    gap: 28px;
+  }
+
+  /* Left panel — radar */
+  .panel-left {
+    width: 480px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .panel-left h3 {
+    font-family: var(--serif);
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .radar-wrap {
+    position: relative;
+    width: 440px;
+    height: 420px;
+  }
+  #radarChart {
+    width: 440px !important;
+    height: 420px !important;
+  }
+  .legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 2px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+  }
+
+  /* Right panel — word clouds */
+  .panel-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+  }
+  .wc-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 10px 14px;
+    min-height: 0;
+  }
+  .wc-section h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+  }
+  .wc-section h4.pub { color: var(--blue); }
+  .wc-section h4.priv { color: var(--amber); }
+  .wc-canvas-wrap {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+  }
+  .wc-canvas-wrap canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* === BOTTOM STATS BAR === */
+  .stats-bar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    padding: 0 28px 18px;
+    height: 108px;
+  }
+  .stat-col {
+    flex: 1;
+    background: var(--bg-stat);
+    border-right: 1px solid rgba(232,228,220,0.05);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .stat-col:first-child { border-radius: 6px 0 0 6px; }
+  .stat-col:last-child { border-radius: 0 6px 6px 0; border-right: none; }
+  .stat-col.overall {
+    background: #28282E;
+    min-width: 168px;
+    flex: 0 0 168px;
+    align-items: center;
+    text-align: center;
+  }
+  .stat-trait {
+    font-family: var(--serif);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    margin-bottom: 4px;
+    white-space: nowrap;
+  }
+  .stat-row {
+    display: flex;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    line-height: 1.5;
+  }
+  .stat-pub { color: var(--blue-light); }
+  .stat-priv { color: var(--amber-light); }
+  .stat-p {
+    font-family: var(--mono);
+    font-size: 10px;
+  }
+  .stat-p.sig { color: var(--coral); }
+  .stat-p.ns { color: var(--gray-ns); }
+  .stat-d {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+  .overall-label {
+    font-family: var(--serif);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .overall-score {
+    font-family: var(--mono);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--coral);
+    line-height: 1.1;
+  }
+  .overall-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="canvas" id="canvas">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="banner-title">The Nagel Index</div>
+    <div class="banner-subject">George W. Bush <span>2001-2009</span></div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- LEFT: Radar -->
+    <div class="panel-left">
+      <h3>Big Five Profile Overlay</h3>
+      <div class="radar-wrap">
+        <canvas id="radarChart"></canvas>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--blue);"></div> Public voice</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--amber);"></div> Private voice</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Word Clouds -->
+    <div class="panel-right">
+      <div class="wc-section">
+        <h4 class="pub">Public Vocabulary</h4>
+        <div class="wc-canvas-wrap"><canvas id="wcPublic"></canvas></div>
+      </div>
+      <div class="wc-section">
+        <h4 class="priv">Private Vocabulary</h4>
+        <div class="wc-canvas-wrap"><canvas id="wcPrivate"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM STATS BAR -->
+  <div class="stats-bar" id="statsBar"></div>
+</div>
+
+<script>
+// ============================================================
+// DATA — the render step replaces the marker with real JSON
+// ============================================================
+// __DATA_START__
+const DATA = {"leader": "bush43", "display_name": "George W. Bush", "dates": "2001-2009", "stats": {"leader": "bush43", "n_public_chunks": 197, "n_private_chunks": 300, "traits": {"Openness": {"public_mean": 0.5108, "private_mean": 0.5136, "public_std": 0.0347, "private_std": 0.0289, "mwu_U": 27911.0, "mwu_p": 0.295452, "significant": false, "cohens_d": -0.0853, "effect_size": "negligible", "nagel_gap": 0.0027}, "Conscientiousness": {"public_mean": 0.5221, "private_mean": 0.5072, "public_std": 0.0166, "private_std": 0.0151, "mwu_U": 43540.0, "mwu_p": 0.0, "significant": true, "cohens_d": 0.9405, "effect_size": "large", "nagel_gap": -0.0149}, "Extraversion": {"public_mean": 0.5176, "private_mean": 0.5291, "public_std": 0.0233, "private_std": 0.0213, "mwu_U": 20585.5, "mwu_p": 0.0, "significant": true, "cohens_d": -0.5155, "effect_size": "medium", "nagel_gap": 0.0115}, "Agreeableness": {"public_mean": 0.4799, "private_mean": 0.4817, "public_std": 0.0551, "private_std": 0.0617, "mwu_U": 28644.0, "mwu_p": 0.563135, "significant": false, "cohens_d": -0.0307, "effect_size": "negligible", "nagel_gap": 0.0018}, "Neuroticism": {"public_mean": 0.5495, "private_mean": 0.5636, "public_std": 0.0267, "private_std": 0.0334, "mwu_U": 21350.5, "mwu_p": 0.0, "significant": true, "cohens_d": -0.4664, "effect_size": "small", "nagel_gap": 0.0141}}, "overall_nagel_gap_score": 0.4077}, "wordfreq": {"public": [{"word": "america", "frequency": 253}, {"word": "people", "frequency": 163}, {"word": "world", "frequency": 135}, {"word": "country", "frequency": 118}, {"word": "new", "frequency": 114}, {"word": "nation", "frequency": 113}, {"word": "freedom", "frequency": 108}, {"word": "security", "frequency": 99}, {"word": "american", "frequency": 99}, {"word": "americans", "frequency": 99}, {"word": "congress", "frequency": 97}, {"word": "iraq", "frequency": 95}, {"word": "help", "frequency": 88}, {"word": "government", "frequency": 82}, {"word": "make", "frequency": 75}, {"word": "year", "frequency": 74}, {"word": "years", "frequency": 74}, {"word": "citizens", "frequency": 72}, {"word": "terrorists", "frequency": 72}, {"word": "health", "frequency": 72}, {"word": "work", "frequency": 71}, {"word": "economy", "frequency": 70}, {"word": "good", "frequency": 69}, {"word": "children", "frequency": 67}, {"word": "tonight", "frequency": 65}, {"word": "united", "frequency": 65}, {"word": "great", "frequency": 64}, {"word": "many", "frequency": 62}, {"word": "time", "frequency": 61}, {"word": "need", "frequency": 61}, {"word": "yet", "frequency": 60}, {"word": "free", "frequency": 59}, {"word": "states", "frequency": 58}, {"word": "weapons", "frequency": 57}, {"word": "war", "frequency": 56}, {"word": "tax", "frequency": 56}, {"word": "terror", "frequency": 55}, {"word": "ask", "frequency": 54}, {"word": "act", "frequency": 53}, {"word": "life", "frequency": 51}, {"word": "know", "frequency": 51}, {"word": "men", "frequency": 50}, {"word": "iraqi", "frequency": 49}, {"word": "hope", "frequency": 48}, {"word": "peace", "frequency": 47}, {"word": "women", "frequency": 47}, {"word": "way", "frequency": 46}, {"word": "last", "frequency": 46}, {"word": "together", "frequency": 44}, {"word": "nations", "frequency": 44}, {"word": "liberty", "frequency": 43}, {"word": "care", "frequency": 43}, {"word": "future", "frequency": 42}, {"word": "continue", "frequency": 42}, {"word": "day", "frequency": 42}, {"word": "law", "frequency": 42}, {"word": "power", "frequency": 41}, {"word": "never", "frequency": 41}, {"word": "support", "frequency": 40}, {"word": "fight", "frequency": 39}, {"word": "reform", "frequency": 39}, {"word": "better", "frequency": 39}, {"word": "take", "frequency": 38}, {"word": "come", "frequency": 38}, {"word": "forces", "frequency": 38}, {"word": "qaida", "frequency": 38}, {"word": "history", "frequency": 37}, {"word": "federal", "frequency": 37}, {"word": "protect", "frequency": 36}, {"word": "goal", "frequency": 36}, {"word": "lives", "frequency": 36}, {"word": "jobs", "frequency": 36}, {"word": "workers", "frequency": 36}, {"word": "members", "frequency": 34}, {"word": "afghanistan", "frequency": 34}, {"word": "like", "frequency": 34}, {"word": "let", "frequency": 34}, {"word": "social", "frequency": 34}, {"word": "long", "frequency": 33}, {"word": "energy", "frequency": 33}, {"word": "pass", "frequency": 33}, {"word": "system", "frequency": 32}, {"word": "even", "frequency": 32}, {"word": "build", "frequency": 32}, {"word": "keep", "frequency": 32}, {"word": "nuclear", "frequency": 32}, {"word": "million", "frequency": 32}, {"word": "today", "frequency": 31}, {"word": "military", "frequency": 31}, {"word": "first", "frequency": 31}, {"word": "terrorist", "frequency": 31}, {"word": "next", "frequency": 31}, {"word": "working", "frequency": 31}, {"word": "justice", "frequency": 30}, {"word": "leaders", "frequency": 30}, {"word": "human", "frequency": 30}, {"word": "schools", "frequency": 30}, {"word": "fellow", "frequency": 29}, {"word": "enemies", "frequency": 29}, {"word": "cause", "frequency": 29}, {"word": "right", "frequency": 29}, {"word": "middle", "frequency": 28}, {"word": "courage", "frequency": 28}, {"word": "allies", "frequency": 28}, {"word": "home", "frequency": 28}, {"word": "best", "frequency": 28}, {"word": "give", "frequency": 28}, {"word": "live", "frequency": 27}, {"word": "east", "frequency": 27}, {"word": "democracy", "frequency": 27}, {"word": "enemy", "frequency": 27}, {"word": "taxes", "frequency": 27}, {"word": "without", "frequency": 27}, {"word": "budget", "frequency": 27}, {"word": "insurance", "frequency": 27}, {"word": "lead", "frequency": 26}, {"word": "saddam", "frequency": 26}, {"word": "opportunity", "frequency": 25}, {"word": "troops", "frequency": 25}, {"word": "much", "frequency": 25}, {"word": "families", "frequency": 25}, {"word": "child", "frequency": 25}, {"word": "secure", "frequency": 24}, {"word": "use", "frequency": 24}, {"word": "made", "frequency": 24}, {"word": "across", "frequency": 24}, {"word": "small", "frequency": 24}, {"word": "regime", "frequency": 24}, {"word": "economic", "frequency": 24}, {"word": "aids", "frequency": 24}, {"word": "set", "frequency": 24}, {"word": "responsibility", "frequency": 24}, {"word": "trust", "frequency": 24}, {"word": "hussein", "frequency": 24}, {"word": "serve", "frequency": 23}, {"word": "state", "frequency": 23}, {"word": "millions", "frequency": 23}, {"word": "faith", "frequency": 23}, {"word": "clear", "frequency": 23}, {"word": "money", "frequency": 23}, {"word": "relief", "frequency": 23}, {"word": "medical", "frequency": 23}, {"word": "society", "frequency": 23}, {"word": "strong", "frequency": 22}, {"word": "character", "frequency": 22}, {"word": "end", "frequency": 22}, {"word": "bring", "frequency": 22}, {"word": "plan", "frequency": 22}, {"word": "show", "frequency": 22}, {"word": "defend", "frequency": 22}], "private": [{"word": "people", "frequency": 2952}, {"word": "bush", "frequency": 1570}, {"word": "iraq", "frequency": 1525}, {"word": "united", "frequency": 1408}, {"word": "think", "frequency": 1321}, {"word": "going", "frequency": 1282}, {"word": "states", "frequency": 1253}, {"word": "world", "frequency": 1253}, {"word": "thank", "frequency": 1191}, {"word": "security", "frequency": 1093}, {"word": "work", "frequency": 1082}, {"word": "know", "frequency": 1065}, {"word": "want", "frequency": 1004}, {"word": "make", "frequency": 982}, {"word": "important", "frequency": 977}, {"word": "minister", "frequency": 962}, {"word": "well", "frequency": 944}, {"word": "prime", "frequency": 926}, {"word": "country", "frequency": 909}, {"word": "good", "frequency": 860}, {"word": "way", "frequency": 859}, {"word": "peace", "frequency": 857}, {"word": "got", "frequency": 851}, {"word": "time", "frequency": 834}, {"word": "like", "frequency": 828}, {"word": "question", "frequency": 811}, {"word": "say", "frequency": 783}, {"word": "government", "frequency": 759}, {"word": "get", "frequency": 741}, {"word": "first", "frequency": 732}, {"word": "free", "frequency": 724}, {"word": "new", "frequency": 714}, {"word": "america", "frequency": 705}, {"word": "believe", "frequency": 703}, {"word": "american", "frequency": 696}, {"word": "today", "frequency": 696}, {"word": "nations", "frequency": 680}, {"word": "help", "frequency": 676}, {"word": "countries", "frequency": 647}, {"word": "iraqi", "frequency": 624}, {"word": "lot", "frequency": 623}, {"word": "war", "frequency": 621}, {"word": "forward", "frequency": 617}, {"word": "issue", "frequency": 597}, {"word": "together", "frequency": 595}, {"word": "continue", "frequency": 583}, {"word": "look", "frequency": 573}, {"word": "take", "frequency": 572}, {"word": "freedom", "frequency": 561}, {"word": "democracy", "frequency": 542}, {"word": "working", "frequency": 534}, {"word": "laughter", "frequency": 534}, {"word": "sure", "frequency": 519}, {"word": "made", "frequency": 508}, {"word": "much", "frequency": 498}, {"word": "part", "frequency": 490}, {"word": "yes", "frequency": 485}, {"word": "need", "frequency": 484}, {"word": "process", "frequency": 481}, {"word": "great", "frequency": 479}, {"word": "understand", "frequency": 472}, {"word": "right", "frequency": 466}, {"word": "let", "frequency": 463}, {"word": "state", "frequency": 463}, {"word": "issues", "frequency": 446}, {"word": "support", "frequency": 443}, {"word": "trade", "frequency": 437}, {"word": "east", "frequency": 431}, {"word": "middle", "frequency": 427}, {"word": "terror", "frequency": 424}, {"word": "weapons", "frequency": 417}, {"word": "saddam", "frequency": 417}, {"word": "russia", "frequency": 413}, {"word": "relationship", "frequency": 411}, {"word": "congress", "frequency": 404}, {"word": "come", "frequency": 404}, {"word": "progress", "frequency": 400}, {"word": "hope", "frequency": 399}, {"word": "strong", "frequency": 394}, {"word": "palestinian", "frequency": 390}, {"word": "future", "frequency": 384}, {"word": "long", "frequency": 372}, {"word": "able", "frequency": 367}, {"word": "terrorism", "frequency": 365}, {"word": "back", "frequency": 356}, {"word": "many", "frequency": 353}, {"word": "better", "frequency": 350}, {"word": "nato", "frequency": 346}, {"word": "appreciate", "frequency": 345}, {"word": "international", "frequency": 342}, {"word": "place", "frequency": 340}, {"word": "europe", "frequency": 340}, {"word": "last", "frequency": 334}, {"word": "economic", "frequency": 333}, {"word": "talked", "frequency": 333}, {"word": "course", "frequency": 332}, {"word": "meeting", "frequency": 330}, {"word": "years", "frequency": 329}, {"word": "clear", "frequency": 320}, {"word": "done", "frequency": 320}, {"word": "nuclear", "frequency": 317}, {"word": "whether", "frequency": 314}, {"word": "hussein", "frequency": 310}, {"word": "year", "frequency": 304}, {"word": "afghanistan", "frequency": 304}, {"word": "economy", "frequency": 302}, {"word": "press", "frequency": 301}, {"word": "job", "frequency": 298}, {"word": "things", "frequency": 298}, {"word": "policy", "frequency": 298}, {"word": "terrorists", "frequency": 296}, {"word": "fact", "frequency": 296}, {"word": "talk", "frequency": 296}, {"word": "political", "frequency": 294}, {"word": "making", "frequency": 294}, {"word": "cooperation", "frequency": 294}, {"word": "troops", "frequency": 293}, {"word": "threat", "frequency": 291}, {"word": "mean", "frequency": 290}, {"word": "really", "frequency": 290}, {"word": "peaceful", "frequency": 288}, {"word": "military", "frequency": 287}, {"word": "nation", "frequency": 280}, {"word": "thing", "frequency": 275}, {"word": "ask", "frequency": 274}, {"word": "reform", "frequency": 273}, {"word": "put", "frequency": 272}, {"word": "north", "frequency": 272}, {"word": "side", "frequency": 271}, {"word": "order", "frequency": 268}, {"word": "leaders", "frequency": 268}, {"word": "discussed", "frequency": 267}, {"word": "something", "frequency": 267}, {"word": "questions", "frequency": 264}, {"word": "israel", "frequency": 264}, {"word": "deal", "frequency": 263}, {"word": "fight", "frequency": 263}, {"word": "energy", "frequency": 260}, {"word": "welcome", "frequency": 260}, {"word": "share", "frequency": 258}, {"word": "administration", "frequency": 255}, {"word": "day", "frequency": 255}, {"word": "relations", "frequency": 255}, {"word": "willing", "frequency": 255}, {"word": "kind", "frequency": 254}, {"word": "situation", "frequency": 252}, {"word": "opportunity", "frequency": 252}, {"word": "money", "frequency": 251}, {"word": "agreement", "frequency": 251}, {"word": "best", "frequency": 249}]}};
+// __DATA_END__
+
+// ============================================================
+// HELPERS
+// ============================================================
+const TRAITS = ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Neuroticism'];
+const BLUE = '#3B8BD4';
+const AMBER = '#BA7517';
+const CORAL = '#D85A30';
+const GRAY_NS = '#888780';
+
+function fmtP(p) {
+  if (p < 0.001) return 'p<.001';
+  if (p < 0.01) return 'p<.01';
+  if (p < 0.05) return 'p<.05';
+  return 'p=' + p.toFixed(2);
+}
+
+// ============================================================
+// RADAR CHART
+// ============================================================
+(function drawRadar() {
+  const ctx = document.getElementById('radarChart').getContext('2d');
+  const traits = DATA.stats.traits;
+  const pubVals = TRAITS.map(t => traits[t].public_mean);
+  const privVals = TRAITS.map(t => traits[t].private_mean);
+
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: TRAITS,
+      datasets: [
+        {
+          label: 'Public',
+          data: pubVals,
+          borderColor: BLUE,
+          backgroundColor: 'rgba(59,139,212,0.12)',
+          borderWidth: 2.5,
+          pointBackgroundColor: BLUE,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        },
+        {
+          label: 'Private',
+          data: privVals,
+          borderColor: AMBER,
+          backgroundColor: 'rgba(186,117,23,0.12)',
+          borderWidth: 2.5,
+          pointBackgroundColor: AMBER,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        }
+      ]
+    },
+    options: {
+      responsive: false,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#28282E',
+          titleFont: { family: "'Courier Prime', monospace", size: 12 },
+          bodyFont: { family: "'Courier Prime', monospace", size: 11 },
+          callbacks: {
+            afterLabel: function(ctx) {
+              const trait = TRAITS[ctx.dataIndex];
+              const t = traits[trait];
+              return 'd=' + t.cohens_d.toFixed(2) + ' (' + t.effect_size + ')';
+            }
+          }
+        }
+      },
+      scales: {
+        r: {
+          min: Math.max(0, Math.min(...pubVals, ...privVals) - 0.05),
+          max: Math.min(1, Math.max(...pubVals, ...privVals) + 0.05),
+          ticks: {
+            stepSize: 0.02,
+            backdropColor: 'transparent',
+            color: '#555',
+            font: { family: "'Courier Prime', monospace", size: 9 }
+          },
+          grid: {
+            color: 'rgba(232,228,220,0.08)',
+            circular: true
+          },
+          angleLines: {
+            color: 'rgba(232,228,220,0.08)'
+          },
+          pointLabels: {
+            font: { family: "'IM Fell English', serif", size: 13 },
+            color: '#C8C4BC',
+            callback: function(label, index) {
+              const t = traits[label];
+              const dStr = (t.cohens_d >= 0 ? '+' : '') + t.cohens_d.toFixed(2);
+              return label + '  (d=' + dStr + ')';
+            }
+          }
+        }
+      }
+    },
+    plugins: [{
+      id: 'gapAnnotations',
+      afterDraw: function(chart) {
+        const scale = chart.scales.r;
+        const cx = scale.xCenter;
+        const cy = scale.yCenter;
+        const ctx = chart.ctx;
+
+        TRAITS.forEach((trait, i) => {
+          const t = traits[trait];
+          const midVal = (t.public_mean + t.private_mean) / 2;
+          const angle = scale.getIndexAngle(i) - Math.PI / 2;
+          const dist = scale.getDistanceFromCenterForValue(midVal);
+          const x = cx + Math.cos(angle) * dist * 0.68;
+          const y = cy + Math.sin(angle) * dist * 0.68;
+
+          const d = t.cohens_d;
+          const dStr = (d >= 0 ? '+' : '') + d.toFixed(1);
+
+          ctx.save();
+          ctx.font = "bold 10px 'Courier Prime', monospace";
+          ctx.fillStyle = t.significant ? CORAL : GRAY_NS;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(dStr, x, y);
+          ctx.restore();
+        });
+      }
+    }]
+  });
+})();
+
+// ============================================================
+// WORD CLOUDS
+// ============================================================
+function drawWordCloud(canvasId, words, colorBase) {
+  const canvas = document.getElementById(canvasId);
+  const wrap = canvas.parentElement;
+
+  // Set canvas dimensions to match container
+  canvas.width = wrap.offsetWidth * 2;
+  canvas.height = wrap.offsetHeight * 2;
+  canvas.style.width = wrap.offsetWidth + 'px';
+  canvas.style.height = wrap.offsetHeight + 'px';
+
+  const maxFreq = Math.max(...words.map(w => w.frequency));
+  const minSize = 10;
+  const maxSize = 52;
+
+  // Build color palette — vary hue slightly for visual interest
+  const hsl = colorBase === 'blue'
+    ? (i) => `hsl(${210 + (i % 5) * 4}, ${60 + (i % 3) * 10}%, ${55 + (i % 4) * 5}%)`
+    : (i) => `hsl(${36 + (i % 5) * 3}, ${65 + (i % 3) * 8}%, ${48 + (i % 4) * 6}%)`;
+
+  const list = words.map((w, i) => [
+    w.word,
+    minSize + (w.frequency / maxFreq) * (maxSize - minSize)
+  ]);
+
+  WordCloud(canvas, {
+    list: list,
+    gridSize: 6,
+    weightFactor: 2,
+    fontFamily: "'IM Fell English', Georgia, serif",
+    color: function(word, weight, fontSize, distance, theta) {
+      const idx = list.findIndex(l => l[0] === word);
+      return hsl(idx >= 0 ? idx : 0);
+    },
+    backgroundColor: 'transparent',
+    rotateRatio: 0.25,
+    rotationSteps: 3,
+    shuffle: false,
+    drawOutOfBound: false,
+    shrinkToFit: true
+  });
+}
+
+// Small delay to let layout settle before rendering word clouds
+setTimeout(() => {
+  drawWordCloud('wcPublic', DATA.wordfreq.public, 'blue');
+  drawWordCloud('wcPrivate', DATA.wordfreq.private, 'amber');
+}, 300);
+
+// ============================================================
+// STATS BAR
+// ============================================================
+(function drawStats() {
+  const bar = document.getElementById('statsBar');
+  const traits = DATA.stats.traits;
+
+  TRAITS.forEach(trait => {
+    const t = traits[trait];
+    const col = document.createElement('div');
+    col.className = 'stat-col';
+
+    const sigClass = t.significant ? 'sig' : 'ns';
+    const pStr = fmtP(t.mwu_p);
+    const dStr = 'd=' + (t.cohens_d >= 0 ? '+' : '') + t.cohens_d.toFixed(2);
+
+    col.innerHTML = `
+      <div class="stat-trait">${trait}</div>
+      <div class="stat-row">
+        <span class="stat-pub">${t.public_mean.toFixed(2)}</span>
+        <span style="color:#555">|</span>
+        <span class="stat-priv">${t.private_mean.toFixed(2)}</span>
+      </div>
+      <div class="stat-p ${sigClass}">${pStr}</div>
+      <div class="stat-d">${dStr} (${t.effect_size})</div>
+    `;
+    bar.appendChild(col);
+  });
+
+  // Overall score column
+  const overall = document.createElement('div');
+  overall.className = 'stat-col overall';
+  overall.innerHTML = `
+    <div class="overall-label">Overall Nagel Gap</div>
+    <div class="overall-score">${DATA.stats.overall_nagel_gap_score.toFixed(2)}</div>
+    <div class="overall-sub">n=${DATA.stats.n_public_chunks} pub / ${DATA.stats.n_private_chunks} priv</div>
+  `;
+  bar.appendChild(overall);
+})();
+</script>
+</body>
+</html>

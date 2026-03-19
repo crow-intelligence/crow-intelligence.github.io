@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Nagel Index — Henry Kissinger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.1.2/wordcloud2.min.js"></script>
+<style>
+  :root {
+    --public: #3B8BD4;
+    --private: #BA7517;
+    --significant: #D85A30;
+    --ns: #888780;
+    --bg: #1a1a1f;
+    --surface: #24242b;
+    --surface2: #2e2e37;
+    --text: #e8e6e1;
+    --text-dim: #9a988f;
+    --border: #3a3a44;
+    --font-display: 'IM Fell English', serif;
+    --font-data: 'Courier Prime', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-data);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    align-items: start;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--public), var(--private));
+    border-radius: 8px 8px 0 0;
+  }
+
+  .panel h2 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+    color: var(--text);
+    font-weight: normal;
+  }
+
+  /* Panel 1 — Leader Header (full width) */
+  .panel-header {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .leader-info {
+    flex: 0 0 auto;
+  }
+
+  .leader-info h1 {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: normal;
+    line-height: 1.2;
+  }
+
+  .leader-info .dates {
+    font-family: var(--font-data);
+    color: var(--text-dim);
+    font-size: 1rem;
+    margin-top: 4px;
+  }
+
+  .gauge-container {
+    flex: 0 0 200px;
+    text-align: center;
+  }
+
+  .gauge-svg { width: 180px; height: 110px; }
+
+  .gauge-score {
+    font-family: var(--font-data);
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+
+  .gauge-label {
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  .interpretation {
+    flex: 1 1 300px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    border-left: 2px solid var(--border);
+    padding-left: 20px;
+  }
+
+  /* Toggle buttons */
+  .toggle-group {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .toggle-btn {
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    padding: 4px 14px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .toggle-btn:hover { border-color: var(--text-dim); }
+  .toggle-btn.active { background: var(--surface2); color: var(--text); border-color: var(--text); }
+  .toggle-btn.active[data-mode="public"] { border-color: var(--public); color: var(--public); }
+  .toggle-btn.active[data-mode="private"] { border-color: var(--private); color: var(--private); }
+
+  /* Panel 3 — Bar chart */
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+
+  .bar-row:hover { background: var(--surface2); }
+
+  .bar-label {
+    flex: 0 0 140px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-align: right;
+    padding-right: 12px;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 22px;
+    background: var(--surface2);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+    min-width: 2px;
+  }
+
+  .bar-value {
+    flex: 0 0 80px;
+    font-size: 0.75rem;
+    padding-left: 10px;
+    color: var(--text-dim);
+  }
+
+  /* Panel 4 — Distribution */
+  .dist-caption {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  /* Panel 5 — Word clouds */
+  .cloud-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    height: 320px;
+  }
+
+  .cloud-col {
+    position: relative;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .cloud-col-label {
+    position: absolute;
+    top: 6px; left: 10px;
+    font-size: 0.7rem;
+    font-family: var(--font-data);
+    z-index: 2;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: rgba(0,0,0,0.5);
+  }
+
+  .cloud-col-label.pub { color: var(--public); }
+  .cloud-col-label.prv { color: var(--private); }
+
+  .cloud-canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Panel 6 — Source explorer */
+  .source-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .source-list {
+    max-height: 340px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .source-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .source-row:hover { background: var(--surface2); }
+
+  .source-row .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-right: 10px;
+  }
+
+  .source-row .dot.pub { background: var(--public); }
+  .source-row .dot.prv { background: var(--private); }
+
+  .source-row .title { flex: 1; color: var(--text); }
+  .source-row .meta {
+    color: var(--text-dim);
+    font-size: 0.7rem;
+    text-align: right;
+    flex: 0 0 130px;
+  }
+
+  canvas { max-width: 100%; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .dashboard { grid-template-columns: 1fr; }
+    .panel-header { flex-direction: column; align-items: flex-start; }
+    .interpretation { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 12px; }
+    .cloud-pair { grid-template-columns: 1fr; height: auto; }
+    .cloud-col { height: 240px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+
+  <!-- Panel 1: Leader Header -->
+  <div class="panel panel-header" id="panel-header">
+    <div class="leader-info">
+      <h1 id="leader-name">Henry Kissinger</h1>
+      <div class="dates" id="leader-dates">1969-1977</div>
+    </div>
+    <div class="gauge-container">
+      <svg class="gauge-svg" viewBox="0 0 180 110" id="gauge-svg"></svg>
+      <div class="gauge-label">Overall Nagel Gap Score</div>
+    </div>
+    <div class="interpretation" id="interpretation"></div>
+  </div>
+
+  <!-- Panel 2: Personality Radar -->
+  <div class="panel" id="panel-radar">
+    <h2>Personality Radar</h2>
+    <div class="toggle-group" id="radar-toggles">
+      <button class="toggle-btn active" data-mode="both">Both</button>
+      <button class="toggle-btn" data-mode="public">Public</button>
+      <button class="toggle-btn" data-mode="private">Private</button>
+    </div>
+    <div style="position:relative;height:340px;"><canvas id="radarCanvas"></canvas></div>
+  </div>
+
+  <!-- Panel 3: Nagel Gap Bar Chart -->
+  <div class="panel" id="panel-bars">
+    <h2>Nagel Gap by Trait</h2>
+    <div id="bar-container"></div>
+  </div>
+
+  <!-- Panel 4: Trait Distribution -->
+  <div class="panel" id="panel-dist">
+    <h2>Trait Distribution: <span id="dist-trait-name">select a trait</span></h2>
+    <div style="position:relative;height:280px;"><canvas id="distCanvas"></canvas></div>
+    <div class="dist-caption" id="dist-caption"></div>
+  </div>
+
+  <!-- Panel 5: Word Cloud Comparison -->
+  <div class="panel" id="panel-cloud" style="grid-column: 1 / -1;">
+    <h2>Word Cloud Comparison</h2>
+    <div class="cloud-pair">
+      <div class="cloud-col">
+        <span class="cloud-col-label pub">Public</span>
+        <canvas class="cloud-canvas" id="cloudPublic"></canvas>
+      </div>
+      <div class="cloud-col">
+        <span class="cloud-col-label prv">Private</span>
+        <canvas class="cloud-canvas" id="cloudPrivate"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 6: Source Explorer -->
+  <div class="panel" id="panel-sources" style="grid-column: 1 / -1;">
+    <h2>Source Explorer</h2>
+    <div class="source-controls" id="source-controls">
+      <button class="toggle-btn active" data-filter="all">All</button>
+      <button class="toggle-btn" data-filter="public">Public</button>
+      <button class="toggle-btn" data-filter="private">Private</button>
+    </div>
+    <div class="source-list" id="source-list"></div>
+  </div>
+
+</div>
+
+<script>
+// ── Data ────────────────────────────────────────────────────────────────
+// __DATA_START__
+const DATA = {"leader": "kissinger", "display_name": "Henry Kissinger", "dates": "1969-1977", "stats": {"leader": "kissinger", "n_public_chunks": 26, "n_private_chunks": 300, "traits": {"Openness": {"public_mean": 0.4824, "private_mean": 0.4809, "public_std": 0.0292, "private_std": 0.0421, "mwu_U": 3934.5, "mwu_p": 0.941211, "significant": false, "cohens_d": 0.0421, "effect_size": "negligible", "nagel_gap": -0.0015}, "Conscientiousness": {"public_mean": 0.5295, "private_mean": 0.5166, "public_std": 0.0109, "private_std": 0.0221, "mwu_U": 5435.0, "mwu_p": 0.000873, "significant": true, "cohens_d": 0.7421, "effect_size": "medium", "nagel_gap": -0.013}, "Extraversion": {"public_mean": 0.5199, "private_mean": 0.5363, "public_std": 0.02, "private_std": 0.0305, "mwu_U": 2533.5, "mwu_p": 0.003047, "significant": true, "cohens_d": -0.6321, "effect_size": "medium", "nagel_gap": 0.0163}, "Agreeableness": {"public_mean": 0.4611, "private_mean": 0.5065, "public_std": 0.0313, "private_std": 0.0884, "mwu_U": 2714.0, "mwu_p": 0.010128, "significant": true, "cohens_d": -0.6849, "effect_size": "medium", "nagel_gap": 0.0454}, "Neuroticism": {"public_mean": 0.556, "private_mean": 0.5538, "public_std": 0.0307, "private_std": 0.0348, "mwu_U": 4064.0, "mwu_p": 0.722858, "significant": false, "cohens_d": 0.0687, "effect_size": "negligible", "nagel_gap": -0.0023}}, "overall_nagel_gap_score": 0.434}, "wordfreq": {"public": [{"word": "world", "frequency": 35}, {"word": "look", "frequency": 29}, {"word": "united", "frequency": 27}, {"word": "states", "frequency": 27}, {"word": "mediterranean", "frequency": 21}, {"word": "years", "frequency": 20}, {"word": "war", "frequency": 19}, {"word": "going", "frequency": 19}, {"word": "time", "frequency": 18}, {"word": "think", "frequency": 17}, {"word": "policy", "frequency": 16}, {"word": "say", "frequency": 14}, {"word": "people", "frequency": 14}, {"word": "power", "frequency": 14}, {"word": "even", "frequency": 14}, {"word": "far", "frequency": 13}, {"word": "like", "frequency": 13}, {"word": "terms", "frequency": 12}, {"word": "perspective", "frequency": 11}, {"word": "let", "frequency": 11}, {"word": "soviet", "frequency": 11}, {"word": "live", "frequency": 11}, {"word": "way", "frequency": 10}, {"word": "point", "frequency": 10}, {"word": "else", "frequency": 10}, {"word": "japan", "frequency": 10}, {"word": "government", "frequency": 10}, {"word": "whether", "frequency": 10}, {"word": "long", "frequency": 9}, {"word": "course", "frequency": 9}, {"word": "want", "frequency": 9}, {"word": "concerned", "frequency": 9}, {"word": "union", "frequency": 9}, {"word": "might", "frequency": 8}, {"word": "kind", "frequency": 8}, {"word": "much", "frequency": 8}, {"word": "position", "frequency": 8}, {"word": "right", "frequency": 8}, {"word": "korea", "frequency": 8}, {"word": "vietnam", "frequency": 8}, {"word": "happened", "frequency": 7}, {"word": "europe", "frequency": 7}, {"word": "asia", "frequency": 7}, {"word": "simply", "frequency": 7}, {"word": "know", "frequency": 7}, {"word": "strong", "frequency": 7}, {"word": "enormous", "frequency": 7}, {"word": "continue", "frequency": 7}, {"word": "fleet", "frequency": 7}, {"word": "country", "frequency": 7}, {"word": "make", "frequency": 7}, {"word": "need", "frequency": 6}, {"word": "basically", "frequency": 6}, {"word": "american", "frequency": 6}, {"word": "fact", "frequency": 6}, {"word": "peace", "frequency": 6}, {"word": "end", "frequency": 6}, {"word": "powers", "frequency": 6}, {"word": "america", "frequency": 6}, {"word": "nations", "frequency": 6}, {"word": "nuclear", "frequency": 6}, {"word": "great", "frequency": 6}, {"word": "first", "frequency": 6}, {"word": "always", "frequency": 6}, {"word": "play", "frequency": 6}, {"word": "history", "frequency": 6}, {"word": "sixth", "frequency": 6}, {"word": "try", "frequency": 6}, {"word": "southern", "frequency": 6}, {"word": "still", "frequency": 6}, {"word": "israel", "frequency": 6}, {"word": "hope", "frequency": 6}, {"word": "rest", "frequency": 6}, {"word": "kissinger", "frequency": 5}, {"word": "room", "frequency": 5}, {"word": "without", "frequency": 5}, {"word": "free", "frequency": 5}, {"word": "administration", "frequency": 5}, {"word": "come", "frequency": 5}, {"word": "bring", "frequency": 5}, {"word": "find", "frequency": 5}, {"word": "difficult", "frequency": 5}, {"word": "view", "frequency": 5}, {"word": "east", "frequency": 5}, {"word": "responsibility", "frequency": 5}, {"word": "least", "frequency": 5}, {"word": "part", "frequency": 5}, {"word": "problems", "frequency": 5}, {"word": "role", "frequency": 5}, {"word": "many", "frequency": 5}, {"word": "ever", "frequency": 5}, {"word": "certainly", "frequency": 5}, {"word": "talk", "frequency": 5}, {"word": "put", "frequency": 5}, {"word": "spain", "frequency": 5}, {"word": "looking", "frequency": 5}, {"word": "neighbors", "frequency": 5}, {"word": "attitude", "frequency": 5}, {"word": "nato", "frequency": 5}, {"word": "effect", "frequency": 5}, {"word": "things", "frequency": 5}, {"word": "sea", "frequency": 5}, {"word": "balance", "frequency": 5}, {"word": "background", "frequency": 4}, {"word": "foreign", "frequency": 4}, {"word": "came", "frequency": 4}, {"word": "generally", "frequency": 4}, {"word": "matter", "frequency": 4}, {"word": "happen", "frequency": 4}, {"word": "take", "frequency": 4}, {"word": "except", "frequency": 4}, {"word": "middle", "frequency": 4}, {"word": "developed", "frequency": 4}, {"word": "countries", "frequency": 4}, {"word": "reasons", "frequency": 4}, {"word": "enemies", "frequency": 4}, {"word": "made", "frequency": 4}, {"word": "term", "frequency": 4}, {"word": "situation", "frequency": 4}, {"word": "areas", "frequency": 4}, {"word": "work", "frequency": 4}, {"word": "ahead", "frequency": 4}, {"word": "already", "frequency": 4}, {"word": "trip", "frequency": 4}, {"word": "really", "frequency": 4}, {"word": "important", "frequency": 4}, {"word": "gone", "frequency": 4}, {"word": "since", "frequency": 4}, {"word": "toward", "frequency": 4}, {"word": "get", "frequency": 4}, {"word": "ending", "frequency": 4}, {"word": "ten", "frequency": 4}, {"word": "rim", "frequency": 4}, {"word": "rather", "frequency": 4}, {"word": "influence", "frequency": 4}, {"word": "anybody", "frequency": 4}, {"word": "mideast", "frequency": 4}, {"word": "hand", "frequency": 4}, {"word": "road", "frequency": 4}, {"word": "question", "frequency": 4}, {"word": "enough", "frequency": 4}, {"word": "never", "frequency": 4}, {"word": "well", "frequency": 4}, {"word": "greece", "frequency": 4}, {"word": "hinge", "frequency": 4}, {"word": "number", "frequency": 4}, {"word": "whole", "frequency": 4}, {"word": "speak", "frequency": 4}, {"word": "decisions", "frequency": 4}, {"word": "interests", "frequency": 4}], "private": [{"word": "nsc", "frequency": 773}, {"word": "national", "frequency": 572}, {"word": "policy", "frequency": 561}, {"word": "state", "frequency": 493}, {"word": "staff", "frequency": 488}, {"word": "security", "frequency": 485}, {"word": "kissinger", "frequency": 480}, {"word": "group", "frequency": 397}, {"word": "files", "frequency": 360}, {"word": "secretary", "frequency": 351}, {"word": "issues", "frequency": 342}, {"word": "defense", "frequency": 295}, {"word": "military", "frequency": 294}, {"word": "review", "frequency": 294}, {"word": "memorandum", "frequency": 284}, {"word": "foreign", "frequency": 280}, {"word": "world", "frequency": 266}, {"word": "soviet", "frequency": 263}, {"word": "nixon", "frequency": 261}, {"word": "assistant", "frequency": 258}, {"word": "meeting", "frequency": 245}, {"word": "presidential", "frequency": 231}, {"word": "time", "frequency": 223}, {"word": "system", "frequency": 218}, {"word": "new", "frequency": 215}, {"word": "american", "frequency": 213}, {"word": "states", "frequency": 211}, {"word": "political", "frequency": 203}, {"word": "vietnam", "frequency": 201}, {"word": "affairs", "frequency": 198}, {"word": "united", "frequency": 176}, {"word": "war", "frequency": 175}, {"word": "problem", "frequency": 174}, {"word": "box", "frequency": 173}, {"word": "decision", "frequency": 170}, {"word": "planning", "frequency": 168}, {"word": "washington", "frequency": 167}, {"word": "program", "frequency": 161}, {"word": "department", "frequency": 159}, {"word": "power", "frequency": 158}, {"word": "major", "frequency": 157}, {"word": "subject", "frequency": 149}, {"word": "economic", "frequency": 148}, {"word": "work", "frequency": 148}, {"word": "problems", "frequency": 147}, {"word": "believe", "frequency": 147}, {"word": "white", "frequency": 147}, {"word": "house", "frequency": 147}, {"word": "countries", "frequency": 147}, {"word": "dprc", "frequency": 147}, {"word": "international", "frequency": 146}, {"word": "first", "frequency": 145}, {"word": "relations", "frequency": 143}, {"word": "within", "frequency": 141}, {"word": "working", "frequency": 141}, {"word": "make", "frequency": 141}, {"word": "archives", "frequency": 140}, {"word": "committee", "frequency": 140}, {"word": "situation", "frequency": 139}, {"word": "decisions", "frequency": 138}, {"word": "role", "frequency": 136}, {"word": "interests", "frequency": 131}, {"word": "country", "frequency": 131}, {"word": "materials", "frequency": 129}, {"word": "well", "frequency": 129}, {"word": "many", "frequency": 127}, {"word": "analysis", "frequency": 127}, {"word": "force", "frequency": 127}, {"word": "without", "frequency": 125}, {"word": "even", "frequency": 125}, {"word": "made", "frequency": 124}, {"word": "however", "frequency": 124}, {"word": "nssm", "frequency": 123}, {"word": "programs", "frequency": 122}, {"word": "study", "frequency": 122}, {"word": "action", "frequency": 121}, {"word": "issue", "frequency": 121}, {"word": "source", "frequency": 120}, {"word": "east", "frequency": 119}, {"word": "responsibility", "frequency": 119}, {"word": "level", "frequency": 119}, {"word": "council", "frequency": 118}, {"word": "government", "frequency": 117}, {"word": "meetings", "frequency": 116}, {"word": "administration", "frequency": 115}, {"word": "important", "frequency": 113}, {"word": "document", "frequency": 113}, {"word": "need", "frequency": 113}, {"word": "way", "frequency": 112}, {"word": "might", "frequency": 112}, {"word": "forces", "frequency": 112}, {"word": "course", "frequency": 111}, {"word": "peace", "frequency": 109}, {"word": "possible", "frequency": 109}, {"word": "office", "frequency": 109}, {"word": "nsdm", "frequency": 109}, {"word": "asia", "frequency": 108}, {"word": "fact", "frequency": 106}, {"word": "paper", "frequency": 106}, {"word": "agency", "frequency": 106}, {"word": "interest", "frequency": 105}, {"word": "europe", "frequency": 105}, {"word": "members", "frequency": 105}, {"word": "communist", "frequency": 104}, {"word": "union", "frequency": 103}, {"word": "following", "frequency": 100}, {"word": "special", "frequency": 100}, {"word": "actions", "frequency": 98}, {"word": "agencies", "frequency": 98}, {"word": "discussion", "frequency": 97}, {"word": "position", "frequency": 95}, {"word": "studies", "frequency": 95}, {"word": "tab", "frequency": 95}, {"word": "take", "frequency": 94}, {"word": "point", "frequency": 94}, {"word": "long", "frequency": 93}, {"word": "support", "frequency": 92}, {"word": "nuclear", "frequency": 92}, {"word": "prepared", "frequency": 92}, {"word": "process", "frequency": 92}, {"word": "basis", "frequency": 91}, {"word": "strategic", "frequency": 91}, {"word": "laird", "frequency": 91}, {"word": "think", "frequency": 90}, {"word": "report", "frequency": 90}, {"word": "done", "frequency": 89}, {"word": "plan", "frequency": 89}, {"word": "view", "frequency": 88}, {"word": "rather", "frequency": 88}, {"word": "much", "frequency": 88}, {"word": "since", "frequency": 88}, {"word": "order", "frequency": 87}, {"word": "get", "frequency": 87}, {"word": "cannot", "frequency": 87}, {"word": "middle", "frequency": 87}, {"word": "matters", "frequency": 87}, {"word": "nations", "frequency": 86}, {"word": "control", "frequency": 86}, {"word": "provide", "frequency": 86}, {"word": "questions", "frequency": 85}, {"word": "agreement", "frequency": 85}, {"word": "know", "frequency": 84}, {"word": "years", "frequency": 84}, {"word": "future", "frequency": 84}, {"word": "concerned", "frequency": 84}, {"word": "great", "frequency": 83}, {"word": "task", "frequency": 83}, {"word": "part", "frequency": 83}, {"word": "assistance", "frequency": 83}, {"word": "budget", "frequency": 83}]}, "chunk_scores": {"public": [{"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4858, "Conscientiousness": 0.5291, "Extraversion": 0.5236, "Agreeableness": 0.4517, "Neuroticism": 0.5515}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4347, "Conscientiousness": 0.537, "Extraversion": 0.5312, "Agreeableness": 0.4334, "Neuroticism": 0.508}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4936, "Conscientiousness": 0.5358, "Extraversion": 0.5416, "Agreeableness": 0.4922, "Neuroticism": 0.5543}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4788, "Conscientiousness": 0.5234, "Extraversion": 0.5164, "Agreeableness": 0.4861, "Neuroticism": 0.5647}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4476, "Conscientiousness": 0.5078, "Extraversion": 0.5285, "Agreeableness": 0.4867, "Neuroticism": 0.515}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4794, "Conscientiousness": 0.5233, "Extraversion": 0.5192, "Agreeableness": 0.494, "Neuroticism": 0.5774}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4926, "Conscientiousness": 0.5255, "Extraversion": 0.5067, "Agreeableness": 0.4586, "Neuroticism": 0.5685}}, {"chunk_id": 7, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.5086, "Conscientiousness": 0.5132, "Extraversion": 0.4959, "Agreeableness": 0.4357, "Neuroticism": 0.59}}, {"chunk_id": 8, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.5063, "Conscientiousness": 0.5259, "Extraversion": 0.5305, "Agreeableness": 0.5025, "Neuroticism": 0.61}}, {"chunk_id": 9, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4766, "Conscientiousness": 0.5339, "Extraversion": 0.553, "Agreeableness": 0.4987, "Neuroticism": 0.5723}}, {"chunk_id": 10, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4588, "Conscientiousness": 0.5368, "Extraversion": 0.5303, "Agreeableness": 0.4442, "Neuroticism": 0.549}}, {"chunk_id": 11, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.462, "Conscientiousness": 0.5438, "Extraversion": 0.5294, "Agreeableness": 0.438, "Neuroticism": 0.5275}}, {"chunk_id": 12, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.5267, "Conscientiousness": 0.5275, "Extraversion": 0.5245, "Agreeableness": 0.4719, "Neuroticism": 0.601}}, {"chunk_id": 13, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.445, "Conscientiousness": 0.5142, "Extraversion": 0.5571, "Agreeableness": 0.5171, "Neuroticism": 0.5141}}, {"chunk_id": 14, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.5022, "Conscientiousness": 0.5464, "Extraversion": 0.5196, "Agreeableness": 0.435, "Neuroticism": 0.5804}}, {"chunk_id": 15, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4416, "Conscientiousness": 0.5217, "Extraversion": 0.5368, "Agreeableness": 0.4643, "Neuroticism": 0.5138}}, {"chunk_id": 16, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.5029, "Conscientiousness": 0.5323, "Extraversion": 0.5042, "Agreeableness": 0.4332, "Neuroticism": 0.5852}}, {"chunk_id": 17, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4718, "Conscientiousness": 0.5333, "Extraversion": 0.5194, "Agreeableness": 0.4615, "Neuroticism": 0.569}}, {"chunk_id": 18, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4117, "Conscientiousness": 0.529, "Extraversion": 0.5368, "Agreeableness": 0.4844, "Neuroticism": 0.4873}}, {"chunk_id": 19, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4838, "Conscientiousness": 0.5307, "Extraversion": 0.5121, "Agreeableness": 0.4645, "Neuroticism": 0.5714}}, {"chunk_id": 20, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4999, "Conscientiousness": 0.5274, "Extraversion": 0.5034, "Agreeableness": 0.4597, "Neuroticism": 0.5688}}, {"chunk_id": 21, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4976, "Conscientiousness": 0.5241, "Extraversion": 0.4891, "Agreeableness": 0.4378, "Neuroticism": 0.5615}}, {"chunk_id": 22, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.5199, "Conscientiousness": 0.5256, "Extraversion": 0.4939, "Agreeableness": 0.4194, "Neuroticism": 0.5475}}, {"chunk_id": 23, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.4817, "Conscientiousness": 0.5178, "Extraversion": 0.5422, "Agreeableness": 0.4987, "Neuroticism": 0.5283}}, {"chunk_id": 24, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.5107, "Conscientiousness": 0.545, "Extraversion": 0.497, "Agreeableness": 0.435, "Neuroticism": 0.5779}}, {"chunk_id": 25, "doc_id": "kissinger-frus-frus1969-76v01-d71", "vector": "public", "scores": {"Openness": 0.5227, "Conscientiousness": 0.5568, "Extraversion": 0.476, "Agreeableness": 0.3834, "Neuroticism": 0.5628}}], "private": [{"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v02-d72", "vector": "private", "scores": {"Openness": 0.5036, "Conscientiousness": 0.4949, "Extraversion": 0.6, "Agreeableness": 0.6816, "Neuroticism": 0.5458}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v01-d42", "vector": "private", "scores": {"Openness": 0.4826, "Conscientiousness": 0.5335, "Extraversion": 0.491, "Agreeableness": 0.4498, "Neuroticism": 0.5456}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v01-d116", "vector": "private", "scores": {"Openness": 0.4474, "Conscientiousness": 0.5422, "Extraversion": 0.5781, "Agreeableness": 0.6614, "Neuroticism": 0.5544}}, {"chunk_id": 8, "doc_id": "kissinger-frus-frus1969-76v01-d69", "vector": "private", "scores": {"Openness": 0.4448, "Conscientiousness": 0.4884, "Extraversion": 0.5496, "Agreeableness": 0.6139, "Neuroticism": 0.5193}}, {"chunk_id": 17, "doc_id": "kissinger-frus-frus1969-76v01-d60", "vector": "private", "scores": {"Openness": 0.4409, "Conscientiousness": 0.5069, "Extraversion": 0.5319, "Agreeableness": 0.4683, "Neuroticism": 0.5209}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d58", "vector": "private", "scores": {"Openness": 0.5624, "Conscientiousness": 0.5196, "Extraversion": 0.4804, "Agreeableness": 0.3768, "Neuroticism": 0.6006}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.5057, "Conscientiousness": 0.5623, "Extraversion": 0.5072, "Agreeableness": 0.4577, "Neuroticism": 0.5823}}, {"chunk_id": 28, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.4829, "Conscientiousness": 0.5406, "Extraversion": 0.5342, "Agreeableness": 0.4924, "Neuroticism": 0.5677}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d86", "vector": "private", "scores": {"Openness": 0.4886, "Conscientiousness": 0.4819, "Extraversion": 0.5571, "Agreeableness": 0.6548, "Neuroticism": 0.5556}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d37", "vector": "private", "scores": {"Openness": 0.563, "Conscientiousness": 0.5205, "Extraversion": 0.5068, "Agreeableness": 0.4024, "Neuroticism": 0.6026}}, {"chunk_id": 13, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.3893, "Conscientiousness": 0.5588, "Extraversion": 0.583, "Agreeableness": 0.4657, "Neuroticism": 0.489}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d5", "vector": "private", "scores": {"Openness": 0.4832, "Conscientiousness": 0.4826, "Extraversion": 0.5618, "Agreeableness": 0.6478, "Neuroticism": 0.5213}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d132", "vector": "private", "scores": {"Openness": 0.4582, "Conscientiousness": 0.5037, "Extraversion": 0.5369, "Agreeableness": 0.5406, "Neuroticism": 0.517}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v01-d118", "vector": "private", "scores": {"Openness": 0.4665, "Conscientiousness": 0.5357, "Extraversion": 0.5554, "Agreeableness": 0.5014, "Neuroticism": 0.55}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v01-d118", "vector": "private", "scores": {"Openness": 0.4913, "Conscientiousness": 0.5619, "Extraversion": 0.5042, "Agreeableness": 0.4253, "Neuroticism": 0.5599}}, {"chunk_id": 19, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.5343, "Conscientiousness": 0.5418, "Extraversion": 0.5046, "Agreeableness": 0.3997, "Neuroticism": 0.6045}}, {"chunk_id": 18, "doc_id": "kissinger-frus-frus1969-76v01-d54", "vector": "private", "scores": {"Openness": 0.4551, "Conscientiousness": 0.5068, "Extraversion": 0.5403, "Agreeableness": 0.5239, "Neuroticism": 0.5168}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v01-d60", "vector": "private", "scores": {"Openness": 0.509, "Conscientiousness": 0.5222, "Extraversion": 0.4802, "Agreeableness": 0.4262, "Neuroticism": 0.5442}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d28", "vector": "private", "scores": {"Openness": 0.5048, "Conscientiousness": 0.5182, "Extraversion": 0.5184, "Agreeableness": 0.4454, "Neuroticism": 0.5901}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d63", "vector": "private", "scores": {"Openness": 0.4807, "Conscientiousness": 0.5155, "Extraversion": 0.5441, "Agreeableness": 0.4642, "Neuroticism": 0.5614}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v01-d116", "vector": "private", "scores": {"Openness": 0.4636, "Conscientiousness": 0.5462, "Extraversion": 0.5733, "Agreeableness": 0.5575, "Neuroticism": 0.5414}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d4", "vector": "private", "scores": {"Openness": 0.486, "Conscientiousness": 0.5234, "Extraversion": 0.5932, "Agreeableness": 0.5713, "Neuroticism": 0.5592}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d53", "vector": "private", "scores": {"Openness": 0.4982, "Conscientiousness": 0.5069, "Extraversion": 0.4967, "Agreeableness": 0.4268, "Neuroticism": 0.58}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d77", "vector": "private", "scores": {"Openness": 0.4839, "Conscientiousness": 0.5339, "Extraversion": 0.5966, "Agreeableness": 0.5599, "Neuroticism": 0.5673}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d90", "vector": "private", "scores": {"Openness": 0.4902, "Conscientiousness": 0.4923, "Extraversion": 0.5497, "Agreeableness": 0.4974, "Neuroticism": 0.5463}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d96", "vector": "private", "scores": {"Openness": 0.4963, "Conscientiousness": 0.5101, "Extraversion": 0.5115, "Agreeableness": 0.4858, "Neuroticism": 0.5725}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d131", "vector": "private", "scores": {"Openness": 0.4901, "Conscientiousness": 0.542, "Extraversion": 0.5556, "Agreeableness": 0.5137, "Neuroticism": 0.5664}}, {"chunk_id": 20, "doc_id": "kissinger-frus-frus1969-76v01-d54", "vector": "private", "scores": {"Openness": 0.4954, "Conscientiousness": 0.541, "Extraversion": 0.4959, "Agreeableness": 0.406, "Neuroticism": 0.5508}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d146", "vector": "private", "scores": {"Openness": 0.5247, "Conscientiousness": 0.4655, "Extraversion": 0.5818, "Agreeableness": 0.7089, "Neuroticism": 0.5408}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d5", "vector": "private", "scores": {"Openness": 0.4802, "Conscientiousness": 0.4832, "Extraversion": 0.5714, "Agreeableness": 0.611, "Neuroticism": 0.5138}}, {"chunk_id": 11, "doc_id": "kissinger-frus-frus1969-76v01-d69", "vector": "private", "scores": {"Openness": 0.5073, "Conscientiousness": 0.542, "Extraversion": 0.5159, "Agreeableness": 0.468, "Neuroticism": 0.6067}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v01-d101", "vector": "private", "scores": {"Openness": 0.4114, "Conscientiousness": 0.5024, "Extraversion": 0.5185, "Agreeableness": 0.5806, "Neuroticism": 0.512}}, {"chunk_id": 22, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.4539, "Conscientiousness": 0.5499, "Extraversion": 0.5398, "Agreeableness": 0.4417, "Neuroticism": 0.5501}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d94", "vector": "private", "scores": {"Openness": 0.5328, "Conscientiousness": 0.4873, "Extraversion": 0.5296, "Agreeableness": 0.4733, "Neuroticism": 0.5974}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d103", "vector": "private", "scores": {"Openness": 0.4428, "Conscientiousness": 0.5238, "Extraversion": 0.5814, "Agreeableness": 0.6681, "Neuroticism": 0.5548}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d89", "vector": "private", "scores": {"Openness": 0.4337, "Conscientiousness": 0.5244, "Extraversion": 0.5416, "Agreeableness": 0.4426, "Neuroticism": 0.5227}}, {"chunk_id": 18, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.474, "Conscientiousness": 0.5515, "Extraversion": 0.527, "Agreeableness": 0.4755, "Neuroticism": 0.5686}}, {"chunk_id": 15, "doc_id": "kissinger-frus-frus1969-76v01-d54", "vector": "private", "scores": {"Openness": 0.383, "Conscientiousness": 0.5133, "Extraversion": 0.533, "Agreeableness": 0.6301, "Neuroticism": 0.499}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d100", "vector": "private", "scores": {"Openness": 0.5008, "Conscientiousness": 0.497, "Extraversion": 0.5671, "Agreeableness": 0.5353, "Neuroticism": 0.5842}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d96", "vector": "private", "scores": {"Openness": 0.4932, "Conscientiousness": 0.5087, "Extraversion": 0.5486, "Agreeableness": 0.5077, "Neuroticism": 0.5758}}, {"chunk_id": 18, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.4941, "Conscientiousness": 0.5592, "Extraversion": 0.5452, "Agreeableness": 0.4722, "Neuroticism": 0.6017}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d114", "vector": "private", "scores": {"Openness": 0.493, "Conscientiousness": 0.4915, "Extraversion": 0.5518, "Agreeableness": 0.5842, "Neuroticism": 0.5415}}, {"chunk_id": 23, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.4949, "Conscientiousness": 0.5276, "Extraversion": 0.4976, "Agreeableness": 0.3949, "Neuroticism": 0.5621}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d108", "vector": "private", "scores": {"Openness": 0.5397, "Conscientiousness": 0.489, "Extraversion": 0.5228, "Agreeableness": 0.4675, "Neuroticism": 0.6142}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v02-d103", "vector": "private", "scores": {"Openness": 0.5213, "Conscientiousness": 0.5245, "Extraversion": 0.5459, "Agreeableness": 0.4673, "Neuroticism": 0.5802}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d63", "vector": "private", "scores": {"Openness": 0.5028, "Conscientiousness": 0.544, "Extraversion": 0.524, "Agreeableness": 0.4384, "Neuroticism": 0.5929}}, {"chunk_id": 11, "doc_id": "kissinger-frus-frus1969-76v01-d65", "vector": "private", "scores": {"Openness": 0.5212, "Conscientiousness": 0.504, "Extraversion": 0.5551, "Agreeableness": 0.5558, "Neuroticism": 0.5638}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d20", "vector": "private", "scores": {"Openness": 0.4502, "Conscientiousness": 0.5118, "Extraversion": 0.497, "Agreeableness": 0.3911, "Neuroticism": 0.4975}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d15", "vector": "private", "scores": {"Openness": 0.5295, "Conscientiousness": 0.4735, "Extraversion": 0.559, "Agreeableness": 0.6557, "Neuroticism": 0.549}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d35", "vector": "private", "scores": {"Openness": 0.4907, "Conscientiousness": 0.5253, "Extraversion": 0.5505, "Agreeableness": 0.6686, "Neuroticism": 0.5372}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d46", "vector": "private", "scores": {"Openness": 0.491, "Conscientiousness": 0.5232, "Extraversion": 0.5134, "Agreeableness": 0.425, "Neuroticism": 0.5639}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d114", "vector": "private", "scores": {"Openness": 0.5098, "Conscientiousness": 0.52, "Extraversion": 0.5096, "Agreeableness": 0.4152, "Neuroticism": 0.5817}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.4849, "Conscientiousness": 0.5494, "Extraversion": 0.4971, "Agreeableness": 0.4068, "Neuroticism": 0.5705}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d3", "vector": "private", "scores": {"Openness": 0.4049, "Conscientiousness": 0.5092, "Extraversion": 0.5273, "Agreeableness": 0.4906, "Neuroticism": 0.4921}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d72", "vector": "private", "scores": {"Openness": 0.4635, "Conscientiousness": 0.4751, "Extraversion": 0.5574, "Agreeableness": 0.5749, "Neuroticism": 0.5137}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d6", "vector": "private", "scores": {"Openness": 0.4917, "Conscientiousness": 0.5073, "Extraversion": 0.5518, "Agreeableness": 0.5266, "Neuroticism": 0.5617}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d67", "vector": "private", "scores": {"Openness": 0.4957, "Conscientiousness": 0.5306, "Extraversion": 0.5017, "Agreeableness": 0.4309, "Neuroticism": 0.57}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d110", "vector": "private", "scores": {"Openness": 0.3706, "Conscientiousness": 0.489, "Extraversion": 0.5695, "Agreeableness": 0.6161, "Neuroticism": 0.487}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d59", "vector": "private", "scores": {"Openness": 0.4924, "Conscientiousness": 0.5116, "Extraversion": 0.5561, "Agreeableness": 0.5015, "Neuroticism": 0.5441}}, {"chunk_id": 55, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.4627, "Conscientiousness": 0.5396, "Extraversion": 0.5603, "Agreeableness": 0.5058, "Neuroticism": 0.5678}}, {"chunk_id": 21, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.4533, "Conscientiousness": 0.5136, "Extraversion": 0.5123, "Agreeableness": 0.4678, "Neuroticism": 0.5228}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d28", "vector": "private", "scores": {"Openness": 0.4887, "Conscientiousness": 0.5208, "Extraversion": 0.5422, "Agreeableness": 0.5463, "Neuroticism": 0.5567}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d82", "vector": "private", "scores": {"Openness": 0.4463, "Conscientiousness": 0.4747, "Extraversion": 0.5321, "Agreeableness": 0.4991, "Neuroticism": 0.4871}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d60", "vector": "private", "scores": {"Openness": 0.5166, "Conscientiousness": 0.5254, "Extraversion": 0.5082, "Agreeableness": 0.4394, "Neuroticism": 0.5851}}, {"chunk_id": 23, "doc_id": "kissinger-frus-frus1969-76v01-d69", "vector": "private", "scores": {"Openness": 0.4656, "Conscientiousness": 0.5273, "Extraversion": 0.5093, "Agreeableness": 0.4713, "Neuroticism": 0.5493}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.5346, "Conscientiousness": 0.5573, "Extraversion": 0.5015, "Agreeableness": 0.3999, "Neuroticism": 0.6032}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d92", "vector": "private", "scores": {"Openness": 0.5076, "Conscientiousness": 0.5146, "Extraversion": 0.533, "Agreeableness": 0.4881, "Neuroticism": 0.5839}}, {"chunk_id": 27, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.4797, "Conscientiousness": 0.5382, "Extraversion": 0.5272, "Agreeableness": 0.5175, "Neuroticism": 0.5773}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d87", "vector": "private", "scores": {"Openness": 0.4567, "Conscientiousness": 0.4833, "Extraversion": 0.5575, "Agreeableness": 0.5739, "Neuroticism": 0.5065}}, {"chunk_id": 7, "doc_id": "kissinger-frus-frus1969-76v02-d87", "vector": "private", "scores": {"Openness": 0.4984, "Conscientiousness": 0.4993, "Extraversion": 0.5443, "Agreeableness": 0.6638, "Neuroticism": 0.5553}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d147", "vector": "private", "scores": {"Openness": 0.4252, "Conscientiousness": 0.5011, "Extraversion": 0.5446, "Agreeableness": 0.6114, "Neuroticism": 0.4859}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d72", "vector": "private", "scores": {"Openness": 0.4445, "Conscientiousness": 0.494, "Extraversion": 0.5608, "Agreeableness": 0.5756, "Neuroticism": 0.533}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d110", "vector": "private", "scores": {"Openness": 0.5551, "Conscientiousness": 0.515, "Extraversion": 0.5034, "Agreeableness": 0.3826, "Neuroticism": 0.6012}}, {"chunk_id": 25, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.487, "Conscientiousness": 0.5528, "Extraversion": 0.5268, "Agreeableness": 0.4673, "Neuroticism": 0.572}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d111", "vector": "private", "scores": {"Openness": 0.4951, "Conscientiousness": 0.5223, "Extraversion": 0.5409, "Agreeableness": 0.4714, "Neuroticism": 0.5828}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d107", "vector": "private", "scores": {"Openness": 0.5322, "Conscientiousness": 0.5144, "Extraversion": 0.4984, "Agreeableness": 0.4397, "Neuroticism": 0.6038}}, {"chunk_id": 9, "doc_id": "kissinger-frus-frus1969-76v01-d54", "vector": "private", "scores": {"Openness": 0.4936, "Conscientiousness": 0.5215, "Extraversion": 0.5223, "Agreeableness": 0.4803, "Neuroticism": 0.57}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d69", "vector": "private", "scores": {"Openness": 0.4725, "Conscientiousness": 0.5109, "Extraversion": 0.5218, "Agreeableness": 0.4669, "Neuroticism": 0.5696}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d77", "vector": "private", "scores": {"Openness": 0.463, "Conscientiousness": 0.5096, "Extraversion": 0.5764, "Agreeableness": 0.6883, "Neuroticism": 0.557}}, {"chunk_id": 23, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.4858, "Conscientiousness": 0.5272, "Extraversion": 0.5053, "Agreeableness": 0.4299, "Neuroticism": 0.5611}}, {"chunk_id": 7, "doc_id": "kissinger-frus-frus1969-76v02-d63", "vector": "private", "scores": {"Openness": 0.4379, "Conscientiousness": 0.5341, "Extraversion": 0.5595, "Agreeableness": 0.493, "Neuroticism": 0.5223}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v02-d81", "vector": "private", "scores": {"Openness": 0.506, "Conscientiousness": 0.4835, "Extraversion": 0.5652, "Agreeableness": 0.5361, "Neuroticism": 0.5541}}, {"chunk_id": 34, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.4275, "Conscientiousness": 0.5414, "Extraversion": 0.5498, "Agreeableness": 0.4732, "Neuroticism": 0.5201}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d35", "vector": "private", "scores": {"Openness": 0.4852, "Conscientiousness": 0.5191, "Extraversion": 0.5129, "Agreeableness": 0.4721, "Neuroticism": 0.5682}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d97", "vector": "private", "scores": {"Openness": 0.4609, "Conscientiousness": 0.501, "Extraversion": 0.5281, "Agreeableness": 0.4064, "Neuroticism": 0.5235}}, {"chunk_id": 26, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.4063, "Conscientiousness": 0.5381, "Extraversion": 0.5803, "Agreeableness": 0.661, "Neuroticism": 0.5665}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v02-d15", "vector": "private", "scores": {"Openness": 0.5075, "Conscientiousness": 0.4965, "Extraversion": 0.5835, "Agreeableness": 0.6685, "Neuroticism": 0.5374}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d114", "vector": "private", "scores": {"Openness": 0.4875, "Conscientiousness": 0.5159, "Extraversion": 0.5177, "Agreeableness": 0.4577, "Neuroticism": 0.5642}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v01-d69", "vector": "private", "scores": {"Openness": 0.4494, "Conscientiousness": 0.5152, "Extraversion": 0.5516, "Agreeableness": 0.6713, "Neuroticism": 0.5115}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d74", "vector": "private", "scores": {"Openness": 0.556, "Conscientiousness": 0.5159, "Extraversion": 0.4958, "Agreeableness": 0.3877, "Neuroticism": 0.605}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d49", "vector": "private", "scores": {"Openness": 0.4993, "Conscientiousness": 0.5154, "Extraversion": 0.5164, "Agreeableness": 0.4214, "Neuroticism": 0.5517}}, {"chunk_id": 19, "doc_id": "kissinger-frus-frus1969-76v01-d54", "vector": "private", "scores": {"Openness": 0.4969, "Conscientiousness": 0.5284, "Extraversion": 0.5085, "Agreeableness": 0.4117, "Neuroticism": 0.5764}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d86", "vector": "private", "scores": {"Openness": 0.5091, "Conscientiousness": 0.5117, "Extraversion": 0.5336, "Agreeableness": 0.464, "Neuroticism": 0.6005}}, {"chunk_id": 7, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.4383, "Conscientiousness": 0.5387, "Extraversion": 0.5141, "Agreeableness": 0.4171, "Neuroticism": 0.5082}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d60", "vector": "private", "scores": {"Openness": 0.504, "Conscientiousness": 0.5335, "Extraversion": 0.4916, "Agreeableness": 0.4411, "Neuroticism": 0.5615}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d94", "vector": "private", "scores": {"Openness": 0.5033, "Conscientiousness": 0.5058, "Extraversion": 0.5521, "Agreeableness": 0.5007, "Neuroticism": 0.5641}}, {"chunk_id": 10, "doc_id": "kissinger-frus-frus1969-76v01-d80", "vector": "private", "scores": {"Openness": 0.5449, "Conscientiousness": 0.5319, "Extraversion": 0.4919, "Agreeableness": 0.4035, "Neuroticism": 0.6057}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d122", "vector": "private", "scores": {"Openness": 0.5099, "Conscientiousness": 0.5217, "Extraversion": 0.5104, "Agreeableness": 0.4719, "Neuroticism": 0.584}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d69", "vector": "private", "scores": {"Openness": 0.4647, "Conscientiousness": 0.5398, "Extraversion": 0.528, "Agreeableness": 0.5004, "Neuroticism": 0.5654}}, {"chunk_id": 17, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.4285, "Conscientiousness": 0.5122, "Extraversion": 0.5095, "Agreeableness": 0.4509, "Neuroticism": 0.5118}}, {"chunk_id": 11, "doc_id": "kissinger-frus-frus1969-76v01-d54", "vector": "private", "scores": {"Openness": 0.5058, "Conscientiousness": 0.5411, "Extraversion": 0.51, "Agreeableness": 0.4324, "Neuroticism": 0.5812}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d52", "vector": "private", "scores": {"Openness": 0.4974, "Conscientiousness": 0.5173, "Extraversion": 0.5295, "Agreeableness": 0.5179, "Neuroticism": 0.5735}}, {"chunk_id": 9, "doc_id": "kissinger-frus-frus1969-76v01-d80", "vector": "private", "scores": {"Openness": 0.4502, "Conscientiousness": 0.5171, "Extraversion": 0.5594, "Agreeableness": 0.5217, "Neuroticism": 0.533}}, {"chunk_id": 12, "doc_id": "kissinger-frus-frus1969-76v01-d54", "vector": "private", "scores": {"Openness": 0.4724, "Conscientiousness": 0.5257, "Extraversion": 0.5323, "Agreeableness": 0.4719, "Neuroticism": 0.5482}}, {"chunk_id": 10, "doc_id": "kissinger-frus-frus1969-76v02-d24", "vector": "private", "scores": {"Openness": 0.5156, "Conscientiousness": 0.5001, "Extraversion": 0.5341, "Agreeableness": 0.4396, "Neuroticism": 0.587}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d119", "vector": "private", "scores": {"Openness": 0.4508, "Conscientiousness": 0.499, "Extraversion": 0.5784, "Agreeableness": 0.6668, "Neuroticism": 0.5537}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d15", "vector": "private", "scores": {"Openness": 0.4677, "Conscientiousness": 0.4961, "Extraversion": 0.5525, "Agreeableness": 0.6149, "Neuroticism": 0.5464}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.5074, "Conscientiousness": 0.5515, "Extraversion": 0.5139, "Agreeableness": 0.4531, "Neuroticism": 0.5757}}, {"chunk_id": 12, "doc_id": "kissinger-frus-frus1969-76v01-d65", "vector": "private", "scores": {"Openness": 0.5167, "Conscientiousness": 0.5133, "Extraversion": 0.5313, "Agreeableness": 0.4967, "Neuroticism": 0.594}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d96", "vector": "private", "scores": {"Openness": 0.4897, "Conscientiousness": 0.4939, "Extraversion": 0.5351, "Agreeableness": 0.4872, "Neuroticism": 0.5614}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d61", "vector": "private", "scores": {"Openness": 0.5116, "Conscientiousness": 0.5113, "Extraversion": 0.546, "Agreeableness": 0.5111, "Neuroticism": 0.5604}}, {"chunk_id": 7, "doc_id": "kissinger-frus-frus1969-76v02-d90", "vector": "private", "scores": {"Openness": 0.5053, "Conscientiousness": 0.4936, "Extraversion": 0.558, "Agreeableness": 0.4944, "Neuroticism": 0.6002}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d36", "vector": "private", "scores": {"Openness": 0.4761, "Conscientiousness": 0.4949, "Extraversion": 0.517, "Agreeableness": 0.4761, "Neuroticism": 0.5602}}, {"chunk_id": 10, "doc_id": "kissinger-frus-frus1969-76v01-d65", "vector": "private", "scores": {"Openness": 0.5101, "Conscientiousness": 0.4839, "Extraversion": 0.551, "Agreeableness": 0.6256, "Neuroticism": 0.5225}}, {"chunk_id": 10, "doc_id": "kissinger-frus-frus1969-76v02-d59", "vector": "private", "scores": {"Openness": 0.5332, "Conscientiousness": 0.4991, "Extraversion": 0.5636, "Agreeableness": 0.6812, "Neuroticism": 0.5751}}, {"chunk_id": 8, "doc_id": "kissinger-frus-frus1969-76v02-d132", "vector": "private", "scores": {"Openness": 0.4044, "Conscientiousness": 0.5112, "Extraversion": 0.5747, "Agreeableness": 0.6511, "Neuroticism": 0.542}}, {"chunk_id": 9, "doc_id": "kissinger-frus-frus1969-76v02-d59", "vector": "private", "scores": {"Openness": 0.5377, "Conscientiousness": 0.4937, "Extraversion": 0.5818, "Agreeableness": 0.5491, "Neuroticism": 0.5872}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d119", "vector": "private", "scores": {"Openness": 0.4542, "Conscientiousness": 0.5314, "Extraversion": 0.5753, "Agreeableness": 0.6794, "Neuroticism": 0.5699}}, {"chunk_id": 8, "doc_id": "kissinger-frus-frus1969-76v02-d85", "vector": "private", "scores": {"Openness": 0.4548, "Conscientiousness": 0.488, "Extraversion": 0.5522, "Agreeableness": 0.5161, "Neuroticism": 0.5177}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d72", "vector": "private", "scores": {"Openness": 0.4208, "Conscientiousness": 0.4929, "Extraversion": 0.6262, "Agreeableness": 0.699, "Neuroticism": 0.5044}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.4769, "Conscientiousness": 0.5488, "Extraversion": 0.5136, "Agreeableness": 0.4617, "Neuroticism": 0.5583}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d30", "vector": "private", "scores": {"Openness": 0.5252, "Conscientiousness": 0.4833, "Extraversion": 0.5548, "Agreeableness": 0.642, "Neuroticism": 0.5825}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d24", "vector": "private", "scores": {"Openness": 0.4794, "Conscientiousness": 0.48, "Extraversion": 0.5844, "Agreeableness": 0.5428, "Neuroticism": 0.5061}}, {"chunk_id": 17, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.5115, "Conscientiousness": 0.5531, "Extraversion": 0.5195, "Agreeableness": 0.4512, "Neuroticism": 0.6092}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v01-d28", "vector": "private", "scores": {"Openness": 0.532, "Conscientiousness": 0.5119, "Extraversion": 0.5259, "Agreeableness": 0.5054, "Neuroticism": 0.5884}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v01-d42", "vector": "private", "scores": {"Openness": 0.5276, "Conscientiousness": 0.5363, "Extraversion": 0.4866, "Agreeableness": 0.4342, "Neuroticism": 0.5955}}, {"chunk_id": 15, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.3965, "Conscientiousness": 0.5447, "Extraversion": 0.5641, "Agreeableness": 0.5657, "Neuroticism": 0.5106}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d89", "vector": "private", "scores": {"Openness": 0.5249, "Conscientiousness": 0.4994, "Extraversion": 0.5013, "Agreeableness": 0.472, "Neuroticism": 0.6046}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d88", "vector": "private", "scores": {"Openness": 0.5171, "Conscientiousness": 0.5045, "Extraversion": 0.531, "Agreeableness": 0.5073, "Neuroticism": 0.6093}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d62", "vector": "private", "scores": {"Openness": 0.4315, "Conscientiousness": 0.5104, "Extraversion": 0.5455, "Agreeableness": 0.6394, "Neuroticism": 0.5154}}, {"chunk_id": 15, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.3386, "Conscientiousness": 0.4965, "Extraversion": 0.5081, "Agreeableness": 0.5486, "Neuroticism": 0.4966}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d116", "vector": "private", "scores": {"Openness": 0.5067, "Conscientiousness": 0.5274, "Extraversion": 0.5404, "Agreeableness": 0.4814, "Neuroticism": 0.5894}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d114", "vector": "private", "scores": {"Openness": 0.5422, "Conscientiousness": 0.5098, "Extraversion": 0.5489, "Agreeableness": 0.512, "Neuroticism": 0.6228}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d62", "vector": "private", "scores": {"Openness": 0.571, "Conscientiousness": 0.5689, "Extraversion": 0.4649, "Agreeableness": 0.3281, "Neuroticism": 0.5526}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d1", "vector": "private", "scores": {"Openness": 0.4724, "Conscientiousness": 0.5094, "Extraversion": 0.5397, "Agreeableness": 0.4805, "Neuroticism": 0.5443}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v02-d34", "vector": "private", "scores": {"Openness": 0.5427, "Conscientiousness": 0.5091, "Extraversion": 0.5632, "Agreeableness": 0.5159, "Neuroticism": 0.6192}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d64", "vector": "private", "scores": {"Openness": 0.468, "Conscientiousness": 0.4861, "Extraversion": 0.5545, "Agreeableness": 0.5064, "Neuroticism": 0.522}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d3", "vector": "private", "scores": {"Openness": 0.5009, "Conscientiousness": 0.5383, "Extraversion": 0.5146, "Agreeableness": 0.4123, "Neuroticism": 0.5599}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d102", "vector": "private", "scores": {"Openness": 0.3702, "Conscientiousness": 0.4818, "Extraversion": 0.5323, "Agreeableness": 0.473, "Neuroticism": 0.4345}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d45", "vector": "private", "scores": {"Openness": 0.4371, "Conscientiousness": 0.546, "Extraversion": 0.5333, "Agreeableness": 0.4184, "Neuroticism": 0.5304}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d86", "vector": "private", "scores": {"Openness": 0.4631, "Conscientiousness": 0.5012, "Extraversion": 0.5448, "Agreeableness": 0.4757, "Neuroticism": 0.5538}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d7", "vector": "private", "scores": {"Openness": 0.4531, "Conscientiousness": 0.5247, "Extraversion": 0.5588, "Agreeableness": 0.5562, "Neuroticism": 0.5337}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d88", "vector": "private", "scores": {"Openness": 0.5188, "Conscientiousness": 0.4818, "Extraversion": 0.5831, "Agreeableness": 0.5686, "Neuroticism": 0.5831}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d99", "vector": "private", "scores": {"Openness": 0.4915, "Conscientiousness": 0.4991, "Extraversion": 0.5346, "Agreeableness": 0.4878, "Neuroticism": 0.5696}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d86", "vector": "private", "scores": {"Openness": 0.5075, "Conscientiousness": 0.4853, "Extraversion": 0.5658, "Agreeableness": 0.5381, "Neuroticism": 0.5725}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d136", "vector": "private", "scores": {"Openness": 0.4838, "Conscientiousness": 0.4967, "Extraversion": 0.5913, "Agreeableness": 0.6228, "Neuroticism": 0.5148}}, {"chunk_id": 20, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.4521, "Conscientiousness": 0.556, "Extraversion": 0.5314, "Agreeableness": 0.4441, "Neuroticism": 0.5478}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d81", "vector": "private", "scores": {"Openness": 0.4239, "Conscientiousness": 0.479, "Extraversion": 0.5133, "Agreeableness": 0.5117, "Neuroticism": 0.4916}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v01-d101", "vector": "private", "scores": {"Openness": 0.4835, "Conscientiousness": 0.5224, "Extraversion": 0.5358, "Agreeableness": 0.5361, "Neuroticism": 0.5457}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d66", "vector": "private", "scores": {"Openness": 0.4691, "Conscientiousness": 0.4786, "Extraversion": 0.5184, "Agreeableness": 0.5912, "Neuroticism": 0.5247}}, {"chunk_id": 11, "doc_id": "kissinger-frus-frus1969-76v02-d24", "vector": "private", "scores": {"Openness": 0.4018, "Conscientiousness": 0.5063, "Extraversion": 0.5624, "Agreeableness": 0.6302, "Neuroticism": 0.5198}}, {"chunk_id": 41, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.4556, "Conscientiousness": 0.5405, "Extraversion": 0.5299, "Agreeableness": 0.4938, "Neuroticism": 0.5418}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d28", "vector": "private", "scores": {"Openness": 0.5307, "Conscientiousness": 0.523, "Extraversion": 0.5455, "Agreeableness": 0.4776, "Neuroticism": 0.5797}}, {"chunk_id": 32, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.5089, "Conscientiousness": 0.5501, "Extraversion": 0.5044, "Agreeableness": 0.3994, "Neuroticism": 0.5668}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d77", "vector": "private", "scores": {"Openness": 0.5252, "Conscientiousness": 0.5037, "Extraversion": 0.5587, "Agreeableness": 0.5024, "Neuroticism": 0.5843}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d59", "vector": "private", "scores": {"Openness": 0.4788, "Conscientiousness": 0.5037, "Extraversion": 0.5723, "Agreeableness": 0.6822, "Neuroticism": 0.5322}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d90", "vector": "private", "scores": {"Openness": 0.4724, "Conscientiousness": 0.4736, "Extraversion": 0.5596, "Agreeableness": 0.4832, "Neuroticism": 0.5429}}, {"chunk_id": 10, "doc_id": "kissinger-frus-frus1969-76v02-d86", "vector": "private", "scores": {"Openness": 0.4296, "Conscientiousness": 0.5021, "Extraversion": 0.5505, "Agreeableness": 0.603, "Neuroticism": 0.5109}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d113", "vector": "private", "scores": {"Openness": 0.4836, "Conscientiousness": 0.5144, "Extraversion": 0.5131, "Agreeableness": 0.4694, "Neuroticism": 0.5685}}, {"chunk_id": 24, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.3482, "Conscientiousness": 0.539, "Extraversion": 0.581, "Agreeableness": 0.6639, "Neuroticism": 0.5102}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d36", "vector": "private", "scores": {"Openness": 0.5203, "Conscientiousness": 0.5354, "Extraversion": 0.5137, "Agreeableness": 0.4703, "Neuroticism": 0.6138}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d35", "vector": "private", "scores": {"Openness": 0.4438, "Conscientiousness": 0.5204, "Extraversion": 0.5565, "Agreeableness": 0.4695, "Neuroticism": 0.5315}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d101", "vector": "private", "scores": {"Openness": 0.4756, "Conscientiousness": 0.5425, "Extraversion": 0.5281, "Agreeableness": 0.4559, "Neuroticism": 0.5742}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v01-d84", "vector": "private", "scores": {"Openness": 0.4998, "Conscientiousness": 0.5365, "Extraversion": 0.5112, "Agreeableness": 0.4398, "Neuroticism": 0.5819}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d22", "vector": "private", "scores": {"Openness": 0.4446, "Conscientiousness": 0.4674, "Extraversion": 0.5243, "Agreeableness": 0.5991, "Neuroticism": 0.4904}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v01-d110", "vector": "private", "scores": {"Openness": 0.4631, "Conscientiousness": 0.502, "Extraversion": 0.5358, "Agreeableness": 0.5334, "Neuroticism": 0.5073}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d5", "vector": "private", "scores": {"Openness": 0.5392, "Conscientiousness": 0.4942, "Extraversion": 0.58, "Agreeableness": 0.5594, "Neuroticism": 0.5967}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d110", "vector": "private", "scores": {"Openness": 0.5033, "Conscientiousness": 0.4898, "Extraversion": 0.5408, "Agreeableness": 0.4807, "Neuroticism": 0.5733}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d80", "vector": "private", "scores": {"Openness": 0.5457, "Conscientiousness": 0.5177, "Extraversion": 0.4928, "Agreeableness": 0.3923, "Neuroticism": 0.5995}}, {"chunk_id": 12, "doc_id": "kissinger-frus-frus1969-76v01-d60", "vector": "private", "scores": {"Openness": 0.4845, "Conscientiousness": 0.5391, "Extraversion": 0.5044, "Agreeableness": 0.4414, "Neuroticism": 0.5275}}, {"chunk_id": 9, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.4416, "Conscientiousness": 0.5377, "Extraversion": 0.5347, "Agreeableness": 0.4546, "Neuroticism": 0.5346}}, {"chunk_id": 13, "doc_id": "kissinger-frus-frus1969-76v01-d60", "vector": "private", "scores": {"Openness": 0.4947, "Conscientiousness": 0.533, "Extraversion": 0.5, "Agreeableness": 0.4438, "Neuroticism": 0.5372}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d96", "vector": "private", "scores": {"Openness": 0.5338, "Conscientiousness": 0.5352, "Extraversion": 0.4884, "Agreeableness": 0.381, "Neuroticism": 0.6061}}, {"chunk_id": 11, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.4946, "Conscientiousness": 0.5534, "Extraversion": 0.5402, "Agreeableness": 0.4729, "Neuroticism": 0.5754}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d22", "vector": "private", "scores": {"Openness": 0.4634, "Conscientiousness": 0.4989, "Extraversion": 0.5702, "Agreeableness": 0.5326, "Neuroticism": 0.552}}, {"chunk_id": 20, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.442, "Conscientiousness": 0.5075, "Extraversion": 0.5559, "Agreeableness": 0.5623, "Neuroticism": 0.4945}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d35", "vector": "private", "scores": {"Openness": 0.5053, "Conscientiousness": 0.5019, "Extraversion": 0.5021, "Agreeableness": 0.411, "Neuroticism": 0.5573}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v01-d46", "vector": "private", "scores": {"Openness": 0.4332, "Conscientiousness": 0.5257, "Extraversion": 0.5258, "Agreeableness": 0.4611, "Neuroticism": 0.5165}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v01-d47", "vector": "private", "scores": {"Openness": 0.4738, "Conscientiousness": 0.5329, "Extraversion": 0.5479, "Agreeableness": 0.4974, "Neuroticism": 0.5559}}, {"chunk_id": 10, "doc_id": "kissinger-frus-frus1969-76v02-d1", "vector": "private", "scores": {"Openness": 0.4746, "Conscientiousness": 0.5224, "Extraversion": 0.6062, "Agreeableness": 0.7021, "Neuroticism": 0.5831}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d3", "vector": "private", "scores": {"Openness": 0.4815, "Conscientiousness": 0.511, "Extraversion": 0.5452, "Agreeableness": 0.4859, "Neuroticism": 0.5725}}, {"chunk_id": 28, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.3318, "Conscientiousness": 0.5455, "Extraversion": 0.5173, "Agreeableness": 0.5339, "Neuroticism": 0.4748}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d67", "vector": "private", "scores": {"Openness": 0.4626, "Conscientiousness": 0.5268, "Extraversion": 0.5287, "Agreeableness": 0.4665, "Neuroticism": 0.5432}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d34", "vector": "private", "scores": {"Openness": 0.5204, "Conscientiousness": 0.5034, "Extraversion": 0.5538, "Agreeableness": 0.5192, "Neuroticism": 0.5954}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d132", "vector": "private", "scores": {"Openness": 0.4494, "Conscientiousness": 0.5251, "Extraversion": 0.5457, "Agreeableness": 0.6465, "Neuroticism": 0.5397}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d6", "vector": "private", "scores": {"Openness": 0.4815, "Conscientiousness": 0.5012, "Extraversion": 0.565, "Agreeableness": 0.6799, "Neuroticism": 0.5297}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d56", "vector": "private", "scores": {"Openness": 0.5087, "Conscientiousness": 0.4781, "Extraversion": 0.5744, "Agreeableness": 0.5564, "Neuroticism": 0.5637}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d54", "vector": "private", "scores": {"Openness": 0.4438, "Conscientiousness": 0.5084, "Extraversion": 0.5153, "Agreeableness": 0.429, "Neuroticism": 0.5141}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v01-d80", "vector": "private", "scores": {"Openness": 0.3951, "Conscientiousness": 0.4953, "Extraversion": 0.5351, "Agreeableness": 0.599, "Neuroticism": 0.4968}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d65", "vector": "private", "scores": {"Openness": 0.538, "Conscientiousness": 0.5216, "Extraversion": 0.4945, "Agreeableness": 0.3827, "Neuroticism": 0.5822}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d56", "vector": "private", "scores": {"Openness": 0.4948, "Conscientiousness": 0.5102, "Extraversion": 0.5179, "Agreeableness": 0.4642, "Neuroticism": 0.561}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d141", "vector": "private", "scores": {"Openness": 0.4985, "Conscientiousness": 0.5289, "Extraversion": 0.528, "Agreeableness": 0.432, "Neuroticism": 0.5748}}, {"chunk_id": 9, "doc_id": "kissinger-frus-frus1969-76v02-d30", "vector": "private", "scores": {"Openness": 0.458, "Conscientiousness": 0.5316, "Extraversion": 0.5874, "Agreeableness": 0.668, "Neuroticism": 0.5892}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d147", "vector": "private", "scores": {"Openness": 0.4608, "Conscientiousness": 0.5204, "Extraversion": 0.524, "Agreeableness": 0.4298, "Neuroticism": 0.5341}}, {"chunk_id": 7, "doc_id": "kissinger-frus-frus1969-76v01-d45", "vector": "private", "scores": {"Openness": 0.4573, "Conscientiousness": 0.5235, "Extraversion": 0.5265, "Agreeableness": 0.4268, "Neuroticism": 0.5475}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v01-d61", "vector": "private", "scores": {"Openness": 0.4761, "Conscientiousness": 0.5002, "Extraversion": 0.5524, "Agreeableness": 0.5814, "Neuroticism": 0.5102}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v01-d58", "vector": "private", "scores": {"Openness": 0.4755, "Conscientiousness": 0.5097, "Extraversion": 0.5216, "Agreeableness": 0.482, "Neuroticism": 0.549}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v02-d62", "vector": "private", "scores": {"Openness": 0.5057, "Conscientiousness": 0.5172, "Extraversion": 0.5369, "Agreeableness": 0.4929, "Neuroticism": 0.5865}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d102", "vector": "private", "scores": {"Openness": 0.5273, "Conscientiousness": 0.5193, "Extraversion": 0.5257, "Agreeableness": 0.4638, "Neuroticism": 0.5919}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v01-d110", "vector": "private", "scores": {"Openness": 0.4935, "Conscientiousness": 0.5131, "Extraversion": 0.5281, "Agreeableness": 0.5325, "Neuroticism": 0.5903}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v01-d60", "vector": "private", "scores": {"Openness": 0.5035, "Conscientiousness": 0.556, "Extraversion": 0.4963, "Agreeableness": 0.4009, "Neuroticism": 0.5599}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d90", "vector": "private", "scores": {"Openness": 0.5386, "Conscientiousness": 0.4927, "Extraversion": 0.5215, "Agreeableness": 0.4487, "Neuroticism": 0.6053}}, {"chunk_id": 7, "doc_id": "kissinger-frus-frus1969-76v01-d101", "vector": "private", "scores": {"Openness": 0.4811, "Conscientiousness": 0.5235, "Extraversion": 0.5245, "Agreeableness": 0.4745, "Neuroticism": 0.5591}}, {"chunk_id": 22, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.4753, "Conscientiousness": 0.5305, "Extraversion": 0.5092, "Agreeableness": 0.4359, "Neuroticism": 0.5599}}, {"chunk_id": 10, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.4528, "Conscientiousness": 0.5331, "Extraversion": 0.5416, "Agreeableness": 0.4654, "Neuroticism": 0.5389}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d7", "vector": "private", "scores": {"Openness": 0.4836, "Conscientiousness": 0.5261, "Extraversion": 0.5659, "Agreeableness": 0.5426, "Neuroticism": 0.5633}}, {"chunk_id": 19, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.4031, "Conscientiousness": 0.5176, "Extraversion": 0.539, "Agreeableness": 0.4707, "Neuroticism": 0.4932}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d72", "vector": "private", "scores": {"Openness": 0.607, "Conscientiousness": 0.5434, "Extraversion": 0.4174, "Agreeableness": 0.2495, "Neuroticism": 0.6046}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v01-d97", "vector": "private", "scores": {"Openness": 0.4662, "Conscientiousness": 0.5137, "Extraversion": 0.5374, "Agreeableness": 0.4803, "Neuroticism": 0.5347}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d62", "vector": "private", "scores": {"Openness": 0.4355, "Conscientiousness": 0.491, "Extraversion": 0.5602, "Agreeableness": 0.5233, "Neuroticism": 0.478}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d30", "vector": "private", "scores": {"Openness": 0.4134, "Conscientiousness": 0.4906, "Extraversion": 0.6059, "Agreeableness": 0.7052, "Neuroticism": 0.5113}}, {"chunk_id": 10, "doc_id": "kissinger-frus-frus1969-76v01-d60", "vector": "private", "scores": {"Openness": 0.4407, "Conscientiousness": 0.5477, "Extraversion": 0.5122, "Agreeableness": 0.4496, "Neuroticism": 0.5122}}, {"chunk_id": 12, "doc_id": "kissinger-frus-frus1969-76v01-d69", "vector": "private", "scores": {"Openness": 0.4562, "Conscientiousness": 0.5246, "Extraversion": 0.5348, "Agreeableness": 0.5383, "Neuroticism": 0.5299}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d99", "vector": "private", "scores": {"Openness": 0.5134, "Conscientiousness": 0.5324, "Extraversion": 0.5045, "Agreeableness": 0.4398, "Neuroticism": 0.5737}}, {"chunk_id": 14, "doc_id": "kissinger-frus-frus1969-76v01-d54", "vector": "private", "scores": {"Openness": 0.4595, "Conscientiousness": 0.5266, "Extraversion": 0.5484, "Agreeableness": 0.4931, "Neuroticism": 0.5392}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v01-d47", "vector": "private", "scores": {"Openness": 0.5016, "Conscientiousness": 0.5125, "Extraversion": 0.5471, "Agreeableness": 0.4928, "Neuroticism": 0.5655}}, {"chunk_id": 8, "doc_id": "kissinger-frus-frus1969-76v02-d1", "vector": "private", "scores": {"Openness": 0.4965, "Conscientiousness": 0.529, "Extraversion": 0.5819, "Agreeableness": 0.6932, "Neuroticism": 0.5988}}, {"chunk_id": 15, "doc_id": "kissinger-frus-frus1969-76v01-d60", "vector": "private", "scores": {"Openness": 0.4414, "Conscientiousness": 0.5473, "Extraversion": 0.5425, "Agreeableness": 0.4875, "Neuroticism": 0.5208}}, {"chunk_id": 8, "doc_id": "kissinger-frus-frus1969-76v02-d30", "vector": "private", "scores": {"Openness": 0.4278, "Conscientiousness": 0.5023, "Extraversion": 0.572, "Agreeableness": 0.6554, "Neuroticism": 0.5321}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d123", "vector": "private", "scores": {"Openness": 0.5072, "Conscientiousness": 0.5069, "Extraversion": 0.5245, "Agreeableness": 0.4177, "Neuroticism": 0.55}}, {"chunk_id": 53, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.4251, "Conscientiousness": 0.5107, "Extraversion": 0.5548, "Agreeableness": 0.5889, "Neuroticism": 0.5212}}, {"chunk_id": 20, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.5281, "Conscientiousness": 0.5485, "Extraversion": 0.4863, "Agreeableness": 0.3603, "Neuroticism": 0.5834}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d87", "vector": "private", "scores": {"Openness": 0.467, "Conscientiousness": 0.4973, "Extraversion": 0.5572, "Agreeableness": 0.5299, "Neuroticism": 0.5428}}, {"chunk_id": 11, "doc_id": "kissinger-frus-frus1969-76v02-d132", "vector": "private", "scores": {"Openness": 0.4498, "Conscientiousness": 0.4825, "Extraversion": 0.5363, "Agreeableness": 0.5925, "Neuroticism": 0.5045}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d106", "vector": "private", "scores": {"Openness": 0.5303, "Conscientiousness": 0.5284, "Extraversion": 0.5, "Agreeableness": 0.4065, "Neuroticism": 0.5938}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d38", "vector": "private", "scores": {"Openness": 0.5282, "Conscientiousness": 0.5071, "Extraversion": 0.5081, "Agreeableness": 0.4652, "Neuroticism": 0.6125}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d125", "vector": "private", "scores": {"Openness": 0.4751, "Conscientiousness": 0.5433, "Extraversion": 0.5104, "Agreeableness": 0.4146, "Neuroticism": 0.5504}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d1", "vector": "private", "scores": {"Openness": 0.4257, "Conscientiousness": 0.5228, "Extraversion": 0.55, "Agreeableness": 0.6114, "Neuroticism": 0.5689}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.3499, "Conscientiousness": 0.4927, "Extraversion": 0.5026, "Agreeableness": 0.4375, "Neuroticism": 0.425}}, {"chunk_id": 24, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.5382, "Conscientiousness": 0.5431, "Extraversion": 0.4981, "Agreeableness": 0.3909, "Neuroticism": 0.5943}}, {"chunk_id": 12, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.4682, "Conscientiousness": 0.5211, "Extraversion": 0.5204, "Agreeableness": 0.4482, "Neuroticism": 0.5347}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d122", "vector": "private", "scores": {"Openness": 0.4504, "Conscientiousness": 0.5151, "Extraversion": 0.5491, "Agreeableness": 0.5098, "Neuroticism": 0.5178}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d103", "vector": "private", "scores": {"Openness": 0.4007, "Conscientiousness": 0.5102, "Extraversion": 0.5512, "Agreeableness": 0.6252, "Neuroticism": 0.5161}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d42", "vector": "private", "scores": {"Openness": 0.505, "Conscientiousness": 0.5338, "Extraversion": 0.504, "Agreeableness": 0.4567, "Neuroticism": 0.5874}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v02-d86", "vector": "private", "scores": {"Openness": 0.5096, "Conscientiousness": 0.5029, "Extraversion": 0.5206, "Agreeableness": 0.4491, "Neuroticism": 0.5782}}, {"chunk_id": 22, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.4564, "Conscientiousness": 0.5426, "Extraversion": 0.5418, "Agreeableness": 0.4584, "Neuroticism": 0.5351}}, {"chunk_id": 21, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.4633, "Conscientiousness": 0.5531, "Extraversion": 0.5396, "Agreeableness": 0.4564, "Neuroticism": 0.5521}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d6", "vector": "private", "scores": {"Openness": 0.5053, "Conscientiousness": 0.5537, "Extraversion": 0.462, "Agreeableness": 0.3576, "Neuroticism": 0.5409}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d58", "vector": "private", "scores": {"Openness": 0.4357, "Conscientiousness": 0.5232, "Extraversion": 0.5706, "Agreeableness": 0.6947, "Neuroticism": 0.5439}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v02-d85", "vector": "private", "scores": {"Openness": 0.4246, "Conscientiousness": 0.4945, "Extraversion": 0.5677, "Agreeableness": 0.4947, "Neuroticism": 0.4867}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d37", "vector": "private", "scores": {"Openness": 0.5132, "Conscientiousness": 0.539, "Extraversion": 0.5346, "Agreeableness": 0.4399, "Neuroticism": 0.5719}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v02-d63", "vector": "private", "scores": {"Openness": 0.5246, "Conscientiousness": 0.5091, "Extraversion": 0.5187, "Agreeableness": 0.4367, "Neuroticism": 0.5941}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d67", "vector": "private", "scores": {"Openness": 0.5005, "Conscientiousness": 0.5219, "Extraversion": 0.5373, "Agreeableness": 0.4944, "Neuroticism": 0.5718}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v01-d60", "vector": "private", "scores": {"Openness": 0.5282, "Conscientiousness": 0.5504, "Extraversion": 0.4878, "Agreeableness": 0.3803, "Neuroticism": 0.5779}}, {"chunk_id": 9, "doc_id": "kissinger-frus-frus1969-76v02-d24", "vector": "private", "scores": {"Openness": 0.5094, "Conscientiousness": 0.4774, "Extraversion": 0.5846, "Agreeableness": 0.6477, "Neuroticism": 0.547}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d139", "vector": "private", "scores": {"Openness": 0.5179, "Conscientiousness": 0.5255, "Extraversion": 0.5114, "Agreeableness": 0.423, "Neuroticism": 0.5959}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d15", "vector": "private", "scores": {"Openness": 0.5057, "Conscientiousness": 0.487, "Extraversion": 0.5898, "Agreeableness": 0.5729, "Neuroticism": 0.5375}}, {"chunk_id": 10, "doc_id": "kissinger-frus-frus1969-76v01-d118", "vector": "private", "scores": {"Openness": 0.4748, "Conscientiousness": 0.5134, "Extraversion": 0.5344, "Agreeableness": 0.5109, "Neuroticism": 0.5358}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d57", "vector": "private", "scores": {"Openness": 0.5079, "Conscientiousness": 0.4958, "Extraversion": 0.5033, "Agreeableness": 0.4511, "Neuroticism": 0.5795}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d123", "vector": "private", "scores": {"Openness": 0.4696, "Conscientiousness": 0.512, "Extraversion": 0.5351, "Agreeableness": 0.4399, "Neuroticism": 0.5533}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d77", "vector": "private", "scores": {"Openness": 0.5021, "Conscientiousness": 0.5117, "Extraversion": 0.5701, "Agreeableness": 0.6045, "Neuroticism": 0.5876}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d66", "vector": "private", "scores": {"Openness": 0.4989, "Conscientiousness": 0.5105, "Extraversion": 0.5334, "Agreeableness": 0.477, "Neuroticism": 0.5961}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d98", "vector": "private", "scores": {"Openness": 0.5285, "Conscientiousness": 0.481, "Extraversion": 0.5561, "Agreeableness": 0.6128, "Neuroticism": 0.5839}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v01-d39", "vector": "private", "scores": {"Openness": 0.4503, "Conscientiousness": 0.531, "Extraversion": 0.5125, "Agreeableness": 0.4167, "Neuroticism": 0.5248}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d98", "vector": "private", "scores": {"Openness": 0.4952, "Conscientiousness": 0.5226, "Extraversion": 0.5281, "Agreeableness": 0.4817, "Neuroticism": 0.5948}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d86", "vector": "private", "scores": {"Openness": 0.5133, "Conscientiousness": 0.5364, "Extraversion": 0.4935, "Agreeableness": 0.4432, "Neuroticism": 0.6001}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d74", "vector": "private", "scores": {"Openness": 0.649, "Conscientiousness": 0.5713, "Extraversion": 0.3725, "Agreeableness": 0.193, "Neuroticism": 0.621}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d131", "vector": "private", "scores": {"Openness": 0.4924, "Conscientiousness": 0.5038, "Extraversion": 0.573, "Agreeableness": 0.6692, "Neuroticism": 0.547}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d34", "vector": "private", "scores": {"Openness": 0.4885, "Conscientiousness": 0.4944, "Extraversion": 0.5686, "Agreeableness": 0.5409, "Neuroticism": 0.5338}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v01-d28", "vector": "private", "scores": {"Openness": 0.5127, "Conscientiousness": 0.5222, "Extraversion": 0.5189, "Agreeableness": 0.493, "Neuroticism": 0.5913}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d15", "vector": "private", "scores": {"Openness": 0.5142, "Conscientiousness": 0.4789, "Extraversion": 0.5713, "Agreeableness": 0.5674, "Neuroticism": 0.5366}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d113", "vector": "private", "scores": {"Openness": 0.4915, "Conscientiousness": 0.5079, "Extraversion": 0.583, "Agreeableness": 0.5905, "Neuroticism": 0.5708}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d132", "vector": "private", "scores": {"Openness": 0.4646, "Conscientiousness": 0.5145, "Extraversion": 0.5237, "Agreeableness": 0.4542, "Neuroticism": 0.5475}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v01-d45", "vector": "private", "scores": {"Openness": 0.4634, "Conscientiousness": 0.5027, "Extraversion": 0.5036, "Agreeableness": 0.418, "Neuroticism": 0.5249}}, {"chunk_id": 9, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.5225, "Conscientiousness": 0.5573, "Extraversion": 0.5027, "Agreeableness": 0.4043, "Neuroticism": 0.5899}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v01-d54", "vector": "private", "scores": {"Openness": 0.4951, "Conscientiousness": 0.5179, "Extraversion": 0.4871, "Agreeableness": 0.3747, "Neuroticism": 0.5338}}, {"chunk_id": 7, "doc_id": "kissinger-frus-frus1969-76v02-d30", "vector": "private", "scores": {"Openness": 0.4571, "Conscientiousness": 0.5008, "Extraversion": 0.561, "Agreeableness": 0.5118, "Neuroticism": 0.4976}}, {"chunk_id": 2, "doc_id": "kissinger-frus-frus1969-76v02-d4", "vector": "private", "scores": {"Openness": 0.5463, "Conscientiousness": 0.5014, "Extraversion": 0.5911, "Agreeableness": 0.7117, "Neuroticism": 0.6129}}, {"chunk_id": 33, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.4539, "Conscientiousness": 0.5473, "Extraversion": 0.5379, "Agreeableness": 0.4658, "Neuroticism": 0.5187}}, {"chunk_id": 12, "doc_id": "kissinger-frus-frus1969-76v02-d132", "vector": "private", "scores": {"Openness": 0.4484, "Conscientiousness": 0.4794, "Extraversion": 0.5415, "Agreeableness": 0.5213, "Neuroticism": 0.5144}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d36", "vector": "private", "scores": {"Openness": 0.4586, "Conscientiousness": 0.5388, "Extraversion": 0.5861, "Agreeableness": 0.6756, "Neuroticism": 0.5782}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d66", "vector": "private", "scores": {"Openness": 0.4624, "Conscientiousness": 0.5033, "Extraversion": 0.5326, "Agreeableness": 0.4802, "Neuroticism": 0.5503}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d94", "vector": "private", "scores": {"Openness": 0.4681, "Conscientiousness": 0.5043, "Extraversion": 0.5387, "Agreeableness": 0.4666, "Neuroticism": 0.5525}}, {"chunk_id": 8, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.5477, "Conscientiousness": 0.5558, "Extraversion": 0.5044, "Agreeableness": 0.3973, "Neuroticism": 0.6085}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d30", "vector": "private", "scores": {"Openness": 0.4514, "Conscientiousness": 0.5182, "Extraversion": 0.5674, "Agreeableness": 0.6854, "Neuroticism": 0.5673}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d101", "vector": "private", "scores": {"Openness": 0.4831, "Conscientiousness": 0.5496, "Extraversion": 0.5502, "Agreeableness": 0.4803, "Neuroticism": 0.572}}, {"chunk_id": 58, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.4319, "Conscientiousness": 0.555, "Extraversion": 0.5297, "Agreeableness": 0.4319, "Neuroticism": 0.542}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d90", "vector": "private", "scores": {"Openness": 0.4488, "Conscientiousness": 0.4992, "Extraversion": 0.532, "Agreeableness": 0.4772, "Neuroticism": 0.4892}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d118", "vector": "private", "scores": {"Openness": 0.4664, "Conscientiousness": 0.4951, "Extraversion": 0.5639, "Agreeableness": 0.5543, "Neuroticism": 0.52}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d147", "vector": "private", "scores": {"Openness": 0.4886, "Conscientiousness": 0.4848, "Extraversion": 0.5704, "Agreeableness": 0.5846, "Neuroticism": 0.5452}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v01-d58", "vector": "private", "scores": {"Openness": 0.4883, "Conscientiousness": 0.5181, "Extraversion": 0.5133, "Agreeableness": 0.4953, "Neuroticism": 0.584}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d67", "vector": "private", "scores": {"Openness": 0.4529, "Conscientiousness": 0.5073, "Extraversion": 0.5295, "Agreeableness": 0.6323, "Neuroticism": 0.5324}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d24", "vector": "private", "scores": {"Openness": 0.5061, "Conscientiousness": 0.4723, "Extraversion": 0.5832, "Agreeableness": 0.603, "Neuroticism": 0.53}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d104", "vector": "private", "scores": {"Openness": 0.4845, "Conscientiousness": 0.4902, "Extraversion": 0.5333, "Agreeableness": 0.448, "Neuroticism": 0.5382}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v02-d110", "vector": "private", "scores": {"Openness": 0.4935, "Conscientiousness": 0.489, "Extraversion": 0.5486, "Agreeableness": 0.4659, "Neuroticism": 0.5439}}, {"chunk_id": 5, "doc_id": "kissinger-frus-frus1969-76v02-d147", "vector": "private", "scores": {"Openness": 0.4556, "Conscientiousness": 0.4852, "Extraversion": 0.5547, "Agreeableness": 0.5424, "Neuroticism": 0.5083}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d82", "vector": "private", "scores": {"Openness": 0.4299, "Conscientiousness": 0.4785, "Extraversion": 0.5555, "Agreeableness": 0.6523, "Neuroticism": 0.503}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d34", "vector": "private", "scores": {"Openness": 0.4838, "Conscientiousness": 0.5008, "Extraversion": 0.5722, "Agreeableness": 0.6438, "Neuroticism": 0.5567}}, {"chunk_id": 12, "doc_id": "kissinger-frus-frus1969-76v02-d86", "vector": "private", "scores": {"Openness": 0.426, "Conscientiousness": 0.512, "Extraversion": 0.5485, "Agreeableness": 0.4542, "Neuroticism": 0.4791}}, {"chunk_id": 16, "doc_id": "kissinger-frus-frus1969-76v01-d60", "vector": "private", "scores": {"Openness": 0.497, "Conscientiousness": 0.5332, "Extraversion": 0.5062, "Agreeableness": 0.4555, "Neuroticism": 0.5799}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v01-d41", "vector": "private", "scores": {"Openness": 0.5099, "Conscientiousness": 0.5502, "Extraversion": 0.4912, "Agreeableness": 0.383, "Neuroticism": 0.589}}, {"chunk_id": 7, "doc_id": "kissinger-frus-frus1969-76v02-d24", "vector": "private", "scores": {"Openness": 0.5504, "Conscientiousness": 0.5184, "Extraversion": 0.5591, "Agreeableness": 0.4685, "Neuroticism": 0.6253}}, {"chunk_id": 10, "doc_id": "kissinger-frus-frus1969-76v01-d4", "vector": "private", "scores": {"Openness": 0.4526, "Conscientiousness": 0.5523, "Extraversion": 0.5381, "Agreeableness": 0.4891, "Neuroticism": 0.5493}}, {"chunk_id": 0, "doc_id": "kissinger-frus-frus1969-76v02-d69", "vector": "private", "scores": {"Openness": 0.488, "Conscientiousness": 0.5094, "Extraversion": 0.5363, "Agreeableness": 0.4623, "Neuroticism": 0.5607}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v01-d118", "vector": "private", "scores": {"Openness": 0.4431, "Conscientiousness": 0.5562, "Extraversion": 0.5356, "Agreeableness": 0.4815, "Neuroticism": 0.5357}}, {"chunk_id": 1, "doc_id": "kissinger-frus-frus1969-76v02-d85", "vector": "private", "scores": {"Openness": 0.4027, "Conscientiousness": 0.5169, "Extraversion": 0.5797, "Agreeableness": 0.6549, "Neuroticism": 0.5095}}, {"chunk_id": 6, "doc_id": "kissinger-frus-frus1969-76v02-d110", "vector": "private", "scores": {"Openness": 0.5123, "Conscientiousness": 0.5203, "Extraversion": 0.5095, "Agreeableness": 0.4264, "Neuroticism": 0.5747}}, {"chunk_id": 4, "doc_id": "kissinger-frus-frus1969-76v01-d69", "vector": "private", "scores": {"Openness": 0.4623, "Conscientiousness": 0.5029, "Extraversion": 0.566, "Agreeableness": 0.5795, "Neuroticism": 0.5197}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v01-d118", "vector": "private", "scores": {"Openness": 0.4675, "Conscientiousness": 0.5418, "Extraversion": 0.508, "Agreeableness": 0.4626, "Neuroticism": 0.5451}}, {"chunk_id": 3, "doc_id": "kissinger-frus-frus1969-76v02-d36", "vector": "private", "scores": {"Openness": 0.5381, "Conscientiousness": 0.5314, "Extraversion": 0.5064, "Agreeableness": 0.4492, "Neuroticism": 0.6234}}]}, "documents": [{"doc_id": "kissinger-frus-frus1969-76v01-d71", "leader": "kissinger", "vector": "public", "title": "71. Off-the-Record Remarks by President NixonSource:\n                            Library of Congress, Manuscript Division, Kissinger Papers, Box CL 426, Subject File, Background\n                      ", "date": "1970-09-16", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/71", "word_count": 5217, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d101", "leader": "kissinger", "vector": "private", "title": "101. Memorandum of ConversationSource: Library of Congress, Manuscript Division, Kissinger Papers, Box CL 270, Memoranda\n                            of Conversations, September 1971-November 1972. Adm", "date": "1971-12-01", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/101", "word_count": 2236, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d102", "leader": "kissinger", "vector": "private", "title": "102. Memorandum for the President\u2019s File by the President\u2019s Assistant for\n                        National Security Affairs (Kissinger)Source:\n                            National Archives, Nixon\n    ", "date": "1971-12-20", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/102", "word_count": 837, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d110", "leader": "kissinger", "vector": "private", "title": "110. Telegram From President Nixon to the President\u2019s Assistant for National Security\n                        Affairs (Kissinger) in\n                            MoscowSource: National\n                ", "date": "1972-04-23", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/110", "word_count": 1568, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d116", "leader": "kissinger", "vector": "private", "title": "116. Paper Agreed Upon by the United States and the Soviet UnionSource: Public\n                                Papers of the Presidents of the United States: Richard Nixon, 1972, pp.\n                 ", "date": "1972-05-29", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/116", "word_count": 1116, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d118", "leader": "kissinger", "vector": "private", "title": "118. Briefing by the President\u2019s Assistant for National Security Affairs\n                            (Kissinger) for the Senate\n                        Foreign Relations CommitteeSource: Strategic Arm", "date": "1972-06-15", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/118", "word_count": 3273, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d20", "leader": "kissinger", "vector": "private", "title": "20. Memorandum From the President\u2019s Deputy Assistant (Butterfield) to the President\u2019s\n                        Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon\n      ", "date": "1969-04-12", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/20", "word_count": 281, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d28", "leader": "kissinger", "vector": "private", "title": "28. Letter From President Nixon to the Director of the Arms Control and Disarmament\n                        Agency (Smith)Source: National Archives, Nixon Presidential Materials, NSC Files, Box 197, A", "date": "1969-07-21", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/28", "word_count": 1055, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d39", "leader": "kissinger", "vector": "private", "title": "39. Memorandum From the President\u2019s Assistant for National Security\n                        Affairs (Kissinger) to\n                        President NixonSource: National Archives, Nixon Presidential ", "date": "1969-09-02", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/39", "word_count": 5150, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d41", "leader": "kissinger", "vector": "private", "title": "41. Memorandum From the President\u2019s Assistant for National Security\n                        Affairs (Kissinger) to\n                        President NixonSource: National Archives, Nixon Presidential ", "date": "1969-10-20", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/41", "word_count": 6862, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d42", "leader": "kissinger", "vector": "private", "title": "42. Letter From the Under Secretary of State (Richardson) to the President\u2019s Assistant for\n                        National Security Affairs (Kissinger)Source:\n                            Library of C", "date": "1969-10-27", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/42", "word_count": 961, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d43", "leader": "kissinger", "vector": "private", "title": "43. Notes of Telephone Conversation Between President Nixon and His Assistant for National\n                        Security Affairs (Kissinger)Source: Library of Congress,\n                            ", "date": "1969-11-05", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/43", "word_count": 277, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d45", "leader": "kissinger", "vector": "private", "title": "45. Memorandum From the President\u2019s Assistant for National Security\n                        Affairs (Kissinger) to\n                        President NixonSource: National Archives, Nixon Presidential ", "date": "1969-12-03", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/45", "word_count": 2049, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d46", "leader": "kissinger", "vector": "private", "title": "46. Memorandum From the Under Secretary of State (Richardson) to the President\u2019s\n                        Assistant for National Security Affairs (Kissinger)Source: Library of Congress, Manuscript Divi", "date": "1969-12-05", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/46", "word_count": 706, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d47", "leader": "kissinger", "vector": "private", "title": "47. White House Background Press Briefing by the President\u2019s Assistant for\n                        National Security Affairs (Kissinger)Source:\n                            Library of Congress, Manuscr", "date": "1969-12-18", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/47", "word_count": 2271, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d49", "leader": "kissinger", "vector": "private", "title": "49. Memorandum From Marshall\n                            Wright of the National Security Council Staff to the\n                        President\u2019s Assistant for National Security Affairs (Kissinger)Sou", "date": "1970-01-10", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/49", "word_count": 308, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d4", "leader": "kissinger", "vector": "private", "title": "4. Essay by Henry A. KissingerSource: From American Foreign Policy: Three Essays by Henry Kissinger. (New York: W. W.\n                            Norton, 1969), pp. 51-97. \u00a9 Copyright 1977, 1974, 1969", "date": "1969-04-01", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/4", "word_count": 12229, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d53", "leader": "kissinger", "vector": "private", "title": "53. Memorandum From the Under Secretary of State (Richardson) to the President\u2019s\n                        Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon\n           ", "date": "1970-01-22", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/53", "word_count": 606, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d54", "leader": "kissinger", "vector": "private", "title": "54. Paper Prepared in the National Security Council StaffSource: National Archives, RG 59, Policy Planning Staff Files: Lot 77 D\n                            112, Director\u2019s Files, Selected Lord Memos.", "date": "1970-01-22", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/54", "word_count": 4308, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d57", "leader": "kissinger", "vector": "private", "title": "57. Memorandum From President Nixon to His Assistant for National Security Affairs\n                            (Kissinger)Source: National Archives, Nixon Presidential Materials, NSC Files, Box 325, P", "date": "1970-02-10", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/57", "word_count": 516, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d58", "leader": "kissinger", "vector": "private", "title": "58. White House Background Press Briefing by the President\u2019s Assistant for\n                        National Security Affairs (Kissinger)Source:\n                            Library of Congress, Manuscr", "date": "1970-02-16", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/58", "word_count": 1044, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d60", "leader": "kissinger", "vector": "private", "title": "60. Report by President Nixon to the Congress\n                            Source: Public Papers of the Presidents of the\n                                    United States: Richard\n                    ", "date": "1970-02-18", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/60", "word_count": 3739, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d61", "leader": "kissinger", "vector": "private", "title": "61. Memorandum From President Nixon to His Assistant (Haldeman), His Assistant for Domestic Affairs\n                            (Ehrlichman), and His Assistant\n                        for National Sec", "date": "1970-03-02", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/61", "word_count": 1345, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d64", "leader": "kissinger", "vector": "private", "title": "64. Memorandum From President Nixon to His Assistant for National Security Affairs\n                            (Kissinger)Source: National Archives, Nixon Presidential Materials, NSC Files, Box 341, S", "date": "1970-04-22", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/64", "word_count": 506, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d65", "leader": "kissinger", "vector": "private", "title": "65. Memorandum of ConversationSource: National Archives, Nixon\n                            Presidential Materials, NSC Files, Box\n                            340, Subject Files, Stanford University, M", "date": "1970-05-06", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/65", "word_count": 2919, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d69", "leader": "kissinger", "vector": "private", "title": "69. Background Press Briefing by the President\u2019s Assistant for National\n                        Security Affairs (Kissinger)Source: Library of Congress,\n                            Manuscript Division", "date": "1970-08-14", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/69", "word_count": 5418, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d72", "leader": "kissinger", "vector": "private", "title": "72. Background Press Briefing by the President\u2019s Assistant for National\n                        Security Affairs (Kissinger)Source:\n                            Library of Congress, Manuscript Division", "date": "1970-09-29", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/72", "word_count": 989, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d77", "leader": "kissinger", "vector": "private", "title": "77. Memorandum of ConversationSource: National Archives, Nixon\n                            Presidential Materials, NSC Files, Box\n                            71, Kissinger Office Files,\n              ", "date": "1970-10-22", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/77", "word_count": 1669, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d80", "leader": "kissinger", "vector": "private", "title": "80. Memorandum of ConversationSource: Library of Congress, Manuscript Division, Kissinger Papers, Box CL 269, Memoranda\n                            of Conversation, 1968-1977, Chronological File. No c", "date": "1970-12-09", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/80", "word_count": 3311, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d84", "leader": "kissinger", "vector": "private", "title": "84. Memorandum From the President\u2019s Assistant for National Security\n                        Affairs (Kissinger) to\n                        President NixonSource: National Security Council, NSC Meeting", "date": "1971-02-10", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/84", "word_count": 722, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d86", "leader": "kissinger", "vector": "private", "title": "86. Interview With the President\u2019s Assistant for National Security Affairs\n                            (Kissinger)Source: Library of Congress, Manuscript\n                            Division, Kissinge", "date": "1971-02-26", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/86", "word_count": 510, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d97", "leader": "kissinger", "vector": "private", "title": "97. Memorandum for the President\u2019s File by the President\u2019s Assistant for\n                        National Security Affairs (Kissinger)Source:\n                            Library of Congress, Manuscrip", "date": "1971-10-12", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/97", "word_count": 1032, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v01-d99", "leader": "kissinger", "vector": "private", "title": "99. Memorandum for the President\u2019s File by the President\u2019s Assistant for\n                        National Security Affairs (Kissinger)Source:\n                            National Archives, Nixon\n     ", "date": "1971-10-30", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v01/99", "word_count": 1095, "fetched_at": "2026-03-17T22:25:38Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d100", "leader": "kissinger", "vector": "private", "title": "100. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon Presid", "date": "1970-03-14", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/100", "word_count": 505, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d102", "leader": "kissinger", "vector": "private", "title": "102. Memorandum From President Nixon\n                            to the Chairman of the Defense Program Review Committee (Kissinger)Source: National Archives, Nixon\n                                Pre", "date": "1970-04-02", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/102", "word_count": 335, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d103", "leader": "kissinger", "vector": "private", "title": "103. Memorandum From Richard\n                                T. Kennedy of the National Security Council Staff and\n                                William Watts,\n                            Staff Secr", "date": "1970-04-03", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/103", "word_count": 1797, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d104", "leader": "kissinger", "vector": "private", "title": "104. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon Presid", "date": "1970-04-14", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/104", "word_count": 545, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d106", "leader": "kissinger", "vector": "private", "title": "106. Draft Letter From W.\n                                Anthony Lake and Roger Morris of the National Security Council Staff to\n                            the President\u2019s Assistant for National Sec", "date": "1970-04-16", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/106", "word_count": 1063, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d107", "leader": "kissinger", "vector": "private", "title": "107. Memorandum From Director of Central Intelligence Helms to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon President", "date": "1970-05-12", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/107", "word_count": 727, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d108", "leader": "kissinger", "vector": "private", "title": "108. Memorandum From the Director of the Program Analysis Staff,\n                            National Security Council (Lynn) to the President\u2019s Assistant for National Security\n                       ", "date": "1970-05-19", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/108", "word_count": 871, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d110", "leader": "kissinger", "vector": "private", "title": "110. Talking Points Prepared by the Director of the Program Analysis\n                            Staff, National Security Council (Lynn)Source:\n                                National Archives, Nixon", "date": "1970-06-13", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/110", "word_count": 1689, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d111", "leader": "kissinger", "vector": "private", "title": "111. Memorandum From Director of Central Intelligence Helms to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon President", "date": "1970-07-15", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/111", "word_count": 866, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d113", "leader": "kissinger", "vector": "private", "title": "113. Memorandum From Secretary of State Rogers to President NixonSource:\n                                National Archives, Nixon Presidential Materials, NSC Files, NSC Institutional Files (H-Files) B", "date": "1970-07-27", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/113", "word_count": 954, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d114", "leader": "kissinger", "vector": "private", "title": "114. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to President NixonSource: National Archives, Nixon\n    ", "date": "1970-08-03", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/114", "word_count": 1173, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d116", "leader": "kissinger", "vector": "private", "title": "116. Memorandum From Secretary of Defense Laird to the President\u2019s Assistant for\n                            National Security Affairs (Kissinger)Source: National Archives, Nixon Presidential Material", "date": "1970-08-04", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/116", "word_count": 1447, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d118", "leader": "kissinger", "vector": "private", "title": "118. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to President NixonSource: National Archives, Nixon\n    ", "date": "1970-08-25", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/118", "word_count": 528, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d119", "leader": "kissinger", "vector": "private", "title": "119. Memorandum From Peter\n                                Rodman of the Planning Group, National Security Council\n                            Staff to the President\u2019s Assistant for National Security ", "date": "1970-09-08", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/119", "word_count": 1392, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d120", "leader": "kissinger", "vector": "private", "title": "120. Memorandum From the Director of the Planning Group, National\n                            Security Council (Kennedy) to the President\u2019s Assistant for National\n                            Security ", "date": "1970-09-08", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/120", "word_count": 331, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d122", "leader": "kissinger", "vector": "private", "title": "122. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to Secretary of Defense LairdSource:\n                  ", "date": "1970-09-18", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/122", "word_count": 587, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d123", "leader": "kissinger", "vector": "private", "title": "123. Transcript of Telephone Conversation Between Secretary of State\n                                Rogers and the President\u2019s\n                            Assistant for National Security Affairs (Kis", "date": "1970-09-25", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/123", "word_count": 1255, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d125", "leader": "kissinger", "vector": "private", "title": "125. Memorandum From Jeanne\n                                Davis of the National Security Council Staff to the\n                            President\u2019s Assistant for National Security Affairs (Kissing", "date": "1970-10-14", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/125", "word_count": 386, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d126", "leader": "kissinger", "vector": "private", "title": "126. Information Memorandum From the Director of the Planning and\n                            Coordination Staff, Department of State (Cargo) to the Under Secretary of State\n                          ", "date": "1970-10-27", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/126", "word_count": 809, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d127", "leader": "kissinger", "vector": "private", "title": "127. Memorandum From the Executive Secretary of the Department of\n                            State (Eliot) to the Under Secretary of\n                            State (Irwin)Source: National Archives", "date": "1970-10-28", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/127", "word_count": 278, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d130", "leader": "kissinger", "vector": "private", "title": "130. Memorandum From the Executive Secretary of the Department of\n                            State (Eliot) to the Under Secretary of\n                            State (Irwin)Source: National Archives", "date": "1970-12-09", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/130", "word_count": 414, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d131", "leader": "kissinger", "vector": "private", "title": "131. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to Secretary of State RogersSource:\n                   ", "date": "1971-01-07", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/131", "word_count": 377, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d132", "leader": "kissinger", "vector": "private", "title": "132. Memorandum From the Director of the Program Analysis Staff,\n                            National Security Council (Smith) to the President\u2019s Assistant for National\n                            Sec", "date": "1971-01-12", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/132", "word_count": 2864, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d136", "leader": "kissinger", "vector": "private", "title": "136. Draft Paper Prepared in the National Security CouncilSource: National Archives, Nixon\n                                Presidential Materials, NSC Files,\n                                    Kissin", "date": "1971-01-20", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/136", "word_count": 419, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d139", "leader": "kissinger", "vector": "private", "title": "139. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to Secretary of State RogersSource:\n                   ", "date": "1971-02-05", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/139", "word_count": 438, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d141", "leader": "kissinger", "vector": "private", "title": "141. Memorandum From Secretary of State Rogers to the President\u2019s Assistant for\n                            National Security Affairs (Kissinger)Source: National Archives, Nixon Presidential Materials", "date": "1971-02-10", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/141", "word_count": 192, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d143", "leader": "kissinger", "vector": "private", "title": "143. Memorandum From Secretary of State Rogers to the President\u2019s Assistant for\n                            National Security Affairs (Kissinger)Source: National Archives, Nixon Presidential Materials", "date": "1971-02-26", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/143", "word_count": 422, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d144", "leader": "kissinger", "vector": "private", "title": "144. Action Memorandum From the Director of the Bureau of\n                            Politico-Military Affairs (Spiers) to the Under Secretary of State (Irwin)Source: National Archives, RG 59, S/S Fi", "date": "1971-03-03", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/144", "word_count": 970, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d146", "leader": "kissinger", "vector": "private", "title": "146. Memorandum From the President\u2019s Deputy Assistant for National\n                            Security Affairs (Haig) to the President\u2019s Assistant for National Security\n                            Af", "date": "1971-04-26", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/146", "word_count": 879, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d147", "leader": "kissinger", "vector": "private", "title": "147. Memorandum From the Director of the Planning Group, National\n                            Security Council (Kennedy) to the President\u2019s Assistant for National\n                            Security ", "date": "1971-04-27", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/147", "word_count": 1630, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d15", "leader": "kissinger", "vector": "private", "title": "15. Minutes of the First Meeting of the National Security CouncilSource: Library of Congress,\n                                Manuscript Division, Kissinger Papers, Box TS 82, NSC Meetings, Jan\u2013Mar 19", "date": "1969-01-21", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/15", "word_count": 1721, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d1", "leader": "kissinger", "vector": "private", "title": "1. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs-Designate (Kissinger) to President-Elect NixonSource:\n                                National Ar", "date": "1968-12-27", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/1", "word_count": 3836, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d20", "leader": "kissinger", "vector": "private", "title": "20. Memorandum From the President\u2019s Assistant (Haldeman) to Secretary of\n                            State RogersSource: National Archives, RG 59, Office Files of William P. Rogers: Lot 73 D 443,\n    ", "date": "1969-02-01", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/20", "word_count": 402, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d22", "leader": "kissinger", "vector": "private", "title": "22. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: Ford Library, National Security ", "date": "1969-02-07", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/22", "word_count": 910, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d24", "leader": "kissinger", "vector": "private", "title": "24. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: Ford Library, National Security ", "date": "1969-02-11", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/24", "word_count": 2773, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d25", "leader": "kissinger", "vector": "private", "title": "25. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to President NixonSource: National Archives, Nixon\n     ", "date": "1969-02-13", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/25", "word_count": 372, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d28", "leader": "kissinger", "vector": "private", "title": "28. Memorandum From the Chairman of the President\u2019s Foreign\n                            Intelligence Advisory Board (Taylor) to the President\u2019s Assistant for National\n                            Secur", "date": "1969-02-14", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/28", "word_count": 650, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d30", "leader": "kissinger", "vector": "private", "title": "30. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: Johnson Library, Halperin Papers", "date": "1969-03-02", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/30", "word_count": 2394, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d32", "leader": "kissinger", "vector": "private", "title": "32. Memorandum From the President\u2019s Assistant (Haldeman) to the Director\n                            of Communication for the Executive Branch (Klein)Source:\n                                National A", "date": "1969-03-24", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/32", "word_count": 137, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d33", "leader": "kissinger", "vector": "private", "title": "33. Memorandum From the Director of the Program Analysis Staff,\n                            National Security Council (Lynn) to the President\u2019s Assistant for National Security\n                        ", "date": "1969-04-11", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/33", "word_count": 772, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d34", "leader": "kissinger", "vector": "private", "title": "34. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to President NixonSource: National Archives, Nixon\n     ", "date": "1969-04-11", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/34", "word_count": 1489, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d35", "leader": "kissinger", "vector": "private", "title": "35. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to President NixonSource: National Archives, Nixon\n     ", "date": "1969-04-29", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/35", "word_count": 1586, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d36", "leader": "kissinger", "vector": "private", "title": "36. Memorandum From Helmut\n                                Sonnenfeldt of the National Security Council Staff to the\n                            President\u2019s Assistant for National Security Affairs (Ki", "date": "1969-04-30", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/36", "word_count": 1486, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d37", "leader": "kissinger", "vector": "private", "title": "37. Memorandum From the Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon Presidential\n      ", "date": "1969-05-02", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/37", "word_count": 425, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d38", "leader": "kissinger", "vector": "private", "title": "38. Memorandum From Secretary of Defense Laird to the President\u2019s Assistant for\n                            National Security Affairs (Kissinger)Source: National Archives, Nixon Presidential Materials", "date": "1969-05-07", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/38", "word_count": 465, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d3", "leader": "kissinger", "vector": "private", "title": "3. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs-Designate (Kissinger) to President-Elect NixonSource:\n                                National Ar", "date": "1969-01-07", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/3", "word_count": 1219, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d44", "leader": "kissinger", "vector": "private", "title": "44. Memorandum From the President\u2019s Assistant (Haldeman) to the\n                            President\u2019s Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon\n            ", "date": "1969-05-15", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/44", "word_count": 241, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d45", "leader": "kissinger", "vector": "private", "title": "45. Memorandum by the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)Source: National Archives, Nixon Presidential Materials, NSC Files, NSC Institutional F", "date": "1969-05-16", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/45", "word_count": 265, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d49", "leader": "kissinger", "vector": "private", "title": "49. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: Library of Congress, Manuscript ", "date": "1969-06-04", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/49", "word_count": 387, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d4", "leader": "kissinger", "vector": "private", "title": "4. Paper Prepared by the Under Secretary of State-Designate (Richardson)Source: National Archives, Nixon\n                                Presidential Materials, NSC Files,\n                            ", "date": "1969-01-07", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/4", "word_count": 1536, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d52", "leader": "kissinger", "vector": "private", "title": "52. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon Preside", "date": "1969-06-25", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/52", "word_count": 1065, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d53", "leader": "kissinger", "vector": "private", "title": "53. Memorandum From President Nixon\n                            to Secretary of State Rogers and Secretary of Defense LairdSource: National Archives, Nixon\n                                Presidential", "date": "1969-06-26", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/53", "word_count": 263, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d56", "leader": "kissinger", "vector": "private", "title": "56. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to President NixonSource: National Archives, Nixon\n     ", "date": "1969-07-01", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/56", "word_count": 565, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d58", "leader": "kissinger", "vector": "private", "title": "58. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon Preside", "date": "1969-07-02", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/58", "word_count": 320, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d59", "leader": "kissinger", "vector": "private", "title": "59. Minutes of Washington Special Actions Group MeetingSource: National Archives, Nixon\n                                Presidential Materials, NSC Files,\n                                    NSC Insti", "date": "1969-07-02", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/59", "word_count": 2459, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d5", "leader": "kissinger", "vector": "private", "title": "5. Memorandum From the Military Assistant-Designate (Haig) to the President\u2019s\n                            Assistant for National Security Affairs-Designate (Kissinger)Source: National Archives, Nixon\n", "date": "1969-01-08", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/5", "word_count": 1256, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d60", "leader": "kissinger", "vector": "private", "title": "60. Memorandum From the Assistant for Programs, National Security\n                            Council Staff (Halperin) to the President\u2019s Assistant for National\n                            Security Af", "date": "1969-07-08", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/60", "word_count": 635, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d62", "leader": "kissinger", "vector": "private", "title": "62. Minutes of Washington Special Actions Group MeetingSource: National Archives, Nixon\n                                Presidential Materials, NSC Files,\n                                    NSC Insti", "date": "1969-07-11", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/62", "word_count": 1437, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d63", "leader": "kissinger", "vector": "private", "title": "63. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon Preside", "date": "1969-07-12", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/63", "word_count": 1588, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d64", "leader": "kissinger", "vector": "private", "title": "64. Memorandum From the Director of the Program Analysis Staff,\n                            National Security Council (Lynn) to the President\u2019s Assistant for National Security\n                        ", "date": "1969-07-14", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/64", "word_count": 608, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d65", "leader": "kissinger", "vector": "private", "title": "65. Memorandum by the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)Source: National Archives, Nixon Presidential Materials, NSC Files, NSC Institutional F", "date": "1969-07-21", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/65", "word_count": 348, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d66", "leader": "kissinger", "vector": "private", "title": "66. Paper Prepared by the Assistant for Programs, National Security\n                            Council Staff (Halperin)Source: National Archives, Nixon Presidential Materials, NSC Files, Box 817, Nam", "date": "1969-07-20", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/66", "word_count": 1112, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d67", "leader": "kissinger", "vector": "private", "title": "67. Memorandum From the Director of the Program Analysis Staff,\n                            National Security Council (Lynn) to the President\u2019s Assistant for National Security\n                        ", "date": "1969-08-25", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/67", "word_count": 1435, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d69", "leader": "kissinger", "vector": "private", "title": "69. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to President NixonSource: National Archives, Nixon\n     ", "date": "1969-08-29", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/69", "word_count": 454, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d6", "leader": "kissinger", "vector": "private", "title": "6. Memorandum From Secretary of Defense-Designate Laird to the President\u2019s\n                            Assistant for National Security Affairs-Designate (Kissinger)Source: National Archives, Nixon\n   ", "date": "1969-01-09", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/6", "word_count": 958, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d70", "leader": "kissinger", "vector": "private", "title": "70. Telegram From President Nixon to\n                            Secretary of State Rogers, Secretary of Defense Laird, and Director of Central Intelligence\n                                HelmsSource", "date": "1969-09-01", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/70", "word_count": 390, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d72", "leader": "kissinger", "vector": "private", "title": "72. Memorandum From the Staff Secretary, National Security Council\n                                (Watts) to the\n                            President\u2019s Assistant for National Security Affairs (Kissi", "date": "1969-09-14", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/72", "word_count": 1257, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d74", "leader": "kissinger", "vector": "private", "title": "74. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to President NixonSource: National Archives, Nixon\n     ", "date": "1969-09-17", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/74", "word_count": 463, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d75", "leader": "kissinger", "vector": "private", "title": "75. Letter From Secretary of Defense Laird to the President\u2019s Assistant for\n                            National Security Affairs (Kissinger)Source: National Archives, Nixon Presidential Materials, NS", "date": "1969-09-22", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/75", "word_count": 332, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d76", "leader": "kissinger", "vector": "private", "title": "76. Memorandum From the Secretary of Defense\u2019s Military Assistant\n                                (Pursley) to the\n                            President\u2019s Assistant for National Security Affairs (Kiss", "date": "1969-09-24", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/76", "word_count": 552, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d77", "leader": "kissinger", "vector": "private", "title": "77. Memorandum From the Director of the Planning Staff, National\n                            Security Council (Osgood) to the President\u2019s Assistant for National\n                            Security Af", "date": "1969-09-25", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/77", "word_count": 1030, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d7", "leader": "kissinger", "vector": "private", "title": "7. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs-Designate (Kissinger) to President-Elect NixonSource:\n                                National Ar", "date": "1969-01-10", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/7", "word_count": 361, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d81", "leader": "kissinger", "vector": "private", "title": "81. Memorandum From the Director of the Program Analysis Staff,\n                            National Security Council (Lynn) to the President\u2019s Assistant for National Security\n                        ", "date": "1969-10-21", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/81", "word_count": 1448, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d82", "leader": "kissinger", "vector": "private", "title": "82. Memorandum From the Director of the Program Analysis Staff,\n                            National Security Council (Lynn) to the President\u2019s Assistant for National Security\n                        ", "date": "1969-10-24", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/82", "word_count": 875, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d85", "leader": "kissinger", "vector": "private", "title": "85. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon Preside", "date": "1969-10-29", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/85", "word_count": 2037, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d86", "leader": "kissinger", "vector": "private", "title": "86. Memorandum From W. Anthony Lake\n                            of the National Security Council Staff to the President\u2019s Assistant for\n                            National Security Affairs (Kissinger", "date": "1969-11-14", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/86", "word_count": 2551, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d87", "leader": "kissinger", "vector": "private", "title": "87. Memorandum From William\n                                Watts, Staff Secretary, National Security Council Staff\n                            to the President\u2019s Assistant for National Security Affai", "date": "1969-12-01", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/87", "word_count": 1724, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d88", "leader": "kissinger", "vector": "private", "title": "88. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon Preside", "date": "1969-12-01", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/88", "word_count": 488, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d89", "leader": "kissinger", "vector": "private", "title": "89. Memorandum From Secretary of Defense Laird to the President\u2019s Assistant for\n                            National Security Affairs (Kissinger)Source: National Archives, Nixon Presidential Materials", "date": "1969-12-01", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/89", "word_count": 642, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d8", "leader": "kissinger", "vector": "private", "title": "8. Memorandum From President-Elect Nixon to the President\u2019s Assistant for National Security\n                            Affairs-Designate (Kissinger)Source: National Archives, Nixon Presidential Mater", "date": "1969-01-13", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/8", "word_count": 214, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d90", "leader": "kissinger", "vector": "private", "title": "90. Memorandum From the Director of the Program Analysis Staff,\n                            National Security Council (Lynn) to the President\u2019s Assistant for National Security\n                        ", "date": "1969-12-08", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/90", "word_count": 1705, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d92", "leader": "kissinger", "vector": "private", "title": "92. Letter From the Assistant Secretary of State for East Asian and\n                            Pacific Affairs (Green) to the\n                            President\u2019s Assistant for National Security A", "date": "1970-01-09", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/92", "word_count": 859, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d93", "leader": "kissinger", "vector": "private", "title": "93. Memorandum From the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)\n                            to the Defense Program Review CommitteeSource: National ", "date": "1970-01-19", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/93", "word_count": 378, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d94", "leader": "kissinger", "vector": "private", "title": "94. Letter From Secretary of the Treasury Kennedy to the President\u2019s Assistant for\n                            National Security Affairs (Kissinger)Source: National Archives, Nixon Presidential Materi", "date": "1970-01-20", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/94", "word_count": 858, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d96", "leader": "kissinger", "vector": "private", "title": "96. Memorandum From the President\u2019s Military Assistant (Haig) to the President\u2019s\n                            Assistant for National Security Affairs (Kissinger)Source: National Archives, Nixon Preside", "date": "1970-02-21", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/96", "word_count": 1147, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d97", "leader": "kissinger", "vector": "private", "title": "97. Memorandum by the President\u2019s Assistant for National Security\n                            Affairs (Kissinger)Source: National Archives, Nixon\n                                Presidential Materials", "date": "1970-02-26", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/97", "word_count": 378, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d98", "leader": "kissinger", "vector": "private", "title": "98. Memorandum From Secretary of Defense Laird to the President\u2019s Assistant for\n                            National Security Affairs (Kissinger)Source: National Archives, Nixon Presidential Materials", "date": "1970-03-14", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/98", "word_count": 419, "fetched_at": "2026-03-17T22:25:40Z"}, {"doc_id": "kissinger-frus-frus1969-76v02-d99", "leader": "kissinger", "vector": "private", "title": "99. Memorandum From Secretary of Defense Laird to the President\u2019s Assistant for\n                            National Security Affairs (Kissinger)Source: National Archives, Nixon Presidential Materials", "date": "1970-03-14", "source_url": "https://history.state.gov/historicaldocuments/frus1969-76v02/99", "word_count": 380, "fetched_at": "2026-03-17T22:25:40Z"}]};
+// __DATA_END__
+
+// ── Constants ───────────────────────────────────────────────────────────
+const COLORS = {
+  public: '#3B8BD4',
+  private: '#BA7517',
+  significant: '#D85A30',
+  ns: '#888780',
+  publicAlpha: 'rgba(59,139,212,0.25)',
+  privateAlpha: 'rgba(186,117,23,0.25)',
+};
+
+const TRAIT_ORDER = ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Neuroticism'];
+
+function getTraits() {
+  const keys = Object.keys(DATA.stats.traits || {});
+  return keys.length ? keys : TRAIT_ORDER;
+}
+
+// ── Helpers ─────────────────────────────────────────────────────────────
+function effectLabel(d) {
+  const a = Math.abs(d);
+  if (a < 0.2) return 'negligible';
+  if (a < 0.5) return 'small';
+  if (a < 0.8) return 'medium';
+  return 'large';
+}
+
+function effectColor(d) {
+  const a = Math.abs(d);
+  if (a < 0.2) return COLORS.ns;
+  if (a < 0.5) return '#4ea8a0';
+  if (a < 0.8) return COLORS.private;
+  return COLORS.significant;
+}
+
+function sigStars(p) {
+  if (p == null) return '';
+  if (p < 0.001) return ' ***';
+  if (p < 0.01) return ' **';
+  if (p < 0.05) return ' *';
+  return '';
+}
+
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+// ── Panel 1: Header + Gauge ────────────────────────────────────────────
+function renderGauge(score) {
+  const svg = document.getElementById('gauge-svg');
+  const pct = clamp(score, 0, 2) / 2; // normalize to 0-1 assuming max ~2
+  const startAngle = Math.PI;
+  const endAngle = 0;
+  const sweep = startAngle - (startAngle - endAngle) * pct;
+  const cx = 90, cy = 90, r = 70;
+
+  // background arc
+  const bgX1 = cx + r * Math.cos(startAngle);
+  const bgY1 = cy - r * Math.sin(startAngle);
+  const bgX2 = cx + r * Math.cos(endAngle);
+  const bgY2 = cy - r * Math.sin(endAngle);
+
+  // value arc
+  const vX2 = cx + r * Math.cos(sweep);
+  const vY2 = cy - r * Math.sin(sweep);
+  const largeArc = pct > 0.5 ? 1 : 0;
+
+  let color;
+  if (pct < 0.25) color = COLORS.ns;
+  else if (pct < 0.5) color = '#4ea8a0';
+  else if (pct < 0.75) color = COLORS.private;
+  else color = COLORS.significant;
+
+  svg.innerHTML = `
+    <path d="M ${bgX1} ${bgY1} A ${r} ${r} 0 1 1 ${bgX2} ${bgY2}"
+          fill="none" stroke="#2e2e37" stroke-width="14" stroke-linecap="round"/>
+    <path d="M ${bgX1} ${bgY1} A ${r} ${r} 0 ${largeArc} 1 ${vX2} ${vY2}"
+          fill="none" stroke="${color}" stroke-width="14" stroke-linecap="round"/>
+    <text x="${cx}" y="${cy - 10}" text-anchor="middle"
+          fill="${color}" font-family="'Courier Prime',monospace"
+          font-size="28" font-weight="700">${score.toFixed(2)}</text>
+    <text x="${cx}" y="${cy + 12}" text-anchor="middle"
+          fill="#9a988f" font-family="'Courier Prime',monospace"
+          font-size="10">Nagel Gap</text>
+  `;
+}
+
+function renderInterpretation() {
+  const el = document.getElementById('interpretation');
+  const score = DATA.stats.overall_nagel_gap_score || 0;
+  const traits = DATA.stats.traits || {};
+  const traitNames = Object.keys(traits);
+
+  // find largest gap trait
+  let maxTrait = null, maxD = 0;
+  for (const t of traitNames) {
+    const d = Math.abs(traits[t].cohens_d || 0);
+    if (d > maxD) { maxD = d; maxTrait = t; }
+  }
+
+  const sigCount = traitNames.filter(t => (traits[t].p_value || 1) < 0.05).length;
+
+  const name = DATA.display_name || DATA.leader;
+  let sentence;
+  if (!traitNames.length) {
+    sentence = 'Awaiting data. The Nagel Gap Score measures the divergence between a leader\'s public and private personality profiles.';
+  } else if (score < 0.2) {
+    sentence = `${name}'s public and private writings show a largely consistent personality profile (gap\u00a0=\u00a0${score.toFixed(2)}), with no substantial divergence across the Big Five traits.`;
+  } else if (score < 0.5) {
+    sentence = `${name} displays a modest public-private split (gap\u00a0=\u00a0${score.toFixed(2)}), with ${sigCount} trait${sigCount !== 1 ? 's' : ''} reaching significance.${maxTrait ? ' The largest divergence appears in ' + maxTrait + ' (d\u00a0=\u00a0' + maxD.toFixed(2) + ').' : ''}`;
+  } else if (score < 0.8) {
+    sentence = `A notable persona gap emerges (gap\u00a0=\u00a0${score.toFixed(2)}): ${name}'s public voice differs meaningfully from his private writings, especially in ${maxTrait || 'multiple traits'} (d\u00a0=\u00a0${maxD.toFixed(2)}).`;
+  } else {
+    sentence = `${name} shows a pronounced public-private divide (gap\u00a0=\u00a0${score.toFixed(2)}), with ${sigCount} traits significantly divergent. ${maxTrait} exhibits the starkest contrast (d\u00a0=\u00a0${maxD.toFixed(2)}, ${effectLabel(maxD)} effect).`;
+  }
+
+  el.textContent = sentence;
+}
+
+// ── Panel 2: Radar Chart ────────────────────────────────────────────────
+let radarChart = null;
+let currentRadarMode = 'both';
+
+function buildRadarData(mode) {
+  const traits = getTraits();
+  const stats = DATA.stats.traits || {};
+
+  const pubMeans = traits.map(t => (stats[t] && stats[t].public_mean) || 0);
+  const prvMeans = traits.map(t => (stats[t] && stats[t].private_mean) || 0);
+
+  const datasets = [];
+  if (mode === 'both' || mode === 'public') {
+    datasets.push({
+      label: 'Public',
+      data: pubMeans,
+      borderColor: COLORS.public,
+      backgroundColor: COLORS.publicAlpha,
+      pointBackgroundColor: COLORS.public,
+      pointRadius: 4,
+    });
+  }
+  if (mode === 'both' || mode === 'private') {
+    datasets.push({
+      label: 'Private',
+      data: prvMeans,
+      borderColor: COLORS.private,
+      backgroundColor: COLORS.privateAlpha,
+      pointBackgroundColor: COLORS.private,
+      pointRadius: 4,
+    });
+  }
+
+  return { labels: traits, datasets };
+}
+
+function initRadar() {
+  const ctx = document.getElementById('radarCanvas').getContext('2d');
+  const stats = DATA.stats.traits || {};
+
+  radarChart = new Chart(ctx, {
+    type: 'radar',
+    data: buildRadarData('both'),
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          beginAtZero: true,
+          max: 1,
+          ticks: { display: false },
+          grid: { color: 'rgba(255,255,255,0.08)' },
+          angleLines: { color: 'rgba(255,255,255,0.08)' },
+          pointLabels: {
+            color: '#e8e6e1',
+            font: { family: "'Courier Prime', monospace", size: 12 },
+          }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label(ctx) {
+              const trait = getTraits()[ctx.dataIndex];
+              const s = stats[trait] || {};
+              const vec = ctx.dataset.label.toLowerCase();
+              const mean = (vec === 'public' ? s.public_mean : s.private_mean) || 0;
+              const std = (vec === 'public' ? s.public_std : s.private_std) || 0;
+              const p = s.p_value;
+              const d = s.cohens_d || 0;
+              return [
+                `${ctx.dataset.label}: ${mean.toFixed(3)} \u00b1 ${std.toFixed(3)}`,
+                `p = ${p != null ? p.toFixed(4) : 'n/a'}`,
+                `Cohen's d = ${d.toFixed(3)} (${effectLabel(d)})`,
+              ];
+            }
+          },
+          titleFont: { family: "'Courier Prime', monospace" },
+          bodyFont: { family: "'Courier Prime', monospace", size: 11 },
+          backgroundColor: 'rgba(26,26,31,0.95)',
+          borderColor: '#3a3a44',
+          borderWidth: 1,
+        }
+      },
+      onClick(evt, elems) {
+        if (elems.length) {
+          const idx = elems[0].index;
+          const trait = getTraits()[idx];
+          renderDistribution(trait);
+        }
+      }
+    }
+  });
+
+  // Toggle buttons
+  document.getElementById('radar-toggles').addEventListener('click', e => {
+    if (!e.target.classList.contains('toggle-btn')) return;
+    document.querySelectorAll('#radar-toggles .toggle-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentRadarMode = e.target.dataset.mode;
+    radarChart.data = buildRadarData(currentRadarMode);
+    radarChart.update();
+  });
+}
+
+// ── Panel 3: Nagel Gap Bars ─────────────────────────────────────────────
+function renderBars() {
+  const container = document.getElementById('bar-container');
+  const traits = getTraits();
+  const stats = DATA.stats.traits || {};
+
+  // find max |d| for scaling
+  let maxAbs = 0;
+  for (const t of traits) {
+    const d = Math.abs((stats[t] && stats[t].cohens_d) || 0);
+    if (d > maxAbs) maxAbs = d;
+  }
+  if (maxAbs === 0) maxAbs = 1;
+
+  container.innerHTML = '';
+  for (const t of traits) {
+    const s = stats[t] || {};
+    const d = s.cohens_d || 0;
+    const p = s.p_value;
+    const absD = Math.abs(d);
+    const pct = (absD / Math.max(maxAbs * 1.15, 0.01)) * 100;
+    const color = effectColor(d);
+    const stars = sigStars(p);
+
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML = `
+      <div class="bar-label">${t}</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${pct}%; background:${color};"></div>
+      </div>
+      <div class="bar-value" style="color:${color}">
+        d=${absD.toFixed(2)}${stars}
+      </div>
+    `;
+    row.addEventListener('click', () => renderDistribution(t));
+    container.appendChild(row);
+  }
+}
+
+// ── Panel 4: Trait Distribution ─────────────────────────────────────────
+let distChart = null;
+
+function renderDistribution(trait) {
+  document.getElementById('dist-trait-name').textContent = trait;
+
+  const pubChunks = (DATA.chunk_scores.public || []).map(c => (c.scores && c.scores[trait]) || null).filter(v => v !== null);
+  const prvChunks = (DATA.chunk_scores.private || []).map(c => (c.scores && c.scores[trait]) || null).filter(v => v !== null);
+
+  // build histogram bins
+  const allVals = pubChunks.concat(prvChunks);
+  if (!allVals.length) {
+    document.getElementById('dist-caption').textContent = 'No chunk data available for this trait.';
+    if (distChart) { distChart.destroy(); distChart = null; }
+    return;
+  }
+
+  const lo = Math.min(...allVals);
+  const hi = Math.max(...allVals);
+  const nBins = 20;
+  const binW = (hi - lo) / nBins || 0.05;
+
+  function histogram(vals) {
+    const counts = new Array(nBins).fill(0);
+    for (const v of vals) {
+      let idx = Math.floor((v - lo) / binW);
+      if (idx >= nBins) idx = nBins - 1;
+      if (idx < 0) idx = 0;
+      counts[idx]++;
+    }
+    return counts;
+  }
+
+  const pubHist = histogram(pubChunks);
+  const prvHist = histogram(prvChunks);
+  const labels = [];
+  for (let i = 0; i < nBins; i++) {
+    labels.push((lo + binW * (i + 0.5)).toFixed(2));
+  }
+
+  // means
+  const pubMean = pubChunks.length ? pubChunks.reduce((a, b) => a + b, 0) / pubChunks.length : 0;
+  const prvMean = prvChunks.length ? prvChunks.reduce((a, b) => a + b, 0) / prvChunks.length : 0;
+
+  const ctx = document.getElementById('distCanvas').getContext('2d');
+  if (distChart) distChart.destroy();
+
+  // Annotation plugin (inline vertical lines via custom plugin)
+  const meanLinePlugin = {
+    id: 'meanLines',
+    afterDraw(chart) {
+      const { ctx: c, chartArea: { left, right, top, bottom }, scales: { x } } = chart;
+      function drawLine(val, color, label) {
+        // find pixel position
+        const binIdx = Math.floor((val - lo) / binW);
+        const clampedIdx = clamp(binIdx, 0, nBins - 1);
+        const px = x.getPixelForValue(clampedIdx);
+        c.save();
+        c.strokeStyle = color;
+        c.lineWidth = 2;
+        c.setLineDash([6, 3]);
+        c.beginPath();
+        c.moveTo(px, top);
+        c.lineTo(px, bottom);
+        c.stroke();
+        c.setLineDash([]);
+        c.fillStyle = color;
+        c.font = "11px 'Courier Prime', monospace";
+        c.fillText(label + ' \u03bc=' + val.toFixed(3), px + 4, top + 14);
+        c.restore();
+      }
+      if (pubChunks.length) drawLine(pubMean, COLORS.public, 'Pub');
+      if (prvChunks.length) drawLine(prvMean, COLORS.private, 'Prv');
+    }
+  };
+
+  distChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Public',
+          data: pubHist,
+          backgroundColor: 'rgba(59,139,212,0.45)',
+          borderColor: COLORS.public,
+          borderWidth: 1,
+        },
+        {
+          label: 'Private',
+          data: prvHist,
+          backgroundColor: 'rgba(186,117,23,0.45)',
+          borderColor: COLORS.private,
+          borderWidth: 1,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: { color: '#9a988f', font: { family: "'Courier Prime', monospace", size: 9 }, maxRotation: 45 },
+        },
+        y: {
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: { color: '#9a988f', font: { family: "'Courier Prime', monospace", size: 10 } },
+          title: { display: true, text: 'Chunk count', color: '#9a988f', font: { family: "'Courier Prime', monospace" } },
+        }
+      },
+      plugins: {
+        legend: {
+          labels: { color: '#e8e6e1', font: { family: "'Courier Prime', monospace", size: 11 } }
+        }
+      }
+    },
+    plugins: [meanLinePlugin],
+  });
+
+  document.getElementById('dist-caption').textContent =
+    `n=${pubChunks.length} public chunks, n=${prvChunks.length} private chunks`;
+}
+
+// ── Panel 5: Word Clouds ────────────────────────────────────────────────
+function renderClouds() {
+  renderOneCloud('cloudPublic', DATA.wordfreq.public || [], COLORS.public);
+  renderOneCloud('cloudPrivate', DATA.wordfreq.private || [], COLORS.private);
+}
+
+function renderOneCloud(canvasId, words, color) {
+  const canvas = document.getElementById(canvasId);
+  if (!words.length) return;
+
+  const maxFreq = Math.max(...words.map(w => w.frequency));
+  const minSize = 12, maxSize = 64;
+
+  const list = words.map(w => [
+    w.word,
+    minSize + (w.frequency / (maxFreq || 1)) * (maxSize - minSize)
+  ]);
+
+  // wait for canvas to have dimensions
+  requestAnimationFrame(() => {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+
+    WordCloud(canvas, {
+      list,
+      gridSize: 6,
+      weightFactor: 1,
+      fontFamily: "'Courier Prime', monospace",
+      color: () => color,
+      backgroundColor: 'transparent',
+      rotateRatio: 0.3,
+      minRotation: -0.3,
+      maxRotation: 0.3,
+      shuffle: true,
+      drawOutOfBound: false,
+    });
+  });
+}
+
+// ── Panel 6: Source Explorer ────────────────────────────────────────────
+let sourceFilter = 'all';
+
+function renderSources() {
+  const list = document.getElementById('source-list');
+  const docs = DATA.documents || [];
+
+  list.innerHTML = '';
+  const filtered = docs.filter(d =>
+    sourceFilter === 'all' || d.vector === sourceFilter
+  );
+
+  if (!filtered.length) {
+    list.innerHTML = '<div style="padding:16px;color:#9a988f;text-align:center;">No documents available.</div>';
+    return;
+  }
+
+  for (const doc of filtered) {
+    const row = document.createElement('div');
+    row.className = 'source-row';
+    const isPub = doc.vector === 'public';
+    row.innerHTML = `
+      <span class="dot ${isPub ? 'pub' : 'prv'}"></span>
+      <span class="title">${escHTML(doc.title || doc.doc_id || 'Untitled')}</span>
+      <span class="meta">${escHTML(doc.date || '')} &middot; ${(doc.word_count || 0).toLocaleString()} words</span>
+    `;
+    if (doc.source_url) {
+      row.addEventListener('click', () => window.open(doc.source_url, '_blank'));
+      row.style.cursor = 'pointer';
+    }
+    list.appendChild(row);
+  }
+}
+
+function escHTML(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+document.getElementById('source-controls').addEventListener('click', e => {
+  if (!e.target.classList.contains('toggle-btn')) return;
+  document.querySelectorAll('#source-controls .toggle-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  sourceFilter = e.target.dataset.filter;
+  renderSources();
+});
+
+// ── Init ────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderGauge(DATA.stats.overall_nagel_gap_score || 0);
+  renderInterpretation();
+  initRadar();
+  renderBars();
+
+  // auto-select first trait for distribution
+  const traits = getTraits();
+  if (traits.length && Object.keys(DATA.stats.traits || {}).length) {
+    renderDistribution(traits[0]);
+  }
+
+  renderClouds();
+  renderSources();
+});
+</script>
+
+</body>
+</html>

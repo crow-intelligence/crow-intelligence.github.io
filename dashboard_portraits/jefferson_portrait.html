@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>The Nagel Index — Thomas Jefferson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.1.2/wordcloud2.min.js"></script>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue: #3B8BD4;
+    --blue-light: #5CA3E2;
+    --blue-dim: rgba(59,139,212,0.18);
+    --amber: #BA7517;
+    --amber-light: #D4912A;
+    --amber-dim: rgba(186,117,23,0.18);
+    --coral: #D85A30;
+    --gray-ns: #888780;
+    --bg: #1A1A1E;
+    --bg-card: #232328;
+    --bg-stat: #1E1E22;
+    --text: #E8E4DC;
+    --text-dim: #9C998F;
+    --serif: 'IM Fell English', Georgia, serif;
+    --mono: 'Courier Prime', 'Courier New', monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--serif);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .canvas {
+    width: 1200px;
+    height: 800px;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* === TOP BANNER === */
+  .banner {
+    text-align: center;
+    padding: 22px 0 10px;
+    border-bottom: 1px solid rgba(232,228,220,0.08);
+    flex-shrink: 0;
+  }
+  .banner-title {
+    font-family: var(--serif);
+    font-size: 15px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .banner-subject {
+    font-family: var(--serif);
+    font-size: 26px;
+    color: var(--text);
+    letter-spacing: 0.04em;
+  }
+  .banner-subject span {
+    color: var(--text-dim);
+    font-size: 18px;
+    margin-left: 8px;
+    font-style: italic;
+  }
+
+  /* === MAIN AREA === */
+  .main {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+    padding: 14px 28px 10px;
+    gap: 28px;
+  }
+
+  /* Left panel — radar */
+  .panel-left {
+    width: 480px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .panel-left h3 {
+    font-family: var(--serif);
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .radar-wrap {
+    position: relative;
+    width: 440px;
+    height: 420px;
+  }
+  #radarChart {
+    width: 440px !important;
+    height: 420px !important;
+  }
+  .legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 2px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+  }
+
+  /* Right panel — word clouds */
+  .panel-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+  }
+  .wc-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 10px 14px;
+    min-height: 0;
+  }
+  .wc-section h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+  }
+  .wc-section h4.pub { color: var(--blue); }
+  .wc-section h4.priv { color: var(--amber); }
+  .wc-canvas-wrap {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+  }
+  .wc-canvas-wrap canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* === BOTTOM STATS BAR === */
+  .stats-bar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    padding: 0 28px 18px;
+    height: 108px;
+  }
+  .stat-col {
+    flex: 1;
+    background: var(--bg-stat);
+    border-right: 1px solid rgba(232,228,220,0.05);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .stat-col:first-child { border-radius: 6px 0 0 6px; }
+  .stat-col:last-child { border-radius: 0 6px 6px 0; border-right: none; }
+  .stat-col.overall {
+    background: #28282E;
+    min-width: 168px;
+    flex: 0 0 168px;
+    align-items: center;
+    text-align: center;
+  }
+  .stat-trait {
+    font-family: var(--serif);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    margin-bottom: 4px;
+    white-space: nowrap;
+  }
+  .stat-row {
+    display: flex;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    line-height: 1.5;
+  }
+  .stat-pub { color: var(--blue-light); }
+  .stat-priv { color: var(--amber-light); }
+  .stat-p {
+    font-family: var(--mono);
+    font-size: 10px;
+  }
+  .stat-p.sig { color: var(--coral); }
+  .stat-p.ns { color: var(--gray-ns); }
+  .stat-d {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+  .overall-label {
+    font-family: var(--serif);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .overall-score {
+    font-family: var(--mono);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--coral);
+    line-height: 1.1;
+  }
+  .overall-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="canvas" id="canvas">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="banner-title">The Nagel Index</div>
+    <div class="banner-subject">Thomas Jefferson <span>1801-1809</span></div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- LEFT: Radar -->
+    <div class="panel-left">
+      <h3>Big Five Profile Overlay</h3>
+      <div class="radar-wrap">
+        <canvas id="radarChart"></canvas>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--blue);"></div> Public voice</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--amber);"></div> Private voice</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Word Clouds -->
+    <div class="panel-right">
+      <div class="wc-section">
+        <h4 class="pub">Public Vocabulary</h4>
+        <div class="wc-canvas-wrap"><canvas id="wcPublic"></canvas></div>
+      </div>
+      <div class="wc-section">
+        <h4 class="priv">Private Vocabulary</h4>
+        <div class="wc-canvas-wrap"><canvas id="wcPrivate"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM STATS BAR -->
+  <div class="stats-bar" id="statsBar"></div>
+</div>
+
+<script>
+// ============================================================
+// DATA — the render step replaces the marker with real JSON
+// ============================================================
+// __DATA_START__
+const DATA = {"leader": "jefferson", "display_name": "Thomas Jefferson", "dates": "1801-1809", "stats": {"leader": "jefferson", "n_public_chunks": 119, "n_private_chunks": 254, "traits": {"Openness": {"public_mean": 0.4699, "private_mean": 0.4617, "public_std": 0.0279, "private_std": 0.0417, "mwu_U": 17450.5, "mwu_p": 0.016048, "significant": true, "cohens_d": 0.2309, "effect_size": "small", "nagel_gap": -0.0082}, "Conscientiousness": {"public_mean": 0.5587, "private_mean": 0.5353, "public_std": 0.0114, "private_std": 0.0163, "mwu_U": 26986.5, "mwu_p": 0.0, "significant": true, "cohens_d": 1.6601, "effect_size": "large", "nagel_gap": -0.0234}, "Extraversion": {"public_mean": 0.5171, "private_mean": 0.5333, "public_std": 0.0179, "private_std": 0.0232, "mwu_U": 8591.5, "mwu_p": 0.0, "significant": true, "cohens_d": -0.7851, "effect_size": "medium", "nagel_gap": 0.0163}, "Agreeableness": {"public_mean": 0.4547, "private_mean": 0.4452, "public_std": 0.0403, "private_std": 0.0558, "mwu_U": 17745.0, "mwu_p": 0.006703, "significant": true, "cohens_d": 0.1965, "effect_size": "negligible", "nagel_gap": -0.0096}, "Neuroticism": {"public_mean": 0.5484, "private_mean": 0.5269, "public_std": 0.0195, "private_std": 0.033, "mwu_U": 22237.5, "mwu_p": 0.0, "significant": true, "cohens_d": 0.7947, "effect_size": "medium", "nagel_gap": -0.0215}}, "overall_nagel_gap_score": 0.7335}, "wordfreq": {"public": [{"word": "public", "frequency": 70}, {"word": "citizens", "frequency": 65}, {"word": "peace", "frequency": 64}, {"word": "country", "frequency": 63}, {"word": "necessary", "frequency": 53}, {"word": "states", "frequency": 51}, {"word": "government", "frequency": 49}, {"word": "time", "frequency": 49}, {"word": "congress", "frequency": 45}, {"word": "last", "frequency": 45}, {"word": "within", "frequency": 44}, {"word": "state", "frequency": 41}, {"word": "year", "frequency": 41}, {"word": "nations", "frequency": 38}, {"word": "fellow", "frequency": 37}, {"word": "war", "frequency": 37}, {"word": "law", "frequency": 36}, {"word": "great", "frequency": 36}, {"word": "whether", "frequency": 35}, {"word": "vessels", "frequency": 34}, {"word": "commerce", "frequency": 33}, {"word": "force", "frequency": 33}, {"word": "made", "frequency": 33}, {"word": "present", "frequency": 33}, {"word": "part", "frequency": 33}, {"word": "others", "frequency": 32}, {"word": "united", "frequency": 32}, {"word": "debt", "frequency": 32}, {"word": "course", "frequency": 31}, {"word": "millions", "frequency": 31}, {"word": "among", "frequency": 29}, {"word": "new", "frequency": 29}, {"word": "interest", "frequency": 29}, {"word": "yet", "frequency": 28}, {"word": "well", "frequency": 28}, {"word": "laws", "frequency": 28}, {"word": "nation", "frequency": 26}, {"word": "place", "frequency": 26}, {"word": "powers", "frequency": 25}, {"word": "without", "frequency": 25}, {"word": "foreign", "frequency": 25}, {"word": "subject", "frequency": 25}, {"word": "limits", "frequency": 24}, {"word": "first", "frequency": 23}, {"word": "best", "frequency": 23}, {"word": "still", "frequency": 23}, {"word": "circumstances", "frequency": 23}, {"word": "service", "frequency": 23}, {"word": "laid", "frequency": 23}, {"word": "power", "frequency": 22}, {"word": "good", "frequency": 22}, {"word": "interests", "frequency": 22}, {"word": "act", "frequency": 22}, {"word": "therefore", "frequency": 22}, {"word": "session", "frequency": 22}, {"word": "justice", "frequency": 21}, {"word": "whole", "frequency": 21}, {"word": "consideration", "frequency": 21}, {"word": "treasury", "frequency": 21}, {"word": "principle", "frequency": 20}, {"word": "rights", "frequency": 20}, {"word": "measures", "frequency": 20}, {"word": "confidence", "frequency": 20}, {"word": "due", "frequency": 20}, {"word": "friendship", "frequency": 20}, {"word": "important", "frequency": 20}, {"word": "already", "frequency": 20}, {"word": "however", "frequency": 20}, {"word": "toward", "frequency": 19}, {"word": "found", "frequency": 19}, {"word": "called", "frequency": 18}, {"word": "duties", "frequency": 18}, {"word": "constitution", "frequency": 18}, {"word": "might", "frequency": 18}, {"word": "reason", "frequency": 18}, {"word": "sum", "frequency": 18}, {"word": "information", "frequency": 18}, {"word": "taken", "frequency": 18}, {"word": "soon", "frequency": 18}, {"word": "far", "frequency": 17}, {"word": "order", "frequency": 17}, {"word": "militia", "frequency": 17}, {"word": "much", "frequency": 17}, {"word": "revenue", "frequency": 17}, {"word": "mississippi", "frequency": 17}, {"word": "legislature", "frequency": 17}, {"word": "harbors", "frequency": 17}, {"word": "means", "frequency": 17}, {"word": "dollars", "frequency": 17}, {"word": "safety", "frequency": 16}, {"word": "authority", "frequency": 16}, {"word": "give", "frequency": 16}, {"word": "effect", "frequency": 16}, {"word": "thought", "frequency": 16}, {"word": "future", "frequency": 16}, {"word": "relations", "frequency": 16}, {"word": "friendly", "frequency": 16}, {"word": "executive", "frequency": 15}, {"word": "day", "frequency": 15}, {"word": "wisdom", "frequency": 15}, {"word": "equal", "frequency": 15}, {"word": "intercourse", "frequency": 15}, {"word": "union", "frequency": 15}, {"word": "call", "frequency": 15}, {"word": "principles", "frequency": 15}, {"word": "whose", "frequency": 15}, {"word": "parts", "frequency": 15}, {"word": "expenses", "frequency": 15}, {"word": "enabled", "frequency": 15}, {"word": "sufficient", "frequency": 15}, {"word": "number", "frequency": 15}, {"word": "half", "frequency": 15}, {"word": "indeed", "frequency": 14}, {"word": "things", "frequency": 14}, {"word": "long", "frequency": 14}, {"word": "character", "frequency": 14}, {"word": "duty", "frequency": 14}, {"word": "former", "frequency": 14}, {"word": "done", "frequency": 14}, {"word": "produce", "frequency": 14}, {"word": "years", "frequency": 14}, {"word": "meeting", "frequency": 14}, {"word": "principal", "frequency": 14}, {"word": "indian", "frequency": 14}, {"word": "receipts", "frequency": 14}, {"word": "attention", "frequency": 14}, {"word": "europe", "frequency": 14}, {"word": "right", "frequency": 13}, {"word": "support", "frequency": 13}, {"word": "meet", "frequency": 13}, {"word": "become", "frequency": 13}, {"word": "useful", "frequency": 13}, {"word": "several", "frequency": 13}, {"word": "since", "frequency": 13}, {"word": "given", "frequency": 13}, {"word": "measure", "frequency": 13}, {"word": "communicated", "frequency": 13}, {"word": "armed", "frequency": 13}, {"word": "industry", "frequency": 12}, {"word": "provided", "frequency": 12}, {"word": "think", "frequency": 12}, {"word": "less", "frequency": 12}, {"word": "change", "frequency": 12}, {"word": "form", "frequency": 12}, {"word": "make", "frequency": 12}, {"word": "proper", "frequency": 12}, {"word": "affairs", "frequency": 12}, {"word": "view", "frequency": 12}, {"word": "officers", "frequency": 12}, {"word": "property", "frequency": 12}], "private": [{"word": "time", "frequency": 140}, {"word": "war", "frequency": 119}, {"word": "great", "frequency": 95}, {"word": "last", "frequency": 91}, {"word": "france", "frequency": 90}, {"word": "philadelphia", "frequency": 87}, {"word": "recieved", "frequency": 85}, {"word": "yet", "frequency": 84}, {"word": "therefore", "frequency": 80}, {"word": "place", "frequency": 70}, {"word": "know", "frequency": 68}, {"word": "government", "frequency": 67}, {"word": "still", "frequency": 66}, {"word": "made", "frequency": 65}, {"word": "much", "frequency": 65}, {"word": "day", "frequency": 65}, {"word": "french", "frequency": 65}, {"word": "well", "frequency": 64}, {"word": "good", "frequency": 64}, {"word": "without", "frequency": 64}, {"word": "jefferson", "frequency": 63}, {"word": "till", "frequency": 63}, {"word": "bill", "frequency": 63}, {"word": "get", "frequency": 60}, {"word": "state", "frequency": 59}, {"word": "hope", "frequency": 58}, {"word": "first", "frequency": 56}, {"word": "however", "frequency": 56}, {"word": "new", "frequency": 56}, {"word": "come", "frequency": 55}, {"word": "public", "frequency": 55}, {"word": "present", "frequency": 53}, {"word": "senate", "frequency": 52}, {"word": "make", "frequency": 51}, {"word": "favor", "frequency": 48}, {"word": "adieu", "frequency": 48}, {"word": "send", "frequency": 47}, {"word": "take", "frequency": 46}, {"word": "money", "frequency": 45}, {"word": "nothing", "frequency": 44}, {"word": "taken", "frequency": 44}, {"word": "might", "frequency": 44}, {"word": "days", "frequency": 44}, {"word": "think", "frequency": 43}, {"word": "never", "frequency": 43}, {"word": "since", "frequency": 43}, {"word": "subject", "frequency": 43}, {"word": "country", "frequency": 42}, {"word": "friend", "frequency": 42}, {"word": "way", "frequency": 42}, {"word": "letters", "frequency": 42}, {"word": "jan", "frequency": 41}, {"word": "whether", "frequency": 41}, {"word": "year", "frequency": 41}, {"word": "esteem", "frequency": 41}, {"word": "monticello", "frequency": 41}, {"word": "feb", "frequency": 40}, {"word": "post", "frequency": 39}, {"word": "majority", "frequency": 39}, {"word": "yesterday", "frequency": 39}, {"word": "sent", "frequency": 39}, {"word": "give", "frequency": 38}, {"word": "peace", "frequency": 38}, {"word": "mrs", "frequency": 38}, {"word": "another", "frequency": 38}, {"word": "done", "frequency": 37}, {"word": "envoys", "frequency": 37}, {"word": "little", "frequency": 37}, {"word": "england", "frequency": 37}, {"word": "probably", "frequency": 37}, {"word": "soon", "frequency": 37}, {"word": "long", "frequency": 37}, {"word": "whole", "frequency": 36}, {"word": "thing", "frequency": 35}, {"word": "write", "frequency": 35}, {"word": "end", "frequency": 35}, {"word": "hand", "frequency": 35}, {"word": "measures", "frequency": 35}, {"word": "find", "frequency": 34}, {"word": "eppes", "frequency": 34}, {"word": "left", "frequency": 34}, {"word": "paper", "frequency": 34}, {"word": "known", "frequency": 34}, {"word": "order", "frequency": 34}, {"word": "army", "frequency": 34}, {"word": "virginia", "frequency": 33}, {"word": "mean", "frequency": 33}, {"word": "return", "frequency": 33}, {"word": "servt", "frequency": 33}, {"word": "wrote", "frequency": 33}, {"word": "next", "frequency": 33}, {"word": "law", "frequency": 33}, {"word": "house", "frequency": 32}, {"word": "part", "frequency": 32}, {"word": "people", "frequency": 32}, {"word": "perhaps", "frequency": 32}, {"word": "even", "frequency": 32}, {"word": "many", "frequency": 32}, {"word": "congress", "frequency": 31}, {"word": "believe", "frequency": 31}, {"word": "love", "frequency": 31}, {"word": "richmond", "frequency": 31}, {"word": "given", "frequency": 31}, {"word": "answer", "frequency": 31}, {"word": "others", "frequency": 31}, {"word": "millions", "frequency": 31}, {"word": "gerry", "frequency": 31}, {"word": "information", "frequency": 30}, {"word": "found", "frequency": 30}, {"word": "dollars", "frequency": 30}, {"word": "salutations", "frequency": 30}, {"word": "session", "frequency": 29}, {"word": "party", "frequency": 29}, {"word": "power", "frequency": 29}, {"word": "immediately", "frequency": 29}, {"word": "interest", "frequency": 29}, {"word": "object", "frequency": 28}, {"word": "cannot", "frequency": 28}, {"word": "side", "frequency": 28}, {"word": "form", "frequency": 28}, {"word": "board", "frequency": 28}, {"word": "respect", "frequency": 28}, {"word": "recieve", "frequency": 28}, {"word": "among", "frequency": 27}, {"word": "home", "frequency": 27}, {"word": "friendly", "frequency": 27}, {"word": "question", "frequency": 27}, {"word": "leave", "frequency": 27}, {"word": "put", "frequency": 27}, {"word": "vessel", "frequency": 27}, {"word": "within", "frequency": 27}, {"word": "brought", "frequency": 26}, {"word": "course", "frequency": 26}, {"word": "came", "frequency": 26}, {"word": "man", "frequency": 26}, {"word": "passed", "frequency": 26}, {"word": "case", "frequency": 26}, {"word": "best", "frequency": 26}, {"word": "bring", "frequency": 26}, {"word": "inclose", "frequency": 26}, {"word": "seen", "frequency": 25}, {"word": "wish", "frequency": 25}, {"word": "paris", "frequency": 25}, {"word": "keep", "frequency": 25}, {"word": "family", "frequency": 25}, {"word": "indeed", "frequency": 25}, {"word": "randolph", "frequency": 25}, {"word": "set", "frequency": 25}, {"word": "vessels", "frequency": 25}, {"word": "john", "frequency": 25}]}};
+// __DATA_END__
+
+// ============================================================
+// HELPERS
+// ============================================================
+const TRAITS = ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Neuroticism'];
+const BLUE = '#3B8BD4';
+const AMBER = '#BA7517';
+const CORAL = '#D85A30';
+const GRAY_NS = '#888780';
+
+function fmtP(p) {
+  if (p < 0.001) return 'p<.001';
+  if (p < 0.01) return 'p<.01';
+  if (p < 0.05) return 'p<.05';
+  return 'p=' + p.toFixed(2);
+}
+
+// ============================================================
+// RADAR CHART
+// ============================================================
+(function drawRadar() {
+  const ctx = document.getElementById('radarChart').getContext('2d');
+  const traits = DATA.stats.traits;
+  const pubVals = TRAITS.map(t => traits[t].public_mean);
+  const privVals = TRAITS.map(t => traits[t].private_mean);
+
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: TRAITS,
+      datasets: [
+        {
+          label: 'Public',
+          data: pubVals,
+          borderColor: BLUE,
+          backgroundColor: 'rgba(59,139,212,0.12)',
+          borderWidth: 2.5,
+          pointBackgroundColor: BLUE,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        },
+        {
+          label: 'Private',
+          data: privVals,
+          borderColor: AMBER,
+          backgroundColor: 'rgba(186,117,23,0.12)',
+          borderWidth: 2.5,
+          pointBackgroundColor: AMBER,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        }
+      ]
+    },
+    options: {
+      responsive: false,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#28282E',
+          titleFont: { family: "'Courier Prime', monospace", size: 12 },
+          bodyFont: { family: "'Courier Prime', monospace", size: 11 },
+          callbacks: {
+            afterLabel: function(ctx) {
+              const trait = TRAITS[ctx.dataIndex];
+              const t = traits[trait];
+              return 'd=' + t.cohens_d.toFixed(2) + ' (' + t.effect_size + ')';
+            }
+          }
+        }
+      },
+      scales: {
+        r: {
+          min: Math.max(0, Math.min(...pubVals, ...privVals) - 0.05),
+          max: Math.min(1, Math.max(...pubVals, ...privVals) + 0.05),
+          ticks: {
+            stepSize: 0.02,
+            backdropColor: 'transparent',
+            color: '#555',
+            font: { family: "'Courier Prime', monospace", size: 9 }
+          },
+          grid: {
+            color: 'rgba(232,228,220,0.08)',
+            circular: true
+          },
+          angleLines: {
+            color: 'rgba(232,228,220,0.08)'
+          },
+          pointLabels: {
+            font: { family: "'IM Fell English', serif", size: 13 },
+            color: '#C8C4BC',
+            callback: function(label, index) {
+              const t = traits[label];
+              const dStr = (t.cohens_d >= 0 ? '+' : '') + t.cohens_d.toFixed(2);
+              return label + '  (d=' + dStr + ')';
+            }
+          }
+        }
+      }
+    },
+    plugins: [{
+      id: 'gapAnnotations',
+      afterDraw: function(chart) {
+        const scale = chart.scales.r;
+        const cx = scale.xCenter;
+        const cy = scale.yCenter;
+        const ctx = chart.ctx;
+
+        TRAITS.forEach((trait, i) => {
+          const t = traits[trait];
+          const midVal = (t.public_mean + t.private_mean) / 2;
+          const angle = scale.getIndexAngle(i) - Math.PI / 2;
+          const dist = scale.getDistanceFromCenterForValue(midVal);
+          const x = cx + Math.cos(angle) * dist * 0.68;
+          const y = cy + Math.sin(angle) * dist * 0.68;
+
+          const d = t.cohens_d;
+          const dStr = (d >= 0 ? '+' : '') + d.toFixed(1);
+
+          ctx.save();
+          ctx.font = "bold 10px 'Courier Prime', monospace";
+          ctx.fillStyle = t.significant ? CORAL : GRAY_NS;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(dStr, x, y);
+          ctx.restore();
+        });
+      }
+    }]
+  });
+})();
+
+// ============================================================
+// WORD CLOUDS
+// ============================================================
+function drawWordCloud(canvasId, words, colorBase) {
+  const canvas = document.getElementById(canvasId);
+  const wrap = canvas.parentElement;
+
+  // Set canvas dimensions to match container
+  canvas.width = wrap.offsetWidth * 2;
+  canvas.height = wrap.offsetHeight * 2;
+  canvas.style.width = wrap.offsetWidth + 'px';
+  canvas.style.height = wrap.offsetHeight + 'px';
+
+  const maxFreq = Math.max(...words.map(w => w.frequency));
+  const minSize = 10;
+  const maxSize = 52;
+
+  // Build color palette — vary hue slightly for visual interest
+  const hsl = colorBase === 'blue'
+    ? (i) => `hsl(${210 + (i % 5) * 4}, ${60 + (i % 3) * 10}%, ${55 + (i % 4) * 5}%)`
+    : (i) => `hsl(${36 + (i % 5) * 3}, ${65 + (i % 3) * 8}%, ${48 + (i % 4) * 6}%)`;
+
+  const list = words.map((w, i) => [
+    w.word,
+    minSize + (w.frequency / maxFreq) * (maxSize - minSize)
+  ]);
+
+  WordCloud(canvas, {
+    list: list,
+    gridSize: 6,
+    weightFactor: 2,
+    fontFamily: "'IM Fell English', Georgia, serif",
+    color: function(word, weight, fontSize, distance, theta) {
+      const idx = list.findIndex(l => l[0] === word);
+      return hsl(idx >= 0 ? idx : 0);
+    },
+    backgroundColor: 'transparent',
+    rotateRatio: 0.25,
+    rotationSteps: 3,
+    shuffle: false,
+    drawOutOfBound: false,
+    shrinkToFit: true
+  });
+}
+
+// Small delay to let layout settle before rendering word clouds
+setTimeout(() => {
+  drawWordCloud('wcPublic', DATA.wordfreq.public, 'blue');
+  drawWordCloud('wcPrivate', DATA.wordfreq.private, 'amber');
+}, 300);
+
+// ============================================================
+// STATS BAR
+// ============================================================
+(function drawStats() {
+  const bar = document.getElementById('statsBar');
+  const traits = DATA.stats.traits;
+
+  TRAITS.forEach(trait => {
+    const t = traits[trait];
+    const col = document.createElement('div');
+    col.className = 'stat-col';
+
+    const sigClass = t.significant ? 'sig' : 'ns';
+    const pStr = fmtP(t.mwu_p);
+    const dStr = 'd=' + (t.cohens_d >= 0 ? '+' : '') + t.cohens_d.toFixed(2);
+
+    col.innerHTML = `
+      <div class="stat-trait">${trait}</div>
+      <div class="stat-row">
+        <span class="stat-pub">${t.public_mean.toFixed(2)}</span>
+        <span style="color:#555">|</span>
+        <span class="stat-priv">${t.private_mean.toFixed(2)}</span>
+      </div>
+      <div class="stat-p ${sigClass}">${pStr}</div>
+      <div class="stat-d">${dStr} (${t.effect_size})</div>
+    `;
+    bar.appendChild(col);
+  });
+
+  // Overall score column
+  const overall = document.createElement('div');
+  overall.className = 'stat-col overall';
+  overall.innerHTML = `
+    <div class="overall-label">Overall Nagel Gap</div>
+    <div class="overall-score">${DATA.stats.overall_nagel_gap_score.toFixed(2)}</div>
+    <div class="overall-sub">n=${DATA.stats.n_public_chunks} pub / ${DATA.stats.n_private_chunks} priv</div>
+  `;
+  bar.appendChild(overall);
+})();
+</script>
+</body>
+</html>
