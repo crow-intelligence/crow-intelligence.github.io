@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Blog — {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<section class="hero hero-compact">
+    <div class="container">
+        <h1>Blog</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        {% if articles_page.object_list %}
+        {% for article in articles_page.object_list %}
+        <a href="{{ SITEURL }}/{{ article.url }}" class="blog-card">
+            <div class="blog-card-meta">{{ article.date.strftime('%B %d, %Y') }}</div>
+            <h3>{{ article.title }}</h3>
+            {% if article.summary %}
+            <p>{{ article.summary }}</p>
+            {% endif %}
+        </a>
+        {% endfor %}
+        {% else %}
+        <div class="empty-state">
+            <p class="greek-placeholder">οὐδὲν ἐνταῦθα γέγραπται — μηδὲν ἀνησυχεῖτε, ἔρχεται τι καλόν.</p>
+            <p>No posts yet. Something good is coming.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

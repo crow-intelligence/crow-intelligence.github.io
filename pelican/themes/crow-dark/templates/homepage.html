@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}{{ SITENAME }} — AI Consultancy & Strategy{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1>AI Consultancy &amp; Strategy Experts</h1>
+        <p class="hero-sub">
+            We specialize in <strong>AI strategy</strong>, <strong>decision intelligence</strong>, and <strong>AI ethics</strong>,
+            helping organizations implement responsible AI solutions.
+        </p>
+        <div class="hero-cta">
+            <a href="{{ SITEURL }}/blog/index.html" class="btn btn-accent">Read Our Blog</a>
+            <a href="{{ SUBSTACK_URL }}" class="btn btn-secondary" target="_blank">Substack</a>
+            <a href="mailto:{{ EMAIL }}" class="btn btn-outline">Contact Us</a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Our Expertise</h2>
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-accent"></div>
+                <h3>AI Strategy &amp; Implementation</h3>
+                <p>Comprehensive <strong>AI strategy consulting</strong> and implementation guidance. We help organizations develop AI roadmaps, assess readiness, and implement AI solutions that align with business objectives while ensuring responsible AI practices and governance frameworks.</p>
+            </div>
+            <div class="card">
+                <div class="card-accent"></div>
+                <h3>Decision Intelligence</h3>
+                <p>Transform organizational <strong>decision-making</strong> through advanced analytics and cognitive frameworks. Our decision intelligence approach combines data science with behavioral insights to create intelligent systems that augment human decision-making capabilities.</p>
+            </div>
+            <div class="card">
+                <div class="card-accent"></div>
+                <h3>AI Ethics &amp; Governance</h3>
+                <p>Expert guidance on <strong>AI ethics</strong>, responsible AI implementation, and governance frameworks. We help organizations navigate ethical considerations, bias mitigation, transparency requirements, and regulatory compliance in AI deployment.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">Meet Our Team</h2>
+        <div class="team-grid">
+            {% for member in TEAM %}
+            <div class="team-member">
+                <a href="{{ member.linkedin }}" target="_blank" class="team-photo">
+                    <img src="{{ SITEURL }}/{{ member.photo }}" alt="{{ member.name }}">
+                </a>
+                <h3><a href="{{ member.linkedin }}" target="_blank">{{ member.name }}</a></h3>
+                <p><strong>{{ member.role }}.</strong> {{ member.bio }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Projects</h2>
+        {% for project in PROJECTS %}
+        <a href="{{ project.url }}" class="project-card">
+            <img src="{{ project.image }}" alt="{{ project.title }}">
+            <div class="project-info">
+                <span class="project-label">{{ project.label }}</span>
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
