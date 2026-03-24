@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semantic Shifts in Presidential Rhetoric</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #1a1a1f;
+  --surface: #24242b;
+  --border: #35353d;
+  --text: #e8e6e1;
+  --dim: #9a988f;
+  --accent: #e8c97e;
+  --accent2: #3B8BD4;
+  --serif: 'IM Fell English', serif;
+  --mono: 'Courier Prime', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: 2.8rem;
+  color: var(--accent);
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+.hero .subtitle {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--dim);
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.hero .description {
+  color: var(--dim);
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 13px;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.stat { text-align: center; }
+.stat .value { font-size: 2rem; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; }
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+
+.panel.full-width { grid-column: 1 / -1; }
+
+.panel h2 {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--text);
+  margin-bottom: 4px;
+  font-weight: 400;
+}
+
+.panel .panel-desc {
+  font-size: 12px;
+  color: var(--dim);
+  margin-bottom: 16px;
+}
+
+.chart-container { width: 100%; overflow-x: auto; }
+
+svg text { font-family: var(--mono); fill: var(--dim); font-size: 11px; }
+
+.tooltip {
+  position: fixed;
+  background: #1a1a1fee;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 100;
+  max-width: 340px;
+}
+
+.tooltip .tt-title { color: var(--accent); font-weight: 700; font-size: 14px; }
+.tooltip .tt-row { color: var(--dim); margin-top: 2px; }
+.tooltip .tt-val { color: var(--text); font-weight: 700; }
+
+/* Legend */
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; justify-content: center; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--dim); cursor: pointer; opacity: 1; transition: opacity 0.2s; }
+.legend-item.muted { opacity: 0.25; }
+.legend-swatch { width: 12px; height: 12px; border-radius: 2px; }
+
+/* Pills */
+.pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.pill {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--dim);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pill:hover { border-color: var(--accent); color: var(--text); }
+.pill.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+/* Neighbor cards */
+.neighbor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.neighbor-card { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px; }
+.neighbor-card .period-label { font-size: 11px; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.neighbor-row { display: flex; align-items: center; padding: 2px 0; font-size: 12px; }
+.neighbor-row .bar-bg { flex: 1; height: 4px; background: var(--border); border-radius: 2px; margin: 0 8px; }
+.neighbor-row .bar-fill { height: 100%; border-radius: 2px; background: var(--accent2); }
+.neighbor-row .sim-val { color: var(--dim); font-size: 10px; min-width: 36px; text-align: right; }
+
+/* Topic cards */
+.topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.topic-card { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 14px; }
+.topic-card .topic-header { font-size: 13px; color: var(--accent); margin-bottom: 10px; font-weight: 700; }
+.topic-word-row { display: flex; align-items: center; padding: 3px 0; font-size: 12px; }
+.topic-word-row .tw-label { min-width: 90px; color: var(--text); }
+.topic-word-row .tw-bar-bg { flex: 1; height: 6px; background: var(--border); border-radius: 3px; margin: 0 8px; overflow: hidden; }
+.topic-word-row .tw-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+.topic-word-row .tw-val { color: var(--dim); font-size: 10px; min-width: 40px; text-align: right; }
+
+/* Method section */
+.method { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+.method h2 { font-family: var(--serif); font-size: 1.4rem; color: var(--accent); margin-bottom: 16px; }
+.method p { color: var(--dim); margin-bottom: 12px; font-size: 13px; }
+.method code { background: var(--surface); padding: 2px 6px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+.method a { color: var(--accent2); text-decoration: none; }
+.method a:hover { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .dashboard { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2rem; }
+  .stats-row { gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="hero">
+  <h1>Semantic Shifts in Presidential Rhetoric</h1>
+  <p class="subtitle">U.S. Presidential Speeches, 1775–2024</p>
+  <p class="description">
+    Tracking how the meaning of political concepts evolves across 250 years of American presidential discourse.
+    Word embeddings are trained on quarter-century corpora using SVD on PPMI matrices with Count-Min Sketch
+    for memory efficiency, then aligned via orthogonal Procrustes to measure semantic distance over time.
+  </p>
+</div>
+
+<div class="stats-row" id="stats-row"></div>
+
+<div class="dashboard">
+
+  <div class="panel full-width">
+    <h2>Semantic Change Over Time</h2>
+    <p class="panel-desc">Cosine distance between aligned word vectors in consecutive quarter-century periods. Higher values indicate greater semantic shift.</p>
+    <div class="legend" id="legend-timeline"></div>
+    <div class="chart-container" id="timeline-chart"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Shift Intensity Heatmap</h2>
+    <p class="panel-desc">Semantic shift magnitude for each word across period transitions. Darker cells indicate greater meaning change. Hover for details.</p>
+    <div class="chart-container" id="heatmap-chart"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Cumulative Drift from the Founding Era</h2>
+    <p class="panel-desc">How far each word has drifted from its 1775–1799 meaning. Measured as cosine distance from the baseline embedding.</p>
+    <div class="legend" id="legend-cumulative"></div>
+    <div class="chart-container" id="cumulative-chart"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Nearest Neighbors Across Eras</h2>
+    <p class="panel-desc">The most similar words for a given concept in each period — showing how semantic context shifts over time.</p>
+    <div class="pills" id="neighbor-pills"></div>
+    <div class="neighbor-grid" id="neighbor-grid"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Topic Proportions Over Time</h2>
+    <p class="panel-desc">How the prominence of each topic evolves across 250 years of presidential speeches. Topics are extracted using NMF on a unified TF-IDF matrix. Click legend to toggle.</p>
+    <div class="legend" id="legend-topic-ts"></div>
+    <div class="chart-container" id="topic-ts-chart"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Topics Across Eras</h2>
+    <p class="panel-desc">Top words defining each topic within a selected period. Select a period to see how each topic manifests in that era's language.</p>
+    <div class="pills" id="topic-pills"></div>
+    <div class="topic-grid" id="topic-grid"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Vocabulary & Model Statistics</h2>
+    <p class="panel-desc">Number of unique words (min length 3, above frequency threshold) per quarter-century period.</p>
+    <div class="chart-container" id="vocab-chart"></div>
+  </div>
+
+</div>
+
+<div class="method">
+  <h2>Methodology</h2>
+  <p>
+    Each quarter-century corpus of lemmatized presidential speeches is processed into a word–context
+    co-occurrence matrix using skipgrams (window=5). Word and skipgram frequencies are counted with
+    <strong>Count-Min Sketch</strong> probabilistic data structures for memory efficiency.
+  </p>
+  <p>
+    The co-occurrence matrix is transformed into a <strong>Positive Pointwise Mutual Information (PPMI)</strong>
+    matrix with context distribution smoothing (α=0.75), then reduced to 100-dimensional embeddings via
+    <strong>truncated SVD</strong>.
+  </p>
+  <p>
+    To compare embeddings across periods, we use <strong>orthogonal Procrustes alignment</strong>: finding
+    the rotation matrix that best aligns shared vocabulary vectors, then measuring cosine distance for
+    target words in the aligned space.
+  </p>
+  <p>
+    Topics are extracted using <strong>NMF</strong> (Non-negative Matrix Factorization) on a unified TF-IDF
+    matrix built from all periods, enabling consistent topic tracking over time.
+  </p>
+  <p>
+    Built with <a href="https://github.com/crow-intelligence/chronowords">chronowords</a> —
+    install via <code>pip install chronowords</code>.
+  </p>
+</div>
+
+<script>
+const DATA = __DATA_PLACEHOLDER__;
+
+// ─── Color palettes ───
+const WORD_PALETTE = [
+  '#e8c97e','#3B8BD4','#e07c5a','#6bc9a0','#c084d4',
+  '#d4a03b','#5aa5d4','#d46b6b','#7ed4b8','#b48ed4',
+  '#d4c45a','#4e9fd4','#d49c6b','#5ad4a3','#a35ad4',
+  '#d4d46b',
+];
+
+const TOPIC_COLORS = [
+  '#e8c97e','#3B8BD4','#e07c5a','#6bc9a0','#c084d4',
+  '#d4a03b','#5aa5d4','#d46b6b','#7ed4b8','#b48ed4',
+];
+
+function wordColor(word) {
+  const words = DATA.meta.target_words;
+  return WORD_PALETTE[words.indexOf(word) % WORD_PALETTE.length];
+}
+
+function topicColor(id) { return TOPIC_COLORS[id % TOPIC_COLORS.length]; }
+
+// ─── SVG helpers ───
+function svgEl(tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [k, v] of Object.entries(attrs || {})) el.setAttribute(k, v);
+  return el;
+}
+
+function createSVG(container, w, h, margin) {
+  const svg = svgEl('svg', { width: w, height: h, viewBox: `0 0 ${w} ${h}` });
+  container.appendChild(svg);
+  const g = svgEl('g', { transform: `translate(${margin.left},${margin.top})` });
+  svg.appendChild(g);
+  return { svg, g, width: w - margin.left - margin.right, height: h - margin.top - margin.bottom };
+}
+
+// ─── Tooltip ───
+const tt = document.getElementById('tooltip');
+function showTooltip(e, html) {
+  tt.innerHTML = html;
+  tt.style.opacity = 1;
+  const x = Math.min(e.clientX + 14, window.innerWidth - 350);
+  const y = Math.max(e.clientY - 10, 10);
+  tt.style.left = x + 'px';
+  tt.style.top = y + 'px';
+}
+function hideTooltip() { tt.style.opacity = 0; }
+
+// ─── Stats row ───
+function renderStats() {
+  const row = document.getElementById('stats-row');
+  const periods = DATA.meta.periods.length;
+  const avgVocab = Math.round(DATA.vocab_stats.reduce((s,v) => s + v.vocab_size, 0) / DATA.vocab_stats.length);
+  const stats = [
+    { value: periods, label: 'Quarter-centuries' },
+    { value: '250', label: 'Years spanned' },
+    { value: avgVocab.toLocaleString(), label: 'Avg vocabulary' },
+    { value: DATA.meta.target_words.length, label: 'Words tracked' },
+    { value: DATA.global_topics.length, label: 'Topics extracted' },
+  ];
+  row.innerHTML = stats.map(s =>
+    `<div class="stat"><div class="value">${s.value}</div><div class="label">${s.label}</div></div>`
+  ).join('');
+}
+
+// ─── Line chart (reusable) ───
+function renderLineChart(containerId, legendId, data, xKey, yKey, groupKey, colorFn, yAxisLabel) {
+  const container = document.getElementById(containerId);
+  const legendEl = document.getElementById(legendId);
+  const W = Math.min(container.parentElement.clientWidth - 48, 1100);
+  const H = 380;
+  const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+  const { g, width, height } = createSVG(container, W, H, margin);
+
+  const groups = [...new Set(data.map(d => d[groupKey]))];
+  const xs = [...new Set(data.map(d => d[xKey]))].sort((a,b) => a - b);
+  const yMax = Math.max(...data.map(d => d[yKey])) * 1.08;
+  const xScale = x => ((x - xs[0]) / (xs[xs.length-1] - xs[0])) * width;
+  const yScale = y => height - (y / yMax) * height;
+
+  // Grid lines + Y labels
+  for (let i = 0; i <= 5; i++) {
+    const yv = (yMax / 5) * i;
+    const yy = yScale(yv);
+    g.appendChild(svgEl('line', { x1: 0, x2: width, y1: yy, y2: yy, stroke: '#35353d', 'stroke-width': 1 }));
+    g.appendChild(svgEl('text', { x: -8, y: yy + 4, 'text-anchor': 'end', 'font-size': '10px' })).textContent = yv.toFixed(2);
+  }
+
+  // X labels
+  for (const x of xs) {
+    g.appendChild(svgEl('text', { x: xScale(x), y: height + 24, 'text-anchor': 'middle', 'font-size': '10px' })).textContent = x;
+  }
+
+  // Y axis label
+  const yLbl = svgEl('text', { x: -(height/2), y: -45, 'text-anchor': 'middle', transform: 'rotate(-90)', 'font-size': '11px', fill: '#9a988f' });
+  yLbl.textContent = yAxisLabel || 'Value';
+  g.appendChild(yLbl);
+
+  const activeGroups = new Set(groups);
+  const paths = {};
+  const dots = {};
+
+  function draw() {
+    for (const group of groups) {
+      const visible = activeGroups.has(group);
+      const color = colorFn(group);
+      const pts = data.filter(d => d[groupKey] === group).sort((a,b) => a[xKey] - b[xKey]);
+
+      if (!paths[group]) {
+        paths[group] = svgEl('path', { fill: 'none', stroke: color, 'stroke-width': 2.5, 'stroke-linejoin': 'round' });
+        g.appendChild(paths[group]);
+        dots[group] = [];
+        for (const pt of pts) {
+          const circle = svgEl('circle', { r: 4, fill: color, stroke: 'var(--surface)', 'stroke-width': 2, cursor: 'pointer' });
+          circle.addEventListener('mouseenter', e => {
+            showTooltip(e, `<div class="tt-title">${pt[groupKey]}</div><div class="tt-row">Period starting <span class="tt-val">${pt[xKey]}</span></div><div class="tt-row">${yAxisLabel}: <span class="tt-val">${pt[yKey].toFixed(4)}</span></div>`);
+          });
+          circle.addEventListener('mouseleave', hideTooltip);
+          g.appendChild(circle);
+          dots[group].push({ el: circle, pt });
+        }
+      }
+
+      const d = pts.map((p, i) => `${i===0?'M':'L'}${xScale(p[xKey])},${yScale(p[yKey])}`).join('');
+      paths[group].setAttribute('d', d);
+      paths[group].setAttribute('opacity', visible ? 1 : 0.08);
+      for (const dot of dots[group]) {
+        dot.el.setAttribute('cx', xScale(dot.pt[xKey]));
+        dot.el.setAttribute('cy', yScale(dot.pt[yKey]));
+        dot.el.setAttribute('opacity', visible ? 1 : 0.08);
+      }
+    }
+  }
+
+  draw();
+
+  // Legend
+  legendEl.innerHTML = '';
+  for (const group of groups) {
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `<span class="legend-swatch" style="background:${colorFn(group)}"></span>${group}`;
+    item.addEventListener('click', () => {
+      if (activeGroups.has(group)) activeGroups.delete(group); else activeGroups.add(group);
+      item.classList.toggle('muted');
+      draw();
+    });
+    legendEl.appendChild(item);
+  }
+}
+
+// ─── Heatmap ───
+function renderHeatmap() {
+  const container = document.getElementById('heatmap-chart');
+  const data = DATA.heatmap;
+  const words = [...new Set(data.map(d => d.word))];
+  const transitions = [...new Set(data.map(d => d.transition))];
+
+  const cellW = Math.max(100, Math.floor(950 / transitions.length));
+  const cellH = 34;
+  const margin = { top: 120, right: 20, bottom: 20, left: 110 };
+  const W = margin.left + transitions.length * cellW + margin.right;
+  const H = margin.top + words.length * cellH + margin.bottom;
+  const { g } = createSVG(container, W, H, margin);
+
+  const maxShift = Math.max(...data.map(d => d.shift));
+  const minShift = Math.min(...data.map(d => d.shift));
+
+  // Column labels (rotated, positioned above grid with plenty of room)
+  transitions.forEach((t, i) => {
+    const cx = i * cellW + cellW / 2;
+    const txt = svgEl('text', {
+      x: cx, y: -12,
+      'text-anchor': 'end', 'font-size': '10px',
+      transform: `rotate(-45, ${cx}, -12)`,
+    });
+    txt.textContent = t;
+    g.appendChild(txt);
+  });
+
+  // Row labels
+  words.forEach((w, i) => {
+    const txt = svgEl('text', { x: -8, y: i * cellH + cellH/2 + 4, 'text-anchor': 'end', 'font-size': '11px', fill: wordColor(w) });
+    txt.textContent = w;
+    g.appendChild(txt);
+  });
+
+  // Build lookup
+  const lookup = {};
+  data.forEach(d => { lookup[`${d.word}|${d.transition}`] = d.shift; });
+
+  words.forEach((w, wi) => {
+    transitions.forEach((t, ti) => {
+      const val = lookup[`${w}|${t}`];
+      if (val === undefined) return;
+      const intensity = (val - minShift) / (maxShift - minShift);
+
+      // REVERSED: darker = more change (high intensity → deep warm color)
+      // Low shift: dim surface gray → High shift: deep saturated red-brown
+      const r = Math.round(50 + intensity * (180 - 50));
+      const gv = Math.round(50 - intensity * 30);
+      const b = Math.round(55 - intensity * 35);
+
+      const rect = svgEl('rect', {
+        x: ti * cellW + 1, y: wi * cellH + 1,
+        width: cellW - 2, height: cellH - 2, rx: 3,
+        fill: `rgb(${r},${gv},${b})`, cursor: 'pointer',
+      });
+      rect.addEventListener('mouseenter', e => {
+        rect.setAttribute('stroke', 'var(--accent)');
+        rect.setAttribute('stroke-width', '2');
+        showTooltip(e,
+          `<div class="tt-title">"${w}"</div>` +
+          `<div class="tt-row">Transition: <span class="tt-val">${t}</span></div>` +
+          `<div class="tt-row">Semantic shift: <span class="tt-val">${val.toFixed(4)}</span></div>` +
+          `<div class="tt-row" style="margin-top:4px;font-size:11px;color:#9a988f">Darker = more meaning change between periods</div>`
+        );
+      });
+      rect.addEventListener('mouseleave', () => {
+        rect.removeAttribute('stroke');
+        rect.removeAttribute('stroke-width');
+        hideTooltip();
+      });
+      g.appendChild(rect);
+    });
+  });
+
+  // Color legend bar at bottom
+  const legendY = words.length * cellH + 16;
+  const legendW = 200;
+  const legendH = 10;
+  const legendX = (transitions.length * cellW - legendW) / 2;
+  const defs = svgEl('defs', {});
+  const grad = svgEl('linearGradient', { id: 'hm-grad', x1: '0%', y1: '0%', x2: '100%', y2: '0%' });
+  grad.appendChild(svgEl('stop', { offset: '0%', 'stop-color': 'rgb(50,50,55)' }));
+  grad.appendChild(svgEl('stop', { offset: '100%', 'stop-color': 'rgb(180,20,20)' }));
+  defs.appendChild(grad);
+  g.appendChild(defs);
+  g.appendChild(svgEl('rect', { x: legendX, y: legendY, width: legendW, height: legendH, rx: 3, fill: 'url(#hm-grad)' }));
+  const lbl1 = svgEl('text', { x: legendX, y: legendY + 22, 'text-anchor': 'middle', 'font-size': '9px' });
+  lbl1.textContent = 'Less change';
+  g.appendChild(lbl1);
+  const lbl2 = svgEl('text', { x: legendX + legendW, y: legendY + 22, 'text-anchor': 'middle', 'font-size': '9px' });
+  lbl2.textContent = 'More change';
+  g.appendChild(lbl2);
+}
+
+// ─── Neighbors ───
+function renderNeighbors(selectedWord) {
+  const grid = document.getElementById('neighbor-grid');
+  grid.innerHTML = '';
+  for (const period of DATA.meta.periods) {
+    const neighbors = (DATA.neighbors[period] || {})[selectedWord];
+    if (!neighbors || neighbors.length === 0) continue;
+    const maxSim = Math.max(...neighbors.map(n => n.similarity));
+    const card = document.createElement('div');
+    card.className = 'neighbor-card';
+    card.innerHTML = `
+      <div class="period-label">${period}</div>
+      ${neighbors.map(n => `
+        <div class="neighbor-row">
+          <span>${n.word}</span>
+          <div class="bar-bg"><div class="bar-fill" style="width:${(n.similarity / maxSim * 100).toFixed(1)}%"></div></div>
+          <span class="sim-val">${n.similarity.toFixed(3)}</span>
+        </div>
+      `).join('')}
+    `;
+    grid.appendChild(card);
+  }
+}
+
+function renderNeighborPills() {
+  const pillsEl = document.getElementById('neighbor-pills');
+  const words = ['freedom', 'democracy', 'government', 'war', 'peace', 'power'];
+  let active = words[0];
+  function render() {
+    pillsEl.innerHTML = '';
+    for (const w of words) {
+      const pill = document.createElement('button');
+      pill.className = 'pill' + (w === active ? ' active' : '');
+      pill.textContent = w;
+      pill.addEventListener('click', () => { active = w; render(); renderNeighbors(w); });
+      pillsEl.appendChild(pill);
+    }
+  }
+  render();
+  renderNeighbors(active);
+}
+
+// ─── Topic time series (stacked area) ───
+function renderTopicTimeSeries() {
+  const container = document.getElementById('topic-ts-chart');
+  const legendEl = document.getElementById('legend-topic-ts');
+  const tsData = DATA.topic_timeseries;
+  const topics = DATA.global_topics;
+  const periods = DATA.meta.periods;
+  const years = periods.map(p => parseInt(p.split('-')[0]));
+
+  const W = Math.min(container.parentElement.clientWidth - 48, 1100);
+  const H = 400;
+  const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+  const { g, width, height } = createSVG(container, W, H, margin);
+
+  const xScale = x => ((x - years[0]) / (years[years.length-1] - years[0])) * width;
+  const yScale = y => height - y * height;
+
+  // Grid
+  for (let i = 0; i <= 5; i++) {
+    const yy = yScale(i * 0.2);
+    g.appendChild(svgEl('line', { x1: 0, x2: width, y1: yy, y2: yy, stroke: '#35353d' }));
+    g.appendChild(svgEl('text', { x: -8, y: yy + 4, 'text-anchor': 'end', 'font-size': '10px' })).textContent = (i * 20) + '%';
+  }
+
+  for (const yr of years) {
+    g.appendChild(svgEl('text', { x: xScale(yr), y: height + 24, 'text-anchor': 'middle', 'font-size': '10px' })).textContent = yr;
+  }
+
+  const yLbl = svgEl('text', { x: -(height/2), y: -45, 'text-anchor': 'middle', transform: 'rotate(-90)', 'font-size': '11px', fill: '#9a988f' });
+  yLbl.textContent = 'Topic Proportion';
+  g.appendChild(yLbl);
+
+  // Build stacked data: for each year, accumulate topic proportions
+  const stackedByYear = {};
+  for (const yr of years) {
+    const yearData = tsData.filter(d => d.year === yr);
+    let cumulative = 0;
+    stackedByYear[yr] = [];
+    for (let t = 0; t < topics.length; t++) {
+      const entry = yearData.find(d => d.topic_id === t);
+      const val = entry ? entry.proportion : 0;
+      stackedByYear[yr].push({ y0: cumulative, y1: cumulative + val, val, topic_id: t });
+      cumulative += val;
+    }
+  }
+
+  const activeTopics = new Set(topics.map((_, i) => i));
+  const areaEls = {};
+  const dotEls = {};
+
+  function draw() {
+    // Recompute stacked with only active topics
+    const filteredStack = {};
+    for (const yr of years) {
+      let cumulative = 0;
+      filteredStack[yr] = [];
+      for (let t = 0; t < topics.length; t++) {
+        const orig = stackedByYear[yr][t];
+        if (activeTopics.has(t)) {
+          filteredStack[yr].push({ y0: cumulative, y1: cumulative + orig.val, val: orig.val, topic_id: t });
+          cumulative += orig.val;
+        } else {
+          filteredStack[yr].push({ y0: cumulative, y1: cumulative, val: 0, topic_id: t });
+        }
+      }
+    }
+
+    // Draw stacked areas (bottom to top)
+    for (let t = topics.length - 1; t >= 0; t--) {
+      const color = topicColor(t);
+      // Build area path
+      const topLine = years.map(yr => `${xScale(yr)},${yScale(filteredStack[yr][t].y1)}`);
+      const bottomLine = years.slice().reverse().map(yr => `${xScale(yr)},${yScale(filteredStack[yr][t].y0)}`);
+      const pathD = `M${topLine.join('L')}L${bottomLine.join('L')}Z`;
+
+      if (!areaEls[t]) {
+        areaEls[t] = svgEl('path', { fill: color, opacity: 0.6, stroke: color, 'stroke-width': 1 });
+        g.appendChild(areaEls[t]);
+      }
+      areaEls[t].setAttribute('d', pathD);
+      areaEls[t].setAttribute('opacity', activeTopics.has(t) ? 0.6 : 0.05);
+    }
+
+    // Dots on top of areas for tooltip
+    for (let t = 0; t < topics.length; t++) {
+      if (!dotEls[t]) {
+        dotEls[t] = [];
+        for (const yr of years) {
+          const circle = svgEl('circle', { r: 4, fill: topicColor(t), stroke: 'var(--surface)', 'stroke-width': 1.5, cursor: 'pointer', opacity: 0 });
+          const topicName = topics[t].name;
+          circle.addEventListener('mouseenter', function(e) {
+            this.setAttribute('opacity', 1);
+            this.setAttribute('r', 6);
+            const val = filteredStack[yr][t].val;
+            showTooltip(e,
+              `<div class="tt-title">${topicName}</div>` +
+              `<div class="tt-row">Period: <span class="tt-val">${yr}–${yr + 24}</span></div>` +
+              `<div class="tt-row">Proportion: <span class="tt-val">${(val * 100).toFixed(1)}%</span></div>`
+            );
+          });
+          circle.addEventListener('mouseleave', function() { this.setAttribute('opacity', 0); this.setAttribute('r', 4); hideTooltip(); });
+          g.appendChild(circle);
+          dotEls[t].push({ el: circle, yr });
+        }
+      }
+      for (const dot of dotEls[t]) {
+        const mid = (filteredStack[dot.yr][t].y0 + filteredStack[dot.yr][t].y1) / 2;
+        dot.el.setAttribute('cx', xScale(dot.yr));
+        dot.el.setAttribute('cy', yScale(mid));
+      }
+    }
+  }
+
+  draw();
+
+  // Legend
+  legendEl.innerHTML = '';
+  for (let t = 0; t < topics.length; t++) {
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `<span class="legend-swatch" style="background:${topicColor(t)}"></span>${topics[t].name}`;
+    item.addEventListener('click', () => {
+      if (activeTopics.has(t)) activeTopics.delete(t); else activeTopics.add(t);
+      item.classList.toggle('muted');
+      draw();
+    });
+    legendEl.appendChild(item);
+  }
+}
+
+// ─── Topics per period ───
+function renderTopics(selectedPeriod) {
+  const grid = document.getElementById('topic-grid');
+  const topics = DATA.topics_by_period[selectedPeriod];
+  if (!topics) { grid.innerHTML = '<p style="color:var(--dim)">No topics for this period.</p>'; return; }
+
+  grid.innerHTML = '';
+  for (const topic of topics) {
+    if (!topic.words || topic.words.length === 0) continue;
+    const maxWeight = Math.max(...topic.words.map(w => w.weight));
+    const color = topicColor(topic.id);
+    const card = document.createElement('div');
+    card.className = 'topic-card';
+    card.innerHTML = `
+      <div class="topic-header">${topic.name}</div>
+      ${topic.words.map(w => `
+        <div class="topic-word-row">
+          <span class="tw-label">${w.word}</span>
+          <div class="tw-bar-bg"><div class="tw-bar-fill" style="width:${(w.weight / maxWeight * 100).toFixed(1)}%;background:${color}"></div></div>
+          <span class="tw-val">${(w.weight * 100).toFixed(1)}%</span>
+        </div>
+      `).join('')}
+    `;
+    grid.appendChild(card);
+  }
+}
+
+function renderTopicPills() {
+  const pillsEl = document.getElementById('topic-pills');
+  const periods = DATA.meta.periods;
+  let active = periods[0];
+  function render() {
+    pillsEl.innerHTML = '';
+    for (const p of periods) {
+      const pill = document.createElement('button');
+      pill.className = 'pill' + (p === active ? ' active' : '');
+      pill.textContent = p;
+      pill.addEventListener('click', () => { active = p; render(); renderTopics(p); });
+      pillsEl.appendChild(pill);
+    }
+  }
+  render();
+  renderTopics(active);
+}
+
+// ─── Vocab bar chart ───
+function renderVocabChart() {
+  const container = document.getElementById('vocab-chart');
+  const data = DATA.vocab_stats;
+  const W = Math.min(container.parentElement.clientWidth - 48, 1100);
+  const H = 260;
+  const margin = { top: 20, right: 20, bottom: 40, left: 55 };
+  const { g, width, height } = createSVG(container, W, H, margin);
+
+  const maxVocab = Math.max(...data.map(d => d.vocab_size));
+  const barW = width / data.length * 0.7;
+  const gap = width / data.length;
+
+  data.forEach((d, i) => {
+    const barH = (d.vocab_size / maxVocab) * height;
+    const x = i * gap + (gap - barW) / 2;
+    const y = height - barH;
+
+    const rect = svgEl('rect', { x, y, width: barW, height: barH, rx: 3, fill: 'var(--accent2)', opacity: 0.8, cursor: 'pointer' });
+    rect.addEventListener('mouseenter', e => {
+      rect.setAttribute('opacity', 1);
+      showTooltip(e,
+        `<div class="tt-title">${d.period}</div>` +
+        `<div class="tt-row">Unique words: <span class="tt-val">${d.vocab_size.toLocaleString()}</span></div>` +
+        `<div class="tt-row">Embedding dimensions: <span class="tt-val">${d.embedding_dim}</span></div>`
+      );
+    });
+    rect.addEventListener('mouseleave', () => { rect.setAttribute('opacity', 0.8); hideTooltip(); });
+    g.appendChild(rect);
+
+    const valTxt = svgEl('text', { x: x + barW/2, y: y - 6, 'text-anchor': 'middle', 'font-size': '10px', fill: 'var(--accent)' });
+    valTxt.textContent = d.vocab_size;
+    g.appendChild(valTxt);
+
+    const label = svgEl('text', { x: x + barW/2, y: height + 20, 'text-anchor': 'middle', 'font-size': '9px' });
+    label.textContent = d.period;
+    g.appendChild(label);
+  });
+}
+
+// ─── Init ───
+function init() {
+  renderStats();
+  renderLineChart('timeline-chart', 'legend-timeline', DATA.consecutive_shifts, 'year', 'shift', 'word', wordColor, 'Cosine Distance');
+  renderHeatmap();
+  renderLineChart('cumulative-chart', 'legend-cumulative', DATA.cumulative_shifts, 'year', 'shift', 'word', wordColor, 'Cosine Distance');
+  renderNeighborPills();
+  renderTopicTimeSeries();
+  renderTopicPills();
+  renderVocabChart();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semantic Shifts in Presidential Rhetoric</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #1a1a1f;
+  --surface: #24242b;
+  --border: #35353d;
+  --text: #e8e6e1;
+  --dim: #9a988f;
+  --accent: #e8c97e;
+  --accent2: #3B8BD4;
+  --serif: 'IM Fell English', serif;
+  --mono: 'Courier Prime', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: 2.8rem;
+  color: var(--accent);
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+.hero .subtitle {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--dim);
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.hero .description {
+  color: var(--dim);
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 13px;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.stat { text-align: center; }
+.stat .value { font-size: 2rem; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; }
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+
+.panel.full-width { grid-column: 1 / -1; }
+
+.panel h2 {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--text);
+  margin-bottom: 4px;
+  font-weight: 400;
+}
+
+.panel .panel-desc {
+  font-size: 12px;
+  color: var(--dim);
+  margin-bottom: 16px;
+}
+
+.chart-container { width: 100%; overflow-x: auto; }
+
+svg text { font-family: var(--mono); fill: var(--dim); font-size: 11px; }
+
+.tooltip {
+  position: fixed;
+  background: #1a1a1fee;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 100;
+  max-width: 340px;
+}
+
+.tooltip .tt-title { color: var(--accent); font-weight: 700; font-size: 14px; }
+.tooltip .tt-row { color: var(--dim); margin-top: 2px; }
+.tooltip .tt-val { color: var(--text); font-weight: 700; }
+
+/* Legend */
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; justify-content: center; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--dim); cursor: pointer; opacity: 1; transition: opacity 0.2s; }
+.legend-item.muted { opacity: 0.25; }
+.legend-swatch { width: 12px; height: 12px; border-radius: 2px; }
+
+/* Pills */
+.pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.pill {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--dim);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pill:hover { border-color: var(--accent); color: var(--text); }
+.pill.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+/* Neighbor cards */
+.neighbor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.neighbor-card { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px; }
+.neighbor-card .period-label { font-size: 11px; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.neighbor-row { display: flex; align-items: center; padding: 2px 0; font-size: 12px; }
+.neighbor-row .bar-bg { flex: 1; height: 4px; background: var(--border); border-radius: 2px; margin: 0 8px; }
+.neighbor-row .bar-fill { height: 100%; border-radius: 2px; background: var(--accent2); }
+.neighbor-row .sim-val { color: var(--dim); font-size: 10px; min-width: 36px; text-align: right; }
+
+/* Topic cards */
+.topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.topic-card { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 14px; }
+.topic-card .topic-header { font-size: 13px; color: var(--accent); margin-bottom: 10px; font-weight: 700; }
+.topic-word-row { display: flex; align-items: center; padding: 3px 0; font-size: 12px; }
+.topic-word-row .tw-label { min-width: 90px; color: var(--text); }
+.topic-word-row .tw-bar-bg { flex: 1; height: 6px; background: var(--border); border-radius: 3px; margin: 0 8px; overflow: hidden; }
+.topic-word-row .tw-bar-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+.topic-word-row .tw-val { color: var(--dim); font-size: 10px; min-width: 40px; text-align: right; }
+
+/* Method section */
+.method { max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; }
+.method h2 { font-family: var(--serif); font-size: 1.4rem; color: var(--accent); margin-bottom: 16px; }
+.method p { color: var(--dim); margin-bottom: 12px; font-size: 13px; }
+.method code { background: var(--surface); padding: 2px 6px; border-radius: 3px; font-size: 12px; color: var(--accent); }
+.method a { color: var(--accent2); text-decoration: none; }
+.method a:hover { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .dashboard { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2rem; }
+  .stats-row { gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="hero">
+  <h1>Semantic Shifts in Presidential Rhetoric</h1>
+  <p class="subtitle">U.S. Presidential Speeches, 1775–2024</p>
+  <p class="description">
+    Tracking how the meaning of political concepts evolves across 250 years of American presidential discourse.
+    Word embeddings are trained on quarter-century corpora using SVD on PPMI matrices with Count-Min Sketch
+    for memory efficiency, then aligned via orthogonal Procrustes to measure semantic distance over time.
+  </p>
+</div>
+
+<div class="stats-row" id="stats-row"></div>
+
+<div class="dashboard">
+
+  <div class="panel full-width">
+    <h2>Semantic Change Over Time</h2>
+    <p class="panel-desc">Cosine distance between aligned word vectors in consecutive quarter-century periods. Higher values indicate greater semantic shift.</p>
+    <div class="legend" id="legend-timeline"></div>
+    <div class="chart-container" id="timeline-chart"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Shift Intensity Heatmap</h2>
+    <p class="panel-desc">Semantic shift magnitude for each word across period transitions. Darker cells indicate greater meaning change. Hover for details.</p>
+    <div class="chart-container" id="heatmap-chart"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Cumulative Drift from the Founding Era</h2>
+    <p class="panel-desc">How far each word has drifted from its 1775–1799 meaning. Measured as cosine distance from the baseline embedding.</p>
+    <div class="legend" id="legend-cumulative"></div>
+    <div class="chart-container" id="cumulative-chart"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Nearest Neighbors Across Eras</h2>
+    <p class="panel-desc">The most similar words for a given concept in each period — showing how semantic context shifts over time.</p>
+    <div class="pills" id="neighbor-pills"></div>
+    <div class="neighbor-grid" id="neighbor-grid"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Topic Proportions Over Time</h2>
+    <p class="panel-desc">How the prominence of each topic evolves across 250 years of presidential speeches. Topics are extracted using NMF on a unified TF-IDF matrix. Click legend to toggle.</p>
+    <div class="legend" id="legend-topic-ts"></div>
+    <div class="chart-container" id="topic-ts-chart"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Topics Across Eras</h2>
+    <p class="panel-desc">Top words defining each topic within a selected period. Select a period to see how each topic manifests in that era's language.</p>
+    <div class="pills" id="topic-pills"></div>
+    <div class="topic-grid" id="topic-grid"></div>
+  </div>
+
+  <div class="panel full-width">
+    <h2>Vocabulary & Model Statistics</h2>
+    <p class="panel-desc">Number of unique words (min length 3, above frequency threshold) per quarter-century period.</p>
+    <div class="chart-container" id="vocab-chart"></div>
+  </div>
+
+</div>
+
+<div class="method">
+  <h2>Methodology</h2>
+  <p>
+    Each quarter-century corpus of lemmatized presidential speeches is processed into a word–context
+    co-occurrence matrix using skipgrams (window=5). Word and skipgram frequencies are counted with
+    <strong>Count-Min Sketch</strong> probabilistic data structures for memory efficiency.
+  </p>
+  <p>
+    The co-occurrence matrix is transformed into a <strong>Positive Pointwise Mutual Information (PPMI)</strong>
+    matrix with context distribution smoothing (α=0.75), then reduced to 100-dimensional embeddings via
+    <strong>truncated SVD</strong>.
+  </p>
+  <p>
+    To compare embeddings across periods, we use <strong>orthogonal Procrustes alignment</strong>: finding
+    the rotation matrix that best aligns shared vocabulary vectors, then measuring cosine distance for
+    target words in the aligned space.
+  </p>
+  <p>
+    Topics are extracted using <strong>NMF</strong> (Non-negative Matrix Factorization) on a unified TF-IDF
+    matrix built from all periods, enabling consistent topic tracking over time.
+  </p>
+  <p>
+    Built with <a href="https://github.com/crow-intelligence/chronowords">chronowords</a> —
+    install via <code>pip install chronowords</code>.
+  </p>
+</div>
+
+<script>
+const DATA = {"meta":{"title":"Semantic Shifts in Presidential Rhetoric","subtitle":"U.S. Presidential Speeches 1775\u20132024","description":"Tracking how the meaning of political concepts evolves across 250 years of American presidential discourse, using memory-efficient word embeddings and Procrustes alignment.","periods":["1775-1799","1800-1824","1825-1849","1850-1874","1875-1899","1900-1924","1925-1949","1950-1974","1975-1999","2000-2024"],"target_words":["freedom","democracy","government","power","war","peace","america","union","state","constitution","rights","justice","law","nation","security","economy"]},"vocab_stats":[{"period":"1775-1799","year":1775,"vocab_size":1369,"embedding_dim":100},{"period":"1800-1824","year":1800,"vocab_size":1331,"embedding_dim":100},{"period":"1825-1849","year":1825,"vocab_size":1298,"embedding_dim":100},{"period":"1850-1874","year":1850,"vocab_size":1330,"embedding_dim":100},{"period":"1875-1899","year":1875,"vocab_size":1361,"embedding_dim":100},{"period":"1900-1924","year":1900,"vocab_size":1383,"embedding_dim":100},{"period":"1925-1949","year":1925,"vocab_size":1305,"embedding_dim":100},{"period":"1950-1974","year":1950,"vocab_size":1255,"embedding_dim":100},{"period":"1975-1999","year":1975,"vocab_size":1190,"embedding_dim":100},{"period":"2000-2024","year":2000,"vocab_size":1188,"embedding_dim":100}],"alignment_stats":[{"from":"1775-1799","to":"1800-1824","aligned_words":726,"avg_similarity":0.3095},{"from":"1800-1824","to":"1825-1849","aligned_words":793,"avg_similarity":0.3026},{"from":"1825-1849","to":"1850-1874","aligned_words":824,"avg_similarity":0.2916},{"from":"1850-1874","to":"1875-1899","aligned_words":780,"avg_similarity":0.3014},{"from":"1875-1899","to":"1900-1924","aligned_words":783,"avg_similarity":0.3026},{"from":"1900-1924","to":"1925-1949","aligned_words":781,"avg_similarity":0.3004},{"from":"1925-1949","to":"1950-1974","aligned_words":766,"avg_similarity":0.3067},{"from":"1950-1974","to":"1975-1999","aligned_words":807,"avg_similarity":0.2991},{"from":"1975-1999","to":"2000-2024","aligned_words":804,"avg_similarity":0.3018}],"consecutive_shifts":[{"from":"1775-1799","to":"1800-1824","word":"freedom","shift":1.0466,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"government","shift":0.7257,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"power","shift":0.6791,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"war","shift":0.5898,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"peace","shift":0.8674,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"america","shift":0.7893,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"union","shift":0.6056,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"state","shift":0.6203,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"constitution","shift":0.6823,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"justice","shift":0.7038,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"law","shift":0.7032,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"nation","shift":0.6027,"year":1775},{"from":"1775-1799","to":"1800-1824","word":"security","shift":0.7379,"year":1775},{"from":"1800-1824","to":"1825-1849","word":"freedom","shift":0.7269,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"government","shift":0.5744,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"power","shift":0.8022,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"war","shift":0.7644,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"peace","shift":0.5237,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"america","shift":0.8937,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"union","shift":0.5398,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"state","shift":0.7117,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"constitution","shift":0.6857,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"justice","shift":0.734,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"law","shift":0.7668,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"nation","shift":0.5742,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"security","shift":0.6949,"year":1800},{"from":"1800-1824","to":"1825-1849","word":"economy","shift":0.5396,"year":1800},{"from":"1825-1849","to":"1850-1874","word":"freedom","shift":0.7286,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"government","shift":0.8227,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"power","shift":0.6028,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"war","shift":0.6882,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"peace","shift":0.7049,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"america","shift":0.6871,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"union","shift":0.6817,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"state","shift":0.7214,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"constitution","shift":0.7647,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"justice","shift":0.7487,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"law","shift":0.7543,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"nation","shift":0.7442,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"security","shift":0.6641,"year":1825},{"from":"1825-1849","to":"1850-1874","word":"economy","shift":1.0735,"year":1825},{"from":"1850-1874","to":"1875-1899","word":"freedom","shift":0.9431,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"government","shift":0.5679,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"power","shift":0.5231,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"war","shift":0.7375,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"peace","shift":0.8308,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"america","shift":0.7361,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"union","shift":0.5645,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"state","shift":0.7895,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"constitution","shift":0.6586,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"justice","shift":0.4988,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"law","shift":0.7831,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"nation","shift":0.5481,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"security","shift":0.601,"year":1850},{"from":"1850-1874","to":"1875-1899","word":"economy","shift":0.8284,"year":1850},{"from":"1875-1899","to":"1900-1924","word":"freedom","shift":1.0566,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"government","shift":0.8542,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"power","shift":0.6691,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"war","shift":0.6789,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"peace","shift":0.6832,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"america","shift":0.7868,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"union","shift":0.6648,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"state","shift":0.668,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"constitution","shift":0.6013,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"justice","shift":0.7111,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"law","shift":0.7178,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"nation","shift":0.6502,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"security","shift":0.7985,"year":1875},{"from":"1875-1899","to":"1900-1924","word":"economy","shift":0.7821,"year":1875},{"from":"1900-1924","to":"1925-1949","word":"freedom","shift":0.6493,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"democracy","shift":1.0501,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"government","shift":0.6386,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"power","shift":0.606,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"war","shift":0.6849,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"peace","shift":0.7736,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"america","shift":0.6734,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"union","shift":0.6909,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"state","shift":0.7158,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"constitution","shift":0.6719,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"justice","shift":0.6715,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"law","shift":0.791,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"nation","shift":0.5511,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"security","shift":0.6915,"year":1900},{"from":"1900-1924","to":"1925-1949","word":"economy","shift":0.6035,"year":1900},{"from":"1925-1949","to":"1950-1974","word":"freedom","shift":0.6769,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"democracy","shift":0.78,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"government","shift":0.621,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"power","shift":0.6216,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"war","shift":0.4992,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"peace","shift":0.6635,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"america","shift":0.5364,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"union","shift":0.5733,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"state","shift":0.6452,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"constitution","shift":0.7274,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"justice","shift":0.6678,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"law","shift":0.7566,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"nation","shift":0.6531,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"security","shift":0.6836,"year":1925},{"from":"1925-1949","to":"1950-1974","word":"economy","shift":0.6665,"year":1925},{"from":"1950-1974","to":"1975-1999","word":"freedom","shift":0.7042,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"democracy","shift":0.6874,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"government","shift":0.7788,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"power","shift":0.7324,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"war","shift":0.6215,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"peace","shift":0.7716,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"america","shift":0.6736,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"union","shift":0.6968,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"state","shift":0.599,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"constitution","shift":0.5871,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"justice","shift":0.7673,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"law","shift":0.8497,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"nation","shift":0.8033,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"security","shift":0.6961,"year":1950},{"from":"1950-1974","to":"1975-1999","word":"economy","shift":0.5129,"year":1950},{"from":"1975-1999","to":"2000-2024","word":"freedom","shift":0.5371,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"democracy","shift":0.7381,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"government","shift":0.6441,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"power","shift":0.6622,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"war","shift":0.5743,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"peace","shift":0.7769,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"america","shift":0.6263,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"union","shift":0.6661,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"state","shift":0.8028,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"constitution","shift":0.7092,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"justice","shift":0.8008,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"law","shift":0.59,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"nation","shift":0.8907,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"security","shift":0.7125,"year":1975},{"from":"1975-1999","to":"2000-2024","word":"economy","shift":0.6975,"year":1975}],"cumulative_shifts":[{"period":"1800-1824","word":"freedom","shift":1.0466,"year":1800},{"period":"1800-1824","word":"government","shift":0.7257,"year":1800},{"period":"1800-1824","word":"power","shift":0.6791,"year":1800},{"period":"1800-1824","word":"war","shift":0.5898,"year":1800},{"period":"1800-1824","word":"peace","shift":0.8674,"year":1800},{"period":"1800-1824","word":"america","shift":0.7893,"year":1800},{"period":"1800-1824","word":"union","shift":0.6056,"year":1800},{"period":"1800-1824","word":"state","shift":0.6203,"year":1800},{"period":"1800-1824","word":"constitution","shift":0.6823,"year":1800},{"period":"1800-1824","word":"justice","shift":0.7038,"year":1800},{"period":"1800-1824","word":"law","shift":0.7032,"year":1800},{"period":"1800-1824","word":"nation","shift":0.6027,"year":1800},{"period":"1800-1824","word":"security","shift":0.7379,"year":1800},{"period":"1825-1849","word":"freedom","shift":1.1507,"year":1825},{"period":"1825-1849","word":"government","shift":0.689,"year":1825},{"period":"1825-1849","word":"power","shift":0.8824,"year":1825},{"period":"1825-1849","word":"war","shift":0.8894,"year":1825},{"period":"1825-1849","word":"peace","shift":0.6641,"year":1825},{"period":"1825-1849","word":"america","shift":0.598,"year":1825},{"period":"1825-1849","word":"union","shift":0.5764,"year":1825},{"period":"1825-1849","word":"state","shift":0.7318,"year":1825},{"period":"1825-1849","word":"constitution","shift":0.4678,"year":1825},{"period":"1825-1849","word":"justice","shift":0.7933,"year":1825},{"period":"1825-1849","word":"law","shift":0.6787,"year":1825},{"period":"1825-1849","word":"nation","shift":0.5922,"year":1825},{"period":"1825-1849","word":"security","shift":0.6351,"year":1825},{"period":"1850-1874","word":"freedom","shift":0.8759,"year":1850},{"period":"1850-1874","word":"government","shift":0.6067,"year":1850},{"period":"1850-1874","word":"power","shift":0.6553,"year":1850},{"period":"1850-1874","word":"war","shift":0.5974,"year":1850},{"period":"1850-1874","word":"peace","shift":0.6966,"year":1850},{"period":"1850-1874","word":"america","shift":0.7042,"year":1850},{"period":"1850-1874","word":"union","shift":0.7451,"year":1850},{"period":"1850-1874","word":"state","shift":0.7477,"year":1850},{"period":"1850-1874","word":"constitution","shift":0.5633,"year":1850},{"period":"1850-1874","word":"justice","shift":0.6018,"year":1850},{"period":"1850-1874","word":"law","shift":0.5725,"year":1850},{"period":"1850-1874","word":"nation","shift":0.6425,"year":1850},{"period":"1850-1874","word":"security","shift":0.6028,"year":1850},{"period":"1875-1899","word":"freedom","shift":0.963,"year":1875},{"period":"1875-1899","word":"government","shift":0.5882,"year":1875},{"period":"1875-1899","word":"power","shift":0.5461,"year":1875},{"period":"1875-1899","word":"war","shift":0.7026,"year":1875},{"period":"1875-1899","word":"peace","shift":0.6462,"year":1875},{"period":"1875-1899","word":"america","shift":0.6775,"year":1875},{"period":"1875-1899","word":"union","shift":0.7158,"year":1875},{"period":"1875-1899","word":"state","shift":0.5861,"year":1875},{"period":"1875-1899","word":"constitution","shift":0.4939,"year":1875},{"period":"1875-1899","word":"justice","shift":0.6484,"year":1875},{"period":"1875-1899","word":"law","shift":0.6948,"year":1875},{"period":"1875-1899","word":"nation","shift":0.7147,"year":1875},{"period":"1875-1899","word":"security","shift":0.4642,"year":1875},{"period":"1900-1924","word":"freedom","shift":0.9494,"year":1900},{"period":"1900-1924","word":"government","shift":0.7029,"year":1900},{"period":"1900-1924","word":"power","shift":0.795,"year":1900},{"period":"1900-1924","word":"war","shift":0.6763,"year":1900},{"period":"1900-1924","word":"peace","shift":0.7665,"year":1900},{"period":"1900-1924","word":"america","shift":0.6608,"year":1900},{"period":"1900-1924","word":"union","shift":0.6804,"year":1900},{"period":"1900-1924","word":"state","shift":0.6061,"year":1900},{"period":"1900-1924","word":"constitution","shift":0.9251,"year":1900},{"period":"1900-1924","word":"justice","shift":0.8012,"year":1900},{"period":"1900-1924","word":"law","shift":0.6343,"year":1900},{"period":"1900-1924","word":"nation","shift":0.6881,"year":1900},{"period":"1900-1924","word":"security","shift":0.5887,"year":1900},{"period":"1925-1949","word":"freedom","shift":0.809,"year":1925},{"period":"1925-1949","word":"government","shift":0.6516,"year":1925},{"period":"1925-1949","word":"power","shift":0.6937,"year":1925},{"period":"1925-1949","word":"war","shift":0.6443,"year":1925},{"period":"1925-1949","word":"peace","shift":0.4724,"year":1925},{"period":"1925-1949","word":"america","shift":0.6238,"year":1925},{"period":"1925-1949","word":"union","shift":0.5804,"year":1925},{"period":"1925-1949","word":"state","shift":0.54,"year":1925},{"period":"1925-1949","word":"constitution","shift":0.5209,"year":1925},{"period":"1925-1949","word":"justice","shift":0.5309,"year":1925},{"period":"1925-1949","word":"law","shift":0.6999,"year":1925},{"period":"1925-1949","word":"nation","shift":0.61,"year":1925},{"period":"1925-1949","word":"security","shift":0.6263,"year":1925},{"period":"1950-1974","word":"freedom","shift":1.2032,"year":1950},{"period":"1950-1974","word":"government","shift":0.6866,"year":1950},{"period":"1950-1974","word":"power","shift":0.6476,"year":1950},{"period":"1950-1974","word":"war","shift":0.6723,"year":1950},{"period":"1950-1974","word":"peace","shift":0.5626,"year":1950},{"period":"1950-1974","word":"america","shift":0.5411,"year":1950},{"period":"1950-1974","word":"union","shift":0.7634,"year":1950},{"period":"1950-1974","word":"state","shift":0.667,"year":1950},{"period":"1950-1974","word":"constitution","shift":0.7121,"year":1950},{"period":"1950-1974","word":"justice","shift":0.6723,"year":1950},{"period":"1950-1974","word":"law","shift":0.8583,"year":1950},{"period":"1950-1974","word":"nation","shift":0.5821,"year":1950},{"period":"1950-1974","word":"security","shift":0.903,"year":1950},{"period":"1975-1999","word":"freedom","shift":1.0654,"year":1975},{"period":"1975-1999","word":"government","shift":0.6568,"year":1975},{"period":"1975-1999","word":"power","shift":0.6679,"year":1975},{"period":"1975-1999","word":"war","shift":0.559,"year":1975},{"period":"1975-1999","word":"peace","shift":0.7529,"year":1975},{"period":"1975-1999","word":"america","shift":0.6488,"year":1975},{"period":"1975-1999","word":"union","shift":0.5569,"year":1975},{"period":"1975-1999","word":"state","shift":0.6019,"year":1975},{"period":"1975-1999","word":"constitution","shift":0.6825,"year":1975},{"period":"1975-1999","word":"justice","shift":0.5635,"year":1975},{"period":"1975-1999","word":"law","shift":0.6693,"year":1975},{"period":"1975-1999","word":"nation","shift":0.7283,"year":1975},{"period":"1975-1999","word":"security","shift":0.6846,"year":1975},{"period":"2000-2024","word":"freedom","shift":1.0848,"year":2000},{"period":"2000-2024","word":"government","shift":0.5821,"year":2000},{"period":"2000-2024","word":"power","shift":0.5546,"year":2000},{"period":"2000-2024","word":"war","shift":0.5905,"year":2000},{"period":"2000-2024","word":"peace","shift":0.5948,"year":2000},{"period":"2000-2024","word":"america","shift":0.6159,"year":2000},{"period":"2000-2024","word":"union","shift":0.833,"year":2000},{"period":"2000-2024","word":"state","shift":0.6259,"year":2000},{"period":"2000-2024","word":"constitution","shift":0.5114,"year":2000},{"period":"2000-2024","word":"justice","shift":0.66,"year":2000},{"period":"2000-2024","word":"law","shift":0.7052,"year":2000},{"period":"2000-2024","word":"nation","shift":0.688,"year":2000},{"period":"2000-2024","word":"security","shift":0.6384,"year":2000}],"heatmap":[{"word":"freedom","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":1.0466},{"word":"government","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.7257},{"word":"power","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.6791},{"word":"war","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.5898},{"word":"peace","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.8674},{"word":"america","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.7893},{"word":"union","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.6056},{"word":"state","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.6203},{"word":"constitution","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.6823},{"word":"justice","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.7038},{"word":"law","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.7032},{"word":"nation","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.6027},{"word":"security","transition":"1775-1799 \u2192 1800-1824","year":1775,"shift":0.7379},{"word":"freedom","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.7269},{"word":"government","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.5744},{"word":"power","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.8022},{"word":"war","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.7644},{"word":"peace","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.5237},{"word":"america","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.8937},{"word":"union","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.5398},{"word":"state","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.7117},{"word":"constitution","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.6857},{"word":"justice","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.734},{"word":"law","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.7668},{"word":"nation","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.5742},{"word":"security","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.6949},{"word":"economy","transition":"1800-1824 \u2192 1825-1849","year":1800,"shift":0.5396},{"word":"freedom","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.7286},{"word":"government","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.8227},{"word":"power","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.6028},{"word":"war","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.6882},{"word":"peace","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.7049},{"word":"america","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.6871},{"word":"union","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.6817},{"word":"state","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.7214},{"word":"constitution","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.7647},{"word":"justice","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.7487},{"word":"law","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.7543},{"word":"nation","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.7442},{"word":"security","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":0.6641},{"word":"economy","transition":"1825-1849 \u2192 1850-1874","year":1825,"shift":1.0735},{"word":"freedom","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.9431},{"word":"government","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.5679},{"word":"power","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.5231},{"word":"war","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.7375},{"word":"peace","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.8308},{"word":"america","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.7361},{"word":"union","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.5645},{"word":"state","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.7895},{"word":"constitution","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.6586},{"word":"justice","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.4988},{"word":"law","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.7831},{"word":"nation","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.5481},{"word":"security","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.601},{"word":"economy","transition":"1850-1874 \u2192 1875-1899","year":1850,"shift":0.8284},{"word":"freedom","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":1.0566},{"word":"government","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.8542},{"word":"power","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.6691},{"word":"war","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.6789},{"word":"peace","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.6832},{"word":"america","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.7868},{"word":"union","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.6648},{"word":"state","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.668},{"word":"constitution","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.6013},{"word":"justice","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.7111},{"word":"law","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.7178},{"word":"nation","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.6502},{"word":"security","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.7985},{"word":"economy","transition":"1875-1899 \u2192 1900-1924","year":1875,"shift":0.7821},{"word":"freedom","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.6493},{"word":"democracy","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":1.0501},{"word":"government","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.6386},{"word":"power","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.606},{"word":"war","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.6849},{"word":"peace","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.7736},{"word":"america","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.6734},{"word":"union","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.6909},{"word":"state","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.7158},{"word":"constitution","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.6719},{"word":"justice","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.6715},{"word":"law","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.791},{"word":"nation","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.5511},{"word":"security","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.6915},{"word":"economy","transition":"1900-1924 \u2192 1925-1949","year":1900,"shift":0.6035},{"word":"freedom","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.6769},{"word":"democracy","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.78},{"word":"government","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.621},{"word":"power","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.6216},{"word":"war","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.4992},{"word":"peace","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.6635},{"word":"america","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.5364},{"word":"union","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.5733},{"word":"state","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.6452},{"word":"constitution","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.7274},{"word":"justice","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.6678},{"word":"law","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.7566},{"word":"nation","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.6531},{"word":"security","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.6836},{"word":"economy","transition":"1925-1949 \u2192 1950-1974","year":1925,"shift":0.6665},{"word":"freedom","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.7042},{"word":"democracy","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.6874},{"word":"government","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.7788},{"word":"power","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.7324},{"word":"war","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.6215},{"word":"peace","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.7716},{"word":"america","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.6736},{"word":"union","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.6968},{"word":"state","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.599},{"word":"constitution","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.5871},{"word":"justice","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.7673},{"word":"law","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.8497},{"word":"nation","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.8033},{"word":"security","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.6961},{"word":"economy","transition":"1950-1974 \u2192 1975-1999","year":1950,"shift":0.5129},{"word":"freedom","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.5371},{"word":"democracy","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.7381},{"word":"government","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.6441},{"word":"power","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.6622},{"word":"war","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.5743},{"word":"peace","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.7769},{"word":"america","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.6263},{"word":"union","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.6661},{"word":"state","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.8028},{"word":"constitution","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.7092},{"word":"justice","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.8008},{"word":"law","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.59},{"word":"nation","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.8907},{"word":"security","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.7125},{"word":"economy","transition":"1975-1999 \u2192 2000-2024","year":1975,"shift":0.6975}],"neighbors":{"1775-1799":{"freedom":[{"word":"man","similarity":0.3022},{"word":"calculation","similarity":0.282},{"word":"examination","similarity":0.2726},{"word":"favorable","similarity":0.2713},{"word":"existence","similarity":0.2603},{"word":"fully","similarity":0.2588},{"word":"whatever","similarity":0.2565},{"word":"sanction","similarity":0.2502}],"democracy":[],"government":[{"word":"claim","similarity":0.3391},{"word":"bear","similarity":0.3329},{"word":"favorable","similarity":0.2886},{"word":"mention","similarity":0.2833},{"word":"expediency","similarity":0.2777},{"word":"candid","similarity":0.26},{"word":"motive","similarity":0.2523},{"word":"private","similarity":0.2383}],"war":[{"word":"care","similarity":0.3567},{"word":"independent","similarity":0.2987},{"word":"march","similarity":0.2939},{"word":"submit","similarity":0.2928},{"word":"utmost","similarity":0.2592},{"word":"suspicion","similarity":0.2493},{"word":"expect","similarity":0.2446},{"word":"acquire","similarity":0.2433}],"peace":[{"word":"involve","similarity":0.2966},{"word":"march","similarity":0.256},{"word":"disregard","similarity":0.2545},{"word":"possible","similarity":0.2487},{"word":"uniform","similarity":0.2468},{"word":"authorize","similarity":0.2392},{"word":"direct","similarity":0.239},{"word":"attachment","similarity":0.2355}],"power":[{"word":"republic","similarity":0.3246},{"word":"diminish","similarity":0.2853},{"word":"northern","similarity":0.2743},{"word":"throw","similarity":0.271},{"word":"adequate","similarity":0.2532},{"word":"intention","similarity":0.2345},{"word":"aggression","similarity":0.2283},{"word":"directly","similarity":0.2278}]},"1800-1824":{"freedom":[{"word":"corps","similarity":0.3148},{"word":"life","similarity":0.3105},{"word":"carry","similarity":0.3054},{"word":"resort","similarity":0.279},{"word":"authority","similarity":0.2727},{"word":"throughout","similarity":0.2714},{"word":"fort","similarity":0.2691},{"word":"recently","similarity":0.2585}],"democracy":[],"government":[{"word":"indulge","similarity":0.2614},{"word":"respective","similarity":0.2434},{"word":"liberty","similarity":0.2421},{"word":"satisfaction","similarity":0.235},{"word":"expectation","similarity":0.2319},{"word":"alone","similarity":0.231},{"word":"capable","similarity":0.2306},{"word":"build","similarity":0.2271}],"war":[{"word":"sell","similarity":0.3829},{"word":"squadron","similarity":0.3182},{"word":"impose","similarity":0.296},{"word":"pursue","similarity":0.2672},{"word":"manufacture","similarity":0.2654},{"word":"often","similarity":0.2446},{"word":"career","similarity":0.2429},{"word":"confine","similarity":0.2389}],"peace":[{"word":"sell","similarity":0.365},{"word":"promptly","similarity":0.2839},{"word":"local","similarity":0.2823},{"word":"attention","similarity":0.2794},{"word":"arm","similarity":0.2793},{"word":"essential","similarity":0.2621},{"word":"resolution","similarity":0.2521},{"word":"career","similarity":0.2465}],"power":[{"word":"likewise","similarity":0.34},{"word":"whether","similarity":0.3253},{"word":"necessity","similarity":0.2941},{"word":"superior","similarity":0.2895},{"word":"president","similarity":0.2797},{"word":"probably","similarity":0.2649},{"word":"judgment","similarity":0.2624},{"word":"officer","similarity":0.2608}]},"1825-1849":{"freedom":[{"word":"already","similarity":0.287},{"word":"preserve","similarity":0.2754},{"word":"reject","similarity":0.2456},{"word":"mississippi","similarity":0.24},{"word":"devolve","similarity":0.2345},{"word":"chief","similarity":0.227},{"word":"great","similarity":0.2262},{"word":"happy","similarity":0.2259}],"democracy":[],"government":[{"word":"approach","similarity":0.2758},{"word":"expect","similarity":0.2718},{"word":"aggregate","similarity":0.2702},{"word":"preserve","similarity":0.2669},{"word":"refer","similarity":0.2632},{"word":"affect","similarity":0.2619},{"word":"result","similarity":0.2486},{"word":"direction","similarity":0.2427}],"war":[{"word":"indulge","similarity":0.3597},{"word":"stockholder","similarity":0.3069},{"word":"ample","similarity":0.3035},{"word":"bank","similarity":0.294},{"word":"claim","similarity":0.2809},{"word":"treasury","similarity":0.2729},{"word":"recognize","similarity":0.2587},{"word":"evil","similarity":0.248}],"peace":[{"word":"confidence","similarity":0.3039},{"word":"remedy","similarity":0.3023},{"word":"nature","similarity":0.2716},{"word":"houses","similarity":0.2651},{"word":"together","similarity":0.2623},{"word":"aid","similarity":0.262},{"word":"exclude","similarity":0.2505},{"word":"draw","similarity":0.2502}],"power":[{"word":"balance","similarity":0.3166},{"word":"down","similarity":0.2719},{"word":"business","similarity":0.2709},{"word":"enforce","similarity":0.2643},{"word":"constant","similarity":0.2604},{"word":"pacific","similarity":0.2523},{"word":"providence","similarity":0.2511},{"word":"faithfully","similarity":0.24}]},"1850-1874":{"freedom":[{"word":"cost","similarity":0.2782},{"word":"sell","similarity":0.2634},{"word":"trade","similarity":0.2604},{"word":"back","similarity":0.2557},{"word":"determine","similarity":0.2319},{"word":"inhabitant","similarity":0.2312},{"word":"whole","similarity":0.2277},{"word":"grant","similarity":0.2265}],"democracy":[],"government":[{"word":"session","similarity":0.3555},{"word":"political","similarity":0.316},{"word":"call","similarity":0.2948},{"word":"rate","similarity":0.2815},{"word":"family","similarity":0.2595},{"word":"economy","similarity":0.2498},{"word":"mere","similarity":0.2405},{"word":"louisiana","similarity":0.2365}],"war":[{"word":"liberal","similarity":0.3602},{"word":"view","similarity":0.3175},{"word":"western","similarity":0.2887},{"word":"however","similarity":0.2822},{"word":"entitle","similarity":0.2776},{"word":"session","similarity":0.2774},{"word":"friend","similarity":0.2573},{"word":"great","similarity":0.256}],"peace":[{"word":"secretary","similarity":0.3144},{"word":"expressly","similarity":0.3002},{"word":"enjoy","similarity":0.2931},{"word":"enable","similarity":0.2575},{"word":"obedience","similarity":0.2513},{"word":"ordinance","similarity":0.245},{"word":"flag","similarity":0.2438},{"word":"virginia","similarity":0.2436}],"power":[{"word":"balance","similarity":0.321},{"word":"california","similarity":0.3091},{"word":"independent","similarity":0.3029},{"word":"construct","similarity":0.2937},{"word":"name","similarity":0.2816},{"word":"support","similarity":0.2788},{"word":"constantly","similarity":0.2677},{"word":"laborer","similarity":0.2632}]},"1875-1899":{"freedom":[{"word":"mission","similarity":0.3116},{"word":"legislature","similarity":0.2889},{"word":"judicial","similarity":0.2871},{"word":"spain","similarity":0.2731},{"word":"house","similarity":0.2546},{"word":"suppose","similarity":0.2525},{"word":"debt","similarity":0.2477},{"word":"strongly","similarity":0.2427}],"democracy":[],"government":[{"word":"profit","similarity":0.3448},{"word":"declaration","similarity":0.2869},{"word":"quite","similarity":0.2853},{"word":"see","similarity":0.2821},{"word":"bring","similarity":0.2702},{"word":"thirty","similarity":0.2585},{"word":"expense","similarity":0.2471},{"word":"domain","similarity":0.2459}],"war":[{"word":"propose","similarity":0.2701},{"word":"accept","similarity":0.2652},{"word":"mark","similarity":0.2627},{"word":"direct","similarity":0.2622},{"word":"assume","similarity":0.259},{"word":"subject","similarity":0.2471},{"word":"attorney","similarity":0.2454},{"word":"propriety","similarity":0.2403}],"peace":[{"word":"february","similarity":0.3118},{"word":"court","similarity":0.2851},{"word":"obtain","similarity":0.2568},{"word":"injury","similarity":0.2391},{"word":"question","similarity":0.2379},{"word":"utmost","similarity":0.2378},{"word":"expense","similarity":0.2368},{"word":"attain","similarity":0.2361}],"power":[{"word":"award","similarity":0.3363},{"word":"clause","similarity":0.3029},{"word":"exceed","similarity":0.2902},{"word":"withdrawal","similarity":0.2784},{"word":"city","similarity":0.2665},{"word":"declare","similarity":0.2653},{"word":"entitle","similarity":0.2406},{"word":"general","similarity":0.2359}]},"1900-1924":{"freedom":[{"word":"exist","similarity":0.3098},{"word":"public","similarity":0.294},{"word":"navy","similarity":0.2687},{"word":"waterway","similarity":0.2539},{"word":"relieve","similarity":0.2506},{"word":"power","similarity":0.2424},{"word":"conservation","similarity":0.2406},{"word":"possession","similarity":0.2395}],"democracy":[{"word":"god","similarity":0.2818},{"word":"manufacturer","similarity":0.2799},{"word":"something","similarity":0.2644},{"word":"desire","similarity":0.2623},{"word":"fair","similarity":0.2587},{"word":"conference","similarity":0.2531},{"word":"throw","similarity":0.2524},{"word":"requirement","similarity":0.2466}],"government":[{"word":"purchase","similarity":0.2807},{"word":"himself","similarity":0.2786},{"word":"creation","similarity":0.2757},{"word":"account","similarity":0.2669},{"word":"strengthen","similarity":0.2665},{"word":"tariff","similarity":0.2599},{"word":"western","similarity":0.259},{"word":"great","similarity":0.2363}],"war":[{"word":"republic","similarity":0.3117},{"word":"remove","similarity":0.2999},{"word":"amend","similarity":0.2819},{"word":"reach","similarity":0.2791},{"word":"set","similarity":0.2754},{"word":"regard","similarity":0.2622},{"word":"custom","similarity":0.261},{"word":"example","similarity":0.2535}],"peace":[{"word":"practically","similarity":0.3548},{"word":"river","similarity":0.3533},{"word":"department","similarity":0.3217},{"word":"prosecution","similarity":0.3149},{"word":"extension","similarity":0.2915},{"word":"call","similarity":0.277},{"word":"treaty","similarity":0.2747},{"word":"loan","similarity":0.2693}],"power":[{"word":"seven","similarity":0.2959},{"word":"ourselves","similarity":0.2847},{"word":"pass","similarity":0.2607},{"word":"timber","similarity":0.2522},{"word":"ordinary","similarity":0.2458},{"word":"protection","similarity":0.2457},{"word":"complaint","similarity":0.2437},{"word":"function","similarity":0.2434}]},"1925-1949":{"freedom":[{"word":"recommend","similarity":0.3011},{"word":"unless","similarity":0.2884},{"word":"steady","similarity":0.2643},{"word":"independent","similarity":0.2572},{"word":"today","similarity":0.2514},{"word":"aggression","similarity":0.2477},{"word":"per","similarity":0.2375},{"word":"less","similarity":0.2304}],"democracy":[{"word":"humanity","similarity":0.274},{"word":"natural","similarity":0.2656},{"word":"housing","similarity":0.2631},{"word":"suffering","similarity":0.2603},{"word":"honor","similarity":0.2426},{"word":"crime","similarity":0.2372},{"word":"let","similarity":0.2368},{"word":"highway","similarity":0.2333}],"government":[{"word":"world","similarity":0.283},{"word":"europe","similarity":0.2734},{"word":"review","similarity":0.2665},{"word":"finance","similarity":0.2641},{"word":"billion","similarity":0.2633},{"word":"saving","similarity":0.2605},{"word":"place","similarity":0.2467},{"word":"refer","similarity":0.2459}],"war":[{"word":"attempt","similarity":0.338},{"word":"reduction","similarity":0.2923},{"word":"property","similarity":0.2841},{"word":"strive","similarity":0.2602},{"word":"railway","similarity":0.2544},{"word":"demonstrate","similarity":0.2412},{"word":"entire","similarity":0.2369},{"word":"trust","similarity":0.2308}],"peace":[{"word":"fact","similarity":0.3293},{"word":"enlarge","similarity":0.3165},{"word":"road","similarity":0.2857},{"word":"well","similarity":0.2533},{"word":"rome","similarity":0.2518},{"word":"almost","similarity":0.2401},{"word":"consideration","similarity":0.2399},{"word":"large","similarity":0.2395}],"power":[{"word":"build","similarity":0.2842},{"word":"state","similarity":0.2774},{"word":"seven","similarity":0.2767},{"word":"resource","similarity":0.2651},{"word":"money","similarity":0.261},{"word":"employ","similarity":0.2523},{"word":"government","similarity":0.2415},{"word":"disaster","similarity":0.2407}]},"1950-1974":{"freedom":[{"word":"target","similarity":0.4058},{"word":"address","similarity":0.3007},{"word":"appropriation","similarity":0.2802},{"word":"special","similarity":0.2761},{"word":"lead","similarity":0.2672},{"word":"southeast","similarity":0.2503},{"word":"free","similarity":0.2377},{"word":"cooperation","similarity":0.2327}],"democracy":[{"word":"month","similarity":0.3083},{"word":"european","similarity":0.2969},{"word":"talk","similarity":0.2963},{"word":"conduct","similarity":0.2901},{"word":"march","similarity":0.2577},{"word":"reduction","similarity":0.2532},{"word":"problem","similarity":0.2507},{"word":"win","similarity":0.2412}],"government":[{"word":"vote","similarity":0.2956},{"word":"greatly","similarity":0.2922},{"word":"man","similarity":0.2556},{"word":"education","similarity":0.255},{"word":"courage","similarity":0.2519},{"word":"accept","similarity":0.2495},{"word":"several","similarity":0.2454},{"word":"heavy","similarity":0.2418}],"war":[{"word":"report","similarity":0.295},{"word":"sound","similarity":0.2786},{"word":"june","similarity":0.2605},{"word":"chance","similarity":0.2584},{"word":"cuba","similarity":0.2578},{"word":"discrimination","similarity":0.2541},{"word":"mr.","similarity":0.2487},{"word":"week","similarity":0.241}],"peace":[{"word":"payment","similarity":0.3204},{"word":"afternoon","similarity":0.3178},{"word":"possible","similarity":0.2856},{"word":"brave","similarity":0.2687},{"word":"country","similarity":0.2628},{"word":"honor","similarity":0.2561},{"word":"communism","similarity":0.2477},{"word":"realize","similarity":0.2333}],"power":[{"word":"spread","similarity":0.3456},{"word":"nation","similarity":0.2908},{"word":"commander","similarity":0.2844},{"word":"force","similarity":0.2692},{"word":"rate","similarity":0.2604},{"word":"brave","similarity":0.2581},{"word":"personal","similarity":0.2548},{"word":"prestige","similarity":0.2538}]},"1975-1999":{"freedom":[{"word":"away","similarity":0.2619},{"word":"care","similarity":0.2596},{"word":"white","similarity":0.259},{"word":"look","similarity":0.2556},{"word":"table","similarity":0.2374},{"word":"sir","similarity":0.2372},{"word":"level","similarity":0.2345},{"word":"everybody","similarity":0.2323}],"democracy":[{"word":"mind","similarity":0.3035},{"word":"rather","similarity":0.3002},{"word":"panama","similarity":0.2782},{"word":"bridge","similarity":0.2753},{"word":"voice","similarity":0.2728},{"word":"spirit","similarity":0.2701},{"word":"dole","similarity":0.2685},{"word":"spread","similarity":0.2668}],"government":[{"word":"able","similarity":0.3564},{"word":"cost","similarity":0.2997},{"word":"review","similarity":0.296},{"word":"fear","similarity":0.2942},{"word":"unless","similarity":0.2865},{"word":"point","similarity":0.2676},{"word":"campaign","similarity":0.2542},{"word":"heart","similarity":0.2529}],"war":[{"word":"forget","similarity":0.3332},{"word":"myself","similarity":0.3307},{"word":"victory","similarity":0.3263},{"word":"agenda","similarity":0.2856},{"word":"america","similarity":0.2631},{"word":"research","similarity":0.2541},{"word":"behind","similarity":0.251},{"word":"believe","similarity":0.2473}],"peace":[{"word":"states","similarity":0.3341},{"word":"right","similarity":0.3077},{"word":"immediately","similarity":0.269},{"word":"release","similarity":0.2473},{"word":"certain","similarity":0.2434},{"word":"nation","similarity":0.2422},{"word":"future","similarity":0.2397},{"word":"bear","similarity":0.2345}],"power":[{"word":"eastern","similarity":0.2575},{"word":"payment","similarity":0.2491},{"word":"budget","similarity":0.2462},{"word":"hundred","similarity":0.2434},{"word":"somebody","similarity":0.2387},{"word":"mind","similarity":0.2276},{"word":"leader","similarity":0.2267},{"word":"continue","similarity":0.2262}]},"2000-2024":{"freedom":[{"word":"wrong","similarity":0.3447},{"word":"yes","similarity":0.3137},{"word":"inspire","similarity":0.2655},{"word":"global","similarity":0.2489},{"word":"investment","similarity":0.246},{"word":"criminal","similarity":0.2356},{"word":"deal","similarity":0.2348},{"word":"against","similarity":0.2346}],"democracy":[{"word":"impose","similarity":0.3065},{"word":"comprehensive","similarity":0.2833},{"word":"palestinian","similarity":0.2698},{"word":"system","similarity":0.2693},{"word":"vital","similarity":0.2398},{"word":"door","similarity":0.2293},{"word":"often","similarity":0.2276},{"word":"poor","similarity":0.2275}],"government":[{"word":"somebody","similarity":0.2726},{"word":"sacrifice","similarity":0.2541},{"word":"join","similarity":0.23},{"word":"doctor","similarity":0.2231},{"word":"celebrate","similarity":0.2172},{"word":"across","similarity":0.2163},{"word":"consider","similarity":0.213},{"word":"money","similarity":0.2124}],"war":[{"word":"raise","similarity":0.3199},{"word":"religion","similarity":0.2763},{"word":"seem","similarity":0.2644},{"word":"argue","similarity":0.2618},{"word":"threaten","similarity":0.2574},{"word":"teach","similarity":0.2445},{"word":"vaccine","similarity":0.2439},{"word":"plant","similarity":0.2433}],"peace":[{"word":"soon","similarity":0.2847},{"word":"tremendous","similarity":0.2756},{"word":"flag","similarity":0.2709},{"word":"truly","similarity":0.2637},{"word":"saving","similarity":0.2593},{"word":"anyone","similarity":0.259},{"word":"future","similarity":0.2542},{"word":"force","similarity":0.248}],"power":[{"word":"eliminate","similarity":0.367},{"word":"pakistan","similarity":0.2905},{"word":"since","similarity":0.2834},{"word":"hour","similarity":0.2717},{"word":"executive","similarity":0.2602},{"word":"courage","similarity":0.2585},{"word":"well","similarity":0.2482},{"word":"states","similarity":0.2463}]}},"global_topics":[{"id":0,"name":"War & Peace","words":[{"word":"world","weight":0.0543},{"word":"peace","weight":0.0383},{"word":"war","weight":0.0179},{"word":"freedom","weight":0.0137},{"word":"hope","weight":0.0075},{"word":"force","weight":0.0068},{"word":"security","weight":0.0066},{"word":"end","weight":0.006},{"word":"free","weight":0.0057},{"word":"military","weight":0.0053}]},{"id":1,"name":"American Identity","words":[{"word":"america","weight":0.3279},{"word":"united states","weight":0.0682},{"word":"strong","weight":0.0104},{"word":"future","weight":0.0083},{"word":"believe","weight":0.0083},{"word":"build","weight":0.0082},{"word":"proud","weight":0.0076},{"word":"heart","weight":0.0069},{"word":"stand","weight":0.0069},{"word":"safe","weight":0.0062}]},{"id":2,"name":"Taxation & Budget","words":[{"word":"job","weight":0.0269},{"word":"tax","weight":0.0149},{"word":"billion","weight":0.0138},{"word":"increase","weight":0.0127},{"word":"percent","weight":0.0126},{"word":"program","weight":0.0124},{"word":"economy","weight":0.0119},{"word":"pay","weight":0.0102},{"word":"million","weight":0.01},{"word":"cut","weight":0.0092}]},{"id":3,"name":"Governance & Law","words":[{"word":"government","weight":0.0153},{"word":"united states","weight":0.0125},{"word":"state","weight":0.0104},{"word":"law","weight":0.0076},{"word":"power","weight":0.0054},{"word":"secretary","weight":0.0044},{"word":"constitution","weight":0.004},{"word":"duty","weight":0.0039},{"word":"act","weight":0.0037},{"word":"present","weight":0.0036}]},{"id":4,"name":"Citizens & Rights","words":[{"word":"people","weight":0.1673},{"word":"government","weight":0.0114},{"word":"hear","weight":0.0077},{"word":"vote","weight":0.0074},{"word":"help","weight":0.0072},{"word":"free","weight":0.0071},{"word":"speak","weight":0.0064},{"word":"live","weight":0.0062},{"word":"understand","weight":0.0061},{"word":"election","weight":0.0049}]},{"id":5,"name":"Family & Social Welfare","words":[{"word":"american","weight":0.024},{"word":"man","weight":0.0207},{"word":"child","weight":0.0187},{"word":"life","weight":0.0181},{"word":"americans","weight":0.0123},{"word":"family","weight":0.0118},{"word":"woman","weight":0.0093},{"word":"tonight","weight":0.0077},{"word":"home","weight":0.0071},{"word":"school","weight":0.0068}]},{"id":6,"name":"Freedom & Democracy","words":[{"word":"nation","weight":0.1485},{"word":"future","weight":0.0096},{"word":"history","weight":0.0089},{"word":"strong","weight":0.0082},{"word":"face","weight":0.0077},{"word":"help","weight":0.007},{"word":"build","weight":0.0067},{"word":"strength","weight":0.0064},{"word":"free","weight":0.0061},{"word":"effort","weight":0.0056}]},{"id":7,"name":"Vision & Aspiration","words":[{"word":"country","weight":0.1357},{"word":"believe","weight":0.0225},{"word":"love","weight":0.0128},{"word":"leader","weight":0.0077},{"word":"future","weight":0.0074},{"word":"deal","weight":0.0056},{"word":"big","weight":0.0053},{"word":"strong","weight":0.0052},{"word":"border","weight":0.0051},{"word":"understand","weight":0.0048}]},{"id":8,"name":"Congress & Legislation","words":[{"word":"congress","weight":0.1187},{"word":"pass","weight":0.0235},{"word":"fellow americans","weight":0.0188},{"word":"act","weight":0.0184},{"word":"members","weight":0.0135},{"word":"vote","weight":0.0118},{"word":"house","weight":0.0109},{"word":"measure","weight":0.0104},{"word":"senate","weight":0.0099},{"word":"legislation","weight":0.0097}]},{"id":9,"name":"Reform & Policy","words":[{"word":"work","weight":0.1583},{"word":"continue","weight":0.0094},{"word":"hard","weight":0.0083},{"word":"change","weight":0.0075},{"word":"support","weight":0.0071},{"word":"welfare","weight":0.0068},{"word":"help","weight":0.0066},{"word":"month","weight":0.0062},{"word":"build","weight":0.0061},{"word":"family","weight":0.006}]}],"topics_by_period":{"1775-1799":[{"id":0,"name":"War & Peace","words":[{"word":"nation","weight":0.1704},{"word":"peace","weight":0.1289},{"word":"country","weight":0.1103},{"word":"government","weight":0.0971},{"word":"world","weight":0.0921},{"word":"foreign","weight":0.0897},{"word":"guide","weight":0.0801},{"word":"public","weight":0.0781},{"word":"conduct","weight":0.0777},{"word":"duty","weight":0.0756}]},{"id":1,"name":"American Identity","words":[{"word":"united states","weight":0.3844},{"word":"december","weight":0.1065},{"word":"philadelphia","weight":0.0799},{"word":"seal","weight":0.0738},{"word":"independence","weight":0.0682},{"word":"america","weight":0.0618},{"word":"states","weight":0.0613},{"word":"march","weight":0.0603},{"word":"hand","weight":0.0521},{"word":"second","weight":0.0516}]},{"id":2,"name":"Taxation & Budget","words":[{"word":"game","weight":0.1489},{"word":"increase","weight":0.1195},{"word":"recommend","weight":0.1165},{"word":"cattle","weight":0.1145},{"word":"useful","weight":0.0887},{"word":"animal","weight":0.086},{"word":"grain","weight":0.0834},{"word":"attend","weight":0.0813},{"word":"plenty","weight":0.0812},{"word":"till","weight":0.0801}]},{"id":3,"name":"Governance & Law","words":[{"word":"united states","weight":0.2232},{"word":"government","weight":0.1712},{"word":"nation","weight":0.1061},{"word":"public","weight":0.0863},{"word":"country","weight":0.08},{"word":"duty","weight":0.0689},{"word":"power","weight":0.0687},{"word":"constitution","weight":0.0662},{"word":"people","weight":0.0651},{"word":"present","weight":0.0643}]},{"id":4,"name":"Citizens & Rights","words":[{"word":"people","weight":0.1986},{"word":"government","weight":0.1818},{"word":"nation","weight":0.1391},{"word":"wise","weight":0.0914},{"word":"man","weight":0.0758},{"word":"united states","weight":0.0666},{"word":"constitution","weight":0.0634},{"word":"power","weight":0.063},{"word":"foreign","weight":0.061},{"word":"occasion","weight":0.0592}]},{"id":5,"name":"Family & Social Welfare","words":[{"word":"man","weight":0.1725},{"word":"beloved","weight":0.1112},{"word":"glory","weight":0.1079},{"word":"example","weight":0.0944},{"word":"life","weight":0.0908},{"word":"washington","weight":0.0878},{"word":"nation","weight":0.0865},{"word":"country","weight":0.0838},{"word":"spirit","weight":0.0827},{"word":"virtue","weight":0.0823}]},{"id":6,"name":"Freedom & Democracy","words":[{"word":"nation","weight":0.3255},{"word":"government","weight":0.1019},{"word":"foreign","weight":0.0904},{"word":"beloved","weight":0.081},{"word":"peace","weight":0.0745},{"word":"people","weight":0.0742},{"word":"justice","weight":0.0639},{"word":"country","weight":0.0635},{"word":"man","weight":0.0628},{"word":"duty","weight":0.0624}]},{"id":7,"name":"Vision & Aspiration","words":[{"word":"country","weight":0.2446},{"word":"government","weight":0.1055},{"word":"beloved","weight":0.0989},{"word":"nation","weight":0.0961},{"word":"liberty","weight":0.085},{"word":"citizen","weight":0.0832},{"word":"public","weight":0.0744},{"word":"union","weight":0.0744},{"word":"death","weight":0.0696},{"word":"united states","weight":0.0683}]},{"id":8,"name":"Congress & Legislation","words":[{"word":"senate","weight":0.1759},{"word":"house","weight":0.1408},{"word":"representatives","weight":0.1267},{"word":"gentleman","weight":0.1037},{"word":"united states","weight":0.0889},{"word":"government","weight":0.0786},{"word":"nation","weight":0.0745},{"word":"both houses","weight":0.0726},{"word":"country","weight":0.07},{"word":"congress","weight":0.0683}]},{"id":9,"name":"Reform & Policy","words":[{"word":"common","weight":0.1557},{"word":"affection","weight":0.1543},{"word":"joint","weight":0.1207},{"word":"country","weight":0.1017},{"word":"success","weight":0.0876},{"word":"liberty","weight":0.0839},{"word":"choice","weight":0.0834},{"word":"political","weight":0.0743},{"word":"triumph","weight":0.0708},{"word":"patriotism","weight":0.0677}]}],"1800-1824":[{"id":0,"name":"War & Peace","words":[{"word":"nation","weight":0.1307},{"word":"public","weight":0.1284},{"word":"war","weight":0.1152},{"word":"peace","weight":0.1095},{"word":"united states","weight":0.1081},{"word":"country","weight":0.0912},{"word":"commerce","weight":0.0883},{"word":"justice","weight":0.0875},{"word":"improvement","weight":0.0708},{"word":"present","weight":0.0703}]},{"id":1,"name":"American Identity","words":[{"word":"united states","weight":0.1857},{"word":"seal","weight":0.1202},{"word":"philadelphia","weight":0.106},{"word":"independence","weight":0.0925},{"word":"america","weight":0.0893},{"word":"fourth","weight":0.0854},{"word":"hand","weight":0.0835},{"word":"city","weight":0.0828},{"word":"person","weight":0.0795},{"word":"states","weight":0.0751}]},{"id":2,"name":"Taxation & Budget","words":[{"word":"land","weight":0.2438},{"word":"brother","weight":0.1253},{"word":"pay","weight":0.1188},{"word":"debt","weight":0.1041},{"word":"sell","weight":0.0814},{"word":"purchase","weight":0.0716},{"word":"red","weight":0.067},{"word":"mississippi","weight":0.066},{"word":"line","weight":0.0616},{"word":"sum","weight":0.0604}]},{"id":3,"name":"Governance & Law","words":[{"word":"united states","weight":0.1928},{"word":"nation","weight":0.0965},{"word":"public","weight":0.0953},{"word":"war","weight":0.095},{"word":"present","weight":0.09},{"word":"commerce","weight":0.0898},{"word":"law","weight":0.0895},{"word":"authority","weight":0.0876},{"word":"government","weight":0.0866},{"word":"power","weight":0.0768}]},{"id":4,"name":"Citizens & Rights","words":[{"word":"authority","weight":0.142},{"word":"land","weight":0.1355},{"word":"united states","weight":0.1194},{"word":"nation","weight":0.0982},{"word":"pay","weight":0.0898},{"word":"country","weight":0.0852},{"word":"peace","weight":0.085},{"word":"brother","weight":0.0827},{"word":"duty","weight":0.0813},{"word":"public","weight":0.081}]},{"id":5,"name":"Family & Social Welfare","words":[{"word":"land","weight":0.1971},{"word":"brother","weight":0.1593},{"word":"clothe","weight":0.0989},{"word":"debt","weight":0.0895},{"word":"pay","weight":0.0806},{"word":"sell","weight":0.0762},{"word":"man","weight":0.0761},{"word":"nation","weight":0.0754},{"word":"country","weight":0.0742},{"word":"necessary","weight":0.0727}]},{"id":6,"name":"Freedom & Democracy","words":[{"word":"nation","weight":0.1473},{"word":"united states","weight":0.1311},{"word":"public","weight":0.1152},{"word":"peace","weight":0.0954},{"word":"war","weight":0.0918},{"word":"country","weight":0.0877},{"word":"commerce","weight":0.0873},{"word":"justice","weight":0.0858},{"word":"power","weight":0.0801},{"word":"council","weight":0.0783}]},{"id":7,"name":"Vision & Aspiration","words":[{"word":"united states","weight":0.1259},{"word":"nation","weight":0.1148},{"word":"country","weight":0.1115},{"word":"land","weight":0.1114},{"word":"public","weight":0.1031},{"word":"peace","weight":0.0915},{"word":"war","weight":0.0904},{"word":"commerce","weight":0.0863},{"word":"authority","weight":0.0849},{"word":"render","weight":0.0801}]},{"id":8,"name":"Congress & Legislation","words":[{"word":"united states","weight":0.179},{"word":"war","weight":0.1107},{"word":"present","weight":0.1027},{"word":"congress","weight":0.0982},{"word":"great britain","weight":0.0925},{"word":"act","weight":0.0885},{"word":"authority","weight":0.0871},{"word":"government","weight":0.0848},{"word":"commerce","weight":0.0816},{"word":"nation","weight":0.0749}]},{"id":9,"name":"Reform & Policy","words":[{"word":"commerce","weight":0.1114},{"word":"multiply","weight":0.1074},{"word":"whilst","weight":0.1054},{"word":"parallel","weight":0.1002},{"word":"public debt","weight":0.0999},{"word":"render","weight":0.0961},{"word":"public","weight":0.0954},{"word":"proof","weight":0.0949},{"word":"fruit","weight":0.0947},{"word":"art","weight":0.0945}]}],"1825-1849":[{"id":0,"name":"War & Peace","words":[{"word":"government","weight":0.142},{"word":"mexico","weight":0.1356},{"word":"war","weight":0.1262},{"word":"united states","weight":0.1058},{"word":"duty","weight":0.0925},{"word":"state","weight":0.0833},{"word":"country","weight":0.0828},{"word":"congress","weight":0.0796},{"word":"peace","weight":0.0784},{"word":"power","weight":0.074}]},{"id":1,"name":"American Identity","words":[{"word":"united states","weight":0.3133},{"word":"treaty","weight":0.1253},{"word":"james","weight":0.1015},{"word":"authority","weight":0.0793},{"word":"government","weight":0.074},{"word":"republic","weight":0.0712},{"word":"senate","weight":0.0641},{"word":"cause","weight":0.0638},{"word":"state","weight":0.0613},{"word":"washington","weight":0.046}]},{"id":2,"name":"Taxation & Budget","words":[{"word":"bank","weight":0.1623},{"word":"treasury","weight":0.1284},{"word":"government","weight":0.1156},{"word":"public","weight":0.1052},{"word":"million","weight":0.086},{"word":"increase","weight":0.0852},{"word":"duty","weight":0.083},{"word":"revenue","weight":0.0814},{"word":"congress","weight":0.0772},{"word":"country","weight":0.0757}]},{"id":3,"name":"Governance & Law","words":[{"word":"government","weight":0.166},{"word":"united states","weight":0.1208},{"word":"state","weight":0.1083},{"word":"power","weight":0.1041},{"word":"duty","weight":0.103},{"word":"congress","weight":0.0891},{"word":"bank","weight":0.0807},{"word":"law","weight":0.0782},{"word":"subject","weight":0.0776},{"word":"country","weight":0.0721}]},{"id":4,"name":"Citizens & Rights","words":[{"word":"government","weight":0.1739},{"word":"people","weight":0.128},{"word":"power","weight":0.1247},{"word":"united states","weight":0.0935},{"word":"duty","weight":0.0868},{"word":"bank","weight":0.0837},{"word":"country","weight":0.0808},{"word":"state","weight":0.0783},{"word":"constitution","weight":0.0761},{"word":"public","weight":0.0742}]},{"id":5,"name":"Family & Social Welfare","words":[{"word":"government","weight":0.1691},{"word":"power","weight":0.1161},{"word":"duty","weight":0.11},{"word":"country","weight":0.1},{"word":"united states","weight":0.0969},{"word":"subject","weight":0.088},{"word":"people","weight":0.0853},{"word":"citizen","weight":0.0844},{"word":"union","weight":0.0757},{"word":"constitution","weight":0.0745}]},{"id":6,"name":"Freedom & Democracy","words":[{"word":"government","weight":0.1706},{"word":"united states","weight":0.1248},{"word":"duty","weight":0.1077},{"word":"nation","weight":0.1005},{"word":"state","weight":0.0932},{"word":"power","weight":0.0886},{"word":"congress","weight":0.0861},{"word":"country","weight":0.0827},{"word":"subject","weight":0.0731},{"word":"treaty","weight":0.0726}]},{"id":7,"name":"Vision & Aspiration","words":[{"word":"government","weight":0.1619},{"word":"country","weight":0.1508},{"word":"united states","weight":0.1028},{"word":"duty","weight":0.0931},{"word":"state","weight":0.092},{"word":"congress","weight":0.0857},{"word":"power","weight":0.0847},{"word":"subject","weight":0.0818},{"word":"bank","weight":0.0759},{"word":"public","weight":0.0713}]},{"id":8,"name":"Congress & Legislation","words":[{"word":"congress","weight":0.1469},{"word":"government","weight":0.1367},{"word":"united states","weight":0.1101},{"word":"power","weight":0.1013},{"word":"duty","weight":0.1005},{"word":"state","weight":0.098},{"word":"subject","weight":0.0825},{"word":"constitution","weight":0.0764},{"word":"law","weight":0.0743},{"word":"act","weight":0.0731}]},{"id":9,"name":"Reform & Policy","words":[{"word":"state","weight":0.1364},{"word":"power","weight":0.1167},{"word":"states","weight":0.1131},{"word":"census","weight":0.1075},{"word":"inhabitant","weight":0.1012},{"word":"government","weight":0.0939},{"word":"duty","weight":0.0897},{"word":"congress","weight":0.0886},{"word":"constitution","weight":0.0791},{"word":"appropriation","weight":0.0739}]}],"1850-1874":[{"id":0,"name":"War & Peace","words":[{"word":"war","weight":0.1828},{"word":"peace","weight":0.1311},{"word":"government","weight":0.1184},{"word":"power","weight":0.0905},{"word":"united states","weight":0.0889},{"word":"states","weight":0.0861},{"word":"country","weight":0.0789},{"word":"rebellion","weight":0.0752},{"word":"condition","weight":0.0743},{"word":"people","weight":0.0738}]},{"id":1,"name":"American Identity","words":[{"word":"united states","weight":0.4064},{"word":"america","weight":0.2234},{"word":"independence","weight":0.059},{"word":"washington","weight":0.0568},{"word":"city","weight":0.0522},{"word":"state","weight":0.0496},{"word":"senate","weight":0.0406},{"word":"person","weight":0.0375},{"word":"constitution","weight":0.0373},{"word":"citizen","weight":0.0372}]},{"id":2,"name":"Taxation & Budget","words":[{"word":"increase","weight":0.1588},{"word":"percent","weight":0.1322},{"word":"population","weight":0.1265},{"word":"pay","weight":0.1095},{"word":"debt","weight":0.0847},{"word":"government","weight":0.0827},{"word":"expenditure","weight":0.0803},{"word":"war","weight":0.0772},{"word":"million","weight":0.0748},{"word":"estimate","weight":0.0731}]},{"id":3,"name":"Governance & Law","words":[{"word":"united states","weight":0.1513},{"word":"state","weight":0.129},{"word":"constitution","weight":0.1155},{"word":"government","weight":0.1135},{"word":"law","weight":0.1035},{"word":"states","weight":0.1002},{"word":"congress","weight":0.0881},{"word":"act","weight":0.0703},{"word":"power","weight":0.0692},{"word":"union","weight":0.0594}]},{"id":4,"name":"Citizens & Rights","words":[{"word":"people","weight":0.1819},{"word":"government","weight":0.1325},{"word":"constitution","weight":0.1116},{"word":"states","weight":0.0998},{"word":"state","weight":0.0985},{"word":"united states","weight":0.0861},{"word":"law","weight":0.0831},{"word":"congress","weight":0.078},{"word":"union","weight":0.0681},{"word":"power","weight":0.0606}]},{"id":5,"name":"Family & Social Welfare","words":[{"word":"man","weight":0.1733},{"word":"government","weight":0.13},{"word":"slavery","weight":0.1031},{"word":"father","weight":0.0986},{"word":"frame","weight":0.0929},{"word":"slave","weight":0.0877},{"word":"constitution","weight":0.0844},{"word":"union","weight":0.0818},{"word":"live","weight":0.0755},{"word":"states","weight":0.0726}]},{"id":6,"name":"Freedom & Democracy","words":[{"word":"nation","weight":0.2304},{"word":"government","weight":0.12},{"word":"united states","weight":0.096},{"word":"congress","weight":0.0885},{"word":"states","weight":0.0879},{"word":"law","weight":0.081},{"word":"constitution","weight":0.0776},{"word":"country","weight":0.0773},{"word":"state","weight":0.0728},{"word":"act","weight":0.0684}]},{"id":7,"name":"Vision & Aspiration","words":[{"word":"country","weight":0.1749},{"word":"states","weight":0.1181},{"word":"congress","weight":0.1083},{"word":"united states","weight":0.1018},{"word":"government","weight":0.1002},{"word":"constitution","weight":0.0952},{"word":"law","weight":0.0914},{"word":"state","weight":0.0782},{"word":"present","weight":0.0664},{"word":"union","weight":0.0655}]},{"id":8,"name":"Congress & Legislation","words":[{"word":"congress","weight":0.2022},{"word":"constitution","weight":0.1225},{"word":"act","weight":0.1072},{"word":"state","weight":0.1046},{"word":"united states","weight":0.0966},{"word":"states","weight":0.0836},{"word":"law","weight":0.0792},{"word":"government","weight":0.0699},{"word":"slavery","weight":0.0677},{"word":"territory","weight":0.0666}]},{"id":9,"name":"Reform & Policy","words":[{"word":"work","weight":0.143},{"word":"government","weight":0.1216},{"word":"states","weight":0.1168},{"word":"united states","weight":0.0972},{"word":"company","weight":0.0965},{"word":"constitution","weight":0.0886},{"word":"country","weight":0.0866},{"word":"congress","weight":0.0862},{"word":"state","weight":0.0841},{"word":"engage","weight":0.0794}]}],"1875-1899":[{"id":0,"name":"War & Peace","words":[{"word":"government","weight":0.1522},{"word":"peace","weight":0.1324},{"word":"country","weight":0.1117},{"word":"united states","weight":0.103},{"word":"relation","weight":0.1009},{"word":"war","weight":0.0926},{"word":"people","weight":0.0865},{"word":"world","weight":0.0823},{"word":"nation","weight":0.075},{"word":"congress","weight":0.0633}]},{"id":1,"name":"American Identity","words":[{"word":"united states","weight":0.361},{"word":"law","weight":0.1176},{"word":"government","weight":0.0867},{"word":"state","weight":0.0791},{"word":"citizen","weight":0.0649},{"word":"proclamation","weight":0.0623},{"word":"violation","weight":0.0586},{"word":"person","weight":0.0586},{"word":"america","weight":0.0568},{"word":"subject","weight":0.0545}]},{"id":2,"name":"Taxation & Budget","words":[{"word":"increase","weight":0.151},{"word":"government","weight":0.1216},{"word":"revenue","weight":0.118},{"word":"bond","weight":0.1026},{"word":"united states","weight":0.0888},{"word":"value","weight":0.0877},{"word":"law","weight":0.0838},{"word":"per cent","weight":0.0836},{"word":"present","weight":0.0825},{"word":"expenditure","weight":0.0802}]},{"id":3,"name":"Governance & Law","words":[{"word":"government","weight":0.1873},{"word":"united states","weight":0.1564},{"word":"law","weight":0.1202},{"word":"congress","weight":0.1023},{"word":"subject","weight":0.0785},{"word":"country","weight":0.0739},{"word":"duty","weight":0.0721},{"word":"attention","weight":0.0699},{"word":"state","weight":0.0699},{"word":"present","weight":0.0695}]},{"id":4,"name":"Citizens & Rights","words":[{"word":"people","weight":0.2146},{"word":"government","weight":0.2072},{"word":"united states","weight":0.0882},{"word":"law","weight":0.0879},{"word":"country","weight":0.0837},{"word":"congress","weight":0.0805},{"word":"constitution","weight":0.0665},{"word":"subject","weight":0.0578},{"word":"nation","weight":0.0576},{"word":"power","weight":0.056}]},{"id":5,"name":"Family & Social Welfare","words":[{"word":"government","weight":0.152},{"word":"law","weight":0.1258},{"word":"united states","weight":0.1037},{"word":"life","weight":0.1016},{"word":"man","weight":0.0941},{"word":"indian","weight":0.0899},{"word":"congress","weight":0.087},{"word":"people","weight":0.0853},{"word":"american","weight":0.0845},{"word":"service","weight":0.076}]},{"id":6,"name":"Freedom & Democracy","words":[{"word":"nation","weight":0.2244},{"word":"government","weight":0.1512},{"word":"united states","weight":0.0996},{"word":"law","weight":0.0875},{"word":"people","weight":0.0821},{"word":"congress","weight":0.0773},{"word":"states","weight":0.0734},{"word":"country","weight":0.0724},{"word":"citizen","weight":0.0675},{"word":"foreign","weight":0.0646}]},{"id":7,"name":"Vision & Aspiration","words":[{"word":"country","weight":0.2405},{"word":"government","weight":0.1449},{"word":"united states","weight":0.1048},{"word":"congress","weight":0.0991},{"word":"subject","weight":0.0767},{"word":"attention","weight":0.0741},{"word":"report","weight":0.0709},{"word":"people","weight":0.0683},{"word":"law","weight":0.061},{"word":"purpose","weight":0.0597}]},{"id":8,"name":"Congress & Legislation","words":[{"word":"congress","weight":0.2422},{"word":"government","weight":0.1203},{"word":"attention","weight":0.1068},{"word":"subject","weight":0.0875},{"word":"united states","weight":0.0854},{"word":"law","weight":0.0852},{"word":"legislation","weight":0.0691},{"word":"act","weight":0.0688},{"word":"recommend","weight":0.0688},{"word":"appropriation","weight":0.0659}]},{"id":9,"name":"Reform & Policy","words":[{"word":"work","weight":0.151},{"word":"government","weight":0.127},{"word":"congress","weight":0.1158},{"word":"united states","weight":0.0974},{"word":"increase","weight":0.0963},{"word":"subject","weight":0.0901},{"word":"report","weight":0.0846},{"word":"appropriation","weight":0.0806},{"word":"law","weight":0.0795},{"word":"country","weight":0.0777}]}],"1900-1924":[{"id":0,"name":"War & Peace","words":[{"word":"world","weight":0.2122},{"word":"peace","weight":0.212},{"word":"nation","weight":0.1068},{"word":"war","weight":0.1004},{"word":"people","weight":0.0673},{"word":"government","weight":0.0666},{"word":"republic","weight":0.061},{"word":"america","weight":0.0607},{"word":"man","weight":0.0571},{"word":"mankind","weight":0.0559}]},{"id":1,"name":"American Identity","words":[{"word":"america","weight":0.2821},{"word":"world","weight":0.1217},{"word":"united states","weight":0.112},{"word":"republic","weight":0.1071},{"word":"peace","weight":0.075},{"word":"american","weight":0.0666},{"word":"people","weight":0.0627},{"word":"nation","weight":0.0606},{"word":"war","weight":0.0561},{"word":"man","weight":0.0561}]},{"id":2,"name":"Taxation & Budget","words":[{"word":"business","weight":0.1731},{"word":"increase","weight":0.1159},{"word":"government","weight":0.115},{"word":"law","weight":0.1017},{"word":"duty","weight":0.0918},{"word":"country","weight":0.0894},{"word":"cost","weight":0.0836},{"word":"tariff","weight":0.0779},{"word":"man","weight":0.0772},{"word":"rate","weight":0.0745}]},{"id":3,"name":"Governance & Law","words":[{"word":"government","weight":0.1972},{"word":"law","weight":0.149},{"word":"united states","weight":0.1157},{"word":"man","weight":0.0892},{"word":"business","weight":0.0791},{"word":"power","weight":0.0786},{"word":"congress","weight":0.0781},{"word":"nation","weight":0.0739},{"word":"condition","weight":0.0699},{"word":"duty","weight":0.0692}]},{"id":4,"name":"Citizens & Rights","words":[{"word":"people","weight":0.2452},{"word":"government","weight":0.1493},{"word":"nation","weight":0.1023},{"word":"peace","weight":0.0862},{"word":"man","weight":0.0825},{"word":"world","weight":0.082},{"word":"united states","weight":0.0657},{"word":"war","weight":0.0632},{"word":"power","weight":0.0629},{"word":"life","weight":0.0606}]},{"id":5,"name":"Family & Social Welfare","words":[{"word":"man","weight":0.2229},{"word":"american","weight":0.162},{"word":"life","weight":0.0985},{"word":"government","weight":0.0859},{"word":"law","weight":0.0785},{"word":"nation","weight":0.0761},{"word":"republic","weight":0.073},{"word":"world","weight":0.072},{"word":"people","weight":0.0701},{"word":"business","weight":0.0611}]},{"id":6,"name":"Freedom & Democracy","words":[{"word":"nation","weight":0.2788},{"word":"peace","weight":0.1104},{"word":"world","weight":0.1072},{"word":"man","weight":0.0887},{"word":"government","weight":0.0852},{"word":"people","weight":0.0817},{"word":"war","weight":0.0709},{"word":"law","weight":0.0622},{"word":"power","weight":0.0594},{"word":"united states","weight":0.0555}]},{"id":7,"name":"Vision & Aspiration","words":[{"word":"country","weight":0.2295},{"word":"business","weight":0.1262},{"word":"man","weight":0.0971},{"word":"government","weight":0.0947},{"word":"law","weight":0.0895},{"word":"nation","weight":0.0772},{"word":"united states","weight":0.0746},{"word":"tariff","weight":0.0721},{"word":"people","weight":0.0698},{"word":"service","weight":0.0693}]},{"id":8,"name":"Congress & Legislation","words":[{"word":"congress","weight":0.2917},{"word":"law","weight":0.1157},{"word":"legislation","weight":0.0921},{"word":"government","weight":0.0905},{"word":"commission","weight":0.0754},{"word":"subject","weight":0.0713},{"word":"act","weight":0.0683},{"word":"action","weight":0.066},{"word":"report","weight":0.0647},{"word":"power","weight":0.0644}]},{"id":9,"name":"Reform & Policy","words":[{"word":"work","weight":0.2838},{"word":"government","weight":0.1148},{"word":"man","weight":0.1143},{"word":"law","weight":0.0948},{"word":"condition","weight":0.0758},{"word":"business","weight":0.0758},{"word":"nation","weight":0.0621},{"word":"world","weight":0.0599},{"word":"necessary","weight":0.0595},{"word":"national","weight":0.0592}]}],"1925-1949":[{"id":0,"name":"War & Peace","words":[{"word":"world","weight":0.2051},{"word":"peace","weight":0.1995},{"word":"war","weight":0.1656},{"word":"nation","weight":0.0947},{"word":"freedom","weight":0.0904},{"word":"people","weight":0.0676},{"word":"man","weight":0.0498},{"word":"force","weight":0.0434},{"word":"government","weight":0.0423},{"word":"democracy","weight":0.0417}]},{"id":1,"name":"American Identity","words":[{"word":"america","weight":0.3199},{"word":"war","weight":0.0919},{"word":"united states","weight":0.0905},{"word":"world","weight":0.0878},{"word":"people","weight":0.085},{"word":"spirit","weight":0.0817},{"word":"faith","weight":0.0688},{"word":"nation","weight":0.0631},{"word":"food","weight":0.0598},{"word":"man","weight":0.0515}]},{"id":2,"name":"Taxation & Budget","words":[{"word":"increase","weight":0.1342},{"word":"industry","weight":0.1131},{"word":"government","weight":0.1054},{"word":"people","weight":0.1028},{"word":"work","weight":0.0982},{"word":"farm","weight":0.0951},{"word":"job","weight":0.0926},{"word":"production","weight":0.0888},{"word":"war","weight":0.0866},{"word":"national","weight":0.0833}]},{"id":3,"name":"Governance & Law","words":[{"word":"government","weight":0.2258},{"word":"war","weight":0.1114},{"word":"united states","weight":0.0977},{"word":"people","weight":0.0972},{"word":"national","weight":0.0888},{"word":"nation","weight":0.0835},{"word":"power","weight":0.0771},{"word":"state","weight":0.077},{"word":"man","weight":0.0749},{"word":"world","weight":0.0664}]},{"id":4,"name":"Citizens & Rights","words":[{"word":"people","weight":0.3431},{"word":"government","weight":0.1216},{"word":"nation","weight":0.0963},{"word":"war","weight":0.0784},{"word":"man","weight":0.075},{"word":"world","weight":0.0699},{"word":"freedom","weight":0.063},{"word":"life","weight":0.0536},{"word":"country","weight":0.0498},{"word":"economic","weight":0.0494}]},{"id":5,"name":"Family & Social Welfare","words":[{"word":"man","weight":0.1985},{"word":"american","weight":0.1264},{"word":"war","weight":0.0986},{"word":"life","weight":0.0927},{"word":"freedom","weight":0.0913},{"word":"people","weight":0.0858},{"word":"nation","weight":0.0848},{"word":"woman","weight":0.0832},{"word":"government","weight":0.0713},{"word":"americans","weight":0.0672}]},{"id":6,"name":"Freedom & Democracy","words":[{"word":"nation","weight":0.3708},{"word":"world","weight":0.0984},{"word":"people","weight":0.0871},{"word":"war","weight":0.0859},{"word":"peace","weight":0.0765},{"word":"government","weight":0.0712},{"word":"future","weight":0.0595},{"word":"task","weight":0.0521},{"word":"man","weight":0.0505},{"word":"democracy","weight":0.0479}]},{"id":7,"name":"Vision & Aspiration","words":[{"word":"country","weight":0.3348},{"word":"people","weight":0.0964},{"word":"war","weight":0.0865},{"word":"government","weight":0.0774},{"word":"man","weight":0.0745},{"word":"nation","weight":0.0706},{"word":"congress","weight":0.0698},{"word":"world","weight":0.0661},{"word":"believe","weight":0.0624},{"word":"national","weight":0.0617}]},{"id":8,"name":"Congress & Legislation","words":[{"word":"congress","weight":0.509},{"word":"government","weight":0.0636},{"word":"session","weight":0.0602},{"word":"democratic","weight":0.0584},{"word":"special","weight":0.0562},{"word":"tariff","weight":0.0541},{"word":"country","weight":0.0539},{"word":"war","weight":0.0486},{"word":"measure","weight":0.0486},{"word":"nation","weight":0.0474}]},{"id":9,"name":"Reform & Policy","words":[{"word":"work","weight":0.3856},{"word":"unemployed","weight":0.0861},{"word":"man","weight":0.0743},{"word":"people","weight":0.0722},{"word":"government","weight":0.0721},{"word":"war","weight":0.0716},{"word":"employment","weight":0.0618},{"word":"industry","weight":0.0603},{"word":"job","weight":0.0594},{"word":"nation","weight":0.0567}]}],"1950-1974":[{"id":0,"name":"War & Peace","words":[{"word":"world","weight":0.2367},{"word":"peace","weight":0.2267},{"word":"war","weight":0.1097},{"word":"nation","weight":0.0786},{"word":"freedom","weight":0.0733},{"word":"hope","weight":0.0662},{"word":"people","weight":0.0615},{"word":"vietnam","weight":0.0509},{"word":"man","weight":0.05},{"word":"free","weight":0.0463}]},{"id":1,"name":"American Identity","words":[{"word":"america","weight":0.4179},{"word":"united states","weight":0.1084},{"word":"world","weight":0.093},{"word":"peace","weight":0.0874},{"word":"nation","weight":0.071},{"word":"people","weight":0.0655},{"word":"freedom","weight":0.0441},{"word":"hope","weight":0.0392},{"word":"man","weight":0.0383},{"word":"goal","weight":0.0352}]},{"id":2,"name":"Taxation & Budget","words":[{"word":"program","weight":0.1453},{"word":"billion","weight":0.1411},{"word":"increase","weight":0.1242},{"word":"tax","weight":0.1163},{"word":"job","weight":0.0971},{"word":"percent","weight":0.0873},{"word":"help","weight":0.0788},{"word":"million","weight":0.0753},{"word":"budget","weight":0.072},{"word":"economy","weight":0.0626}]},{"id":3,"name":"Governance & Law","words":[{"word":"government","weight":0.1897},{"word":"united states","weight":0.1432},{"word":"state","weight":0.1278},{"word":"people","weight":0.09},{"word":"secretary","weight":0.0806},{"word":"man","weight":0.0763},{"word":"war","weight":0.0752},{"word":"nation","weight":0.0742},{"word":"law","weight":0.0732},{"word":"country","weight":0.07}]},{"id":4,"name":"Citizens & Rights","words":[{"word":"people","weight":0.4534},{"word":"world","weight":0.0748},{"word":"government","weight":0.0736},{"word":"country","weight":0.0619},{"word":"believe","weight":0.0579},{"word":"nation","weight":0.0576},{"word":"hope","weight":0.0575},{"word":"help","weight":0.0564},{"word":"peace","weight":0.0564},{"word":"south vietnam","weight":0.0504}]},{"id":5,"name":"Family & Social Welfare","words":[{"word":"man","weight":0.2594},{"word":"american","weight":0.1429},{"word":"life","weight":0.1057},{"word":"americans","weight":0.0775},{"word":"child","weight":0.077},{"word":"nation","weight":0.0762},{"word":"hope","weight":0.0711},{"word":"freedom","weight":0.0697},{"word":"tonight","weight":0.0636},{"word":"people","weight":0.057}]},{"id":6,"name":"Freedom & Democracy","words":[{"word":"nation","weight":0.4777},{"word":"world","weight":0.0975},{"word":"help","weight":0.0633},{"word":"man","weight":0.0622},{"word":"peace","weight":0.055},{"word":"people","weight":0.0535},{"word":"free","weight":0.0492},{"word":"effort","weight":0.0487},{"word":"problem","weight":0.0481},{"word":"freedom","weight":0.0446}]},{"id":7,"name":"Vision & Aspiration","words":[{"word":"country","weight":0.4291},{"word":"believe","weight":0.1093},{"word":"people","weight":0.0842},{"word":"world","weight":0.0735},{"word":"man","weight":0.0636},{"word":"nation","weight":0.0562},{"word":"hope","weight":0.0509},{"word":"united states","weight":0.0499},{"word":"help","weight":0.0423},{"word":"peace","weight":0.0411}]},{"id":8,"name":"Congress & Legislation","words":[{"word":"congress","weight":0.4178},{"word":"pass","weight":0.0797},{"word":"measure","weight":0.0763},{"word":"fellow americans","weight":0.0741},{"word":"members","weight":0.0729},{"word":"act","weight":0.0623},{"word":"program","weight":0.0609},{"word":"hope","weight":0.0563},{"word":"propose","weight":0.0531},{"word":"action","weight":0.0466}]},{"id":9,"name":"Reform & Policy","words":[{"word":"work","weight":0.43},{"word":"believe","weight":0.0801},{"word":"man","weight":0.0754},{"word":"peace","weight":0.0747},{"word":"people","weight":0.0675},{"word":"continue","weight":0.0609},{"word":"month","weight":0.0563},{"word":"nation","weight":0.0554},{"word":"help","weight":0.0508},{"word":"effort","weight":0.0489}]}],"1975-1999":[{"id":0,"name":"War & Peace","words":[{"word":"world","weight":0.2557},{"word":"peace","weight":0.1985},{"word":"freedom","weight":0.0906},{"word":"america","weight":0.083},{"word":"nation","weight":0.08},{"word":"people","weight":0.0733},{"word":"war","weight":0.0559},{"word":"soviet union","weight":0.0551},{"word":"country","weight":0.0543},{"word":"strong","weight":0.0536}]},{"id":1,"name":"American Identity","words":[{"word":"america","weight":0.4897},{"word":"united states","weight":0.091},{"word":"world","weight":0.0866},{"word":"people","weight":0.0561},{"word":"nation","weight":0.0527},{"word":"future","weight":0.0495},{"word":"strong","weight":0.0487},{"word":"peace","weight":0.0449},{"word":"freedom","weight":0.0412},{"word":"american","weight":0.0397}]},{"id":2,"name":"Taxation & Budget","words":[{"word":"tax","weight":0.1319},{"word":"job","weight":0.1263},{"word":"increase","weight":0.1066},{"word":"program","weight":0.1047},{"word":"percent","weight":0.1036},{"word":"budget","weight":0.0913},{"word":"cut","weight":0.0911},{"word":"billion","weight":0.0872},{"word":"inflation","weight":0.0802},{"word":"spending","weight":0.0771}]},{"id":3,"name":"Governance & Law","words":[{"word":"government","weight":0.261},{"word":"united states","weight":0.1325},{"word":"people","weight":0.1173},{"word":"state","weight":0.1056},{"word":"nation","weight":0.0681},{"word":"world","weight":0.0668},{"word":"country","weight":0.065},{"word":"soviet union","weight":0.0647},{"word":"work","weight":0.0595},{"word":"force","weight":0.0594}]},{"id":4,"name":"Citizens & Rights","words":[{"word":"people","weight":0.4017},{"word":"government","weight":0.1123},{"word":"work","weight":0.0745},{"word":"country","weight":0.0739},{"word":"world","weight":0.0696},{"word":"america","weight":0.0609},{"word":"help","weight":0.0564},{"word":"believe","weight":0.054},{"word":"life","weight":0.0498},{"word":"nation","weight":0.0468}]},{"id":5,"name":"Family & Social Welfare","words":[{"word":"child","weight":0.1535},{"word":"american","weight":0.1264},{"word":"life","weight":0.1254},{"word":"family","weight":0.1029},{"word":"america","weight":0.097},{"word":"people","weight":0.0881},{"word":"americans","weight":0.0817},{"word":"man","weight":0.0785},{"word":"freedom","weight":0.0756},{"word":"world","weight":0.0708}]},{"id":6,"name":"Freedom & Democracy","words":[{"word":"nation","weight":0.3707},{"word":"world","weight":0.1184},{"word":"america","weight":0.0861},{"word":"peace","weight":0.0726},{"word":"people","weight":0.0718},{"word":"future","weight":0.0701},{"word":"strong","weight":0.0568},{"word":"economy","weight":0.0521},{"word":"united states","weight":0.0517},{"word":"government","weight":0.0498}]},{"id":7,"name":"Vision & Aspiration","words":[{"word":"country","weight":0.374},{"word":"people","weight":0.1123},{"word":"believe","weight":0.1078},{"word":"world","weight":0.0789},{"word":"america","weight":0.0613},{"word":"future","weight":0.0607},{"word":"work","weight":0.0551},{"word":"help","weight":0.0508},{"word":"strong","weight":0.0498},{"word":"problem","weight":0.0493}]},{"id":8,"name":"Congress & Legislation","words":[{"word":"congress","weight":0.4692},{"word":"program","weight":0.0643},{"word":"pass","weight":0.0614},{"word":"fellow americans","weight":0.0603},{"word":"work","weight":0.0599},{"word":"tonight","weight":0.0598},{"word":"people","weight":0.0588},{"word":"american people","weight":0.0582},{"word":"fellow citizen","weight":0.0557},{"word":"budget","weight":0.0524}]},{"id":9,"name":"Reform & Policy","words":[{"word":"work","weight":0.3969},{"word":"people","weight":0.1126},{"word":"child","weight":0.0661},{"word":"family","weight":0.0649},{"word":"job","weight":0.0643},{"word":"help","weight":0.0601},{"word":"america","weight":0.0594},{"word":"welfare","weight":0.0588},{"word":"world","weight":0.0587},{"word":"government","weight":0.0582}]}],"2000-2024":[{"id":0,"name":"War & Peace","words":[{"word":"world","weight":0.3101},{"word":"america","weight":0.1132},{"word":"peace","weight":0.0971},{"word":"war","weight":0.0832},{"word":"nation","weight":0.0823},{"word":"people","weight":0.0794},{"word":"freedom","weight":0.0709},{"word":"country","weight":0.062},{"word":"security","weight":0.051},{"word":"iraq","weight":0.0509}]},{"id":1,"name":"American Identity","words":[{"word":"america","weight":0.5511},{"word":"united states","weight":0.1307},{"word":"world","weight":0.0608},{"word":"nation","weight":0.0494},{"word":"country","weight":0.0467},{"word":"people","weight":0.0387},{"word":"believe","weight":0.0376},{"word":"build","weight":0.0299},{"word":"american","weight":0.0279},{"word":"future","weight":0.0272}]},{"id":2,"name":"Taxation & Budget","words":[{"word":"job","weight":0.2708},{"word":"economy","weight":0.1032},{"word":"help","weight":0.0903},{"word":"pay","weight":0.0879},{"word":"million","weight":0.0855},{"word":"create","weight":0.0838},{"word":"billion","weight":0.071},{"word":"people","weight":0.07},{"word":"america","weight":0.0699},{"word":"worker","weight":0.0675}]},{"id":3,"name":"Governance & Law","words":[{"word":"united states","weight":0.1892},{"word":"state","weight":0.1733},{"word":"government","weight":0.1118},{"word":"america","weight":0.1096},{"word":"people","weight":0.0832},{"word":"law","weight":0.0788},{"word":"secretary","weight":0.069},{"word":"country","weight":0.0676},{"word":"work","weight":0.0621},{"word":"nation","weight":0.0555}]},{"id":4,"name":"Citizens & Rights","words":[{"word":"people","weight":0.5488},{"word":"country","weight":0.0726},{"word":"work","weight":0.0624},{"word":"america","weight":0.0566},{"word":"nation","weight":0.0508},{"word":"world","weight":0.0495},{"word":"help","weight":0.048},{"word":"hear","weight":0.0412},{"word":"stand","weight":0.0358},{"word":"job","weight":0.0343}]},{"id":5,"name":"Family & Social Welfare","words":[{"word":"american","weight":0.1735},{"word":"child","weight":0.1391},{"word":"life","weight":0.1172},{"word":"family","weight":0.1053},{"word":"americans","weight":0.0986},{"word":"america","weight":0.0933},{"word":"woman","weight":0.074},{"word":"people","weight":0.0716},{"word":"country","weight":0.0652},{"word":"man","weight":0.0623}]},{"id":6,"name":"Freedom & Democracy","words":[{"word":"nation","weight":0.4305},{"word":"america","weight":0.1053},{"word":"world","weight":0.0858},{"word":"people","weight":0.077},{"word":"future","weight":0.0523},{"word":"country","weight":0.0517},{"word":"strong","weight":0.051},{"word":"build","weight":0.0504},{"word":"history","weight":0.0486},{"word":"face","weight":0.0474}]},{"id":7,"name":"Vision & Aspiration","words":[{"word":"country","weight":0.4419},{"word":"people","weight":0.09},{"word":"america","weight":0.0854},{"word":"love","weight":0.0838},{"word":"believe","weight":0.0747},{"word":"world","weight":0.0526},{"word":"work","weight":0.0497},{"word":"nation","weight":0.0422},{"word":"build","weight":0.0399},{"word":"big","weight":0.0397}]},{"id":8,"name":"Congress & Legislation","words":[{"word":"congress","weight":0.3309},{"word":"pass","weight":0.1295},{"word":"act","weight":0.1028},{"word":"fellow americans","weight":0.0983},{"word":"vote","weight":0.0698},{"word":"tonight","weight":0.0603},{"word":"america","weight":0.0588},{"word":"work","weight":0.0532},{"word":"vice president","weight":0.0512},{"word":"american people","weight":0.0453}]},{"id":9,"name":"Reform & Policy","words":[{"word":"work","weight":0.5068},{"word":"people","weight":0.0896},{"word":"job","weight":0.059},{"word":"country","weight":0.0588},{"word":"help","weight":0.0555},{"word":"america","weight":0.0543},{"word":"family","weight":0.0542},{"word":"americans","weight":0.0452},{"word":"economy","weight":0.0391},{"word":"state","weight":0.0376}]}]},"topic_timeseries":[{"year":1775,"period":"1775-1799","topic_id":0,"topic_name":"War & Peace","proportion":0.0387},{"year":1775,"period":"1775-1799","topic_id":1,"topic_name":"American Identity","proportion":0.0353},{"year":1775,"period":"1775-1799","topic_id":2,"topic_name":"Taxation & Budget","proportion":0.0103},{"year":1775,"period":"1775-1799","topic_id":3,"topic_name":"Governance & Law","proportion":0.3667},{"year":1775,"period":"1775-1799","topic_id":4,"topic_name":"Citizens & Rights","proportion":0.0874},{"year":1775,"period":"1775-1799","topic_id":5,"topic_name":"Family & Social Welfare","proportion":0.1021},{"year":1775,"period":"1775-1799","topic_id":6,"topic_name":"Freedom & Democracy","proportion":0.1768},{"year":1775,"period":"1775-1799","topic_id":7,"topic_name":"Vision & Aspiration","proportion":0.1314},{"year":1775,"period":"1775-1799","topic_id":8,"topic_name":"Congress & Legislation","proportion":0.0437},{"year":1775,"period":"1775-1799","topic_id":9,"topic_name":"Reform & Policy","proportion":0.0075},{"year":1800,"period":"1800-1824","topic_id":0,"topic_name":"War & Peace","proportion":0.0501},{"year":1800,"period":"1800-1824","topic_id":1,"topic_name":"American Identity","proportion":0.0723},{"year":1800,"period":"1800-1824","topic_id":2,"topic_name":"Taxation & Budget","proportion":0.0259},{"year":1800,"period":"1800-1824","topic_id":3,"topic_name":"Governance & Law","proportion":0.4514},{"year":1800,"period":"1800-1824","topic_id":4,"topic_name":"Citizens & Rights","proportion":0.0259},{"year":1800,"period":"1800-1824","topic_id":5,"topic_name":"Family & Social Welfare","proportion":0.0817},{"year":1800,"period":"1800-1824","topic_id":6,"topic_name":"Freedom & Democracy","proportion":0.1193},{"year":1800,"period":"1800-1824","topic_id":7,"topic_name":"Vision & Aspiration","proportion":0.093},{"year":1800,"period":"1800-1824","topic_id":8,"topic_name":"Congress & Legislation","proportion":0.0648},{"year":1800,"period":"1800-1824","topic_id":9,"topic_name":"Reform & Policy","proportion":0.0156},{"year":1825,"period":"1825-1849","topic_id":0,"topic_name":"War & Peace","proportion":0.0179},{"year":1825,"period":"1825-1849","topic_id":1,"topic_name":"American Identity","proportion":0.0099},{"year":1825,"period":"1825-1849","topic_id":2,"topic_name":"Taxation & Budget","proportion":0.0267},{"year":1825,"period":"1825-1849","topic_id":3,"topic_name":"Governance & Law","proportion":0.5817},{"year":1825,"period":"1825-1849","topic_id":4,"topic_name":"Citizens & Rights","proportion":0.063},{"year":1825,"period":"1825-1849","topic_id":5,"topic_name":"Family & Social Welfare","proportion":0.0249},{"year":1825,"period":"1825-1849","topic_id":6,"topic_name":"Freedom & Democracy","proportion":0.0462},{"year":1825,"period":"1825-1849","topic_id":7,"topic_name":"Vision & Aspiration","proportion":0.1016},{"year":1825,"period":"1825-1849","topic_id":8,"topic_name":"Congress & Legislation","proportion":0.1233},{"year":1825,"period":"1825-1849","topic_id":9,"topic_name":"Reform & Policy","proportion":0.0051},{"year":1850,"period":"1850-1874","topic_id":0,"topic_name":"War & Peace","proportion":0.0218},{"year":1850,"period":"1850-1874","topic_id":1,"topic_name":"American Identity","proportion":0.0303},{"year":1850,"period":"1850-1874","topic_id":2,"topic_name":"Taxation & Budget","proportion":0.0278},{"year":1850,"period":"1850-1874","topic_id":3,"topic_name":"Governance & Law","proportion":0.5191},{"year":1850,"period":"1850-1874","topic_id":4,"topic_name":"Citizens & Rights","proportion":0.0741},{"year":1850,"period":"1850-1874","topic_id":5,"topic_name":"Family & Social Welfare","proportion":0.0552},{"year":1850,"period":"1850-1874","topic_id":6,"topic_name":"Freedom & Democracy","proportion":0.0428},{"year":1850,"period":"1850-1874","topic_id":7,"topic_name":"Vision & Aspiration","proportion":0.0653},{"year":1850,"period":"1850-1874","topic_id":8,"topic_name":"Congress & Legislation","proportion":0.1523},{"year":1850,"period":"1850-1874","topic_id":9,"topic_name":"Reform & Policy","proportion":0.0112},{"year":1875,"period":"1875-1899","topic_id":0,"topic_name":"War & Peace","proportion":0.0231},{"year":1875,"period":"1875-1899","topic_id":1,"topic_name":"American Identity","proportion":0.0136},{"year":1875,"period":"1875-1899","topic_id":2,"topic_name":"Taxation & Budget","proportion":0.0505},{"year":1875,"period":"1875-1899","topic_id":3,"topic_name":"Governance & Law","proportion":0.4766},{"year":1875,"period":"1875-1899","topic_id":4,"topic_name":"Citizens & Rights","proportion":0.0675},{"year":1875,"period":"1875-1899","topic_id":5,"topic_name":"Family & Social Welfare","proportion":0.0499},{"year":1875,"period":"1875-1899","topic_id":6,"topic_name":"Freedom & Democracy","proportion":0.0551},{"year":1875,"period":"1875-1899","topic_id":7,"topic_name":"Vision & Aspiration","proportion":0.0986},{"year":1875,"period":"1875-1899","topic_id":8,"topic_name":"Congress & Legislation","proportion":0.1413},{"year":1875,"period":"1875-1899","topic_id":9,"topic_name":"Reform & Policy","proportion":0.0239},{"year":1900,"period":"1900-1924","topic_id":0,"topic_name":"War & Peace","proportion":0.081},{"year":1900,"period":"1900-1924","topic_id":1,"topic_name":"American Identity","proportion":0.0378},{"year":1900,"period":"1900-1924","topic_id":2,"topic_name":"Taxation & Budget","proportion":0.0561},{"year":1900,"period":"1900-1924","topic_id":3,"topic_name":"Governance & Law","proportion":0.337},{"year":1900,"period":"1900-1924","topic_id":4,"topic_name":"Citizens & Rights","proportion":0.0688},{"year":1900,"period":"1900-1924","topic_id":5,"topic_name":"Family & Social Welfare","proportion":0.1378},{"year":1900,"period":"1900-1924","topic_id":6,"topic_name":"Freedom & Democracy","proportion":0.089},{"year":1900,"period":"1900-1924","topic_id":7,"topic_name":"Vision & Aspiration","proportion":0.0623},{"year":1900,"period":"1900-1924","topic_id":8,"topic_name":"Congress & Legislation","proportion":0.0768},{"year":1900,"period":"1900-1924","topic_id":9,"topic_name":"Reform & Policy","proportion":0.0534},{"year":1925,"period":"1925-1949","topic_id":0,"topic_name":"War & Peace","proportion":0.1116},{"year":1925,"period":"1925-1949","topic_id":1,"topic_name":"American Identity","proportion":0.0329},{"year":1925,"period":"1925-1949","topic_id":2,"topic_name":"Taxation & Budget","proportion":0.0819},{"year":1925,"period":"1925-1949","topic_id":3,"topic_name":"Governance & Law","proportion":0.1975},{"year":1925,"period":"1925-1949","topic_id":4,"topic_name":"Citizens & Rights","proportion":0.1},{"year":1925,"period":"1925-1949","topic_id":5,"topic_name":"Family & Social Welfare","proportion":0.166},{"year":1925,"period":"1925-1949","topic_id":6,"topic_name":"Freedom & Democracy","proportion":0.1156},{"year":1925,"period":"1925-1949","topic_id":7,"topic_name":"Vision & Aspiration","proportion":0.0619},{"year":1925,"period":"1925-1949","topic_id":8,"topic_name":"Congress & Legislation","proportion":0.0696},{"year":1925,"period":"1925-1949","topic_id":9,"topic_name":"Reform & Policy","proportion":0.0632},{"year":1950,"period":"1950-1974","topic_id":0,"topic_name":"War & Peace","proportion":0.1104},{"year":1950,"period":"1950-1974","topic_id":1,"topic_name":"American Identity","proportion":0.043},{"year":1950,"period":"1950-1974","topic_id":2,"topic_name":"Taxation & Budget","proportion":0.1011},{"year":1950,"period":"1950-1974","topic_id":3,"topic_name":"Governance & Law","proportion":0.1524},{"year":1950,"period":"1950-1974","topic_id":4,"topic_name":"Citizens & Rights","proportion":0.0902},{"year":1950,"period":"1950-1974","topic_id":5,"topic_name":"Family & Social Welfare","proportion":0.165},{"year":1950,"period":"1950-1974","topic_id":6,"topic_name":"Freedom & Democracy","proportion":0.1062},{"year":1950,"period":"1950-1974","topic_id":7,"topic_name":"Vision & Aspiration","proportion":0.081},{"year":1950,"period":"1950-1974","topic_id":8,"topic_name":"Congress & Legislation","proportion":0.0935},{"year":1950,"period":"1950-1974","topic_id":9,"topic_name":"Reform & Policy","proportion":0.0574},{"year":1975,"period":"1975-1999","topic_id":0,"topic_name":"War & Peace","proportion":0.0949},{"year":1975,"period":"1975-1999","topic_id":1,"topic_name":"American Identity","proportion":0.0713},{"year":1975,"period":"1975-1999","topic_id":2,"topic_name":"Taxation & Budget","proportion":0.1514},{"year":1975,"period":"1975-1999","topic_id":3,"topic_name":"Governance & Law","proportion":0.1193},{"year":1975,"period":"1975-1999","topic_id":4,"topic_name":"Citizens & Rights","proportion":0.0997},{"year":1975,"period":"1975-1999","topic_id":5,"topic_name":"Family & Social Welfare","proportion":0.1585},{"year":1975,"period":"1975-1999","topic_id":6,"topic_name":"Freedom & Democracy","proportion":0.0743},{"year":1975,"period":"1975-1999","topic_id":7,"topic_name":"Vision & Aspiration","proportion":0.083},{"year":1975,"period":"1975-1999","topic_id":8,"topic_name":"Congress & Legislation","proportion":0.0701},{"year":1975,"period":"1975-1999","topic_id":9,"topic_name":"Reform & Policy","proportion":0.0775},{"year":2000,"period":"2000-2024","topic_id":0,"topic_name":"War & Peace","proportion":0.0675},{"year":2000,"period":"2000-2024","topic_id":1,"topic_name":"American Identity","proportion":0.1014},{"year":2000,"period":"2000-2024","topic_id":2,"topic_name":"Taxation & Budget","proportion":0.1247},{"year":2000,"period":"2000-2024","topic_id":3,"topic_name":"Governance & Law","proportion":0.089},{"year":2000,"period":"2000-2024","topic_id":4,"topic_name":"Citizens & Rights","proportion":0.1137},{"year":2000,"period":"2000-2024","topic_id":5,"topic_name":"Family & Social Welfare","proportion":0.1827},{"year":2000,"period":"2000-2024","topic_id":6,"topic_name":"Freedom & Democracy","proportion":0.0765},{"year":2000,"period":"2000-2024","topic_id":7,"topic_name":"Vision & Aspiration","proportion":0.1023},{"year":2000,"period":"2000-2024","topic_id":8,"topic_name":"Congress & Legislation","proportion":0.0516},{"year":2000,"period":"2000-2024","topic_id":9,"topic_name":"Reform & Policy","proportion":0.0904}]};
+
+// ─── Color palettes ───
+const WORD_PALETTE = [
+  '#e8c97e','#3B8BD4','#e07c5a','#6bc9a0','#c084d4',
+  '#d4a03b','#5aa5d4','#d46b6b','#7ed4b8','#b48ed4',
+  '#d4c45a','#4e9fd4','#d49c6b','#5ad4a3','#a35ad4',
+  '#d4d46b',
+];
+
+const TOPIC_COLORS = [
+  '#e8c97e','#3B8BD4','#e07c5a','#6bc9a0','#c084d4',
+  '#d4a03b','#5aa5d4','#d46b6b','#7ed4b8','#b48ed4',
+];
+
+function wordColor(word) {
+  const words = DATA.meta.target_words;
+  return WORD_PALETTE[words.indexOf(word) % WORD_PALETTE.length];
+}
+
+function topicColor(id) { return TOPIC_COLORS[id % TOPIC_COLORS.length]; }
+
+// ─── SVG helpers ───
+function svgEl(tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [k, v] of Object.entries(attrs || {})) el.setAttribute(k, v);
+  return el;
+}
+
+function createSVG(container, w, h, margin) {
+  const svg = svgEl('svg', { width: w, height: h, viewBox: `0 0 ${w} ${h}` });
+  container.appendChild(svg);
+  const g = svgEl('g', { transform: `translate(${margin.left},${margin.top})` });
+  svg.appendChild(g);
+  return { svg, g, width: w - margin.left - margin.right, height: h - margin.top - margin.bottom };
+}
+
+// ─── Tooltip ───
+const tt = document.getElementById('tooltip');
+function showTooltip(e, html) {
+  tt.innerHTML = html;
+  tt.style.opacity = 1;
+  const x = Math.min(e.clientX + 14, window.innerWidth - 350);
+  const y = Math.max(e.clientY - 10, 10);
+  tt.style.left = x + 'px';
+  tt.style.top = y + 'px';
+}
+function hideTooltip() { tt.style.opacity = 0; }
+
+// ─── Stats row ───
+function renderStats() {
+  const row = document.getElementById('stats-row');
+  const periods = DATA.meta.periods.length;
+  const avgVocab = Math.round(DATA.vocab_stats.reduce((s,v) => s + v.vocab_size, 0) / DATA.vocab_stats.length);
+  const stats = [
+    { value: periods, label: 'Quarter-centuries' },
+    { value: '250', label: 'Years spanned' },
+    { value: avgVocab.toLocaleString(), label: 'Avg vocabulary' },
+    { value: DATA.meta.target_words.length, label: 'Words tracked' },
+    { value: DATA.global_topics.length, label: 'Topics extracted' },
+  ];
+  row.innerHTML = stats.map(s =>
+    `<div class="stat"><div class="value">${s.value}</div><div class="label">${s.label}</div></div>`
+  ).join('');
+}
+
+// ─── Line chart (reusable) ───
+function renderLineChart(containerId, legendId, data, xKey, yKey, groupKey, colorFn, yAxisLabel) {
+  const container = document.getElementById(containerId);
+  const legendEl = document.getElementById(legendId);
+  const W = Math.min(container.parentElement.clientWidth - 48, 1100);
+  const H = 380;
+  const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+  const { g, width, height } = createSVG(container, W, H, margin);
+
+  const groups = [...new Set(data.map(d => d[groupKey]))];
+  const xs = [...new Set(data.map(d => d[xKey]))].sort((a,b) => a - b);
+  const yMax = Math.max(...data.map(d => d[yKey])) * 1.08;
+  const xScale = x => ((x - xs[0]) / (xs[xs.length-1] - xs[0])) * width;
+  const yScale = y => height - (y / yMax) * height;
+
+  // Grid lines + Y labels
+  for (let i = 0; i <= 5; i++) {
+    const yv = (yMax / 5) * i;
+    const yy = yScale(yv);
+    g.appendChild(svgEl('line', { x1: 0, x2: width, y1: yy, y2: yy, stroke: '#35353d', 'stroke-width': 1 }));
+    g.appendChild(svgEl('text', { x: -8, y: yy + 4, 'text-anchor': 'end', 'font-size': '10px' })).textContent = yv.toFixed(2);
+  }
+
+  // X labels
+  for (const x of xs) {
+    g.appendChild(svgEl('text', { x: xScale(x), y: height + 24, 'text-anchor': 'middle', 'font-size': '10px' })).textContent = x;
+  }
+
+  // Y axis label
+  const yLbl = svgEl('text', { x: -(height/2), y: -45, 'text-anchor': 'middle', transform: 'rotate(-90)', 'font-size': '11px', fill: '#9a988f' });
+  yLbl.textContent = yAxisLabel || 'Value';
+  g.appendChild(yLbl);
+
+  const activeGroups = new Set(groups);
+  const paths = {};
+  const dots = {};
+
+  function draw() {
+    for (const group of groups) {
+      const visible = activeGroups.has(group);
+      const color = colorFn(group);
+      const pts = data.filter(d => d[groupKey] === group).sort((a,b) => a[xKey] - b[xKey]);
+
+      if (!paths[group]) {
+        paths[group] = svgEl('path', { fill: 'none', stroke: color, 'stroke-width': 2.5, 'stroke-linejoin': 'round' });
+        g.appendChild(paths[group]);
+        dots[group] = [];
+        for (const pt of pts) {
+          const circle = svgEl('circle', { r: 4, fill: color, stroke: 'var(--surface)', 'stroke-width': 2, cursor: 'pointer' });
+          circle.addEventListener('mouseenter', e => {
+            showTooltip(e, `<div class="tt-title">${pt[groupKey]}</div><div class="tt-row">Period starting <span class="tt-val">${pt[xKey]}</span></div><div class="tt-row">${yAxisLabel}: <span class="tt-val">${pt[yKey].toFixed(4)}</span></div>`);
+          });
+          circle.addEventListener('mouseleave', hideTooltip);
+          g.appendChild(circle);
+          dots[group].push({ el: circle, pt });
+        }
+      }
+
+      const d = pts.map((p, i) => `${i===0?'M':'L'}${xScale(p[xKey])},${yScale(p[yKey])}`).join('');
+      paths[group].setAttribute('d', d);
+      paths[group].setAttribute('opacity', visible ? 1 : 0.08);
+      for (const dot of dots[group]) {
+        dot.el.setAttribute('cx', xScale(dot.pt[xKey]));
+        dot.el.setAttribute('cy', yScale(dot.pt[yKey]));
+        dot.el.setAttribute('opacity', visible ? 1 : 0.08);
+      }
+    }
+  }
+
+  draw();
+
+  // Legend
+  legendEl.innerHTML = '';
+  for (const group of groups) {
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `<span class="legend-swatch" style="background:${colorFn(group)}"></span>${group}`;
+    item.addEventListener('click', () => {
+      if (activeGroups.has(group)) activeGroups.delete(group); else activeGroups.add(group);
+      item.classList.toggle('muted');
+      draw();
+    });
+    legendEl.appendChild(item);
+  }
+}
+
+// ─── Heatmap ───
+function renderHeatmap() {
+  const container = document.getElementById('heatmap-chart');
+  const data = DATA.heatmap;
+  const words = [...new Set(data.map(d => d.word))];
+  const transitions = [...new Set(data.map(d => d.transition))];
+
+  const cellW = Math.max(100, Math.floor(950 / transitions.length));
+  const cellH = 34;
+  const margin = { top: 120, right: 20, bottom: 20, left: 110 };
+  const W = margin.left + transitions.length * cellW + margin.right;
+  const H = margin.top + words.length * cellH + margin.bottom;
+  const { g } = createSVG(container, W, H, margin);
+
+  const maxShift = Math.max(...data.map(d => d.shift));
+  const minShift = Math.min(...data.map(d => d.shift));
+
+  // Column labels (rotated, positioned above grid with plenty of room)
+  transitions.forEach((t, i) => {
+    const cx = i * cellW + cellW / 2;
+    const txt = svgEl('text', {
+      x: cx, y: -12,
+      'text-anchor': 'end', 'font-size': '10px',
+      transform: `rotate(-45, ${cx}, -12)`,
+    });
+    txt.textContent = t;
+    g.appendChild(txt);
+  });
+
+  // Row labels
+  words.forEach((w, i) => {
+    const txt = svgEl('text', { x: -8, y: i * cellH + cellH/2 + 4, 'text-anchor': 'end', 'font-size': '11px', fill: wordColor(w) });
+    txt.textContent = w;
+    g.appendChild(txt);
+  });
+
+  // Build lookup
+  const lookup = {};
+  data.forEach(d => { lookup[`${d.word}|${d.transition}`] = d.shift; });
+
+  words.forEach((w, wi) => {
+    transitions.forEach((t, ti) => {
+      const val = lookup[`${w}|${t}`];
+      if (val === undefined) return;
+      const intensity = (val - minShift) / (maxShift - minShift);
+
+      // REVERSED: darker = more change (high intensity → deep warm color)
+      // Low shift: dim surface gray → High shift: deep saturated red-brown
+      const r = Math.round(50 + intensity * (180 - 50));
+      const gv = Math.round(50 - intensity * 30);
+      const b = Math.round(55 - intensity * 35);
+
+      const rect = svgEl('rect', {
+        x: ti * cellW + 1, y: wi * cellH + 1,
+        width: cellW - 2, height: cellH - 2, rx: 3,
+        fill: `rgb(${r},${gv},${b})`, cursor: 'pointer',
+      });
+      rect.addEventListener('mouseenter', e => {
+        rect.setAttribute('stroke', 'var(--accent)');
+        rect.setAttribute('stroke-width', '2');
+        showTooltip(e,
+          `<div class="tt-title">"${w}"</div>` +
+          `<div class="tt-row">Transition: <span class="tt-val">${t}</span></div>` +
+          `<div class="tt-row">Semantic shift: <span class="tt-val">${val.toFixed(4)}</span></div>` +
+          `<div class="tt-row" style="margin-top:4px;font-size:11px;color:#9a988f">Darker = more meaning change between periods</div>`
+        );
+      });
+      rect.addEventListener('mouseleave', () => {
+        rect.removeAttribute('stroke');
+        rect.removeAttribute('stroke-width');
+        hideTooltip();
+      });
+      g.appendChild(rect);
+    });
+  });
+
+  // Color legend bar at bottom
+  const legendY = words.length * cellH + 16;
+  const legendW = 200;
+  const legendH = 10;
+  const legendX = (transitions.length * cellW - legendW) / 2;
+  const defs = svgEl('defs', {});
+  const grad = svgEl('linearGradient', { id: 'hm-grad', x1: '0%', y1: '0%', x2: '100%', y2: '0%' });
+  grad.appendChild(svgEl('stop', { offset: '0%', 'stop-color': 'rgb(50,50,55)' }));
+  grad.appendChild(svgEl('stop', { offset: '100%', 'stop-color': 'rgb(180,20,20)' }));
+  defs.appendChild(grad);
+  g.appendChild(defs);
+  g.appendChild(svgEl('rect', { x: legendX, y: legendY, width: legendW, height: legendH, rx: 3, fill: 'url(#hm-grad)' }));
+  const lbl1 = svgEl('text', { x: legendX, y: legendY + 22, 'text-anchor': 'middle', 'font-size': '9px' });
+  lbl1.textContent = 'Less change';
+  g.appendChild(lbl1);
+  const lbl2 = svgEl('text', { x: legendX + legendW, y: legendY + 22, 'text-anchor': 'middle', 'font-size': '9px' });
+  lbl2.textContent = 'More change';
+  g.appendChild(lbl2);
+}
+
+// ─── Neighbors ───
+function renderNeighbors(selectedWord) {
+  const grid = document.getElementById('neighbor-grid');
+  grid.innerHTML = '';
+  for (const period of DATA.meta.periods) {
+    const neighbors = (DATA.neighbors[period] || {})[selectedWord];
+    if (!neighbors || neighbors.length === 0) continue;
+    const maxSim = Math.max(...neighbors.map(n => n.similarity));
+    const card = document.createElement('div');
+    card.className = 'neighbor-card';
+    card.innerHTML = `
+      <div class="period-label">${period}</div>
+      ${neighbors.map(n => `
+        <div class="neighbor-row">
+          <span>${n.word}</span>
+          <div class="bar-bg"><div class="bar-fill" style="width:${(n.similarity / maxSim * 100).toFixed(1)}%"></div></div>
+          <span class="sim-val">${n.similarity.toFixed(3)}</span>
+        </div>
+      `).join('')}
+    `;
+    grid.appendChild(card);
+  }
+}
+
+function renderNeighborPills() {
+  const pillsEl = document.getElementById('neighbor-pills');
+  const words = ['freedom', 'democracy', 'government', 'war', 'peace', 'power'];
+  let active = words[0];
+  function render() {
+    pillsEl.innerHTML = '';
+    for (const w of words) {
+      const pill = document.createElement('button');
+      pill.className = 'pill' + (w === active ? ' active' : '');
+      pill.textContent = w;
+      pill.addEventListener('click', () => { active = w; render(); renderNeighbors(w); });
+      pillsEl.appendChild(pill);
+    }
+  }
+  render();
+  renderNeighbors(active);
+}
+
+// ─── Topic time series (stacked area) ───
+function renderTopicTimeSeries() {
+  const container = document.getElementById('topic-ts-chart');
+  const legendEl = document.getElementById('legend-topic-ts');
+  const tsData = DATA.topic_timeseries;
+  const topics = DATA.global_topics;
+  const periods = DATA.meta.periods;
+  const years = periods.map(p => parseInt(p.split('-')[0]));
+
+  const W = Math.min(container.parentElement.clientWidth - 48, 1100);
+  const H = 400;
+  const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+  const { g, width, height } = createSVG(container, W, H, margin);
+
+  const xScale = x => ((x - years[0]) / (years[years.length-1] - years[0])) * width;
+  const yScale = y => height - y * height;
+
+  // Grid
+  for (let i = 0; i <= 5; i++) {
+    const yy = yScale(i * 0.2);
+    g.appendChild(svgEl('line', { x1: 0, x2: width, y1: yy, y2: yy, stroke: '#35353d' }));
+    g.appendChild(svgEl('text', { x: -8, y: yy + 4, 'text-anchor': 'end', 'font-size': '10px' })).textContent = (i * 20) + '%';
+  }
+
+  for (const yr of years) {
+    g.appendChild(svgEl('text', { x: xScale(yr), y: height + 24, 'text-anchor': 'middle', 'font-size': '10px' })).textContent = yr;
+  }
+
+  const yLbl = svgEl('text', { x: -(height/2), y: -45, 'text-anchor': 'middle', transform: 'rotate(-90)', 'font-size': '11px', fill: '#9a988f' });
+  yLbl.textContent = 'Topic Proportion';
+  g.appendChild(yLbl);
+
+  // Build stacked data: for each year, accumulate topic proportions
+  const stackedByYear = {};
+  for (const yr of years) {
+    const yearData = tsData.filter(d => d.year === yr);
+    let cumulative = 0;
+    stackedByYear[yr] = [];
+    for (let t = 0; t < topics.length; t++) {
+      const entry = yearData.find(d => d.topic_id === t);
+      const val = entry ? entry.proportion : 0;
+      stackedByYear[yr].push({ y0: cumulative, y1: cumulative + val, val, topic_id: t });
+      cumulative += val;
+    }
+  }
+
+  const activeTopics = new Set(topics.map((_, i) => i));
+  const areaEls = {};
+  const dotEls = {};
+
+  function draw() {
+    // Recompute stacked with only active topics
+    const filteredStack = {};
+    for (const yr of years) {
+      let cumulative = 0;
+      filteredStack[yr] = [];
+      for (let t = 0; t < topics.length; t++) {
+        const orig = stackedByYear[yr][t];
+        if (activeTopics.has(t)) {
+          filteredStack[yr].push({ y0: cumulative, y1: cumulative + orig.val, val: orig.val, topic_id: t });
+          cumulative += orig.val;
+        } else {
+          filteredStack[yr].push({ y0: cumulative, y1: cumulative, val: 0, topic_id: t });
+        }
+      }
+    }
+
+    // Draw stacked areas (bottom to top)
+    for (let t = topics.length - 1; t >= 0; t--) {
+      const color = topicColor(t);
+      // Build area path
+      const topLine = years.map(yr => `${xScale(yr)},${yScale(filteredStack[yr][t].y1)}`);
+      const bottomLine = years.slice().reverse().map(yr => `${xScale(yr)},${yScale(filteredStack[yr][t].y0)}`);
+      const pathD = `M${topLine.join('L')}L${bottomLine.join('L')}Z`;
+
+      if (!areaEls[t]) {
+        areaEls[t] = svgEl('path', { fill: color, opacity: 0.6, stroke: color, 'stroke-width': 1 });
+        g.appendChild(areaEls[t]);
+      }
+      areaEls[t].setAttribute('d', pathD);
+      areaEls[t].setAttribute('opacity', activeTopics.has(t) ? 0.6 : 0.05);
+    }
+
+    // Dots on top of areas for tooltip
+    for (let t = 0; t < topics.length; t++) {
+      if (!dotEls[t]) {
+        dotEls[t] = [];
+        for (const yr of years) {
+          const circle = svgEl('circle', { r: 4, fill: topicColor(t), stroke: 'var(--surface)', 'stroke-width': 1.5, cursor: 'pointer', opacity: 0 });
+          const topicName = topics[t].name;
+          circle.addEventListener('mouseenter', function(e) {
+            this.setAttribute('opacity', 1);
+            this.setAttribute('r', 6);
+            const val = filteredStack[yr][t].val;
+            showTooltip(e,
+              `<div class="tt-title">${topicName}</div>` +
+              `<div class="tt-row">Period: <span class="tt-val">${yr}–${yr + 24}</span></div>` +
+              `<div class="tt-row">Proportion: <span class="tt-val">${(val * 100).toFixed(1)}%</span></div>`
+            );
+          });
+          circle.addEventListener('mouseleave', function() { this.setAttribute('opacity', 0); this.setAttribute('r', 4); hideTooltip(); });
+          g.appendChild(circle);
+          dotEls[t].push({ el: circle, yr });
+        }
+      }
+      for (const dot of dotEls[t]) {
+        const mid = (filteredStack[dot.yr][t].y0 + filteredStack[dot.yr][t].y1) / 2;
+        dot.el.setAttribute('cx', xScale(dot.yr));
+        dot.el.setAttribute('cy', yScale(mid));
+      }
+    }
+  }
+
+  draw();
+
+  // Legend
+  legendEl.innerHTML = '';
+  for (let t = 0; t < topics.length; t++) {
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `<span class="legend-swatch" style="background:${topicColor(t)}"></span>${topics[t].name}`;
+    item.addEventListener('click', () => {
+      if (activeTopics.has(t)) activeTopics.delete(t); else activeTopics.add(t);
+      item.classList.toggle('muted');
+      draw();
+    });
+    legendEl.appendChild(item);
+  }
+}
+
+// ─── Topics per period ───
+function renderTopics(selectedPeriod) {
+  const grid = document.getElementById('topic-grid');
+  const topics = DATA.topics_by_period[selectedPeriod];
+  if (!topics) { grid.innerHTML = '<p style="color:var(--dim)">No topics for this period.</p>'; return; }
+
+  grid.innerHTML = '';
+  for (const topic of topics) {
+    if (!topic.words || topic.words.length === 0) continue;
+    const maxWeight = Math.max(...topic.words.map(w => w.weight));
+    const color = topicColor(topic.id);
+    const card = document.createElement('div');
+    card.className = 'topic-card';
+    card.innerHTML = `
+      <div class="topic-header">${topic.name}</div>
+      ${topic.words.map(w => `
+        <div class="topic-word-row">
+          <span class="tw-label">${w.word}</span>
+          <div class="tw-bar-bg"><div class="tw-bar-fill" style="width:${(w.weight / maxWeight * 100).toFixed(1)}%;background:${color}"></div></div>
+          <span class="tw-val">${(w.weight * 100).toFixed(1)}%</span>
+        </div>
+      `).join('')}
+    `;
+    grid.appendChild(card);
+  }
+}
+
+function renderTopicPills() {
+  const pillsEl = document.getElementById('topic-pills');
+  const periods = DATA.meta.periods;
+  let active = periods[0];
+  function render() {
+    pillsEl.innerHTML = '';
+    for (const p of periods) {
+      const pill = document.createElement('button');
+      pill.className = 'pill' + (p === active ? ' active' : '');
+      pill.textContent = p;
+      pill.addEventListener('click', () => { active = p; render(); renderTopics(p); });
+      pillsEl.appendChild(pill);
+    }
+  }
+  render();
+  renderTopics(active);
+}
+
+// ─── Vocab bar chart ───
+function renderVocabChart() {
+  const container = document.getElementById('vocab-chart');
+  const data = DATA.vocab_stats;
+  const W = Math.min(container.parentElement.clientWidth - 48, 1100);
+  const H = 260;
+  const margin = { top: 20, right: 20, bottom: 40, left: 55 };
+  const { g, width, height } = createSVG(container, W, H, margin);
+
+  const maxVocab = Math.max(...data.map(d => d.vocab_size));
+  const barW = width / data.length * 0.7;
+  const gap = width / data.length;
+
+  data.forEach((d, i) => {
+    const barH = (d.vocab_size / maxVocab) * height;
+    const x = i * gap + (gap - barW) / 2;
+    const y = height - barH;
+
+    const rect = svgEl('rect', { x, y, width: barW, height: barH, rx: 3, fill: 'var(--accent2)', opacity: 0.8, cursor: 'pointer' });
+    rect.addEventListener('mouseenter', e => {
+      rect.setAttribute('opacity', 1);
+      showTooltip(e,
+        `<div class="tt-title">${d.period}</div>` +
+        `<div class="tt-row">Unique words: <span class="tt-val">${d.vocab_size.toLocaleString()}</span></div>` +
+        `<div class="tt-row">Embedding dimensions: <span class="tt-val">${d.embedding_dim}</span></div>`
+      );
+    });
+    rect.addEventListener('mouseleave', () => { rect.setAttribute('opacity', 0.8); hideTooltip(); });
+    g.appendChild(rect);
+
+    const valTxt = svgEl('text', { x: x + barW/2, y: y - 6, 'text-anchor': 'middle', 'font-size': '10px', fill: 'var(--accent)' });
+    valTxt.textContent = d.vocab_size;
+    g.appendChild(valTxt);
+
+    const label = svgEl('text', { x: x + barW/2, y: height + 20, 'text-anchor': 'middle', 'font-size': '9px' });
+    label.textContent = d.period;
+    g.appendChild(label);
+  });
+}
+
+// ─── Init ───
+function init() {
+  renderStats();
+  renderLineChart('timeline-chart', 'legend-timeline', DATA.consecutive_shifts, 'year', 'shift', 'word', wordColor, 'Cosine Distance');
+  renderHeatmap();
+  renderLineChart('cumulative-chart', 'legend-cumulative', DATA.cumulative_shifts, 'year', 'shift', 'word', wordColor, 'Cosine Distance');
+  renderNeighborPills();
+  renderTopicTimeSeries();
+  renderTopicPills();
+  renderVocabChart();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

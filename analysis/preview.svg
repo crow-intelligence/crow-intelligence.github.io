@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 440" font-family="'Courier Prime', 'Courier New', monospace">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a1f"/>
+      <stop offset="100%" stop-color="#24242b"/>
+    </linearGradient>
+    <linearGradient id="accent-line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e8c97e"/>
+      <stop offset="100%" stop-color="#3B8BD4"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8c97e" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#e8c97e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="560" height="440" fill="url(#bg)"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="560" height="3" fill="url(#accent-line)"/>
+
+  <!-- Grid lines -->
+  <g stroke="#35353d" stroke-width="0.5" opacity="0.5">
+    <line x1="60" y1="120" x2="520" y2="120"/>
+    <line x1="60" y1="180" x2="520" y2="180"/>
+    <line x1="60" y1="240" x2="520" y2="240"/>
+    <line x1="60" y1="300" x2="520" y2="300"/>
+    <line x1="60" y1="360" x2="520" y2="360"/>
+  </g>
+
+  <!-- Period labels -->
+  <g fill="#9a988f" font-size="8" text-anchor="middle">
+    <text x="106" y="385">1775</text>
+    <text x="152" y="385">1800</text>
+    <text x="198" y="385">1825</text>
+    <text x="244" y="385">1850</text>
+    <text x="290" y="385">1875</text>
+    <text x="336" y="385">1900</text>
+    <text x="382" y="385">1925</text>
+    <text x="428" y="385">1950</text>
+    <text x="474" y="385">1975</text>
+    <text x="520" y="385">2024</text>
+  </g>
+
+  <!-- "freedom" drift line - gold -->
+  <polyline fill="none" stroke="#e8c97e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+    points="106,310 152,295 198,280 244,250 290,265 336,230 382,200 428,175 474,160 520,140"/>
+  <circle cx="106" cy="310" r="3" fill="#e8c97e"/>
+  <circle cx="520" cy="140" r="3" fill="#e8c97e"/>
+
+  <!-- "democracy" drift line - blue -->
+  <polyline fill="none" stroke="#3B8BD4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+    points="106,340 152,330 198,310 244,290 290,270 336,240 382,195 428,190 474,170 520,155"/>
+  <circle cx="106" cy="340" r="3" fill="#3B8BD4"/>
+  <circle cx="520" cy="155" r="3" fill="#3B8BD4"/>
+
+  <!-- "war" drift line - red/warm -->
+  <polyline fill="none" stroke="#d4603b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+    points="106,280 152,275 198,290 244,220 290,210 336,170 382,150 428,195 474,230 520,250"/>
+  <circle cx="106" cy="280" r="3" fill="#d4603b"/>
+  <circle cx="520" cy="250" r="3" fill="#d4603b"/>
+
+  <!-- "economy" drift line - green -->
+  <polyline fill="none" stroke="#6bc97e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+    points="106,355 152,350 198,340 244,320 290,290 336,260 382,220 428,180 474,150 520,130"/>
+  <circle cx="106" cy="355" r="3" fill="#6bc97e"/>
+  <circle cx="520" cy="130" r="3" fill="#6bc97e"/>
+
+  <!-- "security" drift line - purple -->
+  <polyline fill="none" stroke="#a87ed4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+    points="106,350 152,345 198,335 244,315 290,295 336,275 382,245 428,200 474,165 520,145"/>
+  <circle cx="106" cy="350" r="3" fill="#a87ed4"/>
+  <circle cx="520" cy="145" r="3" fill="#a87ed4"/>
+
+  <!-- Word labels on the right -->
+  <g font-size="10" font-weight="700">
+    <text x="528" y="132" fill="#6bc97e">economy</text>
+    <text x="528" y="143" fill="#e8c97e">freedom</text>
+    <text x="528" y="149" fill="#a87ed4">security</text>
+    <text x="528" y="158" fill="#3B8BD4">democracy</text>
+    <text x="528" y="253" fill="#d4603b">war</text>
+  </g>
+
+  <!-- Title area -->
+  <text x="40" y="45" fill="#e8c97e" font-size="18" font-family="'IM Fell English', Georgia, serif" font-weight="400">Semantic Shifts</text>
+  <text x="40" y="70" fill="#e8e6e1" font-size="13" font-family="'IM Fell English', Georgia, serif" font-style="italic" opacity="0.7">in Presidential Rhetoric, 1775–2024</text>
+
+  <!-- Y-axis label -->
+  <text x="40" y="100" fill="#9a988f" font-size="9">Cumulative Drift ↑</text>
+
+  <!-- Decorative: small scattered dots suggesting embedding space -->
+  <g fill="#9a988f" opacity="0.15">
+    <circle cx="130" cy="200" r="1.5"/>
+    <circle cx="180" cy="250" r="1"/>
+    <circle cx="220" cy="190" r="1.5"/>
+    <circle cx="270" cy="230" r="1"/>
+    <circle cx="310" cy="170" r="1.5"/>
+    <circle cx="360" cy="210" r="1"/>
+    <circle cx="400" cy="260" r="1.5"/>
+    <circle cx="450" cy="190" r="1"/>
+    <circle cx="490" cy="220" r="1.5"/>
+    <circle cx="150" cy="320" r="1"/>
+    <circle cx="200" cy="160" r="1"/>
+    <circle cx="350" cy="300" r="1.5"/>
+    <circle cx="420" cy="150" r="1"/>
+    <circle cx="480" cy="280" r="1"/>
+  </g>
+
+  <!-- Bottom info bar -->
+  <rect x="0" y="400" width="560" height="40" fill="#1a1a1f" opacity="0.8"/>
+  <text x="40" y="424" fill="#9a988f" font-size="9">10 PERIODS · 16 TARGET WORDS · WORD2VEC + PROCRUSTES ALIGNMENT</text>
+</svg>
