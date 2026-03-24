@@ -36,3 +36,12 @@ Our research projects sit at the crossroads of computational linguistics, data v
 <p>Tracing the evolution of metaphorical language in 158,666 financial news headlines (2009–2020) across five crisis events, mapping metaphor domains to the Minsky–Kindleberger panic cycle.</p>
 </div>
 </a>
+
+<a href="/analysis/index.html" class="project-card">
+<img src="/analysis/preview.svg" alt="Semantic Shifts in Presidential Rhetoric">
+<div class="project-info">
+<span class="project-label">Computational Semantics</span>
+<h3>Semantic Shifts in Presidential Rhetoric</h3>
+<p>Tracking how the meaning of political concepts like freedom, democracy, and war evolves across 250 years of American presidential discourse. Built with our open-source <em>chronowords</em> package — PPMI embeddings, Procrustes alignment, and NMF topic modeling.</p>
+</div>
+</a>

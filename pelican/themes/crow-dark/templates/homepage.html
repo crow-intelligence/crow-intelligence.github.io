@@ -72,4 +72,24 @@
         {% endfor %}
     </div>
 </section>
+
+<section class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">Open Source</h2>
+        <div class="package-grid">
+            {% for pkg in PACKAGES %}
+            <div class="package-card">
+                <h3>{{ pkg.name }}</h3>
+                <div class="package-meta">{{ pkg.version }} · {{ pkg.license }} · Python {{ pkg.python }}</div>
+                <p>{{ pkg.description }}</p>
+                <div class="package-links">
+                    {% if pkg.pypi %}<a href="{{ pkg.pypi }}" target="_blank">PyPI</a>{% endif %}
+                    {% if pkg.github %}<a href="{{ pkg.github }}" target="_blank">GitHub</a>{% endif %}
+                    {% if pkg.docs %}<a href="{{ pkg.docs }}" target="_blank">Docs</a>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}

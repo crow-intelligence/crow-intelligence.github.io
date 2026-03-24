@@ -386,6 +386,73 @@ strong {
     line-height: 1.6;
 }
 
+/* ── Package Cards ── */
+.package-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+}
+
+.package-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px;
+    transition: border-color 0.3s, transform 0.3s;
+}
+
+.package-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+}
+
+.package-card h3 {
+    font-family: 'Courier Prime', monospace;
+    font-size: 1.3rem;
+    color: var(--text);
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.package-meta {
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-family: 'Courier Prime', monospace;
+}
+
+.package-card p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.package-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.package-links a {
+    font-size: 0.8rem;
+    color: var(--accent) !important;
+    text-decoration: none !important;
+    border: 1px solid var(--border);
+    padding: 5px 14px;
+    border-radius: 4px;
+    font-family: 'Courier Prime', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.package-links a:hover {
+    background: var(--accent);
+    color: var(--bg) !important;
+    border-color: var(--accent);
+}
+
 /* ── Blog Cards ── */
 .blog-card {
     display: block;

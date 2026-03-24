@@ -95,4 +95,25 @@ PROJECTS = [
         'image': '/web/preview.svg',
         'label': 'Computational Rhetoric',
     },
+    {
+        'title': 'Semantic Shifts in Presidential Rhetoric',
+        'description': 'Tracking how the meaning of political concepts like freedom, democracy, and war evolves across 250 years of American presidential discourse. Built with our open-source chronowords package — PPMI embeddings, Procrustes alignment, and NMF topic modeling.',
+        'url': '/analysis/index.html',
+        'image': '/analysis/preview.svg',
+        'label': 'Computational Semantics',
+    },
+]
+
+# Open source packages
+PACKAGES = [
+    {
+        'name': 'chronowords',
+        'version': 'v0.2.0',
+        'license': 'MIT',
+        'python': '3.10+',
+        'description': 'Detect semantic shifts over time in text corpora. Memory-efficient PPMI-based word embeddings via Count-Min Sketch, NMF topic modeling, and Procrustes alignment for tracking how word meanings evolve across time periods.',
+        'pypi': 'https://pypi.org/project/chronowords/',
+        'github': 'https://github.com/crow-intelligence/chronowords',
+        'docs': 'https://chronowords.readthedocs.io/en/latest/',
+    },
 ]

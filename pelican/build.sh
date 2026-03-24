@@ -11,7 +11,7 @@ cd "$SCRIPT_DIR"
 pelican content -s pelicanconf.py -o "$OUTPUT"
 
 # Link existing asset folders into output
-ASSET_DIRS=(portraits site dashboard dashboard_portraits web)
+ASSET_DIRS=(portraits site dashboard dashboard_portraits web analysis)
 for dir in "${ASSET_DIRS[@]}"; do
     target="$REPO_ROOT/$dir"
     link="$OUTPUT/$dir"
