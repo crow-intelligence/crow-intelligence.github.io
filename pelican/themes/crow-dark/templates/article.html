@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }} — {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<section class="hero hero-compact">
+    <div class="container">
+        <span class="article-meta">{{ article.date.strftime('%B %d, %Y') }} · {{ article.category }}</span>
+        <h1>{{ article.title }}</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container content-body">
+        {{ article.content }}
+    </div>
+</section>
+{% endblock %}

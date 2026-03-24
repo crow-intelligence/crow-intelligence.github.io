@@ -1,0 +1,119 @@
+AUTHOR = 'Crow Intelligence'
+SITENAME = 'Crow Intelligence'
+SITEURL = ''
+SITESUBTITLE = 'AI Consultancy & Strategy'
+
+PATH = 'content'
+OUTPUT_PATH = '../output'
+
+TIMEZONE = 'Europe/Budapest'
+DEFAULT_LANG = 'en'
+
+# Theme
+THEME = 'themes/crow-dark'
+
+# URLs
+ARTICLE_URL = 'blog/{slug}.html'
+ARTICLE_SAVE_AS = 'blog/{slug}.html'
+PAGE_URL = '{slug}.html'
+PAGE_SAVE_AS = '{slug}.html'
+# Blog listing goes to /blog/
+INDEX_SAVE_AS = 'blog/index.html'
+
+# Only use index (for blog listing) and archives
+DIRECT_TEMPLATES = ['index']
+
+# Static paths - serve existing project folders through
+STATIC_PATHS = ['images']
+
+# Navigation
+DISPLAY_PAGES_ON_MENU = False
+DISPLAY_CATEGORIES_ON_MENU = False
+MENUITEMS = [
+    ('Projects', '/projects.html'),
+    ('About', '/about.html'),
+    ('Blog', '/blog/index.html'),
+    ('Contact', '/contact.html'),
+]
+
+# Feed
+FEED_ALL_ATOM = None
+CATEGORY_FEED_ATOM = None
+TRANSLATION_FEED_ATOM = None
+AUTHOR_FEED_ATOM = None
+AUTHOR_FEED_RSS = None
+
+# Pagination
+DEFAULT_PAGINATION = 10
+
+# Google Analytics
+GOOGLE_ANALYTICS = 'G-SH38KZF2M9'
+
+# Custom variables
+SUBSTACK_URL = 'https://mindtheminds.substack.com/'
+EMAIL = 'hello@crowintelligence.org'
+LOGO_PATH = 'portraits/MS Paint _ Microsoft Paint Online.png'
+
+# Team data
+TEAM = [
+    {
+        'name': 'Zoltán Varjú',
+        'role': 'AI Strategist & Entrepreneur',
+        'bio': 'Two decades of experience in natural language processing, AI, and data analytics. Serial co-founder and startup advisor.',
+        'photo': 'portraits/zoli.jpeg',
+        'linkedin': 'https://www.linkedin.com/in/zoltanvarju/',
+    },
+    {
+        'name': 'Orsolya Putz, PhD',
+        'role': 'Cognitive Scientist & AI Engineer',
+        'bio': 'PhD in Cognitive Linguistics. Adjunct Professor at the Technical University of Budapest (BME).',
+        'photo': 'portraits/orsi.jpeg',
+        'linkedin': 'https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/',
+    },
+]
+
+# Featured projects
+PROJECTS = [
+    {
+        'title': 'The Wealth of Nations — 250th Anniversary Digital Edition',
+        'description': "An interactive exploration of Adam Smith's 1776 masterwork. Topic modeling, named entity recognition, rhetorical metaphor analysis, and full-text search across all five books.",
+        'url': '/site/index.html',
+        'image': '/site/img/punctuation_spiral.png',
+        'label': 'NLP & Digital Humanities',
+    },
+    {
+        'title': 'The Nagel Index — Public vs. Private Personality',
+        'description': "Big Five personality analysis of political leaders, measuring the gap between their public speeches and private correspondence. Inspired by Thomas Nagel's essay on ruthlessness in public life.",
+        'url': '/dashboard/index.html',
+        'image': '/dashboard_portraits/lincoln_portrait.png',
+        'label': 'Personality Analytics',
+    },
+    {
+        'title': 'Market Metaphors — Kindleberger Phases × Narrative Economics',
+        'description': 'Tracing the evolution of metaphorical language in 158,666 financial news headlines (2009–2020) across five crisis events, mapping metaphor domains to the Minsky–Kindleberger panic cycle.',
+        'url': '/web/index.html',
+        'image': '/web/preview.svg',
+        'label': 'Computational Rhetoric',
+    },
+    {
+        'title': 'Semantic Shifts in Presidential Rhetoric',
+        'description': 'Tracking how the meaning of political concepts like freedom, democracy, and war evolves across 250 years of American presidential discourse. Built with our open-source chronowords package — PPMI embeddings, Procrustes alignment, and NMF topic modeling.',
+        'url': '/analysis/index.html',
+        'image': '/analysis/preview.svg',
+        'label': 'Computational Semantics',
+    },
+]
+
+# Open source packages
+PACKAGES = [
+    {
+        'name': 'chronowords',
+        'version': 'v0.2.0',
+        'license': 'MIT',
+        'python': '3.10+',
+        'description': 'Detect semantic shifts over time in text corpora. Memory-efficient PPMI-based word embeddings via Count-Min Sketch, NMF topic modeling, and Procrustes alignment for tracking how word meanings evolve across time periods.',
+        'pypi': 'https://pypi.org/project/chronowords/',
+        'github': 'https://github.com/crow-intelligence/chronowords',
+        'docs': 'https://chronowords.readthedocs.io/en/latest/',
+    },
+]

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Leading AI consultancy specializing in AI strategy, decision intelligence & AI ethics. 20+ years experience. Expert guidance for responsible AI implementation.{% endblock %}">
+    <meta name="author" content="{{ AUTHOR }}">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% block og_title %}{{ SITENAME }}{% endblock %}">
+    <meta property="og:description" content="AI consultancy specializing in strategy, decision intelligence & ethics.">
+    <meta property="og:image" content="{{ SITEURL }}/{{ LOGO_PATH }}">
+    <meta property="og:url" content="{{ SITEURL }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ SITENAME }}">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/style.css">
+
+    {% if GOOGLE_ANALYTICS %}
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ GOOGLE_ANALYTICS }}');
+    </script>
+    {% endif %}
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container">
+            <a href="{{ SITEURL }}/" class="nav-brand">{{ SITENAME }}</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links">
+                {% for title, link in MENUITEMS %}
+                <a href="{{ SITEURL }}{{ link }}">{{ title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <img src="{{ SITEURL }}/{{ LOGO_PATH }}" alt="{{ SITENAME }} Logo">
+            </div>
+            <p>&copy; 2025 {{ SITENAME }}. All rights reserved.</p>
+            <p class="footer-note">
+                This site uses Google Analytics to improve user experience.
+                For questions about data collection, contact us at
+                <a href="mailto:{{ EMAIL }}">{{ EMAIL }}</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('open');
+        });
+    </script>
+</body>
+</html>
