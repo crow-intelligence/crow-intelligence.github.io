@@ -12,6 +12,16 @@ DEFAULT_LANG = 'en'
 # Theme
 THEME = 'themes/crow-dark'
 
+# Markdown extensions
+MARKDOWN = {
+    'extension_configs': {
+        'markdown.extensions.meta': {},
+        'markdown.extensions.extra': {},
+        'markdown.extensions.md_in_html': {},
+    },
+    'output_format': 'html5',
+}
+
 # URLs
 ARTICLE_URL = 'blog/{slug}.html'
 ARTICLE_SAVE_AS = 'blog/{slug}.html'

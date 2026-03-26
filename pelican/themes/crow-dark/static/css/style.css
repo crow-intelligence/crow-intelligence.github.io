@@ -568,6 +568,44 @@ strong {
     margin: 20px 0;
 }
 
+/* ── Bio sections ── */
+.bio-section {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    margin: 24px 0;
+}
+
+.bio-section .team-photo {
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.bio-text {
+    flex: 1;
+}
+
+.bio-text p {
+    color: var(--text-dim);
+    margin-bottom: 12px;
+}
+
+.bio-text ul {
+    color: var(--text-dim);
+    margin: 0 0 12px 24px;
+}
+
+.bio-text li {
+    margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+    .bio-section {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 /* ── About intro ── */
 .about-intro {
     font-size: 1.05rem;
