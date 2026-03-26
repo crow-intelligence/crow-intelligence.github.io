@@ -1,0 +1,71 @@
+name: Deploy Pelican site to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r pelican/requirements.txt
+
+      - name: Build site
+        working-directory: pelican
+        run: pelican content -s publishconf.py -o ../output
+
+      - name: Copy project assets into output
+        run: |
+          for dir in \
+            altair_maps analysis charts countries countries_bump \
+            countries_worldmap dashboard dashboard_portraits \
+            embedding_graph endings external_css folium_maps \
+            gexf-js gpt_test keresztnevek k-halo meghivo \
+            music-networks nemenkent osszes population_trends \
+            portraits punch qgis2web_2020_01_02-21_29_35_910844 \
+            site socialmedia som települesenkent web; do
+            if [ -d "$dir" ]; then
+              cp -r "$dir" output/
+              echo "  copied $dir/"
+            fi
+          done
+
+      - name: Copy root-level HTML files into output
+        run: |
+          for f in country_bumps.html maps_altair.html maps_folium.html robots.txt; do
+            if [ -f "$f" ]; then
+              cp "$f" output/
+              echo "  copied $f"
+            fi
+          done
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: output
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
