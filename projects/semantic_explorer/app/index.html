@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semantic Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Courier Prime', monospace;
+    background: #1a1a1f;
+    color: #e8e6e1;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#app {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+}
+
+/* Header */
+header {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #24242b;
+    border-bottom: 1px solid #3a3a44;
+}
+
+header h1 {
+    font-family: 'IM Fell English', serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: #e8c97e;
+    letter-spacing: 0.5px;
+}
+
+.mode-toggle {
+    display: flex;
+    background: #2e2e37;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #3a3a44;
+}
+
+.mode-toggle button {
+    padding: 6px 16px;
+    border: none;
+    background: transparent;
+    color: #9a988f;
+    cursor: pointer;
+    font-family: 'Courier Prime', monospace;
+    font-size: 13px;
+    transition: all 0.25s ease;
+}
+
+.mode-toggle button:hover {
+    color: #e8e6e1;
+}
+
+.mode-toggle button.active {
+    background: #e8c97e;
+    color: #1a1a1f;
+}
+
+/* Sidebar */
+.sidebar {
+    padding: 16px;
+    background: #24242b;
+    border-right: 1px solid #3a3a44;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sidebar label {
+    display: block;
+    font-family: 'IM Fell English', serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #9a988f;
+    margin-bottom: 6px;
+}
+
+.sidebar select, .sidebar input[type="text"] {
+    width: 100%;
+    padding: 8px 10px;
+    background: #2e2e37;
+    border: 1px solid #3a3a44;
+    border-radius: 4px;
+    color: #e8e6e1;
+    font-family: 'Courier Prime', monospace;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s ease;
+}
+
+.sidebar select:focus, .sidebar input[type="text"]:focus {
+    border-color: #e8c97e;
+}
+
+.source-b-section { display: none; }
+.compare-mode .source-b-section { display: block; }
+
+/* Autocomplete */
+.autocomplete-wrapper { position: relative; }
+
+.autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #2e2e37;
+    border: 1px solid #3a3a44;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+}
+
+.autocomplete-list.visible { display: block; }
+
+.autocomplete-item {
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #9a988f;
+    transition: all 0.15s ease;
+}
+
+.autocomplete-item:hover, .autocomplete-item.selected {
+    background: #3a3a44;
+    color: #e8c97e;
+}
+
+.autocomplete-item .degree-badge {
+    float: right;
+    font-size: 10px;
+    color: #9a988f;
+}
+
+/* Status */
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    background: #2e2e37;
+    border: 1px solid #3a3a44;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #555;
+}
+
+.status-dot.exploring { background: #4ade80; }
+.status-dot.cycle { background: #fbbf24; }
+.status-dot.dead-end { background: #6b7280; }
+.status-dot.stopped { background: #ef4444; }
+
+/* Buttons */
+.btn-row {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #3a3a44;
+    border-radius: 8px;
+    background: #2e2e37;
+    color: #9a988f;
+    cursor: pointer;
+    font-family: 'Courier Prime', monospace;
+    font-size: 13px;
+    transition: all 0.25s ease;
+}
+
+.btn:hover { background: #3a3a44; color: #e8e6e1; border-color: #e8c97e; }
+.btn.danger { border-color: #e8c97e; color: #e8c97e; }
+.btn.danger:hover { background: #e8c97e; color: #1a1a1f; }
+
+/* Legend */
+.legend {
+    font-size: 12px;
+    line-height: 1.8;
+    color: #9a988f;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Canvas */
+.canvas-container {
+    position: relative;
+    overflow: hidden;
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+svg:active { cursor: grabbing; }
+
+/* Loading overlay */
+.loading-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(26, 26, 31, 0.85);
+    z-index: 50;
+    display: none;
+}
+
+.loading-overlay.visible { display: flex; }
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #3a3a44;
+    border-top-color: #e8c97e;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Tooltip */
+.tooltip {
+    position: absolute;
+    padding: 8px 12px;
+    background: #24242b;
+    border: 1px solid #3a3a44;
+    border-radius: 8px;
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 200;
+    display: none;
+    line-height: 1.6;
+    max-width: 250px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.tooltip.visible { display: block; }
+.tooltip .word { font-family: 'IM Fell English', serif; font-weight: normal; color: #e8c97e; font-size: 15px; }
+.tooltip .detail { color: #9a988f; }
+
+/* Info panel */
+.info-panel {
+    font-size: 12px;
+    color: #9a988f;
+    line-height: 1.5;
+}
+
+.info-panel .stat { color: #e8e6e1; }
+
+/* Pulse animation for cycle edges */
+@keyframes pulse-edge {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Node glow for seed */
+.node-seed { filter: drop-shadow(0 0 8px rgba(232,201,126,0.6)); }
+.node-both { filter: drop-shadow(0 0 6px rgba(155,89,182,0.7)); }
+
+</style>
+</head>
+<body>
+<div id="app">
+    <header>
+        <h1>Semantic Explorer</h1>
+        <div class="mode-toggle">
+            <button id="btn-single" class="active" onclick="setMode('single')">Single</button>
+            <button id="btn-compare" onclick="setMode('compare')">Compare</button>
+        </div>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <div>
+            <label>Source A</label>
+            <select id="source-a" onchange="onSourceChange('a')">
+                <option value="">Select a source...</option>
+            </select>
+        </div>
+
+        <div class="source-b-section">
+            <label>Source B</label>
+            <select id="source-b" onchange="onSourceChange('b')">
+                <option value="">Select a source...</option>
+            </select>
+        </div>
+
+        <div class="autocomplete-wrapper">
+            <label>Seed word</label>
+            <input type="text" id="seed-input" placeholder="Type a word..."
+                   oninput="onSeedInput()" onkeydown="onSeedKeydown(event)" />
+            <div class="autocomplete-list" id="autocomplete"></div>
+        </div>
+
+        <div class="status-badge" id="status">
+            <div class="status-dot" id="status-dot"></div>
+            <span id="status-text">Select a source to begin</span>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn" onclick="reset()">Reset</button>
+            <button class="btn danger" onclick="stopExploration()">Stop</button>
+        </div>
+
+        <div class="info-panel" id="info-panel">
+            <div>Nodes: <span class="stat" id="stat-nodes">0</span></div>
+            <div>Edges: <span class="stat" id="stat-edges">0</span></div>
+            <div>Expanded: <span class="stat" id="stat-expanded">0</span></div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#e8c97e; box-shadow:0 0 6px rgba(232,201,126,0.6)"></div> Seed word</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#3B8BD4"></div> Source A (expanded)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#3B8BD4; opacity:0.4"></div> Source A (neighbour)</div>
+            <div class="legend-item source-b-section"><div class="legend-dot" style="background:#BA7517"></div> Source B only</div>
+            <div class="legend-item source-b-section"><div class="legend-dot" style="background:#9b59b6"></div> Both sources</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#e8c97e"></div> Cycle closing</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#6b7280"></div> Dead end</div>
+        </div>
+    </div>
+
+    <div class="canvas-container" id="canvas-container">
+        <svg id="graph-svg"></svg>
+        <div class="loading-overlay" id="loading">
+            <div class="spinner"></div>
+        </div>
+        <div class="tooltip" id="tooltip"></div>
+    </div>
+</div>
+
+<script>
+// ─── Configuration ──────────────────────────────────────────
+const SOURCES = {
+    war_and_peace:       "War and Peace — Tolstoy",
+    pride_and_prejudice: "Pride and Prejudice — Austen",
+    beyond_good_and_evil: "Beyond Good and Evil — Nietzsche",
+    wealth_of_nations:   "Wealth of Nations — Smith",
+    moby_dick:           "Moby Dick — Melville",
+    the_republic:        "The Republic — Plato",
+    frankenstein:        "Frankenstein — Shelley",
+    origin_of_species:   "Origin of Species — Darwin",
+    nelson_norms:        "USF Free Association Norms",
+};
+
+const COLOR_A     = "#3B8BD4";
+const COLOR_B     = "#BA7517";
+const COLOR_BOTH  = "#9b59b6";
+const COLOR_SEED  = "#e8c97e";
+const COLOR_CYCLE = "#e8c97e";
+const COLOR_DEAD  = "#6b7280";
+
+// ─── State ──────────────────────────────────────────────────
+let mode = "single";        // "single" | "compare"
+let state = "IDLE";         // IDLE | SEED_SELECTED | EXPLORING | STOPPED
+let dataCache = {};         // slug -> {book, author, vocab, edges, adj, degreeMap}
+let sourceA = null;         // loaded data for source A
+let sourceB = null;         // loaded data for source B (compare mode)
+let slugA = "";
+let slugB = "";
+let seedWord = "";
+
+// Graph state
+let visNodes = [];          // [{id, word, expanded, isSeed, inA, inB, isDead}]
+let visEdges = [];          // [{source, target, weight, fromA, fromB, isCycle}]
+let nodeMap = {};           // word -> node object
+let expandedSet = new Set();
+
+// D3
+let svg, gEdges, gNodes, simulation, zoom;
+let width, height;
+
+// Autocomplete
+let acItems = [];
+let acIndex = -1;
+
+// ─── Initialise ─────────────────────────────────────────────
+function init() {
+    // Populate dropdowns
+    const selA = document.getElementById("source-a");
+    const selB = document.getElementById("source-b");
+    for (const [slug, label] of Object.entries(SOURCES)) {
+        selA.add(new Option(label, slug));
+        selB.add(new Option(label, slug));
+    }
+
+    // Setup SVG
+    const container = document.getElementById("canvas-container");
+    width = container.clientWidth;
+    height = container.clientHeight;
+
+    svg = d3.select("#graph-svg");
+    zoom = d3.zoom()
+        .scaleExtent([0.1, 4])
+        .on("zoom", (e) => gRoot.attr("transform", e.transform));
+    svg.call(zoom);
+
+    const gRoot = svg.append("g").attr("id", "g-root");
+    gEdges = gRoot.append("g").attr("id", "g-edges");
+    gNodes = gRoot.append("g").attr("id", "g-nodes");
+
+    // Force simulation (initially empty)
+    simulation = d3.forceSimulation([])
+        .force("charge", d3.forceManyBody().strength(-200))
+        .force("link", d3.forceLink([]).id(d => d.id).distance(d => {
+            const w = d.weight || 0.001;
+            return Math.max(40, 150 / (w * 1000 + 1));
+        }))
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("collide", d3.forceCollide().radius(d => nodeRadius(d) + 10))
+        .alphaDecay(0.02)
+        .on("tick", tick);
+    simulation.stop();
+
+    // Resize handler
+    window.addEventListener("resize", () => {
+        width = container.clientWidth;
+        height = container.clientHeight;
+        simulation.force("center", d3.forceCenter(width / 2, height / 2));
+    });
+}
+
+// ─── Data loading ───────────────────────────────────────────
+async function loadSource(slug) {
+    if (dataCache[slug]) return dataCache[slug];
+
+    showLoading(true);
+    try {
+        // Works both when served from experiment root or from app/ subfolder
+        let resp = await fetch(`../data/json/${slug}.json`);
+        if (!resp.ok) resp = await fetch(`data/json/${slug}.json`);
+        if (!resp.ok) throw new Error(`Failed to load ${slug}: ${resp.status}`);
+        const data = await resp.json();
+
+        // Build adjacency index
+        data.adj = {};
+        for (const edge of data.edges) {
+            if (!data.adj[edge.source]) data.adj[edge.source] = [];
+            if (!data.adj[edge.target]) data.adj[edge.target] = [];
+            data.adj[edge.source].push({ target: edge.target, weight: edge.weight });
+            data.adj[edge.target].push({ target: edge.source, weight: edge.weight });
+        }
+
+        // Build degree map for autocomplete sorting
+        data.degreeMap = {};
+        for (let i = 0; i < data.vocab.length; i++) {
+            data.degreeMap[i] = (data.adj[i] || []).length;
+        }
+
+        dataCache[slug] = data;
+        return data;
+    } finally {
+        showLoading(false);
+    }
+}
+
+function showLoading(show) {
+    document.getElementById("loading").classList.toggle("visible", show);
+}
+
+// ─── Mode switching ─────────────────────────────────────────
+function setMode(m) {
+    mode = m;
+    document.getElementById("btn-single").classList.toggle("active", m === "single");
+    document.getElementById("btn-compare").classList.toggle("active", m === "compare");
+    document.getElementById("sidebar").classList.toggle("compare-mode", m === "compare");
+    reset();
+}
+
+// ─── Source selection ───────────────────────────────────────
+async function onSourceChange(which) {
+    const slug = document.getElementById(which === "a" ? "source-a" : "source-b").value;
+    if (!slug) return;
+
+    const data = await loadSource(slug);
+    if (which === "a") { sourceA = data; slugA = slug; }
+    else { sourceB = data; slugB = slug; }
+
+    reset();
+    setStatus("idle", "Type a seed word");
+}
+
+// ─── Autocomplete ───────────────────────────────────────────
+function onSeedInput() {
+    const input = document.getElementById("seed-input").value.toLowerCase().trim();
+    const acEl = document.getElementById("autocomplete");
+
+    if (input.length < 1 || !sourceA) {
+        acEl.classList.remove("visible");
+        return;
+    }
+
+    // Get candidate vocabulary
+    let vocabData = sourceA;
+    let validWords;
+    if (mode === "compare" && sourceB) {
+        const setB = new Set(sourceB.vocab);
+        validWords = sourceA.vocab.filter(w => setB.has(w));
+    } else {
+        validWords = sourceA.vocab;
+    }
+
+    // Prefix matches first, then substring
+    const prefix = [];
+    const substring = [];
+    for (const w of validWords) {
+        if (w.startsWith(input)) prefix.push(w);
+        else if (w.includes(input)) substring.push(w);
+    }
+
+    // Sort by degree descending
+    const degFn = (w) => {
+        const idx = sourceA.vocab.indexOf(w);
+        return sourceA.degreeMap[idx] || 0;
+    };
+    prefix.sort((a, b) => degFn(b) - degFn(a));
+    substring.sort((a, b) => degFn(b) - degFn(a));
+
+    acItems = [...prefix, ...substring].slice(0, 8);
+    acIndex = -1;
+
+    if (acItems.length === 0) {
+        acEl.classList.remove("visible");
+        return;
+    }
+
+    acEl.innerHTML = acItems.map((w, i) => {
+        const deg = degFn(w);
+        return `<div class="autocomplete-item" data-index="${i}"
+                     onmousedown="selectSeed('${w}')">${w}
+                     <span class="degree-badge">deg ${deg}</span></div>`;
+    }).join("");
+    acEl.classList.add("visible");
+}
+
+function onSeedKeydown(e) {
+    const acEl = document.getElementById("autocomplete");
+    if (!acEl.classList.contains("visible")) {
+        if (e.key === "Enter") {
+            const val = document.getElementById("seed-input").value.toLowerCase().trim();
+            if (val) {
+                // Try exact match first, then best prefix/substring match
+                if (sourceA && sourceA.vocab.indexOf(val) === -1) {
+                    const match = sourceA.vocab.find(w => w.startsWith(val))
+                              || sourceA.vocab.find(w => w.includes(val));
+                    if (match) { selectSeed(match); return; }
+                }
+                selectSeed(val);
+            }
+        }
+        return;
+    }
+
+    if (e.key === "ArrowDown") {
+        e.preventDefault();
+        acIndex = Math.min(acIndex + 1, acItems.length - 1);
+        updateAcHighlight();
+    } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        acIndex = Math.max(acIndex - 1, 0);
+        updateAcHighlight();
+    } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (acIndex >= 0 && acIndex < acItems.length) {
+            selectSeed(acItems[acIndex]);
+        } else if (acItems.length > 0) {
+            selectSeed(acItems[0]);
+        } else {
+            const val = document.getElementById("seed-input").value.toLowerCase().trim();
+            if (val) selectSeed(val);
+        }
+    } else if (e.key === "Escape") {
+        acEl.classList.remove("visible");
+    }
+}
+
+function updateAcHighlight() {
+    document.querySelectorAll(".autocomplete-item").forEach((el, i) => {
+        el.classList.toggle("selected", i === acIndex);
+    });
+}
+
+// ─── Seed selection ─────────────────────────────────────────
+function selectSeed(word) {
+    document.getElementById("autocomplete").classList.remove("visible");
+    document.getElementById("seed-input").value = word;
+
+    if (!sourceA) return;
+    const idxA = sourceA.vocab.indexOf(word);
+    if (idxA === -1) {
+        setStatus("dead-end", `"${word}" not in Source A vocabulary`);
+        return;
+    }
+    if (mode === "compare" && sourceB) {
+        const idxB = sourceB.vocab.indexOf(word);
+        if (idxB === -1) {
+            setStatus("dead-end", `"${word}" not in Source B vocabulary`);
+            return;
+        }
+    }
+
+    seedWord = word;
+    state = "EXPLORING";
+    clearGraph();
+    expandWord(word, true);
+}
+
+// ─── Graph operations ───────────────────────────────────────
+function getNeighbours(data, word) {
+    const idx = data.vocab.indexOf(word);
+    if (idx === -1) return [];
+    const adj = data.adj[idx] || [];
+    return adj.map(e => ({ word: data.vocab[e.target], weight: e.weight }));
+}
+
+function isTerminal(word) {
+    /**A node is terminal (non-clickable) if:
+     * - it's already expanded (cycle), or
+     * - all its neighbours in the source graph(s) are already visible
+     *   (dead end — nothing new to show)
+     */
+    if (expandedSet.has(word)) return true;
+    const neighbsA = getNeighbours(sourceA, word);
+    const hasNewA = neighbsA.some(n => !nodeMap[n.word]);
+    if (mode === "compare" && sourceB) {
+        const neighbsB = getNeighbours(sourceB, word);
+        const hasNewB = neighbsB.some(n => !nodeMap[n.word]);
+        return !hasNewA && !hasNewB;
+    }
+    return !hasNewA;
+}
+
+function expandWord(word, isSeed) {
+    if (state === "STOPPED") return;
+
+    // Terminal nodes: already expanded (cycle) or no new neighbours
+    if (!isSeed && isTerminal(word)) {
+        const node = nodeMap[word];
+        if (node) {
+            // Visual feedback: jiggle to show it's a dead end
+            node.fx = node.x + 10;
+            setTimeout(() => { node.fx = null; }, 200);
+        }
+        return;
+    }
+
+    // ─── Collapse: remove unexpanded leaf neighbours of other nodes ───
+    // Keep: seed, expanded nodes, and the node being clicked.
+    if (!isSeed) {
+        const keepSet = new Set();
+        for (const n of visNodes) {
+            if (n.expanded || n.isSeed) keepSet.add(n.word);
+        }
+        keepSet.add(word);
+
+        const toRemove = visNodes.filter(n => !keepSet.has(n.word));
+        for (const n of toRemove) {
+            delete nodeMap[n.word];
+        }
+        visNodes = visNodes.filter(n => keepSet.has(n.word));
+        visEdges = visEdges.filter(e => {
+            const s = e.source.id || e.source;
+            const t = e.target.id || e.target;
+            return keepSet.has(s) && keepSet.has(t);
+        });
+    }
+
+    expandedSet.add(word);
+
+    // Ensure node exists
+    if (!nodeMap[word]) {
+        const n = { id: word, word, expanded: true, isSeed, inA: true, inB: false, isDead: false };
+        if (isSeed) { n.x = width / 2; n.y = height / 2; }
+        visNodes.push(n);
+        nodeMap[word] = n;
+    } else {
+        nodeMap[word].expanded = true;
+    }
+
+    // Source A neighbours
+    const neighbsA = getNeighbours(sourceA, word);
+    for (const { word: nw, weight } of neighbsA) {
+        if (!nodeMap[nw]) {
+            const n = { id: nw, word: nw, expanded: false, isSeed: false, inA: true, inB: false, isDead: false };
+            visNodes.push(n);
+            nodeMap[nw] = n;
+        } else {
+            nodeMap[nw].inA = true;
+        }
+        const edgeExists = visEdges.some(e =>
+            (e.source.id || e.source) === word && (e.target.id || e.target) === nw && e.fromA ||
+            (e.source.id || e.source) === nw && (e.target.id || e.target) === word && e.fromA
+        );
+        if (!edgeExists) {
+            visEdges.push({ source: word, target: nw, weight, fromA: true, fromB: false, isCycle: false });
+        }
+    }
+
+    // Source B neighbours (compare mode)
+    if (mode === "compare" && sourceB) {
+        const neighbsB = getNeighbours(sourceB, word);
+        nodeMap[word].inB = true;
+        for (const { word: nw, weight } of neighbsB) {
+            if (!nodeMap[nw]) {
+                const n = { id: nw, word: nw, expanded: false, isSeed: false, inA: false, inB: true, isDead: false };
+                visNodes.push(n);
+                nodeMap[nw] = n;
+            } else {
+                nodeMap[nw].inB = true;
+            }
+            const edgeExists = visEdges.some(e =>
+                (e.source.id || e.source) === word && (e.target.id || e.target) === nw && e.fromB ||
+                (e.source.id || e.source) === nw && (e.target.id || e.target) === word && e.fromB
+            );
+            if (!edgeExists) {
+                visEdges.push({ source: word, target: nw, weight, fromA: false, fromB: true, isCycle: false });
+            }
+        }
+    }
+
+    // Mark terminal nodes (cycles + dead ends) so they're visually distinct
+    for (const n of visNodes) {
+        if (!n.expanded && !n.isSeed) {
+            n.isDead = isTerminal(n.word);
+        }
+    }
+
+    setStatus("exploring", "Exploring");
+    updateGraph();
+    updateStats();
+}
+
+function nodeDegree(d) {
+    // Degree in the full source graph (stable, not dependent on visible subgraph)
+    if (!sourceA) return 0;
+    const idxA = sourceA.vocab.indexOf(d.word);
+    let deg = idxA >= 0 ? (sourceA.degreeMap[idxA] || 0) : 0;
+    if (mode === "compare" && sourceB) {
+        const idxB = sourceB.vocab.indexOf(d.word);
+        deg = Math.max(deg, idxB >= 0 ? (sourceB.degreeMap[idxB] || 0) : 0);
+    }
+    return deg;
+}
+
+// Precompute max degree across the current source(s) for scaling
+function maxSourceDegree() {
+    if (!sourceA) return 1;
+    let mx = Math.max(...Object.values(sourceA.degreeMap));
+    if (mode === "compare" && sourceB) {
+        mx = Math.max(mx, ...Object.values(sourceB.degreeMap));
+    }
+    return mx || 1;
+}
+
+function isBothNode(d) {
+    return mode === "compare" && d.inA && d.inB && !d.isSeed;
+}
+
+function nodeRadius(d) {
+    const deg = nodeDegree(d);
+    const mx = maxSourceDegree();
+    const t = Math.sqrt(deg / mx);  // sqrt scale for area-proportional sizing
+    if (d.isSeed) return 10 + t * 10;          // 10–20
+    if (isBothNode(d)) return 8 + t * 10;      // 8–18 (boosted)
+    if (d.expanded) return 6 + t * 8;          // 6–14
+    return 4 + t * 6;                           // 4–10
+}
+
+function labelSize(d) {
+    const deg = nodeDegree(d);
+    const mx = maxSourceDegree();
+    const t = Math.sqrt(deg / mx);
+    if (d.isSeed) return 12 + t * 4;           // 12–16
+    if (isBothNode(d)) return 11 + t * 4;      // 11–15 (boosted)
+    return 9 + t * 4;                           // 9–13
+}
+
+function nodeColor(d) {
+    if (d.isSeed) return COLOR_SEED;
+    if (d.isDead) return COLOR_DEAD;
+    if (mode === "compare") {
+        if (d.inA && d.inB) return COLOR_BOTH;
+        if (d.inB) return COLOR_B;
+    }
+    return COLOR_A;
+}
+
+function nodeOpacity(d) {
+    if (d.isSeed || d.expanded) return 1;
+    if (mode === "compare" && d.inA && d.inB) return 1;
+    if (mode === "compare") return 0.35;
+    return 0.5;
+}
+
+function edgeColor(e) {
+    if (e.isCycle) return COLOR_CYCLE;
+    if (mode === "compare") {
+        if (e.fromA && e.fromB) return COLOR_BOTH;
+        if (e.fromB) return COLOR_B;
+    }
+    return COLOR_A;
+}
+
+function edgeWeightRange() {
+    if (visEdges.length === 0) return { min: 0, max: 1 };
+    const weights = visEdges.map(e => e.weight);
+    return { min: Math.min(...weights), max: Math.max(...weights) };
+}
+
+function edgeWidth(d) {
+    // sqrt-scaled width: 0.8 (weakest) to 5 (strongest)
+    const { min, max } = edgeWeightRange();
+    const t = max > min ? (d.weight - min) / (max - min) : 0.5;
+    return 0.8 + Math.sqrt(t) * 4.2;
+}
+
+function edgeOpacity(d) {
+    if (d.isCycle) return 1;
+    const { min, max } = edgeWeightRange();
+    const t = max > min ? (d.weight - min) / (max - min) : 0.5;
+    return 0.15 + t * 0.65;  // 0.15 (weakest) to 0.8 (strongest)
+}
+
+// ─── D3 rendering ───────────────────────────────────────────
+function updateGraph() {
+    // Links
+    const linkSel = gEdges.selectAll("line").data(visEdges, d => {
+        const s = d.source.id || d.source;
+        const t = d.target.id || d.target;
+        return `${s}-${t}-${d.fromA}-${d.fromB}`;
+    });
+    linkSel.exit().remove();
+    const linkEnter = linkSel.enter().append("line")
+        .attr("stroke-width", d => edgeWidth(d))
+        .attr("stroke", edgeColor)
+        .attr("stroke-opacity", d => edgeOpacity(d));
+
+    // Pulse animation for cycle edges
+    linkEnter.filter(d => d.isCycle)
+        .style("animation", "pulse-edge 1s ease-in-out 3");
+
+    // Nodes
+    const nodeSel = gNodes.selectAll("g.node").data(visNodes, d => d.id);
+    nodeSel.exit().remove();
+
+    const nodeEnter = nodeSel.enter().append("g")
+        .attr("class", d => "node" + (d.isSeed ? " node-seed" : "") + (isBothNode(d) ? " node-both" : ""))
+        .style("cursor", d => d.isDead || d.expanded ? "default" : "pointer")
+        .on("click", (e, d) => {
+            if (state !== "EXPLORING") return;
+            if (d.isDead) return;  // terminal nodes are not clickable
+            expandWord(d.word, false);
+        })
+        .on("mouseenter", (e, d) => showTooltip(e, d))
+        .on("mouseleave", () => hideTooltip())
+        .call(d3.drag()
+            .on("start", dragStart)
+            .on("drag", dragging)
+            .on("end", dragEnd));
+
+    nodeEnter.append("circle")
+        .attr("r", nodeRadius)
+        .attr("fill", nodeColor)
+        .attr("fill-opacity", nodeOpacity)
+        .attr("stroke", d => d.isSeed ? "#e8c97e" : "none")
+        .attr("stroke-width", d => d.isSeed ? 2 : 0);
+
+    nodeEnter.append("text")
+        .attr("text-anchor", "middle")
+        .attr("dy", d => -(nodeRadius(d) + 4))
+        .attr("fill", "#e8e6e1")
+        .attr("font-family", "'Courier Prime', monospace")
+        .attr("font-size", d => labelSize(d) + "px")
+        .attr("pointer-events", "none")
+        .text(d => d.word);
+
+    // Update existing edges (weight range may have changed)
+    const linkUpdate = linkSel.merge(linkEnter);
+    linkUpdate
+        .attr("stroke-width", d => edgeWidth(d))
+        .attr("stroke-opacity", d => edgeOpacity(d));
+
+    // Update existing nodes (color/radius/cursor/class may change)
+    const nodeUpdate = nodeSel.merge(nodeEnter);
+    nodeUpdate
+        .attr("class", d => "node" + (d.isSeed ? " node-seed" : "") + (isBothNode(d) ? " node-both" : ""))
+        .style("cursor", d => d.isDead || d.expanded ? "default" : "pointer");
+    nodeUpdate.select("circle")
+        .attr("r", nodeRadius)
+        .attr("fill", nodeColor)
+        .attr("fill-opacity", nodeOpacity);
+    nodeUpdate.select("text")
+        .attr("dy", d => -(nodeRadius(d) + 4))
+        .attr("font-size", d => labelSize(d) + "px");
+
+    // Update simulation
+    simulation.nodes(visNodes);
+    simulation.force("link").links(visEdges);
+    simulation.alpha(0.4).restart();
+}
+
+function tick() {
+    gEdges.selectAll("line")
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+
+    gNodes.selectAll("g.node")
+        .attr("transform", d => `translate(${d.x},${d.y})`);
+}
+
+function dragStart(e, d) {
+    if (!e.active) simulation.alphaTarget(0.1).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+}
+
+function dragging(e, d) {
+    d.fx = e.x;
+    d.fy = e.y;
+}
+
+function dragEnd(e, d) {
+    if (!e.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+}
+
+// ─── Tooltip ────────────────────────────────────────────────
+function showTooltip(event, d) {
+    const tip = document.getElementById("tooltip");
+    let html = `<div class="word">${d.word}</div>`;
+
+    // Full degree in source(s)
+    if (sourceA) {
+        const idx = sourceA.vocab.indexOf(d.word);
+        if (idx >= 0) {
+            const label = mode === "compare" ? "Degree (A)" : "Degree";
+            html += `<div class="detail">${label}: ${sourceA.degreeMap[idx] || 0}</div>`;
+        }
+    }
+    if (mode === "compare" && sourceB) {
+        const idx = sourceB.vocab.indexOf(d.word);
+        if (idx >= 0) {
+            html += `<div class="detail">Degree (B): ${sourceB.degreeMap[idx] || 0}</div>`;
+        }
+    }
+
+    // Connected edges sorted by weight (strongest first)
+    const connEdges = visEdges.filter(e => {
+        const s = e.source.id || e.source;
+        const t = e.target.id || e.target;
+        return s === d.word || t === d.word;
+    }).sort((a, b) => b.weight - a.weight);
+
+    if (connEdges.length > 0) {
+        html += `<div class="detail" style="margin-top:4px;color:#e8c97e;font-size:11px">Connections:</div>`;
+        const shown = connEdges.slice(0, 8);
+        for (const e of shown) {
+            const s = e.source.id || e.source;
+            const t = e.target.id || e.target;
+            const other = s === d.word ? t : s;
+            const bar = "█".repeat(Math.max(1, Math.round(e.weight * 1000)));
+            html += `<div class="detail">${other} <span style="color:#e8c97e;font-size:9px">${bar}</span> ${e.weight.toFixed(4)}</div>`;
+        }
+        if (connEdges.length > 8) {
+            html += `<div class="detail">+${connEdges.length - 8} more</div>`;
+        }
+    }
+
+    html += `<div class="detail" style="margin-top:4px">${d.expanded ? "Expanded" : "Click to expand"}</div>`;
+
+    tip.innerHTML = html;
+    tip.classList.add("visible");
+
+    const rect = document.getElementById("canvas-container").getBoundingClientRect();
+    tip.style.left = (event.clientX - rect.left + 15) + "px";
+    tip.style.top = (event.clientY - rect.top - 10) + "px";
+}
+
+function hideTooltip() {
+    document.getElementById("tooltip").classList.remove("visible");
+}
+
+// ─── Status ─────────────────────────────────────────────────
+function setStatus(type, text) {
+    const dot = document.getElementById("status-dot");
+    const txt = document.getElementById("status-text");
+    dot.className = "status-dot " + type;
+    txt.textContent = text;
+}
+
+function updateStats() {
+    document.getElementById("stat-nodes").textContent = visNodes.length;
+    document.getElementById("stat-edges").textContent = visEdges.length;
+    document.getElementById("stat-expanded").textContent = expandedSet.size;
+}
+
+// ─── Controls ───────────────────────────────────────────────
+function stopExploration() {
+    if (state === "EXPLORING") {
+        state = "STOPPED";
+        setStatus("stopped", "Stopped by user");
+        simulation.stop();
+    }
+}
+
+function reset() {
+    state = "IDLE";
+    seedWord = "";
+    visNodes = [];
+    visEdges = [];
+    nodeMap = {};
+    expandedSet = new Set();
+
+    document.getElementById("seed-input").value = "";
+    document.getElementById("autocomplete").classList.remove("visible");
+
+    clearGraph();
+    setStatus("idle", sourceA ? "Type a seed word" : "Select a source to begin");
+    updateStats();
+}
+
+function clearGraph() {
+    gEdges.selectAll("*").remove();
+    gNodes.selectAll("*").remove();
+    simulation.nodes([]);
+    simulation.force("link").links([]);
+    simulation.stop();
+}
+
+// ─── Click outside autocomplete to dismiss ──────────────────
+document.addEventListener("click", (e) => {
+    if (!e.target.closest(".autocomplete-wrapper")) {
+        document.getElementById("autocomplete").classList.remove("visible");
+    }
+});
+
+// ─── Boot ───────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>

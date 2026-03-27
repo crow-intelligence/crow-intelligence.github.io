@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 440">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a1f"/>
+      <stop offset="100%" stop-color="#22222a"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="560" height="440" fill="url(#bg)"/>
+
+  <!-- Header -->
+  <text x="280" y="26" text-anchor="middle" fill="#e8c97e" font-size="16" font-weight="bold" font-family="Georgia,serif">Semantic Explorer</text>
+  <text x="280" y="42" text-anchor="middle" fill="#9a988f" font-size="8" font-style="italic" font-family="Georgia,serif">Interactive co-occurrence networks from classic texts</text>
+
+  <!-- Stats row -->
+  <g font-family="'Courier New',monospace" text-anchor="middle">
+    <text x="112" y="62" fill="#e8c97e" font-size="9" font-weight="bold">8</text>
+    <text x="112" y="70" fill="#9a988f" font-size="5">Classic Texts</text>
+    <text x="280" y="62" fill="#e8c97e" font-size="9" font-weight="bold">kenon</text>
+    <text x="280" y="70" fill="#9a988f" font-size="5">Graph Engine</text>
+    <text x="448" y="62" fill="#e8c97e" font-size="9" font-weight="bold">ego</text>
+    <text x="448" y="70" fill="#9a988f" font-size="5">Network Mode</text>
+  </g>
+
+  <line x1="30" y1="78" x2="530" y2="78" stroke="#3a3a44" stroke-width="0.5"/>
+
+  <!-- Network graph visualization -->
+  <!-- Edges (drawn first, behind nodes) -->
+  <g stroke-opacity="0.3" fill="none">
+    <!-- Edges from seed "freedom" (center) -->
+    <line x1="280" y1="240" x2="195" y2="175" stroke="#e8c97e" stroke-width="1.5"/>
+    <line x1="280" y1="240" x2="370" y2="180" stroke="#e8c97e" stroke-width="1.5"/>
+    <line x1="280" y1="240" x2="220" y2="310" stroke="#e8c97e" stroke-width="1.2"/>
+    <line x1="280" y1="240" x2="350" y2="305" stroke="#e8c97e" stroke-width="1.2"/>
+    <line x1="280" y1="240" x2="165" y2="250" stroke="#e8c97e" stroke-width="1"/>
+    <line x1="280" y1="240" x2="400" y2="245" stroke="#e8c97e" stroke-width="1"/>
+
+    <!-- Second-level edges from "liberty" -->
+    <line x1="195" y1="175" x2="120" y2="125" stroke="#3B8BD4" stroke-width="1"/>
+    <line x1="195" y1="175" x2="130" y2="200" stroke="#3B8BD4" stroke-width="0.8"/>
+    <line x1="195" y1="175" x2="240" y2="120" stroke="#3B8BD4" stroke-width="0.8"/>
+
+    <!-- Second-level edges from "power" -->
+    <line x1="370" y1="180" x2="440" y2="130" stroke="#3B8BD4" stroke-width="1"/>
+    <line x1="370" y1="180" x2="430" y2="200" stroke="#3B8BD4" stroke-width="0.8"/>
+    <line x1="370" y1="180" x2="340" y2="115" stroke="#3B8BD4" stroke-width="0.8"/>
+
+    <!-- Second-level edges from "justice" -->
+    <line x1="220" y1="310" x2="150" y2="350" stroke="#3B8BD4" stroke-width="0.8"/>
+    <line x1="220" y1="310" x2="190" y2="375" stroke="#3B8BD4" stroke-width="0.8"/>
+
+    <!-- Second-level edges from "nation" -->
+    <line x1="350" y1="305" x2="420" y2="345" stroke="#3B8BD4" stroke-width="0.8"/>
+    <line x1="350" y1="305" x2="390" y2="370" stroke="#3B8BD4" stroke-width="0.8"/>
+
+    <!-- Cross-connections -->
+    <line x1="165" y1="250" x2="130" y2="200" stroke="#3B8BD4" stroke-width="0.5"/>
+    <line x1="400" y1="245" x2="430" y2="200" stroke="#3B8BD4" stroke-width="0.5"/>
+    <line x1="240" y1="120" x2="340" y2="115" stroke="#9b59b6" stroke-width="0.6" stroke-opacity="0.4"/>
+  </g>
+
+  <!-- Third-level leaf nodes (smallest, dimmed) -->
+  <g filter="url(#softGlow)">
+    <circle cx="120" cy="125" r="4" fill="#3B8BD4" opacity="0.4"/>
+    <circle cx="130" cy="200" r="3.5" fill="#3B8BD4" opacity="0.4"/>
+    <circle cx="240" cy="120" r="3.5" fill="#3B8BD4" opacity="0.4"/>
+    <circle cx="440" cy="130" r="4" fill="#3B8BD4" opacity="0.4"/>
+    <circle cx="430" cy="200" r="3.5" fill="#3B8BD4" opacity="0.4"/>
+    <circle cx="340" cy="115" r="3.5" fill="#3B8BD4" opacity="0.4"/>
+    <circle cx="150" cy="350" r="3.5" fill="#3B8BD4" opacity="0.4"/>
+    <circle cx="190" cy="375" r="3" fill="#3B8BD4" opacity="0.4"/>
+    <circle cx="420" cy="345" r="3.5" fill="#3B8BD4" opacity="0.4"/>
+    <circle cx="390" cy="370" r="3" fill="#3B8BD4" opacity="0.4"/>
+  </g>
+
+  <!-- Third-level labels -->
+  <g font-family="'Courier New',monospace" font-size="5.5" fill="#9a988f" opacity="0.6">
+    <text x="120" y="116" text-anchor="middle">rights</text>
+    <text x="130" y="213" text-anchor="middle">civil</text>
+    <text x="240" y="111" text-anchor="middle">people</text>
+    <text x="440" y="121" text-anchor="middle">king</text>
+    <text x="430" y="213" text-anchor="middle">force</text>
+    <text x="340" y="106" text-anchor="middle">state</text>
+    <text x="150" y="363" text-anchor="middle">law</text>
+    <text x="190" y="388" text-anchor="middle">virtue</text>
+    <text x="420" y="358" text-anchor="middle">war</text>
+    <text x="390" y="383" text-anchor="middle">land</text>
+  </g>
+
+  <!-- Second-level expanded nodes -->
+  <g filter="url(#softGlow)">
+    <circle cx="195" cy="175" r="7" fill="#3B8BD4" opacity="0.85"/>
+    <circle cx="370" cy="180" r="7" fill="#3B8BD4" opacity="0.85"/>
+    <circle cx="220" cy="310" r="6" fill="#3B8BD4" opacity="0.85"/>
+    <circle cx="350" cy="305" r="6" fill="#3B8BD4" opacity="0.85"/>
+    <circle cx="165" cy="250" r="5" fill="#3B8BD4" opacity="0.7"/>
+    <circle cx="400" cy="245" r="5" fill="#3B8BD4" opacity="0.7"/>
+  </g>
+
+  <!-- Second-level labels -->
+  <g font-family="'Courier New',monospace" font-size="7" fill="#e8e6e1" opacity="0.9">
+    <text x="195" y="163" text-anchor="middle">liberty</text>
+    <text x="370" y="168" text-anchor="middle">power</text>
+    <text x="220" y="328" text-anchor="middle">justice</text>
+    <text x="350" y="323" text-anchor="middle">nation</text>
+    <text x="165" y="240" text-anchor="end" font-size="6">spirit</text>
+    <text x="400" y="235" text-anchor="start" font-size="6">govern</text>
+  </g>
+
+  <!-- Seed node (center, gold, glowing) -->
+  <circle cx="280" cy="240" r="11" fill="#e8c97e" filter="url(#glow)" opacity="0.95"/>
+  <text x="280" y="226" text-anchor="middle" font-family="'Courier New',monospace" font-size="9" font-weight="bold" fill="#e8c97e">freedom</text>
+
+  <!-- Legend -->
+  <g transform="translate(30, 400)" font-family="'Courier New',monospace" font-size="5.5" fill="#9a988f">
+    <circle cx="0" cy="0" r="3" fill="#e8c97e"/>
+    <text x="8" y="2">Seed word</text>
+    <circle cx="70" cy="0" r="3" fill="#3B8BD4"/>
+    <text x="78" y="2">Expanded</text>
+    <circle cx="145" cy="0" r="3" fill="#3B8BD4" opacity="0.4"/>
+    <text x="153" y="2">Neighbor</text>
+    <line x1="215" y1="-2" x2="230" y2="-2" stroke="#9b59b6" stroke-width="0.8" stroke-opacity="0.5"/>
+    <text x="235" y="2">Cross-link</text>
+  </g>
+
+  <!-- Source label -->
+  <text x="530" y="420" text-anchor="end" font-family="Georgia,serif" font-size="6" fill="#9a988f" font-style="italic">The Republic — Plato</text>
+</svg>

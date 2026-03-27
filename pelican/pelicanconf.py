@@ -112,6 +112,13 @@ PROJECTS = [
         'image': '/analysis/preview.svg',
         'label': 'Computational Semantics',
     },
+    {
+        'title': 'Semantic Explorer — Interactive Co-occurrence Networks',
+        'description': 'Explore the semantic structure of classic texts through interactive ego networks. Type a seed word, click to expand, and trace how meaning propagates through Tolstoy, Plato, Adam Smith, Darwin, and more. Built with our open-source kenon package.',
+        'url': '/semantic_explorer/app/index.html',
+        'image': '/semantic_explorer/preview.svg',
+        'label': 'Semantic Networks',
+    },
 ]
 
 # Open source packages
@@ -125,5 +132,15 @@ PACKAGES = [
         'pypi': 'https://pypi.org/project/chronowords/',
         'github': 'https://github.com/crow-intelligence/chronowords',
         'docs': 'https://chronowords.readthedocs.io/en/latest/',
+    },
+    {
+        'name': 'kenon',
+        'version': 'v0.1.0',
+        'license': 'MIT',
+        'python': '3.11+',
+        'description': 'Construct semantic and co-occurrence networks from text using corpus-internal statistics. Lightweight graph construction through spaCy tokenization, skip-gram windows, and network backbone extraction — no neural models or external training data required.',
+        'pypi': 'https://pypi.org/project/kenon/',
+        'github': 'https://github.com/crow-intelligence/kenon',
+        'docs': 'https://kenon.readthedocs.io/en/latest/',
     },
 ]
