@@ -33,6 +33,22 @@ INDEX_SAVE_AS = 'blog/index.html'
 # Only use index (for blog listing) and archives
 DIRECT_TEMPLATES = ['index']
 
+# Plugins
+PLUGINS = ['sitemap']
+SITEMAP = {
+    'format': 'xml',
+    'priorities': {
+        'articles': 0.8,
+        'pages': 0.9,
+        'indexes': 0.5,
+    },
+    'changefreqs': {
+        'articles': 'monthly',
+        'pages': 'monthly',
+        'indexes': 'daily',
+    }
+}
+
 # Static paths - serve existing project folders through
 STATIC_PATHS = ['images']
 
@@ -41,6 +57,7 @@ DISPLAY_PAGES_ON_MENU = False
 DISPLAY_CATEGORIES_ON_MENU = False
 MENUITEMS = [
     ('Projects', '/projects.html'),
+    ('Packages', '/packages.html'),
     ('About', '/about.html'),
     ('Blog', '/blog/index.html'),
     ('Contact', '/contact.html'),
@@ -142,5 +159,49 @@ PACKAGES = [
         'pypi': 'https://pypi.org/project/kenon/',
         'github': 'https://github.com/crow-intelligence/kenon',
         'docs': 'https://kenon.readthedocs.io/en/latest/',
+    },
+]
+
+# Partners
+PARTNERS = [
+    {
+        'name': 'RxClarity',
+        'logo': 'logos/rxclarity.png',
+        'descriptor': 'Pharma intelligence & news analytics',
+    },
+    {
+        'name': 'GL1',
+        'logo': None,
+        'descriptor': 'Green lending data science',
+    },
+    {
+        'name': 'Precognox',
+        'logo': 'logos/precognox.png',
+        'descriptor': 'NLP & enterprise search',
+    },
+    {
+        'name': 'K-Monitor',
+        'logo': None,
+        'descriptor': 'Public procurement analysis',
+    },
+    {
+        'name': 'The Future Fox',
+        'logo': None,
+        'descriptor': 'Data analysis',
+    },
+    {
+        'name': 'nyest.hu',
+        'logo': None,
+        'descriptor': 'Science communication & linguistics',
+    },
+    {
+        'name': 'HUN-REN ICNP',
+        'logo': None,
+        'descriptor': 'Cognitive neuroscience research',
+    },
+    {
+        'name': 'Manning',
+        'logo': 'logos/manning.svg',
+        'descriptor': 'Technical courses',
     },
 ]

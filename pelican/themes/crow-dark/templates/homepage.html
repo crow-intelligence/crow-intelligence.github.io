@@ -1,41 +1,23 @@
 {% extends "base.html" %}
-{% block title %}{{ SITENAME }} — AI Consultancy & Strategy{% endblock %}
+{% block title %}{{ SITENAME }} — Independent Research in Language, Cognition & AI{% endblock %}
 
 {% block content %}
 <section class="hero">
     <div class="container">
-        <h1>AI Consultancy &amp; Strategy Experts</h1>
-        <p class="hero-sub">
-            We specialize in <strong>AI strategy</strong>, <strong>decision intelligence</strong>, and <strong>AI ethics</strong>,
-            helping organizations implement responsible AI solutions.
-        </p>
-        <div class="hero-cta">
-            <a href="{{ SITEURL }}/blog/index.html" class="btn btn-accent">Read Our Blog</a>
-            <a href="{{ SUBSTACK_URL }}" class="btn btn-secondary" target="_blank">Substack</a>
-            <a href="mailto:{{ EMAIL }}" class="btn btn-outline">Contact Us</a>
+        <h1>Crow Intelligence</h1>
+        <div class="hero-prose">
+            <p>Human cognition is remarkable. Language is its most visible trace — in texts,
+            speeches, narratives, and the metaphors societies use to make sense of the world.</p>
+            <p>At Crow Intelligence, we study that trace. We use computational methods and
+            cognitive science to understand how language shapes thought, how narratives
+            drive decisions, and how technology is transforming both.</p>
+            <p>We believe in open inquiry, rigorous method, and the value of understanding
+            ourselves more clearly.</p>
         </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <h2 class="section-title">Our Expertise</h2>
-        <div class="card-grid">
-            <div class="card">
-                <div class="card-accent"></div>
-                <h3>AI Strategy &amp; Implementation</h3>
-                <p>Comprehensive <strong>AI strategy consulting</strong> and implementation guidance. We help organizations develop AI roadmaps, assess readiness, and implement AI solutions that align with business objectives while ensuring responsible AI practices and governance frameworks.</p>
-            </div>
-            <div class="card">
-                <div class="card-accent"></div>
-                <h3>Decision Intelligence</h3>
-                <p>Transform organizational <strong>decision-making</strong> through advanced analytics and cognitive frameworks. Our decision intelligence approach combines data science with behavioral insights to create intelligent systems that augment human decision-making capabilities.</p>
-            </div>
-            <div class="card">
-                <div class="card-accent"></div>
-                <h3>AI Ethics &amp; Governance</h3>
-                <p>Expert guidance on <strong>AI ethics</strong>, responsible AI implementation, and governance frameworks. We help organizations navigate ethical considerations, bias mitigation, transparency requirements, and regulatory compliance in AI deployment.</p>
-            </div>
+        <div class="hero-cta">
+            <a href="{{ SITEURL }}/projects.html" class="btn btn-accent">Our Research</a>
+            <a href="{{ SITEURL }}/about.html" class="btn btn-secondary">About Us</a>
+            <a href="{{ SUBSTACK_URL }}" class="btn btn-outline" target="_blank">Subscribe</a>
         </div>
     </div>
 </section>
@@ -87,6 +69,42 @@
                     {% if pkg.github %}<a href="{{ pkg.github }}" target="_blank">GitHub</a>{% endif %}
                     {% if pkg.docs %}<a href="{{ pkg.docs }}" target="_blank">Docs</a>{% endif %}
                 </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">What We Do</h2>
+        <div class="what-we-do">
+            <p>We conduct original research and take on analysis commissions for organisations
+            that need deep expertise in language, cognition, and data.</p>
+            <p>We do not build software. We help you think clearly about what to build,
+            whether it is working, and what it means — so that whoever builds it
+            can do so faster and better.</p>
+            <p>If your organisation is working on a problem that involves text, language,
+            narrative, or the behaviour of AI systems, we would like to hear from you.</p>
+            <p><a href="mailto:{{ EMAIL }}" class="btn btn-accent">hello@crowintelligence.org</a></p>
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">Collaborators &amp; Partners</h2>
+        <p class="section-intro">We have worked with organisations across green finance, pharma intelligence,
+        investigative journalism, linguistics, cognitive neuroscience, and public transparency.</p>
+        <div class="partner-grid">
+            {% for partner in PARTNERS %}
+            <div class="partner-logo">
+                {% if partner.logo %}
+                <img src="{{ SITEURL }}/{{ partner.logo }}" alt="{{ partner.name }}">
+                {% else %}
+                <span class="partner-text-logo">{{ partner.name }}</span>
+                {% endif %}
+                <span class="partner-desc">{{ partner.descriptor }}</span>
             </div>
             {% endfor %}
         </div>

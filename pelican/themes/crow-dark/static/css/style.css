@@ -161,6 +161,19 @@ strong {
     font-size: 2.2rem;
 }
 
+.hero-prose {
+    max-width: 720px;
+    margin: 0 auto 32px;
+    text-align: left;
+}
+
+.hero-prose p {
+    color: var(--text-dim);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 12px;
+}
+
 .hero-cta {
     display: flex;
     gap: 12px;
@@ -734,4 +747,154 @@ footer p {
     .section-title {
         margin-bottom: 32px;
     }
+
+    .partner-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ── What We Do ── */
+.what-we-do {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.what-we-do p {
+    color: var(--text-dim);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+/* ── Section intro ── */
+.section-intro {
+    text-align: center;
+    color: var(--text-dim);
+    max-width: 720px;
+    margin: -24px auto 40px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* ── Partner logos ── */
+.partner-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.partner-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 120px;
+}
+
+.partner-logo img {
+    height: 44px;
+    width: auto;
+    max-width: 110px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.partner-logo:hover img {
+    filter: grayscale(0%);
+    opacity: 1.0;
+}
+
+.partner-text-logo {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 1rem;
+    color: var(--text-dim);
+    opacity: 0.7;
+    transition: color 0.3s ease, opacity 0.3s ease;
+    text-align: center;
+    line-height: 1.2;
+    height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.partner-logo:hover .partner-text-logo {
+    color: var(--accent);
+    opacity: 1.0;
+}
+
+.partner-desc {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-align: center;
+    line-height: 1.3;
+    font-family: 'Courier Prime', monospace;
+}
+
+/* ── Projects page ── */
+.projects-intro {
+    color: var(--text-dim);
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1rem;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+}
+
+.project-card-vertical {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--surface), var(--surface2));
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none !important;
+    color: var(--text) !important;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.project-card-vertical:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent);
+}
+
+.project-card-vertical img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-card-body {
+    padding: 20px;
+}
+
+.project-card-body .project-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: block;
+    font-family: 'Courier Prime', monospace;
+}
+
+.project-card-body h3 {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.project-card-body p {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    line-height: 1.6;
 }

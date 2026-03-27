@@ -76,7 +76,7 @@ years of experience building language-based systems.</p>
 <strong>Google Digital News Initiative</strong>:</p>
 
 <ul>
-<li><strong><a href="https://crowintelligence.org/2022/09/29/koffair-a-google-news-initiative-challenge-project/">Source Code Leak</a></strong>
+<li><strong><a href="https://newsinitiative.withgoogle.com/dnifund/dni-projects/?country=HUN">Source Code Leak</a></strong>
 — a digital fingerprinting tool for investigative journalists, revealing hidden
 connections between seemingly unrelated organisations. It evolved into
 <strong>Complytron</strong>, an AML compliance platform
@@ -85,8 +85,9 @@ connections between seemingly unrelated organisations. It evolved into
 
 <li><strong><a href="https://crowintelligence.org/2022/09/29/koffair-a-google-news-initiative-challenge-project/">Koffair / Radioship</a></strong>
 — open-source speech-to-text infrastructure for community radio stations,
-making large audio archives searchable for the first time. Built with
-<a href="https://tilosradio.hu">Tilos Rádió</a> and Civil Rádió.</li>
+making large audio archives searchable for the first time
+(<a href="https://github.com/koffair">GitHub</a>).
+Built with <a href="https://tilosradio.hu">Tilos Rádió</a> and Civil Rádió.</li>
 </ul>
 
 <p>He has been a long-time author and data collaborator at
