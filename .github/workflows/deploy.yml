@@ -41,20 +41,21 @@ jobs:
             music-networks nemenkent osszes population_trends \
             portraits punch qgis2web_2020_01_02-21_29_35_910844 \
             site socialmedia som települesenkent web; do
-            if [ -d "$dir" ]; then
-              cp -r "$dir" output/
-              echo "  copied $dir/"
+            if [ -d "projects/$dir" ]; then
+              cp -r "projects/$dir" output/
+              echo "  copied projects/$dir/"
             fi
           done
 
-      - name: Copy root-level HTML files into output
+      - name: Copy standalone HTML files and robots.txt into output
         run: |
-          for f in country_bumps.html maps_altair.html maps_folium.html robots.txt; do
-            if [ -f "$f" ]; then
-              cp "$f" output/
-              echo "  copied $f"
+          for f in country_bumps.html maps_altair.html maps_folium.html; do
+            if [ -f "projects/$f" ]; then
+              cp "projects/$f" output/
+              echo "  copied projects/$f"
             fi
           done
+          cp robots.txt output/ 2>/dev/null && echo "  copied robots.txt" || true
 
       - uses: actions/upload-pages-artifact@v3
         with:
