@@ -171,7 +171,7 @@ PARTNERS = [
     },
     {
         'name': 'GL1',
-        'logo': None,
+        'logo': 'logos/gl1.png',
         'descriptor': 'Green lending data science',
     },
     {
@@ -181,23 +181,23 @@ PARTNERS = [
     },
     {
         'name': 'K-Monitor',
-        'logo': None,
+        'logo': 'logos/k-monitor.png',
         'descriptor': 'Public procurement analysis',
     },
     {
         'name': 'The Future Fox',
-        'logo': None,
+        'logo': 'logos/futurefox.jpg',
         'descriptor': 'Data analysis',
     },
     {
         'name': 'nyest.hu',
-        'logo': None,
+        'logo': 'logos/nyest.png',
         'descriptor': 'Science communication & linguistics',
     },
     {
         'name': 'HUN-REN ICNP',
-        'logo': None,
-        'descriptor': 'Cognitive neuroscience research',
+        'logo': 'logos/hun-ren.png',
+        'descriptor': 'Cognitive psychology research',
     },
     {
         'name': 'Manning',
