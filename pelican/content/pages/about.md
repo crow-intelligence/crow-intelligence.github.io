@@ -119,6 +119,6 @@ cognitive theory — is still rare. That is the gap we are trying to fill.
 ## Follow the Research
 
 - Subscribe to [Mind the Minds](https://mindtheminds.substack.com) on Substack
-- Follow us on [Bluesky](https://bsky.app)
+- Follow us on [Bluesky](https://bsky.app/profile/zoltanv.bsky.social)
 - Read the [Blog](https://crowintelligence.org)
 - Reach us at [hello@crowintelligence.org](mailto:hello@crowintelligence.org)
