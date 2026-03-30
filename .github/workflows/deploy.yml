@@ -57,7 +57,7 @@ jobs:
 
       - name: Copy standalone files into output
         run: |
-          for f in country_bumps.html maps_altair.html maps_folium.html robots.txt; do
+          for f in country_bumps.html maps_altair.html maps_folium.html robots.txt CNAME; do
             if [ -f "$f" ]; then
               cp "$f" output/
               echo "  copied $f"

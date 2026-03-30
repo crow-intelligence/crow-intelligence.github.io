@@ -22,6 +22,37 @@
     <meta name="twitter:description" content="{% block twitter_description %}Independent research at the intersection of cognitive linguistics, NLP, and data analysis.{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{{ SITEURL }}/site/img/punctuation_spiral.png{% endblock %}">
 
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ResearchOrganization",
+      "name": "Crow Intelligence",
+      "url": "https://crowintelligence.org",
+      "description": "Independent research at the intersection of cognitive linguistics, natural language processing, and data analysis.",
+      "email": "hello@crowintelligence.org",
+      "founder": [
+        {
+          "@type": "Person",
+          "name": "Zoltán Varjú",
+          "jobTitle": "NLP Engineer & Data Scientist",
+          "sameAs": "https://www.linkedin.com/in/zoltanvarju/"
+        },
+        {
+          "@type": "Person",
+          "name": "Orsolya Putz",
+          "jobTitle": "Cognitive Linguist & AI Engineer",
+          "sameAs": "https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/"
+        }
+      ],
+      "sameAs": [
+        "https://github.com/crow-intelligence",
+        "https://mindtheminds.substack.com"
+      ]
+    }
+    </script>
+    {% block extra_schema %}{% endblock %}
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 
