@@ -1,6 +1,7 @@
 Title: Contact
 Slug: contact
 Status: published
+Summary: Get in touch with Crow Intelligence. Research inquiries, analysis commissions, and collaboration.
 
 <div class="about-intro">
 
