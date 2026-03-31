@@ -134,23 +134,31 @@
     },
   };
 
+  // ── Ensure chart exists ──
+  function ensureChart(leader) {
+    if (!charts[leader] && DATA[leader]) {
+      createRadar(`radar-${leader}`, leader);
+    }
+    return charts[leader];
+  }
+
   // ── Show/hide datasets ──
   function showPublic(leader) {
-    const chart = charts[leader];
+    const chart = ensureChart(leader);
     if (!chart) return;
     chart.data.datasets[0].hidden = false;
     chart.update();
   }
 
   function showPrivate(leader) {
-    const chart = charts[leader];
+    const chart = ensureChart(leader);
     if (!chart) return;
     chart.data.datasets[1].hidden = false;
     chart.update();
   }
 
   function showGaps(leader) {
-    const chart = charts[leader];
+    const chart = ensureChart(leader);
     if (!chart) return;
     const d = DATA[leader];
     const gaps = TRAITS.map((t) => ({
@@ -173,7 +181,7 @@
     if (word) word.classList.add("is-visible");
 
     // Dim the chart
-    const chart = charts[leader];
+    const chart = ensureChart(leader);
     if (chart) {
       chart.data.datasets[0].borderColor = "rgba(59, 139, 212, 0.35)";
       chart.data.datasets[0].backgroundColor = "rgba(59, 139, 212, 0.05)";
