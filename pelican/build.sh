@@ -10,9 +10,18 @@ OUTPUT="$REPO_ROOT/output"
 cd "$SCRIPT_DIR"
 pelican content -s pelicanconf.py -o "$OUTPUT"
 
-# Link existing asset folders into output
-ASSET_DIRS=(portraits site dashboard dashboard_portraits web analysis)
-for dir in "${ASSET_DIRS[@]}"; do
+# Link project subdirectories into output (mirrors deploy workflow)
+for dir in "$REPO_ROOT"/projects/*/; do
+    dirname=$(basename "$dir")
+    link="$OUTPUT/$dirname"
+    if [ ! -e "$link" ]; then
+        ln -s "$dir" "$link"
+        echo "  linked projects/$dirname/"
+    fi
+done
+
+# Link root-level asset directories
+for dir in logos aporia; do
     target="$REPO_ROOT/$dir"
     link="$OUTPUT/$dir"
     if [ -d "$target" ] && [ ! -e "$link" ]; then
