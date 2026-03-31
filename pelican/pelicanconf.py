@@ -58,6 +58,7 @@ DISPLAY_CATEGORIES_ON_MENU = False
 MENUITEMS = [
     ('Projects', '/projects.html'),
     ('Packages', '/packages.html'),
+    ('Aporia', '/aporia/'),
     ('About', '/about.html'),
     ('Blog', '/blog/index.html'),
     ('Contact', '/contact.html'),

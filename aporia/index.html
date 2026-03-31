@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aporia — Visual Essays | Crow Intelligence</title>
+<meta name="description" content="Long-form visual essays at the intersection of data, language, and ideas. Built with our own open-source tools.">
+<meta property="og:title" content="Aporia — Visual Essays | Crow Intelligence">
+<meta property="og:description" content="Long-form visual essays at the intersection of data, language, and ideas.">
+<meta property="og:image" content="https://crow-intelligence.github.io/aporia/nagel-essay/imgs/lincoln_portrait.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #1a1a1f;
+  --surface: #24242b;
+  --surface2: #2e2e37;
+  --border: #3a3a44;
+  --text: #e8e6e1;
+  --text-dim: #9a988f;
+  --accent: #e8c97e;
+  --accent-hover: #d4b56a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Courier Prime', monospace;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--accent-hover); }
+
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* Navigation bar — matches main site */
+.top-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.top-nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-brand {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+.nav-links a {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-left: 24px;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* Hero */
+.hero {
+  padding: 100px 0 60px;
+  text-align: center;
+}
+.hero h1 {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--accent);
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+.hero .greek {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+.hero-prose {
+  max-width: 640px;
+  margin: 0 auto;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.hero-prose p { margin-bottom: 1.2em; }
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  max-width: 120px;
+  margin: 60px auto;
+}
+
+/* Essay cards */
+.essays { padding: 0 0 80px; }
+.essays h2 {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--text-dim);
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+
+.essay-card {
+  display: flex;
+  gap: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+  text-decoration: none;
+  color: var(--text);
+}
+.essay-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  color: var(--text);
+}
+
+.essay-card-image {
+  width: 260px;
+  min-height: 220px;
+  flex-shrink: 0;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.essay-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.essay-card-body {
+  padding: 28px 28px 28px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.essay-card-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.essay-card-body h3 {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.essay-card-body p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.essay-card-meta {
+  margin-top: 16px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-family: 'Courier Prime', monospace;
+}
+.essay-card-meta .wip {
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-left: 8px;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.2rem; }
+  .essay-card { flex-direction: column; }
+  .essay-card-image { width: 100%; min-height: 180px; }
+  .essay-card-body { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="container">
+    <a href="/" class="nav-brand">Crow Intelligence</a>
+    <div class="nav-links">
+      <a href="/projects.html">Projects</a>
+      <a href="/packages.html">Packages</a>
+      <a href="/aporia/">Aporia</a>
+      <a href="/about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <h1>Aporia</h1>
+    <div class="greek">&alpha;&pi;&omicron;&rho;ί&alpha; &mdash; a state of puzzlement, the moment before understanding</div>
+    <div class="hero-prose">
+      <p>Visual essays that use data to reopen questions we thought were settled.
+      Each piece is built around our own open-source tools &mdash;
+      <a href="/packages.html">chronowords</a> and <a href="/packages.html">kenon</a>
+      &mdash; and designed to be read, scrolled, and explored.</p>
+      <p>These are not dashboards. They are arguments made with data,
+      written to be read from beginning to end.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="essays">
+  <div class="container">
+    <h2>Essays</h2>
+
+    <a href="nagel-essay/" class="essay-card">
+      <div class="essay-card-image">
+        <img src="nagel-essay/imgs/nixon_portrait.png" alt="Nixon portrait — split word cloud of public and private vocabulary">
+      </div>
+      <div class="essay-card-body">
+        <span class="essay-card-label">Computational Psycholinguistics</span>
+        <h3>The great modern crimes are public crimes</h3>
+        <p>Does power change a person &mdash; or reveal them? We applied Big Five personality
+        analysis to the public speeches and private writings of seven American leaders.
+        Lincoln was the same man in both rooms. Nixon was two different people.
+        Kissinger knew exactly what he was doing.</p>
+        <div class="essay-card-meta">
+          Lincoln &middot; Nixon &middot; Kissinger &middot; Scrollytelling + Chart.js
+          <span class="wip">work in progress</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p><a href="/">Crow Intelligence</a> &middot; <a href="/about.html">About</a> &middot; <a href="mailto:hello@crowintelligence.org">hello@crowintelligence.org</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,543 @@
+/* ── Act I: Opening ── */
+#act-opening {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.opening-epigraph {
+  font-family: var(--font-display);
+  font-size: 48px;
+  line-height: 1.4;
+  opacity: 0;
+  animation: fadeInUp 2s ease forwards;
+  max-width: 700px;
+}
+
+.opening-attribution {
+  font-family: var(--font-data);
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-top: 24px;
+  opacity: 0;
+  animation: fadeInUp 1.5s ease 1s forwards;
+}
+
+.opening-question {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 1.5;
+  max-width: 600px;
+  margin-top: 80px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.opening-question.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.opening-frame {
+  font-size: 18px;
+  max-width: 520px;
+  margin-top: 60px;
+  text-align: center;
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.opening-frame.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .opening-epigraph { font-size: 32px; }
+  .opening-question { font-size: 24px; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Act II: Philosophy — Sticky Diagram ── */
+#act-philosophy {
+  position: relative;
+}
+
+.philosophy-layout {
+  display: flex;
+  gap: 60px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.philosophy-sticky {
+  flex: 0 0 340px;
+  position: sticky;
+  top: 20vh;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.philosophy-steps {
+  flex: 1;
+  padding: 20vh 0;
+}
+
+.philosophy-steps .scroll-step {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  opacity: 0.25;
+  transition: opacity 0.5s ease;
+}
+
+.philosophy-steps .scroll-step.is-active {
+  opacity: 1;
+}
+
+/* Circle diagram */
+.circle-diagram {
+  position: relative;
+  width: 300px;
+  height: 200px;
+}
+
+.circle-person, .circle-office {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  top: 30px;
+  transition: all 0.8s ease;
+}
+
+.circle-person {
+  background: rgba(186, 117, 23, 0.25);
+  border: 2px solid var(--private);
+  left: 40px;
+}
+
+.circle-office {
+  background: rgba(59, 139, 212, 0.25);
+  border: 2px solid var(--public);
+  left: 120px;
+}
+
+.circle-label {
+  position: absolute;
+  font-family: var(--font-data);
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.label-person { bottom: 2px; left: 50px; }
+.label-office { bottom: 2px; right: 20px; }
+
+/* Diagram states */
+.circle-diagram[data-state="surface"] .circle-office {
+  width: 180px; height: 180px; top: 10px; left: 100px;
+}
+.circle-diagram[data-state="surface"] .circle-person {
+  width: 110px; height: 110px; top: 45px; left: 30px;
+}
+.circle-diagram[data-state="pulse"] .circle-person,
+.circle-diagram[data-state="pulse"] .circle-office {
+  animation: gentlePulse 2s ease-in-out infinite;
+}
+.circle-diagram[data-state="gap"] .circle-person {
+  left: 10px;
+}
+.circle-diagram[data-state="gap"] .circle-office {
+  left: 170px;
+}
+
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@media (max-width: 768px) {
+  .philosophy-layout {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .philosophy-sticky {
+    flex: none;
+    position: relative;
+    top: 0;
+    height: auto;
+    padding: 40px 0;
+  }
+  .philosophy-steps .scroll-step {
+    min-height: 50vh;
+  }
+}
+
+/* ── Acts III–V: Leader sections — Sticky Radar ── */
+.leader-section {
+  position: relative;
+}
+
+.portrait-hero {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  margin-bottom: 60px;
+}
+
+.portrait-hero img {
+  width: 100%;
+  max-height: 85vh;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.portrait-hero img.is-visible {
+  opacity: 1;
+}
+
+.portrait-caption {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  font-family: var(--font-data);
+  font-size: 11px;
+  color: var(--text-dim);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(13, 13, 13, 0.7);
+  padding: 8px 12px;
+}
+
+.caption-leader {
+  color: var(--text);
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.leader-layout {
+  display: flex;
+  gap: 60px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.leader-sticky {
+  flex: 0 0 420px;
+  position: sticky;
+  top: 15vh;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.leader-radar-wrap {
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+
+.leader-word {
+  font-family: var(--font-display);
+  font-size: 36px;
+  text-align: center;
+  margin-top: 20px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.leader-word.is-visible {
+  opacity: 1;
+}
+
+.leader-word[data-tone="coherent"] { color: var(--text-dim); }
+.leader-word[data-tone="fractured"] { color: var(--coral); }
+.leader-word[data-tone="calculated"] { color: var(--private); }
+
+.nagel-badge-inline {
+  font-family: var(--font-data);
+  font-size: 13px;
+  margin-top: 12px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.nagel-badge-inline.is-visible { opacity: 1; }
+
+.nagel-badge-inline .badge-score {
+  font-size: 28px;
+  font-weight: bold;
+}
+.nagel-badge-inline .badge-label {
+  color: var(--text-dim);
+  margin-left: 8px;
+}
+
+.leader-steps {
+  flex: 1;
+  padding: 10vh 0 20vh;
+}
+
+.leader-steps .scroll-step {
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  opacity: 0.25;
+  transition: opacity 0.5s ease;
+}
+
+.leader-steps .scroll-step.is-active {
+  opacity: 1;
+}
+
+.leader-steps .scroll-step .step-content {
+  max-width: 500px;
+}
+
+/* Inline stat callouts */
+.stat-callout {
+  font-family: var(--font-data);
+  font-size: 14px;
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-left: 3px solid var(--coral);
+  background: rgba(216, 90, 48, 0.06);
+}
+
+.stat-callout.ns {
+  border-left-color: var(--text-dim);
+  background: rgba(136, 136, 128, 0.06);
+}
+
+@media (max-width: 768px) {
+  .leader-layout {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .leader-sticky {
+    flex: none;
+    position: relative;
+    top: 0;
+    height: auto;
+    padding: 20px 0;
+  }
+  .leader-radar-wrap {
+    width: 300px;
+    height: 300px;
+  }
+  .leader-steps .scroll-step {
+    min-height: 50vh;
+  }
+}
+
+/* ── Act VI: Comparative ── */
+#act-conclusion {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.spectrum-cards {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 60px 0;
+}
+
+.spectrum-card {
+  width: 280px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.spectrum-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.spectrum-card[data-gap="small"]  { border-left: 3px solid var(--text-dim); }
+.spectrum-card[data-gap="medium"] { border-left: 3px solid var(--private); }
+.spectrum-card[data-gap="large"]  { border-left: 3px solid var(--coral); }
+
+.spectrum-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.nagel-badge {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.badge-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--text);
+}
+
+.badge-score {
+  font-family: var(--font-data);
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.badge-score[data-level="small"]  { color: var(--text-dim); }
+.badge-score[data-level="medium"] { color: var(--private); }
+.badge-score[data-level="large"]  { color: var(--coral); }
+
+.badge-label {
+  font-family: var(--font-data);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.badge-word {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ── CTA buttons ── */
+.cta-row {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 60px 0;
+}
+
+.cta-button {
+  font-family: var(--font-data);
+  font-size: 14px;
+  padding: 14px 28px;
+  border: 1px solid var(--text-dim);
+  color: var(--text);
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.3s, background 0.3s;
+  letter-spacing: 0.5px;
+}
+
+.cta-button:hover {
+  border-color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Navigation dots ── */
+.nav-dots {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 100;
+}
+
+.nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(136, 136, 128, 0.3);
+  border: 1px solid var(--text-dim);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  position: relative;
+}
+
+.nav-dot:hover {
+  transform: scale(1.3);
+}
+
+.nav-dot.is-active {
+  background: var(--text);
+  border-color: var(--text);
+}
+
+.nav-dot-label {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-data);
+  font-size: 10px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.nav-dot:hover .nav-dot-label {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .nav-dots { display: none; }
+}
+
+/* ── Connectors between dots ── */
+.nav-dots::before {
+  content: '';
+  position: absolute;
+  left: 4.5px;
+  top: 5px;
+  bottom: 5px;
+  width: 1px;
+  background: rgba(136, 136, 128, 0.2);
+  z-index: -1;
+}
+
+/* ── Screen reader only ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}

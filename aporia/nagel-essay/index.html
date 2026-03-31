@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Nagel Index — Does Power Change a Person?</title>
+  <meta name="description" content="A computational psycholinguistics investigation into the gap between public and private personality in American leaders.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/scrolly.css">
+</head>
+<body>
+
+<!-- ═══════════ NAVIGATION DOTS ═══════════ -->
+<nav class="nav-dots" aria-label="Essay sections">
+  <div class="nav-dot is-active" data-section="act-opening">
+    <span class="nav-dot-label">Opening</span>
+  </div>
+  <div class="nav-dot" data-section="act-philosophy">
+    <span class="nav-dot-label">The Argument</span>
+  </div>
+  <div class="nav-dot" data-section="act-lincoln">
+    <span class="nav-dot-label">Lincoln</span>
+  </div>
+  <div class="nav-dot" data-section="act-nixon">
+    <span class="nav-dot-label">Nixon</span>
+  </div>
+  <div class="nav-dot" data-section="act-kissinger">
+    <span class="nav-dot-label">Kissinger</span>
+  </div>
+  <div class="nav-dot" data-section="act-conclusion">
+    <span class="nav-dot-label">Conclusion</span>
+  </div>
+</nav>
+
+<!-- ═══════════ ACT I — THE OPENING STATEMENT ═══════════ -->
+<section id="act-opening">
+  <div class="opening-epigraph">
+    &ldquo;The great modern crimes<br>are public crimes.&rdquo;
+  </div>
+  <div class="opening-attribution">&mdash; Thomas Nagel, 1978</div>
+
+  <div class="opening-question">
+    Does power change a person &mdash;<br>or does it reveal them?
+  </div>
+
+  <div class="opening-frame">
+    The Nagel Index applies computational psycholinguistics to that question.<br><br>
+    We measured the personality gap between the public speeches and private words of seven American leaders.<br><br>
+    Three cases define the spectrum.
+  </div>
+
+  <hr class="section-rule">
+</section>
+
+<!-- ═══════════ ACT II — THE PHILOSOPHICAL ARGUMENT ═══════════ -->
+<section id="act-philosophy">
+  <div class="philosophy-layout">
+    <div class="philosophy-sticky">
+      <div class="circle-diagram" data-state="default">
+        <div class="circle-person"></div>
+        <div class="circle-office"></div>
+        <span class="circle-label label-person">The Person</span>
+        <span class="circle-label label-office">The Office</span>
+      </div>
+    </div>
+
+    <div class="philosophy-steps">
+      <div class="scroll-step" data-step="phil-1">
+        <div class="step-content">
+          <p>Nagel opens with an observation that is as uncomfortable today as it was in 1978. The great modern crimes are not committed by private criminals. They are committed by people with offices, titles, and institutional authority. And somehow, that authority insulates them.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="phil-2">
+        <div class="step-content">
+          <p>He calls it a &ldquo;slippery moral surface.&rdquo; The office-holder acts not as a private person but as a functionary &mdash; servant of something larger than himself. A secretary of defense, a president, a general. The institution gets between the person and their acts.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="phil-3">
+        <div class="step-content">
+          <p>This is not merely a structural observation. It is a psychological one. The role reshapes the person. The language of duty, of national interest, of responsibility &mdash; these are not neutral. They gradually colonize the private moral vocabulary.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="phil-4">
+        <div class="step-content">
+          <p>But Nagel adds something sharper. The exercise of power, he writes, is &ldquo;one of the most primitive human feelings &mdash; probably one with infantile roots.&rdquo; Holders of public power are personally involved to an intense degree, and probably enjoying it immensely. The office is not merely a mask. It is also a reward.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="phil-5">
+        <div class="step-content">
+          <p>The question, then, is the size of the gap. Between the person who signs the letters and the person who gives the speeches. Between the voice caught on tape and the voice broadcast to the nation. Some leaders maintain coherence. Others fracture. The Nagel Index measures which.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+</section>
+
+<!-- ═══════════ ACT III — LINCOLN ═══════════ -->
+<section id="act-lincoln" class="leader-section">
+  <div class="portrait-hero">
+    <!-- WIP: final portrait pending -->
+    <img src="imgs/lincoln.png" alt="Abraham Lincoln — split word cloud portrait, public and private vocabulary">
+    <div class="portrait-caption">
+      <span class="caption-leader">Abraham Lincoln</span>
+      <span class="caption-years">1861&ndash;1865</span>
+      <span class="caption-label">Public / Private</span>
+    </div>
+  </div>
+
+  <div class="leader-layout">
+    <div class="leader-sticky">
+      <div class="leader-radar-wrap" data-leader="lincoln">
+        <canvas id="radar-lincoln"></canvas>
+      </div>
+      <div id="lincoln-badge" class="nagel-badge-inline">
+        <span class="badge-score" data-level="medium">0.41</span>
+        <span class="badge-label">&mdash; medium</span>
+      </div>
+      <div id="lincoln-word" class="leader-word" data-tone="coherent">Coherent</div>
+    </div>
+
+    <div class="leader-steps">
+      <div class="scroll-step" data-step="lincoln-1">
+        <div class="step-content">
+          <p>Abraham Lincoln left remarkably few public speeches and remarkably many private letters. The contrast between the Gettysburg Address and a personal telegram to a grieving mother is not merely a difference in occasion &mdash; it is a window into whether the institution changed him.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="lincoln-2">
+        <div class="step-content">
+          <p>His private correspondence is direct, warm, self-deprecating, and occasionally melancholic. There is no performance of presidential gravity in a letter to his wife. The syntax is looser; the concerns are personal.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="lincoln-3">
+        <div class="step-content">
+          <p>The Nagel Index finds a medium overall gap score of 0.41, driven primarily by Conscientiousness (d&nbsp;=&nbsp;0.73) and Agreeableness (d&nbsp;=&nbsp;0.53). But the raw score differences are tiny &mdash; never more than three percentage points on any trait. The effect sizes reflect how <em>consistently</em> the small shift appears across hundreds of text chunks, not how large the shift is.</p>
+          <div class="stat-callout ns">
+            Openness: d&nbsp;=&nbsp;&minus;0.08 (ns) &mdash; negligible
+          </div>
+          <div class="stat-callout">
+            Conscientiousness: d&nbsp;=&nbsp;0.73** &mdash; medium effect, but only &Delta;0.009
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="lincoln-4">
+        <div class="step-content">
+          <p>This does not mean Lincoln was simple. It means he was consistent. The man who wrote &ldquo;With malice toward none, with charity for all&rdquo; in his Second Inaugural was the same man who signed condolence letters by hand. The institution did not transform him. This is the baseline.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sr-table-lincoln" class="sr-only"></div>
+  <hr class="section-rule">
+</section>
+
+<!-- ═══════════ ACT IV — NIXON ═══════════ -->
+<section id="act-nixon" class="leader-section">
+  <div class="portrait-hero">
+    <!-- WIP: final portrait pending -->
+    <img src="imgs/nixon.png" alt="Richard Nixon — split word cloud portrait, public and private vocabulary">
+    <div class="portrait-caption">
+      <span class="caption-leader">Richard Nixon</span>
+      <span class="caption-years">1969&ndash;1974</span>
+      <span class="caption-label">Public / Private</span>
+    </div>
+  </div>
+
+  <div class="leader-layout">
+    <div class="leader-sticky">
+      <div class="leader-radar-wrap" data-leader="nixon">
+        <canvas id="radar-nixon"></canvas>
+      </div>
+      <div id="nixon-badge" class="nagel-badge-inline">
+        <span class="badge-score" data-level="large">0.87</span>
+        <span class="badge-label">&mdash; large</span>
+      </div>
+      <div id="nixon-word" class="leader-word" data-tone="fractured">Fractured</div>
+    </div>
+
+    <div class="leader-steps">
+      <div class="scroll-step" data-step="nixon-1">
+        <div class="step-content">
+          <p>Richard Nixon gave some of the most carefully constructed political speeches of the twentieth century. He also left behind 3,700 hours of secret White House recordings. The distance between those two archives is the story of a presidency.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="nixon-2">
+        <div class="step-content">
+          <p>On the tapes, Nixon is different. Not just in content &mdash; in texture. The vocabulary shifts from the lexicon of nationhood (<em>america, spirit, peace, freedom</em>) to the lexicon of operation (<em>going, think, regard, course, concerned, matter</em>). He sounds like a man running a machine, not leading a nation.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="nixon-3">
+        <div class="step-content">
+          <div class="stat-callout">
+            Extraversion: d&nbsp;=&nbsp;&minus;0.85*** &mdash; large effect. The public Nixon was expansive, performative, rhetorically commanding. The private Nixon was guarded, reactive, transactional.
+          </div>
+          <div class="stat-callout">
+            Neuroticism: d&nbsp;=&nbsp;&minus;1.05*** &mdash; large effect. The public Nixon projected calm authority. The private Nixon, as the tapes make clear, was anxious, suspicious, and volatile.
+          </div>
+          <div class="stat-callout">
+            Conscientiousness: d&nbsp;=&nbsp;1.40*** &mdash; large effect. The most divergent trait. The public persona was aspirational; the private operator was loose, improvised, reactive.
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="nixon-4">
+        <div class="step-content">
+          <p>Nagel would not be surprised. The institution did not insulate Nixon from his moral failures &mdash; it amplified them. The office gave his paranoia jurisdiction. The question of whether Nixon was corrupted by power or brought his corruption to power is, perhaps, unanswerable. The gap only tells us that the two Nixons were measurably different men.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sr-table-nixon" class="sr-only"></div>
+  <hr class="section-rule">
+</section>
+
+<!-- ═══════════ ACT V — KISSINGER ═══════════ -->
+<section id="act-kissinger" class="leader-section">
+  <div class="portrait-hero">
+    <!-- WIP: final portrait pending -->
+    <img src="imgs/kissinger.png" alt="Henry Kissinger — split word cloud portrait, public and private vocabulary">
+    <div class="portrait-caption">
+      <span class="caption-leader">Henry Kissinger</span>
+      <span class="caption-years">1969&ndash;1977</span>
+      <span class="caption-label">Public / Private</span>
+    </div>
+  </div>
+
+  <div class="leader-layout">
+    <div class="leader-sticky">
+      <div class="leader-radar-wrap" data-leader="kissinger">
+        <canvas id="radar-kissinger"></canvas>
+      </div>
+      <div id="kissinger-badge" class="nagel-badge-inline">
+        <span class="badge-score" data-level="medium">0.43</span>
+        <span class="badge-label">&mdash; medium</span>
+      </div>
+      <div id="kissinger-word" class="leader-word" data-tone="calculated">Calculated</div>
+    </div>
+
+    <div class="leader-steps">
+      <div class="scroll-step" data-step="kissinger-1">
+        <div class="step-content">
+          <p>Kissinger is the hardest case. He appears in Nagel&rsquo;s own essay &mdash; named as a man of high esteem despite the Christmas bombing of 1972 and &ldquo;all that preceded it.&rdquo; Nagel uses him as an example of exactly how the slippery moral surface works: the institution absorbs the act, and the man walks free.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="kissinger-2">
+        <div class="step-content">
+          <p>His private vocabulary &mdash; <em>secretary, policy, nsc, memorandum, files, staff</em> &mdash; is the vocabulary of a system manager, not a statesman. In public he spoke of the world, of Mediterranean strategy, of the architecture of peace. In private he spoke of process.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="kissinger-3">
+        <div class="step-content">
+          <div class="stat-callout">
+            Agreeableness: d&nbsp;=&nbsp;&minus;0.68* &mdash; medium effect. The diplomat disappeared in private.
+          </div>
+          <div class="stat-callout">
+            Extraversion: d&nbsp;=&nbsp;&minus;0.63** &mdash; medium effect. The public charisma was a performance.
+          </div>
+          <div class="stat-callout ns">
+            Openness: d&nbsp;=&nbsp;0.04 (ns) &mdash; negligible. The strategic intelligence was consistent across contexts.
+          </div>
+          <div class="stat-callout ns">
+            Neuroticism: d&nbsp;=&nbsp;0.07 (ns) &mdash; negligible. Emotional stability was genuine, not performed.
+          </div>
+          <p>Kissinger the thinker and Kissinger the operator were the same person. Kissinger the public figure was a performance.</p>
+        </div>
+      </div>
+
+      <div class="scroll-step" data-step="kissinger-4">
+        <div class="step-content">
+          <p>This is what makes Kissinger interesting to Nagel&rsquo;s framework. He was not transformed by the office. He used it. The institutional role was a tool he wielded deliberately &mdash; the &ldquo;slippery moral surface&rdquo; was, for Kissinger, a known instrument. That is a different kind of gap: not fracture, but strategic distance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sr-table-kissinger" class="sr-only"></div>
+  <hr class="section-rule">
+</section>
+
+<!-- ═══════════ ACT VI — COMPARATIVE & CONCLUSION ═══════════ -->
+<section id="act-conclusion">
+
+  <div class="scroll-step" data-step="spectrum">
+    <div style="width:100%">
+      <div class="spectrum-cards">
+        <div class="spectrum-card" data-gap="medium">
+          <img src="imgs/lincoln_portrait.png" alt="Lincoln portrait">
+          <div class="nagel-badge">
+            <span class="badge-name">Abraham Lincoln</span>
+            <span class="badge-score" data-level="medium">0.41</span>
+            <span class="badge-label">medium</span>
+            <span class="badge-word" style="color: var(--text-dim);">Coherent</span>
+          </div>
+        </div>
+
+        <div class="spectrum-card" data-gap="medium">
+          <img src="imgs/kissinger_portrait.png" alt="Kissinger portrait">
+          <div class="nagel-badge">
+            <span class="badge-name">Henry Kissinger</span>
+            <span class="badge-score" data-level="medium">0.43</span>
+            <span class="badge-label">medium</span>
+            <span class="badge-word" style="color: var(--private);">Calculated</span>
+          </div>
+        </div>
+
+        <div class="spectrum-card" data-gap="large">
+          <img src="imgs/nixon_portrait.png" alt="Nixon portrait">
+          <div class="nagel-badge">
+            <span class="badge-name">Richard Nixon</span>
+            <span class="badge-score" data-level="large">0.87</span>
+            <span class="badge-label">large</span>
+            <span class="badge-word" style="color: var(--coral);">Fractured</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose" style="margin-top: 60px;">
+    <p>The Nagel Gap does not measure morality. It measures distance &mdash; the linguistic and psychological distance between the self that spoke to history and the self that spoke when no one was supposed to be listening. A small gap does not make Lincoln a saint. A large gap does not make Nixon uniquely evil. Both were capable of cruelty. But only one of them was the same man in both rooms.</p>
+
+    <p>Nagel ends his essay with a provocation. The plausibility of the institutional excuse, he writes, is &ldquo;inversely proportional to the power and independence of the actor.&rdquo; The more power you hold, the less the office can absorb. At the very top, the gap between the person and the role collapses &mdash; what remains is just the person.</p>
+
+    <p>The data suggests he was right.</p>
+  </div>
+
+  <div class="pull-quote">
+    &ldquo;Does power change a person &mdash; or does it reveal them?&rdquo;
+  </div>
+
+  <div class="cta-row">
+    <a class="cta-button" href="../outputs/dashboard/lincoln_dashboard.html">Explore the full data &rarr;</a>
+    <a class="cta-button" href="https://doi.org/10.1017/S0265052500003836" target="_blank" rel="noopener">Read Nagel&rsquo;s essay &rarr;</a>
+  </div>
+
+</section>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script src="js/scrollama.min.js"></script>
+<script src="js/chart.umd.min.js"></script>
+<script src="js/essay.js"></script>
+
+</body>
+</html>
