@@ -1,5 +1,35 @@
 {% extends "base.html" %}
 {% block title %}{{ article.title }} — {{ SITENAME }}{% endblock %}
+{% block meta_description %}{{ article.summary|striptags|truncate(155, True, '…') }}{% endblock %}
+{% block canonical_url %}{{ SITEURL }}/{{ article.url }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ article.title }} — {{ SITENAME }}{% endblock %}
+{% block og_description %}{{ article.summary|striptags|truncate(155, True, '…') }}{% endblock %}
+{% block og_url %}{{ SITEURL }}/{{ article.url }}{% endblock %}
+{% block twitter_title %}{{ article.title }} — {{ SITENAME }}{% endblock %}
+{% block twitter_description %}{{ article.summary|striptags|truncate(155, True, '…') }}{% endblock %}
+
+{% block extra_schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ article.title }}",
+  "datePublished": "{{ article.date.isoformat() }}",
+  {% if article.modified %}"dateModified": "{{ article.modified.isoformat() }}",{% endif %}
+  "author": {
+    "@type": "Organization",
+    "name": "Crow Intelligence",
+    "url": "https://crowintelligence.org"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Crow Intelligence"
+  },
+  "description": "{{ article.summary|striptags|truncate(200, True, '…') }}"
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <section class="hero hero-compact">

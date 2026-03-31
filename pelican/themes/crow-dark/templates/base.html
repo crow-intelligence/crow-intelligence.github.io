@@ -7,14 +7,15 @@
     <meta name="description" content="{% block meta_description %}Independent research at the intersection of cognitive linguistics, NLP, and data analysis.{% endblock %}">
     <meta name="author" content="{{ AUTHOR }}">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{% block canonical_url %}{{ SITEURL }}/{% endblock %}">
 
     <!-- Open Graph -->
     <meta property="og:site_name" content="{{ SITENAME }}">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:title" content="{% block og_title %}{{ SITENAME }}{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Independent research at the intersection of cognitive linguistics, NLP, and data analysis.{% endblock %}">
     <meta property="og:image" content="{% block og_image %}{{ SITEURL }}/site/img/punctuation_spiral.png{% endblock %}">
-    <meta property="og:url" content="{{ SITEURL }}/">
+    <meta property="og:url" content="{% block og_url %}{{ SITEURL }}/{% endblock %}">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">

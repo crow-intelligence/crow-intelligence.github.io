@@ -1,6 +1,7 @@
 Title: Open Source Packages
 Slug: packages
 Status: published
+Summary: Open source Python libraries for computational text analysis: chronowords for semantic shift detection, kenon for co-occurrence networks.
 
 <div class="about-intro">
 
