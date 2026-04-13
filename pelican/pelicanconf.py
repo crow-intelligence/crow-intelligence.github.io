@@ -161,6 +161,14 @@ PACKAGES = [
         'github': 'https://github.com/crow-intelligence/kenon',
         'docs': 'https://kenon.readthedocs.io/en/latest/',
     },
+    {
+        'name': 'corvus',
+        'version': 'v1.0.0',
+        'license': 'MIT',
+        'python': '3.10+',
+        'description': 'A cookiecutter template for data science and text analysis projects. Pre-configured scaffold with uv, ruff, DVC, MLflow, Sphinx docs, and structured directories — eliminate manual setup and start analysing.',
+        'github': 'https://github.com/crow-intelligence/corvus',
+    },
 ]
 
 # Partners

@@ -1,11 +1,11 @@
 Title: Open Source Packages
 Slug: packages
 Status: published
-Summary: Open source Python libraries for computational text analysis: chronowords for semantic shift detection, kenon for co-occurrence networks.
+Summary: Open source Python tools for computational text analysis: chronowords for semantic shift detection, kenon for co-occurrence networks, and corvus cookiecutter template for data science projects.
 
 <div class="about-intro">
 
-We build and maintain a suite of open source Python libraries for
+We build and maintain a suite of open source Python libraries and tools for
 computational text analysis. The packages are designed as a coherent
 ecosystem — each layer building on the one below.
 
@@ -47,6 +47,24 @@ Named after the Greek *kenon* (κενόν) — the void that enables connection.
 
 ---
 
+## corvus
+
+<img src="{static}/images/corvus-logo.svg" alt="corvus logo" style="max-width: 300px; margin-bottom: 1rem;">
+
+A cookiecutter template for data science and text analysis projects.
+Pre-configured scaffold with uv, ruff, DVC, MLflow, Sphinx docs, and
+structured directories for raw/processed data, models, notebooks, and
+a Python package — eliminate manual setup and start analysing.
+
+Originally developed as our internal project template for computational
+linguistics and NLP research, now publicly available.
+
+- [GitHub](https://github.com/crow-intelligence/corvus)
+
+`uvx cookiecutter https://github.com/crow-intelligence/corvus.git`
+
+---
+
 ## lexograph *(coming soon)*
 
 Computational text art and visualisation. Turtle graphics sentence
@@ -84,6 +102,21 @@ Named after the Greek *graphein* (γράφειν) — to write, to draw.
     "url": "https://pypi.org/project/kenon/",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Python 3.11+",
+    "license": "https://opensource.org/licenses/MIT",
+    "author": {
+      "@type": "Organization",
+      "name": "Crow Intelligence",
+      "url": "https://crowintelligence.org"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "corvus",
+    "description": "A cookiecutter template for data science and text analysis projects with uv, ruff, DVC, MLflow, and Sphinx docs.",
+    "url": "https://github.com/crow-intelligence/corvus",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Python 3.10+",
     "license": "https://opensource.org/licenses/MIT",
     "author": {
       "@type": "Organization",
