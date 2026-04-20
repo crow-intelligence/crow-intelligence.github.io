@@ -176,41 +176,41 @@ PARTNERS = [
     {
         'name': 'RxClarity',
         'logo': 'logos/rxclarity.png',
-        'descriptor': 'Pharma intelligence & news analytics',
     },
     {
         'name': 'GL1',
         'logo': 'logos/gl1.png',
-        'descriptor': 'Green lending data science',
     },
     {
         'name': 'Precognox',
         'logo': 'logos/precognox.png',
-        'descriptor': 'NLP & enterprise search',
     },
     {
         'name': 'K-Monitor',
         'logo': 'logos/k-monitor.png',
-        'descriptor': 'Public procurement analysis',
     },
     {
         'name': 'The Future Fox',
         'logo': 'logos/futurefox.jpg',
-        'descriptor': 'Data analysis',
     },
     {
         'name': 'nyest.hu',
         'logo': 'logos/nyest.png',
-        'descriptor': 'Science communication & linguistics',
     },
     {
         'name': 'HUN-REN ICNP',
         'logo': 'logos/hun-ren.png',
-        'descriptor': 'Cognitive psychology research',
     },
     {
         'name': 'Manning',
         'logo': 'logos/manning.svg',
-        'descriptor': 'Technical courses',
+    },
+    {
+        'name': 'Urbanum',
+        'logo': 'logos/urbanum_kek.png',
+    },
+    {
+        'name': 'Habitat for Humanity',
+        'logo': 'logos/hfhh_logo_black.svg',
     },
 ]
