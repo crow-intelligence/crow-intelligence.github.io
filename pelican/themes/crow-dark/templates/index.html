@@ -1,38 +1,16 @@
-{% extends "base.html" %}
-{% block title %}Blog — {{ SITENAME }}{% endblock %}
-{% block meta_description %}Writing on computational linguistics, cognitive science, AI, and the patterns hidden in language.{% endblock %}
-{% block canonical_url %}{{ SITEURL }}/blog/index.html{% endblock %}
-{% block og_title %}Blog — {{ SITENAME }}{% endblock %}
-{% block og_description %}Writing on computational linguistics, cognitive science, AI, and the patterns hidden in language.{% endblock %}
-{% block og_url %}{{ SITEURL }}/blog/index.html{% endblock %}
-{% block twitter_title %}Blog — {{ SITENAME }}{% endblock %}
-{% block twitter_description %}Writing on computational linguistics, cognitive science, AI, and the patterns hidden in language.{% endblock %}
-
-{% block content %}
-<section class="hero hero-compact">
-    <div class="container">
-        <h1>Blog</h1>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        {% if articles %}
-        {% for article in articles %}
-        <a href="{{ SITEURL }}/{{ article.url }}" class="blog-card">
-            <div class="blog-card-meta">{{ article.date.strftime('%B %d, %Y') }}</div>
-            <h3>{{ article.title }}</h3>
-            {% if article.summary %}
-            <p>{{ article.summary }}</p>
-            {% endif %}
-        </a>
-        {% endfor %}
-        {% else %}
-        <div class="empty-state">
-            <p class="greek-placeholder">οὐδὲν ἐνταῦθα γέγραπται — μηδὲν ἀνησυχεῖτε, ἔρχεται τι καλόν.</p>
-            <p>No posts yet. Something good is coming.</p>
-        </div>
-        {% endif %}
-    </div>
-</section>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog — Crow Intelligence</title>
+    <meta name="robots" content="noindex">
+    <meta http-equiv="refresh" content="0; url=https://blog.crowintelligence.org/">
+    <link rel="canonical" href="https://blog.crowintelligence.org/">
+    <script>
+        window.location.replace('https://blog.crowintelligence.org/' + window.location.search + window.location.hash);
+    </script>
+</head>
+<body>
+    <p>The Crow Intelligence blog has moved to <a href="https://blog.crowintelligence.org/">blog.crowintelligence.org</a>.</p>
+</body>
+</html>
