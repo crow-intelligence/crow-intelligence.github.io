@@ -59,7 +59,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/style.css">
+    <link rel="stylesheet" href="/{{ THEME_STATIC_DIR }}/css/style.css">
 
     {% if GOOGLE_ANALYTICS %}
     <!-- Google Analytics -->
@@ -81,7 +81,7 @@
             </button>
             <div class="nav-links">
                 {% for title, link in MENUITEMS %}
-                <a href="{{ SITEURL }}{{ link }}">{{ title }}</a>
+                <a href="{% if link.startswith('http') %}{{ link }}{% else %}{{ SITEURL }}{{ link }}{% endif %}">{{ title }}</a>
                 {% endfor %}
             </div>
         </div>
@@ -94,7 +94,7 @@
     <footer>
         <div class="container">
             <div class="footer-logo">
-                <img src="{{ SITEURL }}/{{ LOGO_PATH }}" alt="{{ SITENAME }} Logo">
+                <img src="/{{ LOGO_PATH }}" alt="{{ SITENAME }} Logo">
             </div>
             <p>&copy; 2025 {{ SITENAME }}. All rights reserved.</p>
             <p class="footer-note">

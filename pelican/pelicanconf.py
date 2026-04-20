@@ -60,7 +60,7 @@ MENUITEMS = [
     ('Packages', '/packages.html'),
     ('Aporia', '/aporia/'),
     ('About', '/about.html'),
-    ('Blog', '/blog/index.html'),
+    ('Blog', 'https://blog.crowintelligence.org/'),
     ('Contact', '/contact.html'),
 ]
 

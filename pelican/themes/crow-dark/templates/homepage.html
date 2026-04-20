@@ -29,7 +29,7 @@
             {% for member in TEAM %}
             <div class="team-member">
                 <a href="{{ member.linkedin }}" target="_blank" class="team-photo">
-                    <img src="{{ SITEURL }}/{{ member.photo }}" alt="{{ member.name }}">
+                    <img src="/{{ member.photo }}" alt="{{ member.name }}">
                 </a>
                 <h3><a href="{{ member.linkedin }}" target="_blank">{{ member.name }}</a></h3>
                 <p><strong>{{ member.role }}.</strong> {{ member.bio }}</p>
@@ -101,7 +101,7 @@
             {% for partner in PARTNERS %}
             <div class="partner-logo">
                 {% if partner.logo %}
-                <img src="{{ SITEURL }}/{{ partner.logo }}" alt="{{ partner.name }}">
+                <img src="/{{ partner.logo }}" alt="{{ partner.name }}">
                 {% else %}
                 <span class="partner-text-logo">{{ partner.name }}</span>
                 {% endif %}
