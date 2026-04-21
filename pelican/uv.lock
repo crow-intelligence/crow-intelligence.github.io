@@ -32,6 +32,10 @@ dependencies = [
     { name = "markdown" },
     { name = "pelican" },
     { name = "pelican-sitemap" },
+]
+
+[package.dev-dependencies]
+dev = [
     { name = "pillow" },
 ]
 
@@ -40,8 +44,10 @@ requires-dist = [
     { name = "markdown", specifier = ">=3.6" },
     { name = "pelican", specifier = ">=4.11" },
     { name = "pelican-sitemap", specifier = ">=1.1" },
-    { name = "pillow", specifier = ">=12.2.0" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pillow", specifier = ">=12.2.0" }]
 
 [[package]]
 name = "docutils"
