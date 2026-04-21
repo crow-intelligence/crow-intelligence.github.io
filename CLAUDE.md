@@ -35,7 +35,7 @@ Open items and follow-ups live in `BACKLOG.md`.
 ```bash
 # Local dev build (uses SITEURL='' → root-relative)
 cd pelican
-source .venv/bin/activate   # venv set up with: uv venv .venv && uv pip install -r requirements.txt
+source .venv/bin/activate   # venv set up with: uv sync (reads pyproject.toml + uv.lock)
 ./build.sh
 python3 -m http.server -d ../output 8000
 
