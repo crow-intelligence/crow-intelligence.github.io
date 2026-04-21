@@ -13,6 +13,8 @@ ecosystem — each layer building on the one below.
 
 ## chronowords
 
+<img src="/logos/brand/chronowords.svg" alt="chronowords logo" style="max-width: 300px; margin-bottom: 1rem;">
+
 Temporal word embedding analysis. Detect how word meanings shift across
 time in large text corpora using memory-efficient PPMI-based embeddings,
 NMF topic modeling, and Procrustes alignment.
@@ -32,6 +34,8 @@ represent women, men, and minorities in the semantic space
 
 ## kenon
 
+<img src="/logos/brand/kenon.svg" alt="kenon logo" style="max-width: 300px; margin-bottom: 1rem;">
+
 Semantic network construction from text corpora. Build and analyse
 word association graphs, find paths between concepts, and compare
 text-derived networks to human association norms (Nelson norms,
@@ -49,7 +53,7 @@ Named after the Greek *kenon* (κενόν) — the void that enables connection.
 
 ## corvus
 
-<img src="{static}/images/corvus-logo.svg" alt="corvus logo" style="max-width: 300px; margin-bottom: 1rem;">
+<img src="/logos/brand/corvus.svg" alt="corvus logo" style="max-width: 300px; margin-bottom: 1rem;">
 
 A cookiecutter template for data science and text analysis projects.
 Pre-configured scaffold with uv, ruff, DVC, MLflow, Sphinx docs, and

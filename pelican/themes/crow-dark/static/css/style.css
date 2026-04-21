@@ -80,11 +80,15 @@ strong {
 }
 
 .nav-brand {
-    font-family: 'IM Fell English', Georgia, serif;
-    font-size: 1.3rem;
-    color: var(--accent) !important;
+    display: flex;
+    align-items: center;
     text-decoration: none !important;
-    letter-spacing: 0.02em;
+}
+
+.nav-brand img {
+    display: block;
+    height: 36px;
+    width: auto;
 }
 
 .nav-links {
@@ -139,6 +143,19 @@ strong {
     color: var(--accent);
     margin-bottom: 16px;
     letter-spacing: 0.01em;
+}
+
+.hero-logo {
+    margin: 0 auto 24px;
+    line-height: 0;
+}
+
+.hero-logo img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
 }
 
 .hero-sub {
@@ -427,6 +444,26 @@ strong {
     margin-bottom: 4px;
 }
 
+.package-logo {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .package-meta {
     font-size: 0.8rem;
     color: var(--accent);
@@ -642,6 +679,35 @@ strong {
     margin: 24px 0;
 }
 
+.linkedin-links {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 12px;
+}
+
+.linkedin-person {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.linkedin-person svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+}
+
+.linkedin-person:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
 /* ── Empty state ── */
 .empty-state {
     text-align: center;
@@ -670,9 +736,10 @@ footer {
 }
 
 .footer-logo img {
-    max-width: 150px;
+    max-width: 300px;
+    width: 100%;
     height: auto;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 footer p {

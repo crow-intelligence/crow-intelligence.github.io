@@ -4,7 +4,7 @@
 {% block content %}
 <section class="hero">
     <div class="container">
-        <h1>Crow Intelligence</h1>
+        <h1 class="hero-logo"><img src="/{{ LOGO_PATH }}" alt="{{ SITENAME }}"></h1>
         <div class="hero-prose">
             <p>Human cognition is remarkable. Language is its most visible trace — in texts,
             speeches, narratives, and the metaphors societies use to make sense of the world.</p>
@@ -61,7 +61,12 @@
         <div class="package-grid">
             {% for pkg in PACKAGES %}
             <div class="package-card">
+                {% if pkg.logo %}
+                <img src="/{{ pkg.logo }}" alt="{{ pkg.name }}" class="package-logo">
+                <h3 class="sr-only">{{ pkg.name }}</h3>
+                {% else %}
                 <h3>{{ pkg.name }}</h3>
+                {% endif %}
                 <div class="package-meta">{{ pkg.version }} · {{ pkg.license }} · Python {{ pkg.python }}</div>
                 <p>{{ pkg.description }}</p>
                 <div class="package-links">

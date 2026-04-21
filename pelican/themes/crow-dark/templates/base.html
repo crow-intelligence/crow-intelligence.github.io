@@ -75,7 +75,9 @@
 <body>
     <nav class="main-nav">
         <div class="container">
-            <a href="{{ SITEURL }}/" class="nav-brand">{{ SITENAME }}</a>
+            <a href="{{ SITEURL }}/" class="nav-brand" aria-label="{{ SITENAME }}">
+                <img src="/logos/brand/crow-nav.svg" alt="{{ SITENAME }}">
+            </a>
             <button class="nav-toggle" aria-label="Toggle navigation">
                 <span></span><span></span><span></span>
             </button>

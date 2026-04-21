@@ -80,7 +80,7 @@ GOOGLE_ANALYTICS = 'G-SH38KZF2M9'
 # Custom variables
 SUBSTACK_URL = 'https://mindtheminds.substack.com/'
 EMAIL = 'hello@crowintelligence.org'
-LOGO_PATH = 'portraits/crow-logo.png'
+LOGO_PATH = 'logos/brand/crow-intelligence.svg'
 
 # Team data
 TEAM = [
@@ -143,6 +143,7 @@ PROJECTS = [
 PACKAGES = [
     {
         'name': 'chronowords',
+        'logo': 'logos/brand/chronowords.svg',
         'version': 'v0.2.0',
         'license': 'MIT',
         'python': '3.10+',
@@ -153,6 +154,7 @@ PACKAGES = [
     },
     {
         'name': 'kenon',
+        'logo': 'logos/brand/kenon.svg',
         'version': 'v0.1.0',
         'license': 'MIT',
         'python': '3.11+',
@@ -163,6 +165,7 @@ PACKAGES = [
     },
     {
         'name': 'corvus',
+        'logo': 'logos/brand/corvus.svg',
         'version': 'v1.0.0',
         'license': 'MIT',
         'python': '3.10+',

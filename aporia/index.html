@@ -53,9 +53,13 @@ a:hover { color: var(--accent-hover); }
   justify-content: space-between;
 }
 .nav-brand {
-  font-family: 'IM Fell English', Georgia, serif;
-  font-size: 1.1rem;
-  color: var(--accent);
+  display: flex;
+  align-items: center;
+}
+.nav-brand img {
+  display: block;
+  height: 36px;
+  width: auto;
 }
 .nav-links a {
   color: var(--text-dim);
@@ -211,7 +215,9 @@ footer {
 
 <nav class="top-nav">
   <div class="container">
-    <a href="/" class="nav-brand">Crow Intelligence</a>
+    <a href="/" class="nav-brand" aria-label="Crow Intelligence">
+      <img src="/logos/brand/crow-nav.svg" alt="Crow Intelligence">
+    </a>
     <div class="nav-links">
       <a href="/projects.html">Projects</a>
       <a href="/packages.html">Packages</a>
