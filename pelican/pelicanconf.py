@@ -191,7 +191,7 @@ PARTNERS = [
     },
     {
         'name': 'The Future Fox',
-        'logo': 'logos/futurefox.jpg',
+        'logo': 'logos/futurefox.jpeg',
     },
     {
         'name': 'nyest.hu',
