@@ -213,4 +213,8 @@ PARTNERS = [
         'name': 'Habitat for Humanity',
         'logo': 'logos/hfhh_logo_black.svg',
     },
+    {
+        'name': 'Széchenyi University',
+        'logo': 'logos/uni_szec.png',
+    },
 ]

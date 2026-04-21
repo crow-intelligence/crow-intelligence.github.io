@@ -102,6 +102,7 @@
             <div class="partner-logo">
                 {% if partner.logo %}
                 <img src="/{{ partner.logo }}" alt="{{ partner.name }}">
+                <span class="partner-name">{{ partner.name }}</span>
                 {% else %}
                 <span class="partner-text-logo">{{ partner.name }}</span>
                 {% endif %}
