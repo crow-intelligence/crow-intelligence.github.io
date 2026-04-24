@@ -127,16 +127,32 @@
     font-size: 0.85rem;
   }
 
-  .back-link {
-    display: inline-block;
-    margin-bottom: 24px;
-    color: var(--accent);
-    text-decoration: none;
-    font-size: 0.9rem;
+  .brand-bar {
+    margin-bottom: 32px;
   }
 
-  .back-link:hover {
-    text-decoration: underline;
+  .brand-link {
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .brand-link img {
+    display: block;
+    height: 36px;
+    width: auto;
+  }
+
+  .essay-link {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  .essay-link:hover {
+    color: var(--accent);
   }
 
   @media (max-width: 600px) {
@@ -147,7 +163,11 @@
 </head>
 <body>
 <div class="container">
-  <a href="../index.html" class="back-link">&larr; Back to Crow Intelligence</a>
+  <header class="brand-bar">
+    <a href="/" class="brand-link" aria-label="Crow Intelligence">
+      <img src="/logos/brand/crow-nav.svg" alt="Crow Intelligence">
+    </a>
+  </header>
 
   <div class="header">
     <h1>The Nagel Index</h1>
@@ -158,6 +178,7 @@
     <p class="methodology">
       Inspired by Thomas Nagel's essay <em>Ruthlessness in Public Life</em> (1978)
     </p>
+    <a href="/aporia/nagel-essay/" class="essay-link">&larr; Read the full essay</a>
   </div>
 
   <div class="grid">

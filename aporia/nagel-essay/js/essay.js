@@ -20,12 +20,17 @@
   const charts = {};
 
   // ── Load data ──
+  let VIRTUE_CORR = null;
   async function loadData() {
     const promises = LEADERS.map(async (leader) => {
       const resp = await fetch(`data/${leader}.json`);
       DATA[leader] = await resp.json();
     });
-    await Promise.all(promises);
+    const corrPromise = fetch("data/virtue_correlation.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => (VIRTUE_CORR = j))
+      .catch(() => (VIRTUE_CORR = null));
+    await Promise.all([...promises, corrPromise]);
   }
 
   // ── Create radar chart ──
@@ -134,31 +139,23 @@
     },
   };
 
-  // ── Ensure chart exists ──
-  function ensureChart(leader) {
-    if (!charts[leader] && DATA[leader]) {
-      createRadar(`radar-${leader}`, leader);
-    }
-    return charts[leader];
-  }
-
   // ── Show/hide datasets ──
   function showPublic(leader) {
-    const chart = ensureChart(leader);
+    const chart = charts[leader];
     if (!chart) return;
     chart.data.datasets[0].hidden = false;
     chart.update();
   }
 
   function showPrivate(leader) {
-    const chart = ensureChart(leader);
+    const chart = charts[leader];
     if (!chart) return;
     chart.data.datasets[1].hidden = false;
     chart.update();
   }
 
   function showGaps(leader) {
-    const chart = ensureChart(leader);
+    const chart = charts[leader];
     if (!chart) return;
     const d = DATA[leader];
     const gaps = TRAITS.map((t) => ({
@@ -181,13 +178,131 @@
     if (word) word.classList.add("is-visible");
 
     // Dim the chart
-    const chart = ensureChart(leader);
+    const chart = charts[leader];
     if (chart) {
       chart.data.datasets[0].borderColor = "rgba(59, 139, 212, 0.35)";
       chart.data.datasets[0].backgroundColor = "rgba(59, 139, 212, 0.05)";
       chart.data.datasets[1].borderColor = "rgba(186, 117, 23, 0.35)";
       chart.data.datasets[1].backgroundColor = "rgba(186, 117, 23, 0.05)";
       chart.update();
+    }
+  }
+
+  // ── Act VI: Virtues ──────────────────────────────────────────────────
+  const VIRTUE_LABELS = {
+    prudence: "Prudence",
+    justice: "Justice",
+    courage: "Courage",
+    temperance: "Temperance",
+    truthfulness: "Truthfulness",
+    magnanimity: "Magnanimity",
+  };
+
+  function renderVirtueRadars() {
+    const maxAcross = (() => {
+      let m = 0;
+      LEADERS.forEach((l) => {
+        const v = DATA[l] && DATA[l].virtues;
+        if (!v) return;
+        Object.values(v.public).forEach((x) => (m = Math.max(m, x)));
+        Object.values(v.private).forEach((x) => (m = Math.max(m, x)));
+      });
+      return Math.max(1, Math.ceil(m * 10) / 10 + 0.5);
+    })();
+
+    LEADERS.forEach((leader) => {
+      const data = DATA[leader] && DATA[leader].virtues;
+      if (!data) return;
+      const ctx = document.getElementById(`virtue-radar-${leader}`);
+      if (!ctx) return;
+
+      const virtues = data.virtues;
+      const labels = virtues.map((v) => VIRTUE_LABELS[v] || v);
+      const publicRates = virtues.map((v) => data.public[v] || 0);
+      const privateRates = virtues.map((v) => data.private[v] || 0);
+
+      new Chart(ctx, {
+        type: "radar",
+        data: {
+          labels,
+          datasets: [
+            {
+              label: "Public",
+              data: publicRates,
+              borderColor: COLORS.public,
+              backgroundColor: COLORS.publicBg,
+              borderWidth: 2,
+              pointRadius: 2.5,
+            },
+            {
+              label: "Private",
+              data: privateRates,
+              borderColor: COLORS.private,
+              backgroundColor: COLORS.privateBg,
+              borderWidth: 2,
+              pointRadius: 2.5,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 0,
+              max: maxAcross,
+              ticks: {
+                display: false,
+                stepSize: 1,
+              },
+              grid: { color: "rgba(255,255,255,0.07)" },
+              angleLines: { color: "rgba(255,255,255,0.07)" },
+              pointLabels: {
+                color: "#c8c6be",
+                font: { family: "'Courier Prime', monospace", size: 10 },
+              },
+            },
+          },
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                color: "#9a988f",
+                font: { family: "'Courier Prime', monospace", size: 10 },
+                boxWidth: 14,
+              },
+            },
+            tooltip: {
+              callbacks: {
+                label: (c) => ` ${c.dataset.label}: ${c.parsed.r.toFixed(2)} / 1000w`,
+              },
+            },
+          },
+        },
+      });
+
+      const note = document.getElementById(`virtue-note-${leader}`);
+      if (note) {
+        note.innerHTML = `n&nbsp;=&nbsp;${data.n_public_chunks}&nbsp;public &middot; ${data.n_private_chunks}&nbsp;private chunks`;
+      }
+    });
+
+    // Commentary sprinkles: pull n and top-|rho| from the pooled correlation
+    if (VIRTUE_CORR && VIRTUE_CORR.pooled) {
+      const pooled = VIRTUE_CORR.pooled;
+      const nEl = document.getElementById("virtue-corr-n");
+      if (nEl) nEl.textContent = `n = ${pooled.n_chunks.toLocaleString()}`;
+
+      const rows = pooled.correlations || {};
+      let strongest = { rho: 0, p: 1 };
+      for (const v of Object.keys(rows)) {
+        const c = (rows[v] || {}).Conscientiousness;
+        if (c && Math.abs(c.rho) > Math.abs(strongest.rho)) strongest = c;
+      }
+      const topEl = document.getElementById("virtue-corr-top");
+      if (topEl && strongest.rho) {
+        topEl.textContent = `\u03C1 = +${strongest.rho.toFixed(2)}`;
+      }
     }
   }
 
@@ -252,24 +367,13 @@
     });
   }
 
-  // ── Radar lazy init ──
-  function initRadarObserver() {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.dataset.leader;
-            if (id && !charts[id]) {
-              createRadar(`radar-${id}`, id);
-            }
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    document.querySelectorAll(".leader-radar-wrap").forEach((wrap) => {
-      observer.observe(wrap);
+  // ── Radar eager init ──
+  // Build all radars up front so the per-step transitions (showPublic,
+  // showPrivate, showGaps, showWord) always have a chart to animate, even if
+  // scrollama fires the first step before an IntersectionObserver would.
+  function initRadarsEager() {
+    LEADERS.forEach((id) => {
+      if (!charts[id]) createRadar(`radar-${id}`, id);
     });
   }
 
@@ -292,37 +396,61 @@
   }
 
   // ── Navigation dots ──
+  // IntersectionObserver with a threshold ratio stalls on tall sections
+  // (each leader section is 3–4k px, so the 30% crossing point only fires
+  // near the middle). Instead, track scroll position continuously and mark
+  // whichever section's top has passed the viewport's upper third as active.
   function initNavDots() {
-    const sections = [
+    const sectionIds = [
       "act-opening",
       "act-philosophy",
       "act-lincoln",
       "act-nixon",
       "act-kissinger",
+      "act-virtues",
       "act-conclusion",
+      "act-methods",
     ];
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            document.querySelectorAll(".nav-dot").forEach((dot) => {
-              dot.classList.toggle("is-active", dot.dataset.section === id);
-            });
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
 
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+    const dots = Array.from(document.querySelectorAll(".nav-dot"));
+
+    function setActive(id) {
+      dots.forEach((dot) => {
+        dot.classList.toggle("is-active", dot.dataset.section === id);
+      });
+    }
+
+    function update() {
+      const anchor = window.innerHeight * 0.33; // upper-third line
+      let currentId = sections[0].id;
+      for (const sec of sections) {
+        const top = sec.getBoundingClientRect().top;
+        if (top - anchor <= 0) currentId = sec.id;
+        else break;
+      }
+      setActive(currentId);
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
 
     // Click to scroll
-    document.querySelectorAll(".nav-dot").forEach((dot) => {
+    dots.forEach((dot) => {
       dot.addEventListener("click", () => {
         const target = document.getElementById(dot.dataset.section);
         if (target) target.scrollIntoView({ behavior: "smooth" });
@@ -366,7 +494,8 @@
 
     initOpeningObserver();
     initPortraitObserver();
-    initRadarObserver();
+    initRadarsEager();
+    renderVirtueRadars();
     initNavDots();
     buildAccessibleTables();
   }

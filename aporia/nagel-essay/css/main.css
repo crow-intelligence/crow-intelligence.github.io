@@ -22,13 +22,22 @@
 }
 
 :root {
-  --bg: #0d0d0d;
-  --text: #e8e6e0;
-  --text-dim: #888880;
+  /* Palette aligned with crowintelligence.org */
+  --bg: #1a1a1f;
+  --surface: #24242b;
+  --surface-2: #2e2e37;
+  --border: #3a3a44;
+  --text: #e8e6e1;
+  --text-dim: #9a988f;
+  --accent: #e8c97e;
+  --accent-hover: #d4b56a;
+
+  /* Semantic data colors — kept for public/private coding across the essay */
   --public: #3B8BD4;
   --private: #BA7517;
   --coral: #D85A30;
   --teal: #2A9D8F;
+
   --font-display: 'IM Fell English', Georgia, serif;
   --font-body: 'IM Fell English', Georgia, serif;
   --font-data: 'Courier Prime', 'Courier New', monospace;
@@ -78,13 +87,14 @@ section {
 
 /* ── Links ── */
 a {
-  color: var(--public);
+  color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, color 0.2s;
 }
 a:hover {
-  border-bottom-color: var(--public);
+  color: var(--accent-hover);
+  border-bottom-color: var(--accent-hover);
 }
 
 /* ── Pull quote ── */
@@ -132,4 +142,45 @@ a:hover {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ── Brand bar (top of page, links back to crowintelligence.org) ── */
+.brand-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: rgba(26, 26, 31, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 200;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  border-bottom: none;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.brand-link:hover {
+  border-bottom: none;
+  opacity: 1;
+}
+
+.brand-logo {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+body {
+  padding-top: 48px; /* leave room for the fixed brand bar */
 }

@@ -1,21 +1,281 @@
 {
   "leader": "kissinger",
   "name": "Henry Kissinger",
-  "years": "1969\u20131977",
+  "years": "1969–1977",
   "nagel_gap_score": 0.43,
   "nagel_gap_label": "medium",
   "n_public_chunks": 26,
   "n_private_chunks": 300,
   "traits": {
-    "Openness":          { "public": 0.482, "private": 0.481, "cohens_d": 0.04, "p_value": 0.941, "significant": false },
-    "Conscientiousness": { "public": 0.530, "private": 0.517, "cohens_d": 0.74, "p_value": 0.001, "significant": true },
-    "Extraversion":      { "public": 0.520, "private": 0.536, "cohens_d": -0.63, "p_value": 0.003, "significant": true },
-    "Agreeableness":     { "public": 0.461, "private": 0.507, "cohens_d": -0.68, "p_value": 0.010, "significant": true },
-    "Neuroticism":       { "public": 0.556, "private": 0.554, "cohens_d": 0.07, "p_value": 0.723, "significant": false }
+    "Openness": {
+      "public": 0.482,
+      "private": 0.481,
+      "cohens_d": 0.04,
+      "p_value": 0.941,
+      "significant": false
+    },
+    "Conscientiousness": {
+      "public": 0.53,
+      "private": 0.517,
+      "cohens_d": 0.74,
+      "p_value": 0.001,
+      "significant": true
+    },
+    "Extraversion": {
+      "public": 0.52,
+      "private": 0.536,
+      "cohens_d": -0.63,
+      "p_value": 0.003,
+      "significant": true
+    },
+    "Agreeableness": {
+      "public": 0.461,
+      "private": 0.507,
+      "cohens_d": -0.68,
+      "p_value": 0.01,
+      "significant": true
+    },
+    "Neuroticism": {
+      "public": 0.556,
+      "private": 0.554,
+      "cohens_d": 0.07,
+      "p_value": 0.723,
+      "significant": false
+    }
   },
   "wordfreq": {
-    "public":  [{"word":"world","frequency":35},{"word":"look","frequency":29},{"word":"united","frequency":27},{"word":"states","frequency":27},{"word":"mediterranean","frequency":21},{"word":"years","frequency":20},{"word":"war","frequency":19},{"word":"going","frequency":19},{"word":"time","frequency":18},{"word":"think","frequency":17},{"word":"policy","frequency":16},{"word":"people","frequency":14},{"word":"power","frequency":14},{"word":"say","frequency":14},{"word":"even","frequency":14},{"word":"like","frequency":13},{"word":"terms","frequency":12},{"word":"perspective","frequency":11},{"word":"let","frequency":11},{"word":"soviet","frequency":11},{"word":"live","frequency":11},{"word":"way","frequency":10},{"word":"point","frequency":10},{"word":"japan","frequency":10},{"word":"government","frequency":10}],
-    "private": [{"word":"nsc","frequency":773},{"word":"national","frequency":572},{"word":"policy","frequency":561},{"word":"state","frequency":493},{"word":"staff","frequency":488},{"word":"security","frequency":485},{"word":"group","frequency":397},{"word":"files","frequency":360},{"word":"secretary","frequency":351},{"word":"issues","frequency":342},{"word":"defense","frequency":295},{"word":"military","frequency":294},{"word":"review","frequency":294},{"word":"memorandum","frequency":284},{"word":"foreign","frequency":280},{"word":"world","frequency":266},{"word":"soviet","frequency":263},{"word":"meeting","frequency":245},{"word":"presidential","frequency":231},{"word":"time","frequency":223},{"word":"system","frequency":218},{"word":"new","frequency":215},{"word":"american","frequency":213},{"word":"states","frequency":211},{"word":"political","frequency":203}]
+    "public": [
+      {
+        "word": "world",
+        "frequency": 35
+      },
+      {
+        "word": "look",
+        "frequency": 29
+      },
+      {
+        "word": "united",
+        "frequency": 27
+      },
+      {
+        "word": "states",
+        "frequency": 27
+      },
+      {
+        "word": "mediterranean",
+        "frequency": 21
+      },
+      {
+        "word": "years",
+        "frequency": 20
+      },
+      {
+        "word": "war",
+        "frequency": 19
+      },
+      {
+        "word": "going",
+        "frequency": 19
+      },
+      {
+        "word": "time",
+        "frequency": 18
+      },
+      {
+        "word": "think",
+        "frequency": 17
+      },
+      {
+        "word": "policy",
+        "frequency": 16
+      },
+      {
+        "word": "people",
+        "frequency": 14
+      },
+      {
+        "word": "power",
+        "frequency": 14
+      },
+      {
+        "word": "say",
+        "frequency": 14
+      },
+      {
+        "word": "even",
+        "frequency": 14
+      },
+      {
+        "word": "like",
+        "frequency": 13
+      },
+      {
+        "word": "terms",
+        "frequency": 12
+      },
+      {
+        "word": "perspective",
+        "frequency": 11
+      },
+      {
+        "word": "let",
+        "frequency": 11
+      },
+      {
+        "word": "soviet",
+        "frequency": 11
+      },
+      {
+        "word": "live",
+        "frequency": 11
+      },
+      {
+        "word": "way",
+        "frequency": 10
+      },
+      {
+        "word": "point",
+        "frequency": 10
+      },
+      {
+        "word": "japan",
+        "frequency": 10
+      },
+      {
+        "word": "government",
+        "frequency": 10
+      }
+    ],
+    "private": [
+      {
+        "word": "nsc",
+        "frequency": 773
+      },
+      {
+        "word": "national",
+        "frequency": 572
+      },
+      {
+        "word": "policy",
+        "frequency": 561
+      },
+      {
+        "word": "state",
+        "frequency": 493
+      },
+      {
+        "word": "staff",
+        "frequency": 488
+      },
+      {
+        "word": "security",
+        "frequency": 485
+      },
+      {
+        "word": "group",
+        "frequency": 397
+      },
+      {
+        "word": "files",
+        "frequency": 360
+      },
+      {
+        "word": "secretary",
+        "frequency": 351
+      },
+      {
+        "word": "issues",
+        "frequency": 342
+      },
+      {
+        "word": "defense",
+        "frequency": 295
+      },
+      {
+        "word": "military",
+        "frequency": 294
+      },
+      {
+        "word": "review",
+        "frequency": 294
+      },
+      {
+        "word": "memorandum",
+        "frequency": 284
+      },
+      {
+        "word": "foreign",
+        "frequency": 280
+      },
+      {
+        "word": "world",
+        "frequency": 266
+      },
+      {
+        "word": "soviet",
+        "frequency": 263
+      },
+      {
+        "word": "meeting",
+        "frequency": 245
+      },
+      {
+        "word": "presidential",
+        "frequency": 231
+      },
+      {
+        "word": "time",
+        "frequency": 223
+      },
+      {
+        "word": "system",
+        "frequency": 218
+      },
+      {
+        "word": "new",
+        "frequency": 215
+      },
+      {
+        "word": "american",
+        "frequency": 213
+      },
+      {
+        "word": "states",
+        "frequency": 211
+      },
+      {
+        "word": "political",
+        "frequency": 203
+      }
+    ]
   },
-  "interpretation": "Kissinger's gap is selective: Agreeableness and Extraversion diverge significantly, but Openness and Neuroticism remain stable. The diplomat disappeared in private; the strategic intelligence persisted."
+  "interpretation": "Kissinger's gap is selective: Agreeableness and Extraversion diverge significantly, but Openness and Neuroticism remain stable. The diplomat disappeared in private; the strategic intelligence persisted.",
+  "virtues": {
+    "virtues": [
+      "prudence",
+      "justice",
+      "courage",
+      "temperance",
+      "truthfulness",
+      "magnanimity"
+    ],
+    "public": {
+      "prudence": 0.9615,
+      "justice": 0.9615,
+      "courage": 0.0,
+      "temperance": 0.0,
+      "truthfulness": 0.3846,
+      "magnanimity": 0.3846
+    },
+    "private": {
+      "prudence": 1.4111,
+      "justice": 1.0435,
+      "courage": 0.2464,
+      "temperance": 0.4875,
+      "truthfulness": 0.3308,
+      "magnanimity": 0.1548
+    },
+    "n_public_chunks": 26,
+    "n_private_chunks": 745
+  }
 }

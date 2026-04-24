@@ -10,6 +10,13 @@
 </head>
 <body>
 
+<!-- ═══════════ BRAND BAR ═══════════ -->
+<header class="brand-bar">
+  <a class="brand-link" href="/" aria-label="Crow Intelligence">
+    <img src="/logos/brand/crow-nav.svg" alt="Crow Intelligence" class="brand-logo">
+  </a>
+</header>
+
 <!-- ═══════════ NAVIGATION DOTS ═══════════ -->
 <nav class="nav-dots" aria-label="Essay sections">
   <div class="nav-dot is-active" data-section="act-opening">
@@ -27,8 +34,14 @@
   <div class="nav-dot" data-section="act-kissinger">
     <span class="nav-dot-label">Kissinger</span>
   </div>
+  <div class="nav-dot" data-section="act-virtues">
+    <span class="nav-dot-label">Virtues</span>
+  </div>
   <div class="nav-dot" data-section="act-conclusion">
     <span class="nav-dot-label">Conclusion</span>
+  </div>
+  <div class="nav-dot" data-section="act-methods">
+    <span class="nav-dot-label">Methods</span>
   </div>
 </nav>
 
@@ -102,14 +115,13 @@
 
 <!-- ═══════════ ACT III — LINCOLN ═══════════ -->
 <section id="act-lincoln" class="leader-section">
+  <header class="leader-header">
+    <div class="leader-kicker">Act III &mdash; Coherent</div>
+    <h2 class="leader-title">Abraham Lincoln</h2>
+    <div class="leader-years">1861&ndash;1865</div>
+  </header>
   <div class="portrait-hero">
-    <!-- WIP: final portrait pending -->
-    <img src="imgs/lincoln.png" alt="Abraham Lincoln — split word cloud portrait, public and private vocabulary">
-    <div class="portrait-caption">
-      <span class="caption-leader">Abraham Lincoln</span>
-      <span class="caption-years">1861&ndash;1865</span>
-      <span class="caption-label">Public / Private</span>
-    </div>
+    <img src="imgs/lincoln.png" alt="Abraham Lincoln — calligraphic split-face portrait of public and private vocabulary">
   </div>
 
   <div class="leader-layout">
@@ -163,14 +175,13 @@
 
 <!-- ═══════════ ACT IV — NIXON ═══════════ -->
 <section id="act-nixon" class="leader-section">
+  <header class="leader-header">
+    <div class="leader-kicker">Act IV &mdash; Fractured</div>
+    <h2 class="leader-title">Richard Nixon</h2>
+    <div class="leader-years">1969&ndash;1974</div>
+  </header>
   <div class="portrait-hero">
-    <!-- WIP: final portrait pending -->
-    <img src="imgs/nixon.png" alt="Richard Nixon — split word cloud portrait, public and private vocabulary">
-    <div class="portrait-caption">
-      <span class="caption-leader">Richard Nixon</span>
-      <span class="caption-years">1969&ndash;1974</span>
-      <span class="caption-label">Public / Private</span>
-    </div>
+    <img src="imgs/nixon.png" alt="Richard Nixon — calligraphic split-face portrait of public and private vocabulary">
   </div>
 
   <div class="leader-layout">
@@ -226,14 +237,13 @@
 
 <!-- ═══════════ ACT V — KISSINGER ═══════════ -->
 <section id="act-kissinger" class="leader-section">
+  <header class="leader-header">
+    <div class="leader-kicker">Act V &mdash; Calculated</div>
+    <h2 class="leader-title">Henry Kissinger</h2>
+    <div class="leader-years">1969&ndash;1977</div>
+  </header>
   <div class="portrait-hero">
-    <!-- WIP: final portrait pending -->
-    <img src="imgs/kissinger.png" alt="Henry Kissinger — split word cloud portrait, public and private vocabulary">
-    <div class="portrait-caption">
-      <span class="caption-leader">Henry Kissinger</span>
-      <span class="caption-years">1969&ndash;1977</span>
-      <span class="caption-label">Public / Private</span>
-    </div>
+    <img src="imgs/kissinger.png" alt="Henry Kissinger — calligraphic split-face portrait of public and private vocabulary">
   </div>
 
   <div class="leader-layout">
@@ -291,7 +301,47 @@
   <hr class="section-rule">
 </section>
 
-<!-- ═══════════ ACT VI — COMPARATIVE & CONCLUSION ═══════════ -->
+<!-- ═══════════ ACT VI — VIRTUES ═══════════ -->
+<section id="act-virtues">
+  <header class="virtues-header">
+    <div class="leader-kicker">Act VI &mdash; Virtues</div>
+    <h2 class="virtues-title">What a Leader Calls Good</h2>
+  </header>
+
+  <div class="virtues-intro prose">
+    <p>Aristotle&rsquo;s <em>Nicomachean Ethics</em> gave the West its first catalogue of character-virtues &mdash; practical wisdom, justice, courage, temperance, and their kin. Alasdair MacIntyre&rsquo;s <em>After Virtue</em> (1981) argued that the modern world had lost the shared vocabulary to reason about those virtues and was left emoting about moral fragments.</p>
+    <p>This project cannot say whether Lincoln was courageous or Nixon was just. But it can measure the <em>vocabulary</em>: how often each leader&rsquo;s public speech and private writing reaches for six virtues drawn from Aristotle and MacIntyre.</p>
+  </div>
+
+  <div class="virtues-grid">
+    <figure class="virtue-card" data-leader="lincoln">
+      <figcaption class="virtue-card-name">Abraham Lincoln <span class="virtue-card-word" data-tone="coherent">Coherent</span></figcaption>
+      <div class="virtue-canvas-wrap"><canvas id="virtue-radar-lincoln"></canvas></div>
+      <div class="virtue-card-note" id="virtue-note-lincoln"></div>
+    </figure>
+    <figure class="virtue-card" data-leader="nixon">
+      <figcaption class="virtue-card-name">Richard Nixon <span class="virtue-card-word" data-tone="fractured">Fractured</span></figcaption>
+      <div class="virtue-canvas-wrap"><canvas id="virtue-radar-nixon"></canvas></div>
+      <div class="virtue-card-note" id="virtue-note-nixon"></div>
+    </figure>
+    <figure class="virtue-card" data-leader="kissinger">
+      <figcaption class="virtue-card-name">Henry Kissinger <span class="virtue-card-word" data-tone="calculated">Calculated</span></figcaption>
+      <div class="virtue-canvas-wrap"><canvas id="virtue-radar-kissinger"></canvas></div>
+      <div class="virtue-card-note" id="virtue-note-kissinger"></div>
+    </figure>
+  </div>
+
+  <div class="virtues-commentary prose">
+    <p>A caveat before the numbers. Invoking virtue vocabulary is not the same as embodying the virtue &mdash; political speech tilts structurally toward abstract moral language whatever the speaker&rsquo;s character. What follows is a measurement of rhetorical emphasis, not of souls. It is also a <em>controversial</em> move to place virtues and personality traits on the same page; the two come from different conceptual traditions, and aligning them is a provocation rather than a synthesis.</p>
+    <p>With that said, the pattern is worth naming. Lincoln keeps his virtue vocabulary roughly steady from public to private, and actually raises truthfulness and temperance in his correspondence. Nixon&rsquo;s private voice drops nearly every virtue by a clear margin &mdash; truthfulness, magnanimity, courage all fall sharply, while prudence (strategic caution) is the only term that rises. Kissinger sits in the technocratic flat line he occupies on every other measure: few virtues in either register, a diplomat among process words.</p>
+    <p>When we correlate virtue-vocabulary rates with the Big&nbsp;Five at the chunk level across all seven leaders (<span id="virtue-corr-n" class="nowrap">n&nbsp;&asymp;&nbsp;3000</span> chunks, Spearman&nbsp;&rho;), one result dominates: <strong>every virtue correlates positively with Conscientiousness</strong>, and nothing else consistently. Temperance tracks Conscientiousness most tightly (<span id="virtue-corr-top" class="nowrap">&rho;&nbsp;&approx;&nbsp;0.19</span>, p&nbsp;&lt;&nbsp;0.001). The other four traits &mdash; Openness, Extraversion, Agreeableness, Neuroticism &mdash; tilt slightly negative across the board, which is what register, not character, would predict: formal moral language reads as structured rather than spontaneous, personal, or expressive.</p>
+    <p>What this adds to Nagel&rsquo;s argument is modest. The office demonstrably shapes how a leader <em>talks</em> about virtue &mdash; the rhetorical register drifts with the institution. Whether it shapes whether they <em>possess</em> virtue is a question our vocabulary can indicate but not settle. The interesting case is the one where both the personality gap and the virtue-vocabulary gap move together: Nixon, whose private self loses not only measurable Extraversion but almost every moral term our lexicon looks for.</p>
+  </div>
+
+  <hr class="section-rule">
+</section>
+
+<!-- ═══════════ ACT VII — COMPARATIVE & CONCLUSION ═══════════ -->
 <section id="act-conclusion">
 
   <div class="scroll-step" data-step="spectrum">
@@ -343,10 +393,87 @@
   </div>
 
   <div class="cta-row">
-    <a class="cta-button" href="../outputs/dashboard/lincoln_dashboard.html">Explore the full data &rarr;</a>
+    <a class="cta-button" href="/dashboard/lincoln_dashboard.html">Explore the full data &rarr;</a>
     <a class="cta-button" href="https://doi.org/10.1017/S0265052500003836" target="_blank" rel="noopener">Read Nagel&rsquo;s essay &rarr;</a>
   </div>
 
+</section>
+
+<!-- ═══════════ APPENDIX — METHODS & DATA ═══════════ -->
+<section id="act-methods">
+  <div class="methods-layout">
+    <header class="methods-header">
+      <div class="leader-kicker">Appendix</div>
+      <h2 class="methods-title">Methods &amp; Data</h2>
+      <p class="methods-intro">
+        The Nagel Index compares personality scores extracted from two text corpora per leader &mdash; a <em>public</em> corpus of scripted institutional speech, and a <em>private</em> corpus of unscripted correspondence, press conferences, or internal memoranda. Everything below is drawn from open archives.
+      </p>
+    </header>
+
+    <h3>Sources</h3>
+    <p>For each leader we assembled a public and a private corpus from public-domain archives. Years refer to the leader&rsquo;s time in office; campaign-era material is included where available.</p>
+
+    <div class="methods-table-wrap">
+      <table class="methods-table">
+        <thead>
+          <tr><th>Leader</th><th>Years</th><th>Public corpus</th><th>Private corpus</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Abraham Lincoln</td><td>1861&ndash;1865</td>
+            <td><a href="https://millercenter.org/the-presidency/presidential-speeches" target="_blank" rel="noopener">Miller Center</a> presidential speeches</td>
+            <td><a href="https://www.loc.gov/collections/abraham-lincoln-papers/" target="_blank" rel="noopener">Library of Congress</a> &mdash; Abraham Lincoln Papers, Series 1</td>
+          </tr>
+          <tr>
+            <td>Thomas Jefferson</td><td>1801&ndash;1809</td>
+            <td>Miller Center</td>
+            <td><a href="https://founders.archives.gov/" target="_blank" rel="noopener">Founders Online</a> &mdash; presidential series</td>
+          </tr>
+          <tr>
+            <td>George Washington</td><td>1789&ndash;1797</td>
+            <td>Miller Center</td>
+            <td>Founders Online &mdash; presidential series</td>
+          </tr>
+          <tr>
+            <td>Richard Nixon</td><td>1969&ndash;1974</td>
+            <td><a href="https://www.presidency.ucsb.edu/" target="_blank" rel="noopener">American Presidency Project</a> &mdash; inaugurals &amp; State of the Union</td>
+            <td>American Presidency Project &mdash; news conferences</td>
+          </tr>
+          <tr>
+            <td>George H.W. Bush</td><td>1989&ndash;1993</td>
+            <td>American Presidency Project</td>
+            <td>American Presidency Project &mdash; news conferences &amp; interviews</td>
+          </tr>
+          <tr>
+            <td>George W. Bush</td><td>2001&ndash;2009</td>
+            <td>American Presidency Project</td>
+            <td>American Presidency Project &mdash; news conferences &amp; interviews</td>
+          </tr>
+          <tr>
+            <td>Henry Kissinger</td><td>1969&ndash;1977</td>
+            <td><a href="https://history.state.gov/historicaldocuments/about-frus" target="_blank" rel="noopener">FRUS</a> press conferences &amp; public statements</td>
+            <td>FRUS memoranda, meeting records &amp; private correspondence (<a href="https://github.com/HistoryAtState/frus" target="_blank" rel="noopener">HistoryAtState mirror</a>)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Preprocessing</h3>
+    <p>Each document passes through a few mechanical steps: Unicode normalisation, removal of HTML and editorial footnotes, and a language check that drops anything not detected as English. Documents shorter than 150 words are skipped. The surviving text is cut into overlapping 400-word windows with 50% overlap &mdash; these are the <em>chunks</em> the personality model reads.</p>
+
+    <h3>Personality scores</h3>
+    <p>Every chunk is scored by <a href="https://huggingface.co/Minej/bert-base-personality" target="_blank" rel="noopener">Minej/bert-base-personality</a>, a BERT model fine-tuned on the Big Five personality dimensions. Chunk-level scores are aggregated per leader into two distributions (public and private) and compared trait-by-trait with a Mann-Whitney U test and <a href="https://en.wikipedia.org/wiki/Effect_size" target="_blank" rel="noopener">Cohen&rsquo;s <em>d</em></a> effect size.</p>
+    <p>Cohen&rsquo;s <em>d</em> expresses the distance between the two distributions in standard-deviation units &mdash; by convention, 0.2 counts as a small shift, 0.5 medium, and 0.8 or more large. The <em>Nagel Gap Score</em> shown on every dashboard is the mean of <em>|d|</em> across the five traits (we take the absolute value because we care how wide the gap is, not which voice scores higher on any given trait).</p>
+
+    <h3>Keywords</h3>
+    <p>Keywords are extracted using log-likelihood &mdash; <a href="https://aclanthology.org/J93-1003/" target="_blank" rel="noopener">Dunning&rsquo;s G²</a> &mdash; rather than raw frequency. The measure identifies words that are <em>over-represented</em> in one corpus relative to another, which is a far stronger signal of distinctive vocabulary than "what appears most often." For every leader we compute two lists: the public voice versus the private, and the private versus the public.</p>
+
+    <h3>Virtues</h3>
+    <p>The virtue-vocabulary scores come from a first-pass lexicon of six virtues drawn from Aristotle (<em>Nicomachean Ethics</em>) and MacIntyre (<em>After Virtue</em>): prudence, justice, courage, temperance, truthfulness, and magnanimity. Each virtue has 25&ndash;45 hand-picked marker words; per chunk we count exact-word matches and normalise by chunk length (hits per 1000 words). Correlations between virtue rates and Big Five scores are computed per leader and pooled across all seven, using <a href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient" target="_blank" rel="noopener">Spearman&rsquo;s rank correlation</a>. The lexicon lives in the repo under <code>data/virtues/lexicon.json</code> and is explicitly treated as a starting point &mdash; it will be iterated on as the project&rsquo;s understanding of MacIntyrean practice-virtues sharpens. Repeating the caveat from the Virtues act: this measures rhetorical emphasis, not moral character.</p>
+
+    <h3>Portraits</h3>
+    <p>Each calligraphic split-face portrait is rendered by Google&rsquo;s Gemini from a structured prompt that supplies the top 40 keywords per corpus. The four highest-ranking words per side are placed on forehead, cheekbone, jawline, and hair; the remaining words curve around the face as smaller text. The collar words &mdash; UNION / SEPARATION on Lincoln&rsquo;s portrait &mdash; are synthesised by Gemini from the thematic arc of each word list.</p>
+  </div>
 </section>
 
 <!-- ═══════════ SCRIPTS ═══════════ -->
