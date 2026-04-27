@@ -58,6 +58,7 @@ DISPLAY_CATEGORIES_ON_MENU = False
 MENUITEMS = [
     ('Projects', '/projects.html'),
     ('Packages', '/packages.html'),
+    ('Due Diligence', '/services/ai-due-diligence.html'),
     ('Aporia', '/aporia/'),
     ('About', '/about.html'),
     ('Blog', 'https://blog.crowintelligence.org/'),
