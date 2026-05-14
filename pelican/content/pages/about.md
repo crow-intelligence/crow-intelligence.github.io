@@ -96,6 +96,15 @@ Built with <a href="https://tilosradio.hu">Tilos Rádió</a> and Civil Rádió.<
 communication platform for linguistics. He has worked across fintech, regtech,
 media analytics, and green finance — always at the intersection of language,
 data, and decisions.</p>
+
+<p>His current work is research and advisory. At Crow Intelligence he leads
+the <a href="/aporia/">Aporia</a> essay project and maintains the open-source
+<a href="https://github.com/crow-intelligence/kenon">kenon</a> and
+<a href="https://github.com/crow-intelligence/chronowords">chronowords</a>
+Python packages for semantic networks and temporal word embeddings. He
+provides <a href="/services/ai-due-diligence.html">technical due diligence</a>
+and AI advisory to venture funds and early-stage AI startups in Central
+Europe.</p>
 </div>
 </div>
 

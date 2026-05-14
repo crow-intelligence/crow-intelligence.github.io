@@ -87,8 +87,8 @@ LOGO_PATH = 'logos/brand/crow-intelligence.svg'
 TEAM = [
     {
         'name': 'Zoltán Varjú',
-        'role': 'AI Strategist & Entrepreneur',
-        'bio': 'Two decades of experience in natural language processing, AI, and data analytics. Serial co-founder and startup advisor.',
+        'role': 'Co-Founder, Crow Intelligence',
+        'bio': 'Two decades at the intersection of language, AI, and data. Technical due diligence and AI advisory for funds and startups; co-founded and exited Complytron (acquired by SEON, 2023).',
         'photo': 'portraits/zoli.jpeg',
         'linkedin': 'https://www.linkedin.com/in/zoltanvarju/',
     },
