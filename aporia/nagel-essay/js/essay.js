@@ -18,6 +18,9 @@
 
   // ── Charts ──
   const charts = {};
+  const virtueCharts = {};
+  let virtueMaxAcross = 1;
+  const VIRTUE_DELTA_THRESHOLD = 0.3; // hits/1000w; |Δ| at or above this reads as a real shift
 
   // ── Load data ──
   let VIRTUE_CORR = null;
@@ -81,6 +84,11 @@
         responsive: true,
         maintainAspectRatio: true,
         animation: { duration: 800, easing: "easeInOutQuart" },
+        // Minimal padding — let Big Five take all the canvas it can, since
+        // its long axis labels (Conscientiousness, Neuroticism, etc.) shrink
+        // the polygon disproportionately. We compensate on the virtue side
+        // with much larger padding so the two polygons match visually.
+        layout: { padding: { left: 18, right: 18, top: 0, bottom: 0 } },
         scales: {
           r: {
             min: scaleMin,
@@ -90,6 +98,7 @@
             angleLines: { color: "rgba(255,255,255,0.08)" },
             pointLabels: {
               color: "#888880",
+              padding: 8,
               font: { family: "'Courier Prime', monospace", size: 11 },
             },
           },
@@ -116,23 +125,28 @@
       const ctx = chart.ctx;
       const scale = chart.scales.r;
 
+      const outerR = scale.getDistanceFromCenterForValue(scale.max);
+
       opts.gaps.forEach((gap, i) => {
         const angle = scale.getIndexAngle(i) - Math.PI / 2;
+        // Place inside the polygon at the midpoint between center and the
+        // data-pair midpoint, so we never collide with axis labels outside.
         const r = scale.getDistanceFromCenterForValue(
           (gap.publicVal + gap.privateVal) / 2
         );
-        const x = scale.xCenter + Math.cos(angle) * (r + 28);
-        const y = scale.yCenter + Math.sin(angle) * (r + 28);
+        const innerR = outerR * 0.5;
+        const x = scale.xCenter + Math.cos(angle) * innerR;
+        const y = scale.yCenter + Math.sin(angle) * innerR;
 
         ctx.save();
-        ctx.font = '11px "Courier Prime", monospace';
+        ctx.font = '10px "Courier Prime", monospace';
         ctx.fillStyle = gap.significant ? COLORS.coral : COLORS.gray;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         const label = `d=${Math.abs(gap.d).toFixed(2)}`;
         ctx.fillText(label, x, y);
         if (gap.significant) {
-          ctx.fillText(gap.p < 0.001 ? "***" : gap.p < 0.01 ? "**" : "*", x, y + 13);
+          ctx.fillText(gap.p < 0.001 ? "***" : gap.p < 0.01 ? "**" : "*", x, y + 11);
         }
         ctx.restore();
       });
@@ -188,6 +202,62 @@
     }
   }
 
+  // ── Virtue chart progressive reveal (mirrors Big Five) ──
+  function showVirtuePublic(leader) {
+    const chart = virtueCharts[leader];
+    if (!chart) return;
+    chart.data.datasets[0].hidden = false;
+    chart.update();
+  }
+
+  function showVirtuePrivate(leader) {
+    const chart = virtueCharts[leader];
+    if (!chart) return;
+    chart.data.datasets[1].hidden = false;
+    chart.update();
+  }
+
+  function showVirtueGaps(leader) {
+    const chart = virtueCharts[leader];
+    if (!chart) return;
+    const data = DATA[leader] && DATA[leader].virtues;
+    if (!data) return;
+    const gaps = data.virtues.map((v) => {
+      const pub = data.public[v] || 0;
+      const prv = data.private[v] || 0;
+      const delta = prv - pub;
+      return {
+        delta,
+        significant: Math.abs(delta) >= VIRTUE_DELTA_THRESHOLD,
+        publicVal: pub,
+        privateVal: prv,
+      };
+    });
+    chart.options.plugins.virtueGapAnnotation = { show: true, gaps };
+    chart.update();
+
+    // Aggregate virtue-gap badge: mean of |Δ| across the six virtues, in the
+    // same spirit as the Big Five Nagel Gap Score (mean of |d|).
+    const meanAbsDelta =
+      gaps.reduce((s, g) => s + Math.abs(g.delta), 0) / Math.max(1, gaps.length);
+    const badge = document.querySelector(`#${leader}-virtue-badge`);
+    if (badge) {
+      const scoreEl = badge.querySelector("[data-virtue-aggregate]");
+      if (scoreEl) scoreEl.textContent = meanAbsDelta.toFixed(2);
+      badge.classList.add("is-visible");
+    }
+  }
+
+  function dimVirtues(leader) {
+    const chart = virtueCharts[leader];
+    if (!chart) return;
+    chart.data.datasets[0].borderColor = "rgba(59, 139, 212, 0.35)";
+    chart.data.datasets[0].backgroundColor = "rgba(59, 139, 212, 0.05)";
+    chart.data.datasets[1].borderColor = "rgba(186, 117, 23, 0.35)";
+    chart.data.datasets[1].backgroundColor = "rgba(186, 117, 23, 0.05)";
+    chart.update();
+  }
+
   // ── Act VI: Virtues ──────────────────────────────────────────────────
   const VIRTUE_LABELS = {
     prudence: "Prudence",
@@ -198,8 +268,43 @@
     magnanimity: "Magnanimity",
   };
 
-  function renderVirtueRadars() {
-    const maxAcross = (() => {
+  // ── Virtue gap annotation plugin (Δ labels per axis) ──
+  const virtueGapAnnotationPlugin = {
+    id: "virtueGapAnnotation",
+    afterDraw(chart) {
+      const opts = chart.options.plugins.virtueGapAnnotation;
+      if (!opts || !opts.show) return;
+      const ctx = chart.ctx;
+      const scale = chart.scales.r;
+
+      const outerR = scale.getDistanceFromCenterForValue(scale.max);
+
+      opts.gaps.forEach((gap, i) => {
+        const angle = scale.getIndexAngle(i) - Math.PI / 2;
+        const r = scale.getDistanceFromCenterForValue(
+          (gap.publicVal + gap.privateVal) / 2
+        );
+        const innerR = outerR * 0.5;
+        const x = scale.xCenter + Math.cos(angle) * innerR;
+        const y = scale.yCenter + Math.sin(angle) * innerR;
+
+        ctx.save();
+        ctx.font = '10px "Courier Prime", monospace';
+        ctx.fillStyle = gap.significant ? COLORS.coral : COLORS.gray;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        const sign = gap.delta >= 0 ? "+" : "−";
+        const label = `Δ ${sign}${Math.abs(gap.delta).toFixed(2)}`;
+        ctx.fillText(label, x, y);
+        ctx.restore();
+      });
+    },
+  };
+
+  function buildVirtueRadars() {
+    // Shared scale across the three featured figures so the polar charts are
+    // directly comparable when read in sequence.
+    virtueMaxAcross = (() => {
       let m = 0;
       LEADERS.forEach((l) => {
         const v = DATA[l] && DATA[l].virtues;
@@ -221,70 +326,71 @@
       const publicRates = virtues.map((v) => data.public[v] || 0);
       const privateRates = virtues.map((v) => data.private[v] || 0);
 
-      new Chart(ctx, {
+      const chart = new Chart(ctx, {
         type: "radar",
         data: {
           labels,
           datasets: [
             {
-              label: "Public",
+              label: "Public voice",
               data: publicRates,
               borderColor: COLORS.public,
               backgroundColor: COLORS.publicBg,
               borderWidth: 2,
-              pointRadius: 2.5,
+              pointRadius: 3,
+              pointBackgroundColor: COLORS.public,
+              hidden: true,
             },
             {
-              label: "Private",
+              label: "Private voice",
               data: privateRates,
               borderColor: COLORS.private,
               backgroundColor: COLORS.privateBg,
               borderWidth: 2,
-              pointRadius: 2.5,
+              pointRadius: 3,
+              pointBackgroundColor: COLORS.private,
+              hidden: true,
             },
           ],
         },
         options: {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
+          animation: { duration: 800, easing: "easeInOutQuart" },
+          // Shrink the virtue polygon to match the Big Five polygon. Big
+          // Five has long axis labels (Conscientiousness, Neuroticism) that
+          // automatically shrink its polygon; virtues have shorter labels
+          // and would otherwise render visibly larger. The asymmetric extra
+          // padding here compensates.
+          layout: { padding: { left: 30, right: 30, top: 22, bottom: 22 } },
           scales: {
             r: {
               min: 0,
-              max: maxAcross,
-              ticks: {
-                display: false,
-                stepSize: 1,
-              },
-              grid: { color: "rgba(255,255,255,0.07)" },
-              angleLines: { color: "rgba(255,255,255,0.07)" },
+              max: virtueMaxAcross,
+              ticks: { display: false, stepSize: 1 },
+              grid: { color: "rgba(255,255,255,0.08)" },
+              angleLines: { color: "rgba(255,255,255,0.08)" },
               pointLabels: {
-                color: "#c8c6be",
-                font: { family: "'Courier Prime', monospace", size: 10 },
+                color: "#888880",
+                padding: 8,
+                font: { family: "'Courier Prime', monospace", size: 11 },
               },
             },
           },
           plugins: {
-            legend: {
-              position: "bottom",
-              labels: {
-                color: "#9a988f",
-                font: { family: "'Courier Prime', monospace", size: 10 },
-                boxWidth: 14,
-              },
-            },
+            legend: { display: false },
             tooltip: {
               callbacks: {
                 label: (c) => ` ${c.dataset.label}: ${c.parsed.r.toFixed(2)} / 1000w`,
               },
             },
+            virtueGapAnnotation: { show: false, gaps: [] },
           },
         },
+        plugins: [virtueGapAnnotationPlugin],
       });
 
-      const note = document.getElementById(`virtue-note-${leader}`);
-      if (note) {
-        note.innerHTML = `n&nbsp;=&nbsp;${data.n_public_chunks}&nbsp;public &middot; ${data.n_private_chunks}&nbsp;private chunks`;
-      }
+      virtueCharts[leader] = chart;
     });
 
     // Commentary sprinkles: pull n and top-|rho| from the pooled correlation
@@ -320,21 +426,16 @@
     if (step === "phil-4" && diagram) diagram.dataset.state = "pulse";
     if (step === "phil-5" && diagram) diagram.dataset.state = "gap";
 
-    // Leader radar progressive reveal
-    if (step === "lincoln-1") showPublic("lincoln");
-    if (step === "lincoln-2") showPrivate("lincoln");
-    if (step === "lincoln-3") showGaps("lincoln");
-    if (step === "lincoln-4") showWord("lincoln");
-
-    if (step === "nixon-1") showPublic("nixon");
-    if (step === "nixon-2") showPrivate("nixon");
-    if (step === "nixon-3") showGaps("nixon");
-    if (step === "nixon-4") showWord("nixon");
-
-    if (step === "kissinger-1") showPublic("kissinger");
-    if (step === "kissinger-2") showPrivate("kissinger");
-    if (step === "kissinger-3") showGaps("kissinger");
-    if (step === "kissinger-4") showWord("kissinger");
+    // Leader radar progressive reveal — Big Five (left) and Virtues (right) in lockstep
+    const m = /^(lincoln|nixon|kissinger)-(\d)$/.exec(step);
+    if (m) {
+      const leader = m[1];
+      const n = m[2];
+      if (n === "1") { showPublic(leader);  showVirtuePublic(leader); }
+      if (n === "2") { showPrivate(leader); showVirtuePrivate(leader); }
+      if (n === "3") { showGaps(leader);    showVirtueGaps(leader); }
+      if (n === "4") { showWord(leader);    dimVirtues(leader); }
+    }
 
     // Act VI cards stagger
     if (step === "spectrum") {
@@ -409,6 +510,7 @@
       "act-kissinger",
       "act-virtues",
       "act-conclusion",
+      "act-limitations",
       "act-methods",
     ];
 
@@ -495,7 +597,7 @@
     initOpeningObserver();
     initPortraitObserver();
     initRadarsEager();
-    renderVirtueRadars();
+    buildVirtueRadars();
     initNavDots();
     buildAccessibleTables();
   }

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Nagel Index — Does Power Change a Person?</title>
-  <meta name="description" content="A computational psycholinguistics investigation into the gap between public and private personality in American leaders.">
+  <meta name="description" content="A computational psycholinguistics investigation into the gap between public and private personality in American public figures.">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/scrolly.css">
 </head>
@@ -12,8 +12,8 @@
 
 <!-- ═══════════ BRAND BAR ═══════════ -->
 <header class="brand-bar">
-  <a class="brand-link" href="/" aria-label="Crow Intelligence">
-    <img src="/logos/brand/crow-nav.svg" alt="Crow Intelligence" class="brand-logo">
+  <a class="brand-link" href="https://crowintelligence.org/" target="_blank" rel="noopener" aria-label="Crow Intelligence">
+    <img src="imgs/crow-nav.svg" alt="Crow Intelligence" class="brand-logo">
   </a>
 </header>
 
@@ -40,6 +40,9 @@
   <div class="nav-dot" data-section="act-conclusion">
     <span class="nav-dot-label">Conclusion</span>
   </div>
+  <div class="nav-dot" data-section="act-limitations">
+    <span class="nav-dot-label">Limitations</span>
+  </div>
   <div class="nav-dot" data-section="act-methods">
     <span class="nav-dot-label">Methods</span>
   </div>
@@ -58,8 +61,96 @@
 
   <div class="opening-frame">
     The Nagel Index applies computational psycholinguistics to that question.<br><br>
-    We measured the personality gap between the public speeches and private words of seven American leaders.<br><br>
+    We measured the gap between the edited and the less-curated language of seven American public figures.<br><br>
+    Each one gets a calligraphic split-face portrait &mdash; left side built from the words that distinguish their public voice, right side from the words that distinguish their private one. Three of those portraits anchor the essay; the other four wait in the dashboard.<br><br>
     Three cases define the spectrum.
+  </div>
+
+  <hr class="section-rule">
+</section>
+
+<!-- ═══════════ ACT I.5 — ORIENTATION ═══════════ -->
+<section id="act-overview">
+  <header class="overview-header">
+    <div class="leader-kicker">What you&rsquo;ll see</div>
+    <h2 class="overview-title">Three things, in plain terms</h2>
+    <p class="overview-intro">
+      Before the cases, a sketch of what we did. The methods appendix carries the details and the caveats.
+    </p>
+  </header>
+
+  <div class="overview-grid">
+
+    <figure class="overview-card">
+      <div class="overview-icon" aria-hidden="true">
+        <div class="overview-corpora">
+          <span class="overview-corpora-doc" data-side="public">&#x1F4C4;</span>
+          <span class="overview-corpora-doc" data-side="private">&#x1F4DC;</span>
+          <span class="overview-corpora-label overview-corpora-label-public">Edited</span>
+          <span class="overview-corpora-label overview-corpora-label-private">Less curated</span>
+        </div>
+      </div>
+      <figcaption class="overview-caption">
+        <h3 class="overview-card-title">One person, two registers</h3>
+        <p>The same speaker writes in two settings. On one side, heavily edited public language &mdash; speeches and addresses, often co-authored by staff, written to face an audience. On the other, less-curated material &mdash; personal letters, live press conferences, internal cables &mdash; where the figure has more room to be themselves. The registers overlap in the middle and diverge at the edges; the essay measures the divergence.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="overview-card">
+      <div class="overview-icon" aria-hidden="true">
+        <svg class="overview-radar" viewBox="0 0 120 120" role="img">
+          <g fill="none" stroke="rgba(154, 152, 143, 0.35)" stroke-width="1">
+            <polygon points="60,12 105,44 88,98 32,98 15,44"/>
+            <polygon points="60,28 92,50 81,87 39,87 28,50"/>
+            <polygon points="60,44 79,57 73,75 47,75 41,57"/>
+          </g>
+          <g stroke="rgba(154, 152, 143, 0.35)" stroke-width="1">
+            <line x1="60" y1="60" x2="60" y2="12"/>
+            <line x1="60" y1="60" x2="105" y2="44"/>
+            <line x1="60" y1="60" x2="88" y2="98"/>
+            <line x1="60" y1="60" x2="32" y2="98"/>
+            <line x1="60" y1="60" x2="15" y2="44"/>
+          </g>
+          <polygon points="60,30 86,52 78,84 44,80 32,52"
+                   fill="rgba(59, 139, 212, 0.18)" stroke="var(--public)" stroke-width="1.5"/>
+          <polygon points="60,40 74,55 80,88 40,85 36,55"
+                   fill="rgba(186, 117, 23, 0.18)" stroke="var(--private)" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <figcaption class="overview-caption">
+        <h3 class="overview-card-title">Big Five from text</h3>
+        <p>Each text chunk is scored on the five major personality dimensions &mdash; openness, conscientiousness, extraversion, agreeableness, neuroticism &mdash; by a language model. We aggregate per corpus and compare. The numbers reflect <em>both</em> real differences in how a person writes <em>and</em> a register-bias overlay from the model itself, which was trained on contemporary prose and applied here to 19th-century letters and diplomatic memos. See Methods &sect;<em>The instrument is borrowed</em>.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="overview-card">
+      <div class="overview-icon" aria-hidden="true">
+        <svg class="overview-tree" viewBox="0 0 120 120" role="img">
+          <g fill="none" stroke="var(--text-dim)" stroke-linecap="round" stroke-width="1.8">
+            <line x1="60" y1="108" x2="60" y2="38"/>
+            <line x1="60" y1="86" x2="34" y2="68"/>
+            <line x1="60" y1="86" x2="86" y2="68"/>
+            <line x1="60" y1="62" x2="36" y2="46"/>
+            <line x1="60" y1="62" x2="84" y2="46"/>
+            <line x1="60" y1="42" x2="46" y2="26"/>
+            <line x1="60" y1="42" x2="74" y2="26"/>
+          </g>
+          <g stroke-width="1.5">
+            <circle cx="34" cy="68" r="5.5" fill="rgba(59, 139, 212, 0.25)" stroke="var(--public)"/>
+            <circle cx="86" cy="68" r="5.5" fill="rgba(186, 117, 23, 0.25)" stroke="var(--private)"/>
+            <circle cx="36" cy="46" r="5.5" fill="rgba(186, 117, 23, 0.25)" stroke="var(--private)"/>
+            <circle cx="84" cy="46" r="5.5" fill="rgba(59, 139, 212, 0.25)" stroke="var(--public)"/>
+            <circle cx="46" cy="26" r="5.5" fill="rgba(59, 139, 212, 0.25)" stroke="var(--public)"/>
+            <circle cx="74" cy="26" r="5.5" fill="rgba(186, 117, 23, 0.25)" stroke="var(--private)"/>
+          </g>
+        </svg>
+      </div>
+      <figcaption class="overview-caption">
+        <h3 class="overview-card-title">Virtue vocabulary</h3>
+        <p>A second pass counts hits against a small lexicon of classical virtues &mdash; prudence, justice, courage, temperance, truthfulness, magnanimity. This measures which virtues a public figure <em>mentions</em>, not which they hold, prioritise, or recommend that others cultivate. It&rsquo;s a register signal about public moral talk, not a character claim.</p>
+      </figcaption>
+    </figure>
+
   </div>
 
   <hr class="section-rule">
@@ -104,7 +195,7 @@
 
       <div class="scroll-step" data-step="phil-5">
         <div class="step-content">
-          <p>The question, then, is the size of the gap. Between the person who signs the letters and the person who gives the speeches. Between the voice caught on tape and the voice broadcast to the nation. Some leaders maintain coherence. Others fracture. The Nagel Index measures which.</p>
+          <p>The question, then, is the size of the gap. Between the person who signs the letters and the person who gives the speeches. Between the voice off the script and the voice broadcast to the nation. Some public figures maintain coherence; others appear to fracture. The Nagel Index measures the size of that gap &mdash; not what it means.</p>
         </div>
       </div>
     </div>
@@ -126,6 +217,7 @@
 
   <div class="leader-layout">
     <div class="leader-sticky">
+      <div class="leader-sticky-label">Big Five</div>
       <div class="leader-radar-wrap" data-leader="lincoln">
         <canvas id="radar-lincoln"></canvas>
       </div>
@@ -151,13 +243,7 @@
 
       <div class="scroll-step" data-step="lincoln-3">
         <div class="step-content">
-          <p>The Nagel Index finds a medium overall gap score of 0.41, driven primarily by Conscientiousness (d&nbsp;=&nbsp;0.73) and Agreeableness (d&nbsp;=&nbsp;0.53). But the raw score differences are tiny &mdash; never more than three percentage points on any trait. The effect sizes reflect how <em>consistently</em> the small shift appears across hundreds of text chunks, not how large the shift is.</p>
-          <div class="stat-callout ns">
-            Openness: d&nbsp;=&nbsp;&minus;0.08 (ns) &mdash; negligible
-          </div>
-          <div class="stat-callout">
-            Conscientiousness: d&nbsp;=&nbsp;0.73** &mdash; medium effect, but only &Delta;0.009
-          </div>
+          <p>The Nagel Index finds a medium overall gap score of 0.41, driven primarily by Conscientiousness and Agreeableness. But the raw score differences are tiny &mdash; never more than three percentage points on any trait. The effect sizes reflect how <em>consistently</em> the small shift appears across hundreds of text chunks, not how large the shift is.</p>
         </div>
       </div>
 
@@ -167,6 +253,18 @@
         </div>
       </div>
     </div>
+
+    <aside class="leader-sticky-right">
+      <div class="leader-sticky-label">Virtue vocabulary</div>
+      <div class="leader-virtue-radar-wrap" data-leader="lincoln">
+        <canvas id="virtue-radar-lincoln"></canvas>
+      </div>
+      <div id="lincoln-virtue-badge" class="nagel-badge-inline">
+        <span class="badge-score" data-virtue-aggregate>—</span>
+        <span class="badge-label">&mdash; mean |Δ|</span>
+      </div>
+      <div class="leader-sticky-sublabel">hits per 1000 words</div>
+    </aside>
   </div>
 
   <div id="sr-table-lincoln" class="sr-only"></div>
@@ -186,6 +284,7 @@
 
   <div class="leader-layout">
     <div class="leader-sticky">
+      <div class="leader-sticky-label">Big Five</div>
       <div class="leader-radar-wrap" data-leader="nixon">
         <canvas id="radar-nixon"></canvas>
       </div>
@@ -199,27 +298,19 @@
     <div class="leader-steps">
       <div class="scroll-step" data-step="nixon-1">
         <div class="step-content">
-          <p>Richard Nixon gave some of the most carefully constructed political speeches of the twentieth century. He also left behind 3,700 hours of secret White House recordings. The distance between those two archives is the story of a presidency.</p>
+          <p>Richard Nixon gave some of the most carefully constructed political speeches of the twentieth century. He also gave thousands of hours of unscripted live press conferences. The distance between those two archives &mdash; the rehearsed Nixon and the live Nixon, both still on the public record but built on entirely different rhetorical scaffolding &mdash; is what we measure here. The historical Nixon Tapes are not in this corpus; the gap below is the gap visible on the public record alone.</p>
         </div>
       </div>
 
       <div class="scroll-step" data-step="nixon-2">
         <div class="step-content">
-          <p>On the tapes, Nixon is different. Not just in content &mdash; in texture. The vocabulary shifts from the lexicon of nationhood (<em>america, spirit, peace, freedom</em>) to the lexicon of operation (<em>going, think, regard, course, concerned, matter</em>). He sounds like a man running a machine, not leading a nation.</p>
+          <p>In the press-conference transcripts, Nixon is different. Not just in content &mdash; in texture. The vocabulary shifts from the lexicon of nationhood (<em>america, spirit, peace, freedom</em>) to the lexicon of operation (<em>going, think, regard, course, concerned, matter</em>). He sounds like a man running a machine, not leading a nation.</p>
         </div>
       </div>
 
       <div class="scroll-step" data-step="nixon-3">
         <div class="step-content">
-          <div class="stat-callout">
-            Extraversion: d&nbsp;=&nbsp;&minus;0.85*** &mdash; large effect. The public Nixon was expansive, performative, rhetorically commanding. The private Nixon was guarded, reactive, transactional.
-          </div>
-          <div class="stat-callout">
-            Neuroticism: d&nbsp;=&nbsp;&minus;1.05*** &mdash; large effect. The public Nixon projected calm authority. The private Nixon, as the tapes make clear, was anxious, suspicious, and volatile.
-          </div>
-          <div class="stat-callout">
-            Conscientiousness: d&nbsp;=&nbsp;1.40*** &mdash; large effect. The most divergent trait. The public persona was aspirational; the private operator was loose, improvised, reactive.
-          </div>
+          <p>The Big Five gap is large and pulls in three directions at once. On Extraversion, the scripted Nixon was expansive, performative, rhetorically commanding; the unscripted Nixon was guarded, reactive, transactional. On Neuroticism, the scripted Nixon projected calm authority; the unscripted Nixon was anxious, suspicious, volatile. Conscientiousness moves furthest of all &mdash; the scripted persona was aspirational; the unscripted operator was loose, improvised, reactive.</p>
         </div>
       </div>
 
@@ -229,6 +320,18 @@
         </div>
       </div>
     </div>
+
+    <aside class="leader-sticky-right">
+      <div class="leader-sticky-label">Virtue vocabulary</div>
+      <div class="leader-virtue-radar-wrap" data-leader="nixon">
+        <canvas id="virtue-radar-nixon"></canvas>
+      </div>
+      <div id="nixon-virtue-badge" class="nagel-badge-inline">
+        <span class="badge-score" data-virtue-aggregate>—</span>
+        <span class="badge-label">&mdash; mean |Δ|</span>
+      </div>
+      <div class="leader-sticky-sublabel">hits per 1000 words</div>
+    </aside>
   </div>
 
   <div id="sr-table-nixon" class="sr-only"></div>
@@ -248,6 +351,7 @@
 
   <div class="leader-layout">
     <div class="leader-sticky">
+      <div class="leader-sticky-label">Big Five</div>
       <div class="leader-radar-wrap" data-leader="kissinger">
         <canvas id="radar-kissinger"></canvas>
       </div>
@@ -273,18 +377,7 @@
 
       <div class="scroll-step" data-step="kissinger-3">
         <div class="step-content">
-          <div class="stat-callout">
-            Agreeableness: d&nbsp;=&nbsp;&minus;0.68* &mdash; medium effect. The diplomat disappeared in private.
-          </div>
-          <div class="stat-callout">
-            Extraversion: d&nbsp;=&nbsp;&minus;0.63** &mdash; medium effect. The public charisma was a performance.
-          </div>
-          <div class="stat-callout ns">
-            Openness: d&nbsp;=&nbsp;0.04 (ns) &mdash; negligible. The strategic intelligence was consistent across contexts.
-          </div>
-          <div class="stat-callout ns">
-            Neuroticism: d&nbsp;=&nbsp;0.07 (ns) &mdash; negligible. Emotional stability was genuine, not performed.
-          </div>
+          <p>The pattern splits cleanly. Agreeableness and Extraversion both drop substantially in private &mdash; the diplomat disappears, the public charisma turns out to have been a performance. Openness and Neuroticism barely move &mdash; the strategic intelligence and the emotional stability were the same in both registers, not performed for the cameras.</p>
           <p>Kissinger the thinker and Kissinger the operator were the same person. Kissinger the public figure was a performance.</p>
         </div>
       </div>
@@ -295,6 +388,18 @@
         </div>
       </div>
     </div>
+
+    <aside class="leader-sticky-right">
+      <div class="leader-sticky-label">Virtue vocabulary</div>
+      <div class="leader-virtue-radar-wrap" data-leader="kissinger">
+        <canvas id="virtue-radar-kissinger"></canvas>
+      </div>
+      <div id="kissinger-virtue-badge" class="nagel-badge-inline">
+        <span class="badge-score" data-virtue-aggregate>—</span>
+        <span class="badge-label">&mdash; mean |Δ|</span>
+      </div>
+      <div class="leader-sticky-sublabel">hits per 1000 words</div>
+    </aside>
   </div>
 
   <div id="sr-table-kissinger" class="sr-only"></div>
@@ -310,32 +415,14 @@
 
   <div class="virtues-intro prose">
     <p>Aristotle&rsquo;s <em>Nicomachean Ethics</em> gave the West its first catalogue of character-virtues &mdash; practical wisdom, justice, courage, temperance, and their kin. Alasdair MacIntyre&rsquo;s <em>After Virtue</em> (1981) argued that the modern world had lost the shared vocabulary to reason about those virtues and was left emoting about moral fragments.</p>
-    <p>This project cannot say whether Lincoln was courageous or Nixon was just. But it can measure the <em>vocabulary</em>: how often each leader&rsquo;s public speech and private writing reaches for six virtues drawn from Aristotle and MacIntyre.</p>
-  </div>
-
-  <div class="virtues-grid">
-    <figure class="virtue-card" data-leader="lincoln">
-      <figcaption class="virtue-card-name">Abraham Lincoln <span class="virtue-card-word" data-tone="coherent">Coherent</span></figcaption>
-      <div class="virtue-canvas-wrap"><canvas id="virtue-radar-lincoln"></canvas></div>
-      <div class="virtue-card-note" id="virtue-note-lincoln"></div>
-    </figure>
-    <figure class="virtue-card" data-leader="nixon">
-      <figcaption class="virtue-card-name">Richard Nixon <span class="virtue-card-word" data-tone="fractured">Fractured</span></figcaption>
-      <div class="virtue-canvas-wrap"><canvas id="virtue-radar-nixon"></canvas></div>
-      <div class="virtue-card-note" id="virtue-note-nixon"></div>
-    </figure>
-    <figure class="virtue-card" data-leader="kissinger">
-      <figcaption class="virtue-card-name">Henry Kissinger <span class="virtue-card-word" data-tone="calculated">Calculated</span></figcaption>
-      <div class="virtue-canvas-wrap"><canvas id="virtue-radar-kissinger"></canvas></div>
-      <div class="virtue-card-note" id="virtue-note-kissinger"></div>
-    </figure>
+    <p>This project cannot say whether Lincoln was courageous or Nixon was just. But it can measure the <em>vocabulary</em>: how often each figure&rsquo;s public speech and private writing reaches for six virtues drawn from Aristotle and MacIntyre.</p>
   </div>
 
   <div class="virtues-commentary prose">
-    <p>A caveat before the numbers. Invoking virtue vocabulary is not the same as embodying the virtue &mdash; political speech tilts structurally toward abstract moral language whatever the speaker&rsquo;s character. What follows is a measurement of rhetorical emphasis, not of souls. It is also a <em>controversial</em> move to place virtues and personality traits on the same page; the two come from different conceptual traditions, and aligning them is a provocation rather than a synthesis.</p>
+    <p>A note on what those per-figure polar charts measure. Our lexicon counts how often a public figure <em>mentions</em> a virtue &mdash; reaches for the word <em>justice</em>, the word <em>courage</em>, the word <em>prudence</em>. It does not measure whether they hold the virtue, prioritise it in their own life, or recommend that others cultivate it. The signal is rhetorical, not psychological: which moral terms a public figure deploys, in which setting. Placing this register signal on the same page as the Big Five is a deliberate provocation, not a synthesis &mdash; the two come from different conceptual traditions, and vocabulary is not character.</p>
     <p>With that said, the pattern is worth naming. Lincoln keeps his virtue vocabulary roughly steady from public to private, and actually raises truthfulness and temperance in his correspondence. Nixon&rsquo;s private voice drops nearly every virtue by a clear margin &mdash; truthfulness, magnanimity, courage all fall sharply, while prudence (strategic caution) is the only term that rises. Kissinger sits in the technocratic flat line he occupies on every other measure: few virtues in either register, a diplomat among process words.</p>
-    <p>When we correlate virtue-vocabulary rates with the Big&nbsp;Five at the chunk level across all seven leaders (<span id="virtue-corr-n" class="nowrap">n&nbsp;&asymp;&nbsp;3000</span> chunks, Spearman&nbsp;&rho;), one result dominates: <strong>every virtue correlates positively with Conscientiousness</strong>, and nothing else consistently. Temperance tracks Conscientiousness most tightly (<span id="virtue-corr-top" class="nowrap">&rho;&nbsp;&approx;&nbsp;0.19</span>, p&nbsp;&lt;&nbsp;0.001). The other four traits &mdash; Openness, Extraversion, Agreeableness, Neuroticism &mdash; tilt slightly negative across the board, which is what register, not character, would predict: formal moral language reads as structured rather than spontaneous, personal, or expressive.</p>
-    <p>What this adds to Nagel&rsquo;s argument is modest. The office demonstrably shapes how a leader <em>talks</em> about virtue &mdash; the rhetorical register drifts with the institution. Whether it shapes whether they <em>possess</em> virtue is a question our vocabulary can indicate but not settle. The interesting case is the one where both the personality gap and the virtue-vocabulary gap move together: Nixon, whose private self loses not only measurable Extraversion but almost every moral term our lexicon looks for.</p>
+    <p>When we correlate virtue-vocabulary rates with the Big&nbsp;Five at the chunk level across all seven public figures (<span id="virtue-corr-n" class="nowrap">n&nbsp;&asymp;&nbsp;3000</span> chunks, Spearman&nbsp;&rho;), one result dominates: <strong>every virtue correlates positively with Conscientiousness</strong>, and nothing else consistently. Temperance tracks Conscientiousness most tightly (<span id="virtue-corr-top" class="nowrap">&rho;&nbsp;&approx;&nbsp;0.19</span>, p&nbsp;&lt;&nbsp;0.001). The other four traits &mdash; Openness, Extraversion, Agreeableness, Neuroticism &mdash; tilt slightly negative across the board, which is what register, not character, would predict: formal moral language reads as structured rather than spontaneous, personal, or expressive.</p>
+    <p>What this adds to Nagel&rsquo;s argument is modest. The office demonstrably shapes how a public figure <em>talks</em> about virtue &mdash; the rhetorical register drifts with the institution. Whether it shapes whether they <em>possess</em> virtue is a question our vocabulary can indicate but not settle. The interesting case is the one where both the personality gap and the virtue-vocabulary gap move together: Nixon, whose private self loses not only measurable Extraversion but almost every moral term our lexicon looks for.</p>
   </div>
 
   <hr class="section-rule">
@@ -351,6 +438,7 @@
           <img src="imgs/lincoln_portrait.png" alt="Lincoln portrait">
           <div class="nagel-badge">
             <span class="badge-name">Abraham Lincoln</span>
+            <span class="badge-type">Type I &mdash; oratory &harr; letters</span>
             <span class="badge-score" data-level="medium">0.41</span>
             <span class="badge-label">medium</span>
             <span class="badge-word" style="color: var(--text-dim);">Coherent</span>
@@ -361,6 +449,7 @@
           <img src="imgs/kissinger_portrait.png" alt="Kissinger portrait">
           <div class="nagel-badge">
             <span class="badge-name">Henry Kissinger</span>
+            <span class="badge-type">Type III &mdash; statements &harr; cables</span>
             <span class="badge-score" data-level="medium">0.43</span>
             <span class="badge-label">medium</span>
             <span class="badge-word" style="color: var(--private);">Calculated</span>
@@ -371,6 +460,7 @@
           <img src="imgs/nixon_portrait.png" alt="Nixon portrait">
           <div class="nagel-badge">
             <span class="badge-name">Richard Nixon</span>
+            <span class="badge-type">Type II &mdash; oratory &harr; live press</span>
             <span class="badge-score" data-level="large">0.87</span>
             <span class="badge-label">large</span>
             <span class="badge-word" style="color: var(--coral);">Fractured</span>
@@ -381,11 +471,11 @@
   </div>
 
   <div class="prose" style="margin-top: 60px;">
-    <p>The Nagel Gap does not measure morality. It measures distance &mdash; the linguistic and psychological distance between the self that spoke to history and the self that spoke when no one was supposed to be listening. A small gap does not make Lincoln a saint. A large gap does not make Nixon uniquely evil. Both were capable of cruelty. But only one of them was the same man in both rooms.</p>
+    <p>The Nagel Gap does not measure morality. It measures distance &mdash; the linguistic distance between the self that spoke to history and the self that spoke off the script: in correspondence, in internal memoranda, in live unrehearsed appearances. A small gap does not make Lincoln a saint. A large gap does not make Nixon uniquely evil. Both were capable of cruelty. But only one of them was linguistically the same man in both rooms.</p>
 
     <p>Nagel ends his essay with a provocation. The plausibility of the institutional excuse, he writes, is &ldquo;inversely proportional to the power and independence of the actor.&rdquo; The more power you hold, the less the office can absorb. At the very top, the gap between the person and the role collapses &mdash; what remains is just the person.</p>
 
-    <p>The data suggests he was right.</p>
+    <p>The pattern in our data is consistent with that diagnosis. It is not a proof of it.</p>
   </div>
 
   <div class="pull-quote">
@@ -393,10 +483,51 @@
   </div>
 
   <div class="cta-row">
-    <a class="cta-button" href="/dashboard/lincoln_dashboard.html">Explore the full data &rarr;</a>
-    <a class="cta-button" href="https://doi.org/10.1017/S0265052500003836" target="_blank" rel="noopener">Read Nagel&rsquo;s essay &rarr;</a>
+    <a class="cta-button" href="dashboards/lincoln_dashboard.html">Explore the dashboards &rarr;</a>
+    <a class="cta-button" href="https://github.com/crow-intelligence/personalityPolitics" target="_blank" rel="noopener">Source on GitHub &rarr;</a>
   </div>
 
+</section>
+
+<!-- ═══════════ APPENDIX — LIMITATIONS ═══════════ -->
+<section id="act-limitations">
+  <div class="methods-layout">
+    <header class="methods-header">
+      <div class="leader-kicker">Limitations</div>
+      <h2 class="methods-title">What the Index Cannot Show</h2>
+      <p class="methods-intro">
+        Five caveats the rest of the essay leans on but doesn&rsquo;t always state out loud. Read this section as the load-bearing fine print &mdash; it bounds everything above.
+      </p>
+    </header>
+
+    <h3>The instrument is borrowed</h3>
+    <p>Big Five scores come from <a href="https://huggingface.co/Minej/bert-base-personality" target="_blank" rel="noopener">Minej/bert-base-personality</a>, a BERT model fine-tuned on contemporary English text. We apply it to 19th-century epistolary prose, mid-20th-century press-conference transcripts, and 1970s diplomatic memoranda &mdash; substantial domain shifts in every direction. Formal archaic prose almost certainly reads as more <em>conscientious</em> regardless of the writer&rsquo;s character; transcribed live speech almost certainly reads as less so for the same reason. The reported numbers reflect a mixture of real personality differences and this register-bias overlay, and we have no way to disentangle the two from inside the data alone.</p>
+
+    <h3>&ldquo;Public vs private&rdquo; is three different gaps wearing one label</h3>
+    <p>The data contains three distinct comparison shapes. The aggregate Nagel Score is meaningful within each shape but not across them &mdash; Lincoln&rsquo;s 0.41 and Nixon&rsquo;s 0.87 are not measuring the same thing.</p>
+    <ul class="limitations-list">
+      <li><strong>Type I &mdash; Oratory &harr; Personal correspondence</strong> (Lincoln, Jefferson, Washington). Drafted addresses to a mass audience versus handwritten letters to named recipients. The classical Nagelian gap: audience, register, and often preparation all shifting at once.</li>
+      <li><strong>Type II &mdash; Oratory &harr; Live press</strong> (Nixon, Bush 41, Bush 43). Drafted addresses versus televised press conferences and interviews. The audience is the same room of cameras either way; only preparation shifts. We do not have the Nixon Tapes or comparable backstage material; the gap is between scripted and unscripted public speech.</li>
+      <li><strong>Type III &mdash; Public statements &harr; Institutional cables</strong> (Kissinger). Public press conferences and statements versus internal diplomatic memoranda and meeting records. Both sides are prepared, but the audience and register are entirely different.</li>
+    </ul>
+    <p>We keep &ldquo;public vs private&rdquo; as the visual shorthand &mdash; the colour tokens, the toggle buttons, the data shape on disk &mdash; because reworking the data taxonomy is a separate project. But a careful reader should hold the gap type in mind. The &ldquo;Gap type&rdquo; column in the Methods table below labels each figure.</p>
+
+    <h3>Genre, audience, and speechwriters are not controlled</h3>
+    <p>A presidential speech is co-authored by speechwriters; a diplomatic memo is institutional product; even a personal letter is written in awareness of posterity. The &ldquo;private&rdquo; voice is never <em>only</em> the speaker&rsquo;s own. This essay does not attempt to isolate the speaker&rsquo;s contribution from the genre, the room, or the collaborators &mdash; and a portion of every gap reported below could in principle be explained by those structural factors rather than personality.</p>
+
+    <h3>What the index is and isn&rsquo;t</h3>
+    <p>The Nagel Index does not measure moral character, authenticity, or hypocrisy. It measures linguistic divergence between two text corpora associated with one person, scored by a model that has its own training-data priors. A large gap is consistent with at least four readings:</p>
+    <ul class="limitations-list">
+      <li><strong>(a)</strong> a public figure whose personality genuinely shifts under institutional pressure;</li>
+      <li><strong>(b)</strong> a public figure whose voice does not shift, but whose two corpora come from radically different genres or audiences;</li>
+      <li><strong>(c)</strong> measurement noise amplified by the domain shift in (1);</li>
+      <li><strong>(d)</strong> some combination of the above.</li>
+    </ul>
+    <p>The descriptive evidence cannot adjudicate among these. The essay&rsquo;s editorial framing leans toward (a) for narrative reasons; the data on its own does not require it.</p>
+
+    <h3>The sample is narrow</h3>
+    <p>Seven public figures, all American, almost all presidents, all male, spanning 1789 to 2009. Selection was driven by the availability of public-domain text archives in matched pairs of registers, plus canonical historical interest &mdash; not by any sampling principle that would generalise. Conclusions about leadership in general, about non-democratic contexts, about public figures outside the US presidential tradition, or about women in office are unsupported by what is here. A control sample of comparable non-public-figure pairs (academic public lectures vs personal correspondence, executive keynotes vs private email) would also be needed to know whether these gaps are anomalous or simply normal context-switching at scale.</p>
+  </div>
 </section>
 
 <!-- ═══════════ APPENDIX — METHODS & DATA ═══════════ -->
@@ -406,73 +537,89 @@
       <div class="leader-kicker">Appendix</div>
       <h2 class="methods-title">Methods &amp; Data</h2>
       <p class="methods-intro">
-        The Nagel Index compares personality scores extracted from two text corpora per leader &mdash; a <em>public</em> corpus of scripted institutional speech, and a <em>private</em> corpus of unscripted correspondence, press conferences, or internal memoranda. Everything below is drawn from open archives.
+        The Nagel Index compares personality scores extracted from two text corpora per public figure. The exact comparison varies by figure &mdash; drafted oratory against personal letters, against live press, or against internal cables (see the <em>Gap type</em> column below) &mdash; and the aggregate Nagel Score is meaningful within each comparison shape but not across them. Everything below is drawn from open archives.
       </p>
     </header>
 
     <h3>Sources</h3>
-    <p>For each leader we assembled a public and a private corpus from public-domain archives. Years refer to the leader&rsquo;s time in office; campaign-era material is included where available.</p>
+    <p>For each public figure we assembled two corpora from public-domain archives. Years refer to the figure&rsquo;s time in office; campaign-era material is included where available. The <em>Gap type</em> column flags which kind of comparison each figure&rsquo;s analysis is measuring &mdash; see the Limitations section for what each type does and doesn&rsquo;t tell us.</p>
 
     <div class="methods-table-wrap">
       <table class="methods-table">
         <thead>
-          <tr><th>Leader</th><th>Years</th><th>Public corpus</th><th>Private corpus</th></tr>
+          <tr><th>Public figure</th><th>Years</th><th>Public corpus</th><th>Private corpus</th><th>Gap type</th></tr>
         </thead>
         <tbody>
           <tr>
             <td>Abraham Lincoln</td><td>1861&ndash;1865</td>
             <td><a href="https://millercenter.org/the-presidency/presidential-speeches" target="_blank" rel="noopener">Miller Center</a> presidential speeches</td>
             <td><a href="https://www.loc.gov/collections/abraham-lincoln-papers/" target="_blank" rel="noopener">Library of Congress</a> &mdash; Abraham Lincoln Papers, Series 1</td>
+            <td>I</td>
           </tr>
           <tr>
             <td>Thomas Jefferson</td><td>1801&ndash;1809</td>
             <td>Miller Center</td>
             <td><a href="https://founders.archives.gov/" target="_blank" rel="noopener">Founders Online</a> &mdash; presidential series</td>
+            <td>I</td>
           </tr>
           <tr>
             <td>George Washington</td><td>1789&ndash;1797</td>
             <td>Miller Center</td>
             <td>Founders Online &mdash; presidential series</td>
+            <td>I</td>
           </tr>
           <tr>
             <td>Richard Nixon</td><td>1969&ndash;1974</td>
             <td><a href="https://www.presidency.ucsb.edu/" target="_blank" rel="noopener">American Presidency Project</a> &mdash; inaugurals &amp; State of the Union</td>
             <td>American Presidency Project &mdash; news conferences</td>
+            <td>II</td>
           </tr>
           <tr>
             <td>George H.W. Bush</td><td>1989&ndash;1993</td>
             <td>American Presidency Project</td>
             <td>American Presidency Project &mdash; news conferences &amp; interviews</td>
+            <td>II</td>
           </tr>
           <tr>
             <td>George W. Bush</td><td>2001&ndash;2009</td>
             <td>American Presidency Project</td>
             <td>American Presidency Project &mdash; news conferences &amp; interviews</td>
+            <td>II</td>
           </tr>
           <tr>
             <td>Henry Kissinger</td><td>1969&ndash;1977</td>
             <td><a href="https://history.state.gov/historicaldocuments/about-frus" target="_blank" rel="noopener">FRUS</a> press conferences &amp; public statements</td>
             <td>FRUS memoranda, meeting records &amp; private correspondence (<a href="https://github.com/HistoryAtState/frus" target="_blank" rel="noopener">HistoryAtState mirror</a>)</td>
+            <td>III</td>
           </tr>
         </tbody>
       </table>
     </div>
+    <p class="methods-table-legend"><em>Gap type:</em> <strong>I</strong> = Oratory &harr; Personal correspondence &middot; <strong>II</strong> = Oratory &harr; Live press &middot; <strong>III</strong> = Public statements &harr; Institutional cables. The aggregate Nagel Score is meaningful within each type, not across them.</p>
 
     <h3>Preprocessing</h3>
     <p>Each document passes through a few mechanical steps: Unicode normalisation, removal of HTML and editorial footnotes, and a language check that drops anything not detected as English. Documents shorter than 150 words are skipped. The surviving text is cut into overlapping 400-word windows with 50% overlap &mdash; these are the <em>chunks</em> the personality model reads.</p>
 
     <h3>Personality scores</h3>
-    <p>Every chunk is scored by <a href="https://huggingface.co/Minej/bert-base-personality" target="_blank" rel="noopener">Minej/bert-base-personality</a>, a BERT model fine-tuned on the Big Five personality dimensions. Chunk-level scores are aggregated per leader into two distributions (public and private) and compared trait-by-trait with a Mann-Whitney U test and <a href="https://en.wikipedia.org/wiki/Effect_size" target="_blank" rel="noopener">Cohen&rsquo;s <em>d</em></a> effect size.</p>
-    <p>Cohen&rsquo;s <em>d</em> expresses the distance between the two distributions in standard-deviation units &mdash; by convention, 0.2 counts as a small shift, 0.5 medium, and 0.8 or more large. The <em>Nagel Gap Score</em> shown on every dashboard is the mean of <em>|d|</em> across the five traits (we take the absolute value because we care how wide the gap is, not which voice scores higher on any given trait).</p>
+    <p>Every chunk is scored by <a href="https://huggingface.co/Minej/bert-base-personality" target="_blank" rel="noopener">Minej/bert-base-personality</a>, a BERT model fine-tuned on the Big Five personality dimensions. Chunk-level scores are aggregated per figure into two distributions (public and private) and compared trait-by-trait with a Mann-Whitney U test and <a href="https://en.wikipedia.org/wiki/Effect_size" target="_blank" rel="noopener">Cohen&rsquo;s <em>d</em></a> effect size.</p>
+    <p>Cohen&rsquo;s <em>d</em> expresses the distance between the two distributions in standard-deviation units &mdash; by convention, 0.2 counts as a small shift, 0.5 medium, and 0.8 or more large. The <em>Nagel Gap Score</em> shown on every dashboard is the mean of <em>|d|</em> across the five traits (we take the absolute value because we care how wide the gap is, not which voice scores higher on any given trait). The same small/medium/large bucket is then applied to that aggregate score, so two figures with very close aggregates &mdash; e.g. 0.41 and 0.43 &mdash; receive the same bucket label even when their <em>per-trait</em> patterns differ markedly. The narrative archetypes (Coherent, Fractured, Calculated) are read off the per-trait pattern, not off the aggregate.</p>
 
     <h3>Keywords</h3>
-    <p>Keywords are extracted using log-likelihood &mdash; <a href="https://aclanthology.org/J93-1003/" target="_blank" rel="noopener">Dunning&rsquo;s G²</a> &mdash; rather than raw frequency. The measure identifies words that are <em>over-represented</em> in one corpus relative to another, which is a far stronger signal of distinctive vocabulary than "what appears most often." For every leader we compute two lists: the public voice versus the private, and the private versus the public.</p>
+    <p>Keywords are extracted using log-likelihood &mdash; <a href="https://aclanthology.org/J93-1003/" target="_blank" rel="noopener">Dunning&rsquo;s G²</a> &mdash; rather than raw frequency. The measure identifies words that are <em>over-represented</em> in one corpus relative to another, which is a far stronger signal of distinctive vocabulary than "what appears most often." For every public figure we compute two lists: the public voice versus the private, and the private versus the public.</p>
 
     <h3>Virtues</h3>
-    <p>The virtue-vocabulary scores come from a first-pass lexicon of six virtues drawn from Aristotle (<em>Nicomachean Ethics</em>) and MacIntyre (<em>After Virtue</em>): prudence, justice, courage, temperance, truthfulness, and magnanimity. Each virtue has 25&ndash;45 hand-picked marker words; per chunk we count exact-word matches and normalise by chunk length (hits per 1000 words). Correlations between virtue rates and Big Five scores are computed per leader and pooled across all seven, using <a href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient" target="_blank" rel="noopener">Spearman&rsquo;s rank correlation</a>. The lexicon lives in the repo under <code>data/virtues/lexicon.json</code> and is explicitly treated as a starting point &mdash; it will be iterated on as the project&rsquo;s understanding of MacIntyrean practice-virtues sharpens. Repeating the caveat from the Virtues act: this measures rhetorical emphasis, not moral character.</p>
+    <p>The virtue-vocabulary scores come from a first-pass lexicon of six virtues drawn from Aristotle (<em>Nicomachean Ethics</em>) and MacIntyre (<em>After Virtue</em>): prudence, justice, courage, temperance, truthfulness, and magnanimity. Each virtue has 25&ndash;45 hand-picked marker words; per chunk we count exact-word matches and normalise by chunk length (hits per 1000 words). Correlations between virtue rates and Big Five scores are computed per figure and pooled across all seven, using <a href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient" target="_blank" rel="noopener">Spearman&rsquo;s rank correlation</a>. The lexicon lives in the repo under <code>data/virtues/lexicon.json</code> and is explicitly treated as a starting point &mdash; it will be iterated on as the project&rsquo;s understanding of MacIntyrean practice-virtues sharpens. Repeating the caveat from the Virtues act: this measures rhetorical emphasis, not moral character.</p>
 
     <h3>Portraits</h3>
     <p>Each calligraphic split-face portrait is rendered by Google&rsquo;s Gemini from a structured prompt that supplies the top 40 keywords per corpus. The four highest-ranking words per side are placed on forehead, cheekbone, jawline, and hair; the remaining words curve around the face as smaller text. The collar words &mdash; UNION / SEPARATION on Lincoln&rsquo;s portrait &mdash; are synthesised by Gemini from the thematic arc of each word list.</p>
+
+    <h3>References</h3>
+    <ul class="references-list">
+      <li>Nagel, Thomas. 1978. &ldquo;Ruthlessness in Public Life.&rdquo; In <em>Public and Private Morality</em>, edited by Stuart Hampshire, 75&ndash;91. Cambridge: Cambridge University Press.</li>
+      <li>Aristotle. <em>Nicomachean Ethics</em>. Translated by W. D. Ross. (Numerous editions; Books II&ndash;VI for the catalogue of virtues used here.)</li>
+      <li>MacIntyre, Alasdair. 1981. <em>After Virtue: A Study in Moral Theory</em>. Notre Dame, IN: University of Notre Dame Press.</li>
+      <li>Dunning, Ted. 1993. &ldquo;Accurate Methods for the Statistics of Surprise and Coincidence.&rdquo; <em>Computational Linguistics</em> 19 (1): 61&ndash;74.</li>
+    </ul>
   </div>
 </section>
 
