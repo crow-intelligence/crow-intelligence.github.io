@@ -44,7 +44,7 @@
     gap: 20px;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 24px;
+    padding: 24px 24px 24px 220px;
   }
 
   .panel {
@@ -217,12 +217,88 @@
     color: var(--text-dim);
   }
 
-  /* Panel 4 — Distribution */
-  .dist-caption {
-    font-size: 0.8rem;
+  /* Figure selector — fixed left-side nav */
+  .figure-selector {
+    position: fixed;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 100;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 8px;
+    max-width: 180px;
+  }
+  .figure-selector-title {
+    font-family: var(--font-data);
+    font-size: 10px;
     color: var(--text-dim);
-    margin-top: 8px;
-    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 4px 8px 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .figure-selector a {
+    font-family: var(--font-data);
+    font-size: 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: 3px;
+    line-height: 1.25;
+    transition: background 0.2s, color 0.2s;
+    display: block;
+  }
+  .figure-selector a:hover {
+    background: var(--surface2);
+    color: var(--text);
+  }
+  .figure-selector a.is-current {
+    background: var(--surface2);
+    color: var(--text);
+    border-left: 2px solid var(--public);
+    padding-left: 6px;
+  }
+  .figure-selector .figure-dates {
+    color: var(--text-dim);
+    font-size: 10px;
+    display: block;
+    margin-top: 2px;
+  }
+  @media (max-width: 1280px) {
+    .dashboard {
+      padding: 24px;
+    }
+    .figure-selector {
+      position: static;
+      transform: none;
+      max-width: none;
+      margin: 16px 24px 0;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .figure-selector-title {
+      border-bottom: none;
+      border-right: 1px solid var(--border);
+      padding: 0 12px 0 4px;
+      margin: 0;
+    }
+    .figure-selector a {
+      font-size: 11px;
+      padding: 4px 8px;
+    }
+    .figure-selector a.is-current {
+      border-left: none;
+      border-bottom: 2px solid var(--public);
+      padding-left: 8px;
+    }
+    .figure-selector .figure-dates { display: none; }
   }
 
   /* Panel 5 — Word clouds */
@@ -395,6 +471,17 @@
 </head>
 <body>
 
+<nav class="figure-selector" id="figure-selector" aria-label="Public figures">
+  <span class="figure-selector-title">Public figures</span>
+  <a href="lincoln_dashboard.html"   data-leader="lincoln">Abraham Lincoln<span class="figure-dates">1861–1865</span></a>
+  <a href="jefferson_dashboard.html" data-leader="jefferson">Thomas Jefferson<span class="figure-dates">1801–1809</span></a>
+  <a href="washington_dashboard.html" data-leader="washington">George Washington<span class="figure-dates">1789–1797</span></a>
+  <a href="nixon_dashboard.html"     data-leader="nixon">Richard Nixon<span class="figure-dates">1969–1974</span></a>
+  <a href="bush41_dashboard.html"    data-leader="bush41">George H.W. Bush<span class="figure-dates">1989–1993</span></a>
+  <a href="bush43_dashboard.html"    data-leader="bush43">George W. Bush<span class="figure-dates">2001–2009</span></a>
+  <a href="kissinger_dashboard.html" data-leader="kissinger">Henry Kissinger<span class="figure-dates">1969–1977</span></a>
+</nav>
+
 <div class="dashboard">
 
   <!-- Panel 1: Leader Header -->
@@ -402,7 +489,7 @@
     <div class="leader-info">
       <h1 id="leader-name">Abraham Lincoln</h1>
       <div class="dates" id="leader-dates">1861-1865</div>
-      <a class="methods-link" href="../../nagel-essay/index.html#act-methods">About the data &rarr;</a>
+      <a class="methods-link" href="/aporia/nagel-essay/index.html#act-methods">About the data &rarr;</a>
     </div>
     <div class="gauge-container">
       <svg class="gauge-svg" viewBox="0 0 180 110" id="gauge-svg"></svg>
@@ -426,13 +513,6 @@
   <div class="panel" id="panel-bars">
     <h2>Nagel Gap by Trait</h2>
     <div id="bar-container"></div>
-  </div>
-
-  <!-- Panel 4: Trait Distribution -->
-  <div class="panel" id="panel-dist">
-    <h2>Trait Distribution: <span id="dist-trait-name">select a trait</span></h2>
-    <div style="position:relative;height:280px;"><canvas id="distCanvas"></canvas></div>
-    <div class="dist-caption" id="dist-caption"></div>
   </div>
 
   <!-- Panel 5: Virtues (Aristotle / MacIntyre) -->
@@ -688,7 +768,7 @@ function initRadar() {
         if (elems.length) {
           const idx = elems[0].index;
           const trait = getTraits()[idx];
-          renderDistribution(trait);
+          /* trait click no longer renders a distribution panel */
         }
       }
     }
@@ -740,133 +820,9 @@ function renderBars() {
         d=${absD.toFixed(2)}${stars}
       </div>
     `;
-    row.addEventListener('click', () => renderDistribution(t));
+    // (bar row click handler removed: trait distribution panel is gone)
     container.appendChild(row);
   }
-}
-
-// ── Panel 4: Trait Distribution ─────────────────────────────────────────
-let distChart = null;
-
-function renderDistribution(trait) {
-  document.getElementById('dist-trait-name').textContent = trait;
-
-  const pubChunks = (DATA.chunk_scores.public || []).map(c => (c.scores && c.scores[trait]) || null).filter(v => v !== null);
-  const prvChunks = (DATA.chunk_scores.private || []).map(c => (c.scores && c.scores[trait]) || null).filter(v => v !== null);
-
-  // build histogram bins
-  const allVals = pubChunks.concat(prvChunks);
-  if (!allVals.length) {
-    document.getElementById('dist-caption').textContent = 'No chunk data available for this trait.';
-    if (distChart) { distChart.destroy(); distChart = null; }
-    return;
-  }
-
-  const lo = Math.min(...allVals);
-  const hi = Math.max(...allVals);
-  const nBins = 20;
-  const binW = (hi - lo) / nBins || 0.05;
-
-  function histogram(vals) {
-    const counts = new Array(nBins).fill(0);
-    for (const v of vals) {
-      let idx = Math.floor((v - lo) / binW);
-      if (idx >= nBins) idx = nBins - 1;
-      if (idx < 0) idx = 0;
-      counts[idx]++;
-    }
-    return counts;
-  }
-
-  const pubHist = histogram(pubChunks);
-  const prvHist = histogram(prvChunks);
-  const labels = [];
-  for (let i = 0; i < nBins; i++) {
-    labels.push((lo + binW * (i + 0.5)).toFixed(2));
-  }
-
-  // means
-  const pubMean = pubChunks.length ? pubChunks.reduce((a, b) => a + b, 0) / pubChunks.length : 0;
-  const prvMean = prvChunks.length ? prvChunks.reduce((a, b) => a + b, 0) / prvChunks.length : 0;
-
-  const ctx = document.getElementById('distCanvas').getContext('2d');
-  if (distChart) distChart.destroy();
-
-  // Annotation plugin (inline vertical lines via custom plugin)
-  const meanLinePlugin = {
-    id: 'meanLines',
-    afterDraw(chart) {
-      const { ctx: c, chartArea: { left, right, top, bottom }, scales: { x } } = chart;
-      function drawLine(val, color, label) {
-        // find pixel position
-        const binIdx = Math.floor((val - lo) / binW);
-        const clampedIdx = clamp(binIdx, 0, nBins - 1);
-        const px = x.getPixelForValue(clampedIdx);
-        c.save();
-        c.strokeStyle = color;
-        c.lineWidth = 2;
-        c.setLineDash([6, 3]);
-        c.beginPath();
-        c.moveTo(px, top);
-        c.lineTo(px, bottom);
-        c.stroke();
-        c.setLineDash([]);
-        c.fillStyle = color;
-        c.font = "11px 'Courier Prime', monospace";
-        c.fillText(label + ' \u03bc=' + val.toFixed(3), px + 4, top + 14);
-        c.restore();
-      }
-      if (pubChunks.length) drawLine(pubMean, COLORS.public, 'Pub');
-      if (prvChunks.length) drawLine(prvMean, COLORS.private, 'Prv');
-    }
-  };
-
-  distChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [
-        {
-          label: 'Public',
-          data: pubHist,
-          backgroundColor: 'rgba(59,139,212,0.45)',
-          borderColor: COLORS.public,
-          borderWidth: 1,
-        },
-        {
-          label: 'Private',
-          data: prvHist,
-          backgroundColor: 'rgba(186,117,23,0.45)',
-          borderColor: COLORS.private,
-          borderWidth: 1,
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: {
-          grid: { color: 'rgba(255,255,255,0.05)' },
-          ticks: { color: '#9a988f', font: { family: "'Courier Prime', monospace", size: 9 }, maxRotation: 45 },
-        },
-        y: {
-          grid: { color: 'rgba(255,255,255,0.05)' },
-          ticks: { color: '#9a988f', font: { family: "'Courier Prime', monospace", size: 10 } },
-          title: { display: true, text: 'Chunk count', color: '#9a988f', font: { family: "'Courier Prime', monospace" } },
-        }
-      },
-      plugins: {
-        legend: {
-          labels: { color: '#e8e6e1', font: { family: "'Courier Prime', monospace", size: 11 } }
-        }
-      }
-    },
-    plugins: [meanLinePlugin],
-  });
-
-  document.getElementById('dist-caption').textContent =
-    `n=${pubChunks.length} public chunks, n=${prvChunks.length} private chunks`;
 }
 
 // ── Panel 5: Word Clouds ────────────────────────────────────────────────
@@ -1070,18 +1026,20 @@ function renderVirtueCorrelation() {
   `;
 }
 
+function markCurrentFigure() {
+  const leader = DATA && DATA.leader;
+  if (!leader) return;
+  document.querySelectorAll('#figure-selector a').forEach((a) => {
+    if (a.dataset.leader === leader) a.classList.add('is-current');
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  markCurrentFigure();
   renderGauge(DATA.stats.overall_nagel_gap_score || 0);
   renderInterpretation();
   initRadar();
   renderBars();
-
-  // auto-select first trait for distribution
-  const traits = getTraits();
-  if (traits.length && Object.keys(DATA.stats.traits || {}).length) {
-    renderDistribution(traits[0]);
-  }
-
   renderVirtues();
   renderClouds();
   renderSources();

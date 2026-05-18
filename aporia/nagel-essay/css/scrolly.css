@@ -305,17 +305,23 @@
 @media (max-width: 768px) {
   .philosophy-layout {
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
+    padding: 0 16px;
   }
   .philosophy-sticky {
     flex: none;
-    position: relative;
+    position: sticky;
     top: 0;
-    height: auto;
-    padding: 40px 0;
+    height: 40vh;
+    padding: 0;
+    background: var(--bg, #1a1a1f);
+    z-index: 2;
+  }
+  .philosophy-steps {
+    padding: 0 0 20vh;
   }
   .philosophy-steps .scroll-step {
-    min-height: 50vh;
+    min-height: 60vh;
   }
 }
 
@@ -500,26 +506,55 @@
 
 @media (max-width: 980px) {
   .leader-layout {
-    flex-direction: column;
-    gap: 20px;
-    max-width: 640px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 8px;
+    max-width: 100%;
+    padding: 0 12px;
   }
-  .leader-sticky,
-  .leader-sticky-right {
+  .leader-sticky {
+    grid-column: 1;
+    grid-row: 1;
     flex: none;
-    position: relative;
+    position: sticky;
     top: 0;
-    height: auto;
-    padding: 20px 0;
+    height: 50vh;
+    padding: 8px 0;
+    background: var(--bg, #1a1a1f);
+    z-index: 2;
+  }
+  .leader-sticky-right {
+    grid-column: 2;
+    grid-row: 1;
+    flex: none;
+    position: sticky;
+    top: 0;
+    height: 50vh;
+    padding: 8px 0;
+    background: var(--bg, #1a1a1f);
+    z-index: 2;
+  }
+  .leader-steps {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    padding: 16px 0 15vh;
   }
   .leader-radar-wrap,
   .leader-virtue-radar-wrap {
-    width: 320px;
-    height: 320px;
+    width: 100%;
+    max-width: 170px;
+    height: auto;
+    aspect-ratio: 1;
   }
-  .leader-steps .scroll-step {
-    min-height: 50vh;
+  .leader-sticky-label,
+  .leader-sticky-sublabel {
+    font-size: 9px;
   }
+  .leader-word { font-size: 22px; letter-spacing: 2px; }
+  .nagel-badge-inline { font-size: 11px; margin-top: 6px; }
+  .nagel-badge-inline .badge-score { font-size: 18px; }
+  .leader-steps .scroll-step { min-height: 60vh; }
 }
 
 /* ── Act VI: Comparative ── */
