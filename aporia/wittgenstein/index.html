@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ════════════════════════════════════════════════════════════════
+       TITLE — placeholder, decided later. To change the title, edit all
+       THREE of: this <title>, the og:/twitter: title metas just below,
+       and the <h1 class="hero__title"> in the body.
+       ════════════════════════════════════════════════════════════════ -->
+  <title>Whereof one cannot speak, there must be silence — Crow Intelligence</title>
+  <meta name="description"
+        content="A visual reading of Wittgenstein's Tractatus: 2,025 sentences as a handwritten spiral, sized by centrality and coloured by community.">
+
+  <link rel="canonical" href="https://crowintelligence.org/aporia/wittgenstein/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Whereof one cannot speak, there must be silence">
+  <meta property="og:description"
+        content="A visual reading of Wittgenstein's Tractatus: 2,025 sentences as a handwritten spiral, sized by centrality and coloured by community.">
+  <meta property="og:url" content="https://crowintelligence.org/aporia/wittgenstein/">
+  <meta property="og:site_name" content="Crow Intelligence">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://crowintelligence.org/aporia/wittgenstein/imgs/social-preview.png">
+  <meta property="og:image:secure_url" content="https://crowintelligence.org/aporia/wittgenstein/imgs/social-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="Whereof one cannot speak, there must be silence — a portrait of Wittgenstein ringed by a spiral of the Tractatus's logical symbols.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Whereof one cannot speak, there must be silence">
+  <meta name="twitter:description"
+        content="A visual reading of Wittgenstein's Tractatus as a handwritten spiral.">
+  <meta name="twitter:image" content="https://crowintelligence.org/aporia/wittgenstein/imgs/social-preview.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/essay.css">
+</head>
+<body>
+
+  <!-- Fixed full-page backdrop: the flat 2D spiral. Content scrolls over
+       it (this layer stays put). z-index:-1 keeps it behind everything;
+       the hero's own montage background covers it while the hero is in
+       view. -->
+  <div class="site-bg" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════ HERO / TITLE ═══════════════════════════ -->
+  <header class="hero">
+    <div class="hero__bg" role="img"
+         aria-label="Architectural details of Haus Wittgenstein — door handles, latches and a window catch"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <p class="kicker">Crow Intelligence · Aporia</p>
+      <!-- TITLE: edit here (and <title> + og:/twitter: title in <head>). -->
+      <h1 class="hero__title">Whereof one cannot speak, there must be silence</h1>
+      <p class="hero__lede">
+        The <span class="i">Tractatus</span> has a form — almost a rhyme.
+      </p>
+    </div>
+    <div class="hero__scroll-cue" aria-hidden="true">
+      <span>scroll</span>
+      <span class="chev"></span>
+    </div>
+  </header>
+
+  <hr class="section-rule">
+
+  <!-- ═══════════════════════ THE TOUR ═══════════════════════════════ -->
+  <main class="container">
+    <section class="reveal" id="tour">
+      <p class="kicker">Getting lost</p>
+      <h2 class="section-title">Up and down the stairs</h2>
+      <p class="section-lede">
+        The Tractatus is built like a house. You climb, you descend, you
+        lose the way.
+      </p>
+
+      <figure class="media">
+        <iframe
+          src="https://www.youtube.com/embed/2vi5xJHoyEw"
+          title="Tractatus — handwriting spiral, guided tour"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </figure>
+
+      <!-- Interactive 3D viewer. Self-contained: vendored under this folder
+           by src/build_essay_bundle.py; folder-relative href works locally
+           and inside the Aporia site. CDN still required at view time. -->
+      <p class="cta-row">
+        <a class="cta-button" href="viz/handwriting_3d.html">
+          Fly it yourself in 3D →
+        </a>
+      </p>
+    </section>
+  </main>
+
+  <hr class="section-rule">
+
+  <!-- ═══════════════════ THE LOGICAL SIGNS ═════════════════════════ -->
+  <main class="container">
+    <section class="reveal" id="signs">
+      <p class="kicker">Symbolic system</p>
+      <h2 class="section-title">Logic</h2>
+      <p class="section-lede">
+        Its full title is the <span class="i">Tractatus
+        Logico-Philosophicus</span>. Some emphasise the
+        <span class="i">Philosophicus</span>; others the
+        <span class="i">Logico</span>. Below are all the symbols — every
+        non-alphanumeric character — of the text.
+      </p>
+      <figure class="figure-plate">
+        <img src="imgs/punctuation_spiral.png"
+             alt="An Archimedean spiral of every punctuation mark and logical
+                  sign of the Tractatus, in text order, wound around an engraved
+                  portrait of Wittgenstein; logical and mathematical symbols
+                  picked out in gold."
+             loading="lazy">
+      </figure>
+    </section>
+  </main>
+
+  <hr class="section-rule">
+
+  <!-- ═══════════════════════ COLOPHON ═══════════════════════════════ -->
+  <main class="container">
+    <section class="reveal" id="about">
+      <p class="kicker">Colophon</p>
+      <h2 class="section-title">How this was made</h2>
+      <figure class="figure-wide">
+        <img src="imgs/haus_villa.png"
+             alt="Haus Wittgenstein (Stonborough House), Kundmanngasse 19,
+                  Vienna — the modernist villa Wittgenstein designed with
+                  Paul Engelmann, in sepia."
+             loading="lazy">
+      </figure>
+      <p class="method">
+        <b>The graph.</b> The Ogden 1922 translation is split into 2,025
+        sentences (NLTK Punkt). Each sentence is embedded with the
+        all-MiniLM-L6-v2 sentence-transformer; cosine similarity over those
+        vectors, thresholded and pruned to each sentence's strongest
+        neighbours, builds a sentence graph. Weighted PageRank on the graph
+        gives every sentence a <i>size</i>; Louvain community detection gives
+        it a <i>colour</i>.
+      </p>
+      <p class="method">
+        <b>The 2D spiral.</b> The flat visualisation is a turtle walk.
+        Starting at the centre, each sentence is written in one of four
+        handwriting fonts; its rendered width is measured, the cursor steps
+        forward by exactly that width and then turns ninety degrees — a
+        right-angle spiral that fills the plane. Seen straight down it reads
+        as one continuous coloured line of handwriting: PageRank scales each
+        sentence, the Louvain community tints it, so the central, recurring
+        propositions loom large and their families share a hue.
+        <a href="viz/handwriting.html">Open the full interactive 2D
+        spiral&nbsp;→</a>
+      </p>
+      <p class="method">
+        <b>The 3D spiral and the film.</b> The three-dimensional viewer runs
+        the identical walk but also lifts the cursor a constant step in
+        <i>z</i> per sentence, so the plane becomes a slowly climbing
+        rectangular corkscrew, shown in three-quarter perspective. The
+        ninety-second film is a scripted camera flight through that
+        corkscrew — a high top-down turn over the whole form, a descent
+        skimming low over the handwriting, and a close on the final
+        proposition — captured frame by frame straight from the WebGL
+        viewer, over spoken fragments of the text synthesised with Bark.
+      </p>
+      <p class="method">
+        <b>The plate.</b> The image above takes every punctuation mark and
+        logical sign of the text, in reading order, and winds it along an
+        Archimedean spiral around a 1929 portrait of its author — the
+        logical and mathematical signs picked out in gold.
+      </p>
+      <p class="kicker">Sources</p>
+      <ul class="sources">
+        <li><b>Text</b> — <span class="i">Tractatus Logico-Philosophicus</span>,
+          C.&nbsp;K.&nbsp;Ogden trans. 1922, via Wikisource. Public domain.</li>
+        <li><b>Portrait</b> — Ludwig Wittgenstein, 1929, by Moritz Nähr.
+          Public domain.
+          <a href="https://commons.wikimedia.org/wiki/File:Ludwig_Wittgenstein_1929.jpg"
+             target="_blank" rel="noopener">Wikimedia&nbsp;Commons</a>.</li>
+        <li><b>Haus Wittgenstein, exterior</b> — <span class="i">Wittgenstein_haus.jpg</span>.
+          Public domain.
+          <a href="https://commons.wikimedia.org/wiki/File:Wittgenstein_haus.jpg"
+             target="_blank" rel="noopener">Commons</a>.</li>
+        <li><b>Door handle</b> — by Maxronnersjo. CC&nbsp;BY-SA&nbsp;4.0.
+          <a href="https://commons.wikimedia.org/wiki/File:Haus_Wittgenstein_door_handle.jpg"
+             target="_blank" rel="noopener">Commons</a>.</li>
+        <li><b>Window catch</b> — by Maxronnersjo. CC&nbsp;BY-SA&nbsp;4.0.
+          <a href="https://commons.wikimedia.org/wiki/File:Window_catch_in_Haus_Wittgenstein.jpg"
+             target="_blank" rel="noopener">Commons</a>.</li>
+        <li><b>Door latches</b> — <span class="i">32./33. Wittgenstein door
+          latch</span>. Public domain.
+          <a href="https://commons.wikimedia.org/wiki/File:32._Wittgenstein_door_latch.jpg"
+             target="_blank" rel="noopener">Commons</a>.</li>
+        <li><b>Fonts</b> — Patrick Hand, Kalam, Shadows Into Light
+          (SIL&nbsp;OFL-1.1); Homemade Apple (Apache-2.0).</li>
+        <li><b>Montage</b> — derivative of the CC&nbsp;BY-SA&nbsp;4.0 images
+          above; itself CC&nbsp;BY-SA&nbsp;4.0.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="js/reveal.js" defer></script>
+</body>
+</html>

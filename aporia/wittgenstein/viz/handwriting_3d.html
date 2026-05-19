@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tractatus — handwriting (helical 3D spiral)</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #0a0a0d;
+      color: #ddd;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow: hidden;
+    }
+    #canvas { display: block; width: 100%; height: 100%; }
+    #info {
+      position: fixed; top: 12px; left: 12px;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.55);
+      font-size: 12px;
+      line-height: 1.6;
+      pointer-events: auto;
+      border-radius: 4px;
+      max-width: 32ch;
+    }
+    #info strong { color: #fff; }
+    #info a { color: #9ad; }
+    #status {
+      position: fixed; bottom: 12px; left: 12px;
+      font-size: 11px;
+      opacity: 0.6;
+    }
+    #navigator {
+      position: fixed; left: 12px; right: 12px; bottom: 38px;
+      display: flex; align-items: center; gap: 14px;
+      background: rgba(0, 0, 0, 0.55);
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-size: 12px;
+      pointer-events: auto;
+    }
+    #navigator label { color: #aaa; }
+    #seek {
+      flex: 1;
+      cursor: pointer;
+      accent-color: #9ad;
+    }
+    #seek-label {
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+      color: #fff;
+      min-width: 14ch;
+      text-align: right;
+    }
+    #error {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 16px 24px;
+      background: rgba(120, 20, 20, 0.9);
+      color: #fff;
+      font-size: 13px;
+      max-width: 60ch;
+      display: none;
+      border-radius: 4px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div id="info">
+    <strong>Tractatus · handwriting · 3D</strong><br>
+    drag · orbit &nbsp;|&nbsp; right-drag · pan &nbsp;|&nbsp; scroll · zoom<br>
+    timeline below scrubs to any sentence &nbsp;|&nbsp; arrow keys also navigate<br>
+    helical lift: same right-angle XY spiral, with each sentence a constant z-step above the last
+  </div>
+  <div id="status">loading…</div>
+  <div id="navigator" style="display:none">
+    <label for="seek">Sentence</label>
+    <input type="range" id="seek" min="0" max="0" value="0" step="1">
+    <span id="seek-label">— / —</span>
+  </div>
+  <div id="error"></div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/",
+        "troika-three-text": "https://esm.sh/troika-three-text@0.52.4?external=three&deps=three@0.161.0"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { Text, preloadFont } from 'troika-three-text';
+
+    const statusEl = document.getElementById('status');
+    const errorEl = document.getElementById('error');
+    const navigatorEl = document.getElementById('navigator');
+    const seekEl = document.getElementById('seek');
+    const seekLabelEl = document.getElementById('seek-label');
+
+    function fail(msg) {
+      errorEl.textContent = msg;
+      errorEl.style.display = 'block';
+      statusEl.style.display = 'none';
+      console.error(msg);
+    }
+
+    try {
+      statusEl.textContent = 'fetching handwriting_3d_data.json…';
+      const response = await fetch('../data/blender/handwriting_3d_data.json');
+      if (!response.ok) {
+        throw new Error(`fetch failed: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+
+      const fontUrls = data.fonts.map(f => `fonts/${f}`);
+      const fontSize = data.font_size;
+      const gap = data.gap;
+      const zStep = data.z_step ?? 0;
+      const palette = data.palette.map(
+        rgb => new THREE.Color(rgb[0], rgb[1], rgb[2]).getHex()
+      );
+      const sentences = data.sentences;
+      const N = sentences.length;
+
+      statusEl.textContent = `preloading ${fontUrls.length} fonts…`;
+      await Promise.all(fontUrls.map(url => new Promise((resolve, reject) => {
+        preloadFont({ font: url, characters: 'asdf' }, () => resolve(), reject);
+      })));
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0a0a0d);
+
+      // Phase 1: create every Text at origin, kick off sync().
+      statusEl.textContent = `creating ${N.toLocaleString()} text objects…`;
+      const texts = new Array(N);
+      const syncPromises = new Array(N);
+      for (let i = 0; i < N; i++) {
+        const s = sentences[i];
+        const t = new Text();
+        t.text = s.text;
+        t.font = fontUrls[s.font_id];
+        // Per-sentence font-size scales with PageRank centrality (computed
+        // by src/build_graph_features.py). Cluster colour comes from
+        // Louvain communities on the similarity graph rather than k-means.
+        const sentenceFontSize = fontSize * (s.font_size_mult ?? 1.0);
+        t.fontSize = sentenceFontSize;
+        t.color = palette[s.louvain ?? s.cluster];
+        t.anchorX = 'left';
+        t.anchorY = 'bottom-baseline';
+        // Slim outline + light blur so the spiral has visible body at
+        // default zoom without smearing letters into blobs once zoomed in.
+        t.outlineWidth = sentenceFontSize * 0.12;
+        t.outlineBlur = sentenceFontSize * 0.05;
+        t.outlineColor = palette[s.louvain ?? s.cluster];
+        scene.add(t);
+        texts[i] = t;
+        syncPromises[i] = new Promise(resolve => t.sync(resolve));
+        if ((i + 1) % 250 === 0) {
+          statusEl.textContent =
+            `creating text objects… ${(i + 1).toLocaleString()} / ${N.toLocaleString()}`;
+          await new Promise(r => setTimeout(r, 0));
+        }
+      }
+
+      // Phase 1b: wait on syncs in batches, read each rendered width.
+      statusEl.textContent = `measuring ${N.toLocaleString()} sentences…`;
+      const widths = new Array(N);
+      const BATCH = 250;
+      for (let start = 0; start < N; start += BATCH) {
+        const end = Math.min(start + BATCH, N);
+        await Promise.all(syncPromises.slice(start, end));
+        for (let i = start; i < end; i++) {
+          const bb = texts[i].textRenderInfo.blockBounds;
+          widths[i] = bb[2] - bb[0];
+        }
+        statusEl.textContent =
+          `measured ${end.toLocaleString()} / ${N.toLocaleString()}…`;
+        await new Promise(r => setTimeout(r, 0));
+      }
+
+      // Phase 2: turtle walk. Same as build_handwriting_3d.py — forward by
+      // `width + gap` along heading (XY only), yaw 90° right around Z, then
+      // also climb Z by zStep so the spiral lifts as it winds.
+      // Text orientation stays the same as the 2D version (local +X = heading
+      // in XY plane, local +Y = world +Z × heading, local +Z = world +Z): each
+      // sentence reads horizontally on its own Z-level "page".
+      statusEl.textContent = `placing ${N.toLocaleString()} sentences…`;
+      const sentencePositions = new Array(N);
+      let cx = 0.0, cy = 0.0, cz = 0.0;
+      let hx = 1.0, hy = 0.0;
+      let xMin = 0, xMax = 0, yMin = 0, yMax = 0, zMin = 0, zMax = 0;
+      for (let i = 0; i < N; i++) {
+        // Place: position at cursor, rotated around Z so local +X = heading.
+        texts[i].position.set(cx, cy, cz);
+        texts[i].rotation.set(0, 0, Math.atan2(hy, hx));
+        sentencePositions[i] = new THREE.Vector3(cx, cy, cz);
+
+        const step = widths[i] + gap;
+        const nx = cx + hx * step;
+        const ny = cy + hy * step;
+        const nz = cz + zStep;
+        if (cx < xMin) xMin = cx; if (cx > xMax) xMax = cx;
+        if (cy < yMin) yMin = cy; if (cy > yMax) yMax = cy;
+        if (cz < zMin) zMin = cz; if (cz > zMax) zMax = cz;
+        if (nx < xMin) xMin = nx; if (nx > xMax) xMax = nx;
+        if (ny < yMin) yMin = ny; if (ny > yMax) yMax = ny;
+        if (nz < zMin) zMin = nz; if (nz > zMax) zMax = nz;
+
+        cx = nx; cy = ny; cz = nz;
+        // yaw -90° around Z: (hx, hy) -> (hy, -hx)
+        const newHx = hy;
+        const newHy = -hx;
+        hx = newHx; hy = newHy;
+      }
+
+      const centreX = (xMin + xMax) / 2;
+      const centreY = (yMin + yMax) / 2;
+      const centreZ = (zMin + zMax) / 2;
+      const extentX = Math.max(xMax - xMin, 1e-6);
+      const extentY = Math.max(yMax - yMin, 1e-6);
+      const extentZ = Math.max(zMax - zMin, 1e-6);
+      const maxExtent = Math.max(extentX, extentY, extentZ, 1.0);
+      const centre = new THREE.Vector3(centreX, centreY, centreZ);
+
+      const canvas = document.getElementById('canvas');
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      // 3/4 perspective camera. Offset tightened to (1.0, -1.0, 0.4) so the
+      // corkscrew fills ~95% of the viewport on load.
+      const camera = new THREE.PerspectiveCamera(40, 1, maxExtent * 0.001, maxExtent * 100);
+      const camOffset = new THREE.Vector3(maxExtent * 1.0, -maxExtent * 1.0, maxExtent * 0.4);
+      camera.position.copy(centre).add(camOffset);
+      camera.up.set(0, 0, 1);
+      camera.lookAt(centre);
+
+      const controls = new OrbitControls(camera, canvas);
+      controls.target.copy(centre);
+      // Damping smooths every interaction across a few frames — important for
+      // zoom because devices that fire multiple wheel events per scroll-click
+      // would otherwise snap the camera in big jumps. With damping the camera
+      // glides toward the new distance and the user has time to stop.
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.12;
+      // World up is +Z; clamp polar angle so the camera can't pass below the
+      // spiral's "floor" (would show text mirrored from underneath).
+      controls.maxPolarAngle = Math.PI * 0.5 - 0.01;
+      controls.minPolarAngle = 0.01;
+      // zoomSpeed=30 → ~4.6× closer per scroll tick. About 3 clicks reaches
+      // reading distance. Higher values (80) overshoot on devices that fire
+      // multiple wheel events per click.
+      // (zoomToCursor stays OFF: combined with the polar-angle clamp it can
+      // shift the target into empty space when the cursor isn't on the
+      // spiral. Right-drag pans the spiral toward centre instead.)
+      controls.zoomSpeed = 30;
+      // Pan default is 1.0 — at deep zoom (small camera-to-target distance)
+      // a full-screen drag covers only a handful of sentences. Bumping to 5
+      // makes traversing the 2024-unit-tall corkscrew bearable in a few drags.
+      controls.panSpeed = 5;
+      // Stop the dolly at a comfortable reading distance — at fov=40° this
+      // gives a visible vertical extent of ~2.2 font-heights, so a sentence
+      // panned to the target reads clearly without the camera squeezing into
+      // the spiral's empty geometric centre.
+      controls.minDistance = fontSize * 3;
+      controls.update();
+
+      // Timeline slider: scrubbing focuses the camera on a sentence's world
+      // position while preserving the camera-to-target offset (zoom level and
+      // viewing angle stay put). Sentence index 0 sits at the bottom of the
+      // corkscrew, index N-1 at the top.
+      // Find the sentence whose Z is closest to the target — Z is monotonic
+      // along the corpus (z_step per sentence) so this gives the slider an
+      // intuitive "position along the corpus" meaning. Matching by full 3D
+      // distance would jump to nearby spiral arms with similar XY but very
+      // different sentence indices.
+      function indexClosestToTarget() {
+        let best = 0, bestD = Infinity;
+        for (let i = 0; i < N; i++) {
+          const p = sentencePositions[i];
+          if (!p) continue;
+          const d = Math.abs(p.z - controls.target.z);
+          if (d < bestD) { bestD = d; best = i; }
+        }
+        return best;
+      }
+      function syncSlider() {
+        const idx = indexClosestToTarget();
+        if (parseInt(seekEl.value, 10) !== idx) seekEl.value = idx;
+        seekLabelEl.textContent = `${idx + 1} / ${N}`;
+      }
+      function focusSentence(idx) {
+        const pos = sentencePositions[idx];
+        if (!pos) return;
+        const delta = pos.clone().sub(controls.target);
+        controls.target.copy(pos);
+        camera.position.add(delta);
+        controls.update();
+        seekLabelEl.textContent = `${idx + 1} / ${N}`;
+      }
+      seekEl.min = 0;
+      seekEl.max = N - 1;
+      seekEl.value = indexClosestToTarget();
+      seekLabelEl.textContent = `${parseInt(seekEl.value, 10) + 1} / ${N}`;
+      seekEl.addEventListener('input', () => focusSentence(parseInt(seekEl.value, 10)));
+      navigatorEl.style.display = '';
+
+      // Keyboard navigation (lets the user travel the whole spiral without
+      // ever having to right-drag-pan):
+      //   ↑/↓ (or PageUp/PageDown): step along world Z by 5% of the
+      //     corkscrew height per press — fixed regardless of zoom level.
+      //   ←/→: step in world XY along the camera's screen-right direction
+      //     (so "right" on the keyboard always feels like "right" on screen)
+      //     by 5% of the spiral's XY extent.
+      //   ⇧ + arrow: 25% step (5× faster).
+      //   Home/End: instant jump to top/bottom of the spiral along Z.
+      // controls.target and camera.position both shift by the same amount so
+      // zoom level and view angle are preserved across every move.
+      const STEP_Z_NORMAL  = extentZ * 0.05;
+      const STEP_Z_FAST    = extentZ * 0.25;
+      const xyExtent       = Math.max(extentX, extentY);
+      const STEP_XY_NORMAL = xyExtent * 0.05;
+      const STEP_XY_FAST   = xyExtent * 0.25;
+      const _camRight      = new THREE.Vector3();
+      window.addEventListener('keydown', (ev) => {
+        const dz_step = ev.shiftKey ? STEP_Z_FAST  : STEP_Z_NORMAL;
+        const dx_step = ev.shiftKey ? STEP_XY_FAST : STEP_XY_NORMAL;
+        const delta = new THREE.Vector3();
+        switch (ev.key) {
+          case 'ArrowDown':
+          case 'PageDown':
+            delta.set(0, 0, -dz_step);
+            break;
+          case 'ArrowUp':
+          case 'PageUp':
+            delta.set(0, 0, +dz_step);
+            break;
+          case 'ArrowLeft':
+          case 'ArrowRight': {
+            // Camera's local +X column = screen-right in world. Project to XY
+            // (zero the Z component) so panning stays in the spiral's
+            // horizontal plane regardless of camera tilt.
+            _camRight.setFromMatrixColumn(camera.matrix, 0);
+            _camRight.z = 0;
+            if (_camRight.lengthSq() < 1e-9) return;   // looking straight down
+            _camRight.normalize();
+            const sign = ev.key === 'ArrowRight' ? +1 : -1;
+            delta.copy(_camRight).multiplyScalar(sign * dx_step);
+            break;
+          }
+          case 'Home':
+            delta.set(0, 0, zMax - controls.target.z);
+            break;
+          case 'End':
+            delta.set(0, 0, zMin - controls.target.z);
+            break;
+          default:
+            return;
+        }
+        controls.target.add(delta);
+        camera.position.add(delta);
+        controls.update();
+        syncSlider();
+        ev.preventDefault();
+      });
+
+      function resize() {
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      statusEl.textContent =
+        `${N.toLocaleString()} sentences · ${fontUrls.length} fonts · z_step=${zStep} · timeline + arrows`;
+    } catch (e) {
+      fail(`Failed to load: ${e.message}\n\nServe the project root with a static HTTP server (e.g. \`python -m http.server\` from the project root) and open http://localhost:8000/viz/handwriting_3d.html`);
+    }
+  </script>
+</body>
+</html>

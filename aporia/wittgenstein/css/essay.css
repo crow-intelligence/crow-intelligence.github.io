@@ -1,0 +1,319 @@
+/* Aporia house style, re-implemented (not copied) from the tokens used on
+   crowintelligence.org/aporia. Self-contained; no build step. */
+
+:root {
+  --bg: #1a1a1f;
+  --surface: #24242b;
+  --border: #3a3a44;
+  --text: #e8e6e1;
+  --text-dim: #9a988f;
+  --accent: #e8c97e;
+  --accent-hover: #d4b56a;
+
+  --font-serif: "IM Fell English", Georgia, serif;
+  --font-mono: "Courier Prime", ui-monospace, "Courier New", monospace;
+
+  --maxw: 900px;
+  --pad: 80px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover { color: var(--accent-hover); }
+
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: var(--pad) 24px;
+  text-align: center;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  margin: 0 0 18px;
+}
+
+.i { font-style: italic; }
+
+.section-rule {
+  border: none;
+  border-top: 1px solid var(--border);
+  opacity: 0.35;
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* Fixed full-page backdrop: the flat 2D spiral, scrolled over by the
+   content. A heavy dark veil keeps body text legible; z-index:-1 sits it
+   behind all normal-flow content (the hero's own montage covers it while
+   the hero is on screen). */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(20, 20, 25, 0.86), rgba(20, 20, 25, 0.86)),
+    #000 url("../imgs/handwriting_2d.png") center / cover no-repeat;
+}
+
+/* ───────────────────────────── HERO ──────────────────────────────── */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background: #000 url("../imgs/haus_montage.png") center / cover no-repeat;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  /* Symmetric veil — centred text sits in a balanced field (the old
+     left-dark / right-light gradient made it read left-shifted). */
+  background:
+    radial-gradient(ellipse at center,
+                     rgba(18, 18, 22, 0.58) 0%,
+                     rgba(14, 14, 17, 0.86) 100%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 32px;
+  width: 100%;
+  text-align: center;
+}
+
+.hero__title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7vw, 5.4rem);
+  line-height: 1.08;
+  margin: 0.2em auto 0.5em;
+  max-width: 16ch;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.hero__lede {
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  color: var(--text);
+  max-width: 42ch;
+  margin: 0 auto 2em;
+}
+
+.hero__scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--text-dim);
+}
+.hero__scroll-cue .chev {
+  width: 9px;
+  height: 9px;
+  border-right: 1px solid var(--text-dim);
+  border-bottom: 1px solid var(--text-dim);
+  transform: rotate(45deg);
+  animation: cue 1.8s ease-in-out infinite;
+}
+@keyframes cue {
+  0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.4; }
+  50%      { transform: rotate(45deg) translate(3px, 3px); opacity: 1; }
+}
+
+/* ─────────────────────────── THE TOUR ────────────────────────────── */
+
+.section-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+
+.section-lede {
+  color: var(--text-dim);
+  max-width: 54ch;
+  margin: 0 auto 2.4em;
+}
+
+/* Methodology paragraphs in the colophon — readable, slightly wider. */
+.method {
+  color: var(--text-dim);
+  max-width: 64ch;
+  margin: 0 auto 1.3em;
+}
+.method b { color: var(--text); font-weight: 400; }
+.method i { color: var(--accent); font-style: normal; }
+
+.media {
+  margin: 0;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000;
+}
+.media iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Near-square plate for the punctuation-spiral figure. */
+.figure-plate {
+  margin: 0 auto;
+  max-width: 720px;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg);
+}
+.figure-plate img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Landscape plate for the colophon villa photo. */
+.figure-wide {
+  margin: 0 auto 2.4em;
+  max-width: var(--maxw);
+  aspect-ratio: 3 / 2;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg);
+}
+.figure-wide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Sources list — mono, dim, centred. */
+.sources {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-dim);
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 60ch;
+}
+.sources li {
+  margin: 0 0 0.5em;
+}
+.sources b { color: var(--text); font-weight: 700; }
+
+.cta-row { margin: 2.4em 0 0; }
+
+.cta-button {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 14px 26px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.cta-button:hover,
+.cta-button:focus-visible {
+  background: var(--accent);
+  color: var(--bg);
+  outline: none;
+}
+
+/* ─────────────────────── scroll reveal ───────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible,
+.reveal.is-active {
+  opacity: 1;
+  transform: none;
+}
+
+/* ────────────────────────── footer ───────────────────────────────── */
+
+.site-footer {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 48px 24px 56px;
+}
+.site-footer .sep { margin: 0 10px; opacity: 0.5; }
+
+/* ───────────────────────── responsive ────────────────────────────── */
+
+@media (max-width: 640px) {
+  :root { --pad: 44px; }
+  body { font-size: 16px; }
+  .hero__content { padding: 0 22px; }
+  .hero__title { font-size: clamp(2.1rem, 9vw, 3rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero__scroll-cue .chev { animation: none; }
+}

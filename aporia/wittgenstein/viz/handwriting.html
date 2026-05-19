@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tractatus — handwriting (flat 2D spiral)</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #0a0a0d;
+      color: #ddd;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow: hidden;
+    }
+    #canvas { display: block; width: 100%; height: 100%; }
+    #info {
+      position: fixed; top: 12px; left: 12px;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.55);
+      font-size: 12px;
+      line-height: 1.6;
+      pointer-events: auto;
+      border-radius: 4px;
+      max-width: 32ch;
+    }
+    #info strong { color: #fff; }
+    #info a { color: #9ad; }
+    #status {
+      position: fixed; bottom: 12px; left: 12px;
+      font-size: 11px;
+      opacity: 0.6;
+    }
+    #error {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 16px 24px;
+      background: rgba(120, 20, 20, 0.9);
+      color: #fff;
+      font-size: 13px;
+      max-width: 60ch;
+      display: none;
+      border-radius: 4px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div id="info">
+    <strong>Tractatus · handwriting</strong><br>
+    drag · pan &nbsp;|&nbsp; scroll · zoom &nbsp;(top-down only)
+  </div>
+  <div id="status">loading…</div>
+  <div id="error"></div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/",
+        "troika-three-text": "https://esm.sh/troika-three-text@0.52.4?external=three&deps=three@0.161.0"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { Text, preloadFont } from 'troika-three-text';
+
+    const statusEl = document.getElementById('status');
+    const errorEl = document.getElementById('error');
+
+    function fail(msg) {
+      errorEl.textContent = msg;
+      errorEl.style.display = 'block';
+      statusEl.style.display = 'none';
+      console.error(msg);
+    }
+
+    try {
+      statusEl.textContent = 'fetching handwriting_data.json…';
+      const response = await fetch('../data/blender/handwriting_data.json');
+      if (!response.ok) {
+        throw new Error(`fetch failed: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+
+      const fontUrls = data.fonts.map(f => `fonts/${f}`);
+      const fontSize = data.font_size;
+      const gap = data.gap;
+      const palette = data.palette.map(
+        rgb => new THREE.Color(rgb[0], rgb[1], rgb[2]).getHex()
+      );
+      const sentences = data.sentences;
+      const N = sentences.length;
+
+      statusEl.textContent = `preloading ${fontUrls.length} fonts…`;
+      await Promise.all(fontUrls.map(url => new Promise((resolve, reject) => {
+        preloadFont({ font: url, characters: 'asdf' }, () => resolve(), reject);
+      })));
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0a0a0d);
+
+      // Phase 1: create every Text at origin and kick off sync(). troika's
+      // worker measures glyph layout in parallel. Mirrors Pass 1 of
+      // build_handwriting.py — we measure first, then place, so we don't pay
+      // 2025 separate update calls for transforms that aren't laid out yet.
+      statusEl.textContent = `creating ${N.toLocaleString()} text objects…`;
+      const texts = new Array(N);
+      const syncPromises = new Array(N);
+      for (let i = 0; i < N; i++) {
+        const s = sentences[i];
+        const t = new Text();
+        t.text = s.text;
+        t.font = fontUrls[s.font_id];
+        // Per-sentence font-size scales with PageRank centrality (computed
+        // by src/build_graph_features.py). Cluster colour now comes from
+        // Louvain communities on the similarity graph rather than the old
+        // k-means partition.
+        const sentenceFontSize = fontSize * (s.font_size_mult ?? 1.0);
+        t.fontSize = sentenceFontSize;
+        t.color = palette[s.louvain ?? s.cluster];
+        // Match the Blender script: align_x="LEFT", align_y="BOTTOM_BASELINE".
+        t.anchorX = 'left';
+        t.anchorY = 'bottom-baseline';
+        // Slim outline in the same colour as the fill — gives a faint halo
+        // that aggregates at sub-pixel zoom (so the spiral is still
+        // visible at default framing) without smearing letters into
+        // unreadable blobs at deep zoom. The previous outlineBlur=0.25
+        // was tuned for default visibility but turned glyphs blurry once
+        // zoomed in to read.
+        t.outlineWidth = sentenceFontSize * 0.12;
+        t.outlineBlur = sentenceFontSize * 0.05;
+        t.outlineColor = palette[s.louvain ?? s.cluster];
+        scene.add(t);
+        texts[i] = t;
+        syncPromises[i] = new Promise(resolve => t.sync(resolve));
+        if ((i + 1) % 250 === 0) {
+          statusEl.textContent =
+            `creating text objects… ${(i + 1).toLocaleString()} / ${N.toLocaleString()}`;
+          await new Promise(r => setTimeout(r, 0));
+        }
+      }
+
+      // Wait on syncs in batches so the status line keeps updating while
+      // troika's worker chews through them.
+      statusEl.textContent = `measuring ${N.toLocaleString()} sentences…`;
+      const widths = new Array(N);
+      const BATCH = 250;
+      for (let start = 0; start < N; start += BATCH) {
+        const end = Math.min(start + BATCH, N);
+        await Promise.all(syncPromises.slice(start, end));
+        for (let i = start; i < end; i++) {
+          const bb = texts[i].textRenderInfo.blockBounds;  // [xMin, yMin, xMax, yMax]
+          widths[i] = bb[2] - bb[0];
+        }
+        statusEl.textContent =
+          `measured ${end.toLocaleString()} / ${N.toLocaleString()}…`;
+        await new Promise(r => setTimeout(r, 0));
+      }
+
+      // Phase 2: turtle walk. Same algorithm as build_handwriting.py:236 —
+      // forward by `width + gap`, then yaw 90° right around Z. Flat XY, so
+      // the heading basis collapses to a single Z rotation.
+      statusEl.textContent = `placing ${N.toLocaleString()} sentences…`;
+      let cx = 0.0, cy = 0.0;
+      let hx = 1.0, hy = 0.0;
+      let xMin = 0.0, xMax = 0.0, yMin = 0.0, yMax = 0.0;
+      for (let i = 0; i < N; i++) {
+        texts[i].position.set(cx, cy, 0);
+        texts[i].rotation.set(0, 0, Math.atan2(hy, hx));
+        const step = widths[i] + gap;
+        const nx = cx + hx * step;
+        const ny = cy + hy * step;
+        if (cx < xMin) xMin = cx; if (cx > xMax) xMax = cx;
+        if (cy < yMin) yMin = cy; if (cy > yMax) yMax = cy;
+        if (nx < xMin) xMin = nx; if (nx > xMax) xMax = nx;
+        if (ny < yMin) yMin = ny; if (ny > yMax) yMax = ny;
+        cx = nx; cy = ny;
+        // yaw -90° around Z: (hx, hy) -> (hy, -hx)
+        const newHx = hy;
+        const newHy = -hx;
+        hx = newHx; hy = newHy;
+      }
+
+      const centreX = (xMin + xMax) / 2;
+      const centreY = (yMin + yMax) / 2;
+      const extentX = Math.max(xMax - xMin, 1e-6);
+      const extentY = Math.max(yMax - yMin, 1e-6);
+      const maxExtent = Math.max(extentX, extentY);
+
+      const canvas = document.getElementById('canvas');
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      // Top-down ortho camera, mirroring _frame_camera_top_down in
+      // build_handwriting.py. Looking down -Z; world Y stays "up" on screen.
+      const farPlane = maxExtent * 10;
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.01, farPlane);
+      camera.position.set(centreX, centreY, maxExtent * 2);
+      camera.up.set(0, 1, 0);
+      camera.lookAt(centreX, centreY, 0);
+
+      const controls = new OrbitControls(camera, canvas);
+      controls.target.set(centreX, centreY, 0);
+      // Damping smooths zoom across a few frames so high-DPI mice / trackpads
+      // (which fire several wheel events per scroll-click) feel like a glide
+      // rather than a snap to deep zoom.
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.12;
+      // 2D layout — rotating the camera mirrors/flips the handwriting, which
+      // reads as broken text. Lock to top-down: any drag pans, scroll zooms.
+      controls.enableRotate = false;
+      // zoomSpeed=30 → ~4.6× closer per tick. About 3 clicks reaches
+      // comfortable reading without ever overshooting on a single click.
+      controls.zoomSpeed = 30;
+      // Aim zoom at the cursor — hover over a sentence and scroll to enlarge
+      // that specific sentence rather than zooming on the spiral centre.
+      controls.zoomToCursor = true;
+      controls.mouseButtons = {
+        LEFT: THREE.MOUSE.PAN,
+        MIDDLE: THREE.MOUSE.DOLLY,
+        RIGHT: THREE.MOUSE.PAN,
+      };
+      controls.touches = {
+        ONE: THREE.TOUCH.PAN,
+        TWO: THREE.TOUCH.DOLLY_PAN,
+      };
+      controls.update();
+
+      // Frame frustum to fit the spiral bbox with 5% padding, matching
+      // Blender's `cam_data.ortho_scale = max_extent * 1.05`. Picks the
+      // binding axis based on viewport aspect.
+      function applyCameraFrustum() {
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        renderer.setSize(w, h, false);
+        const aspect = w / h;
+        // 2% padding around the bbox so the spiral fills the viewport on
+        // load.
+        const halfX = (extentX / 2) * 1.02;
+        const halfY = (extentY / 2) * 1.02;
+        let halfW, halfH;
+        if (halfX / halfY > aspect) {
+          halfW = halfX;
+          halfH = halfX / aspect;
+        } else {
+          halfH = halfY;
+          halfW = halfY * aspect;
+        }
+        camera.left = -halfW;
+        camera.right = halfW;
+        camera.top = halfH;
+        camera.bottom = -halfH;
+        camera.updateProjectionMatrix();
+      }
+      window.addEventListener('resize', applyCameraFrustum);
+      applyCameraFrustum();
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      statusEl.textContent =
+        `${N.toLocaleString()} sentences · ${fontUrls.length} fonts · cluster→colour · flat XY spiral`;
+    } catch (e) {
+      fail(`Failed to load: ${e.message}\n\nServe the project root with a static HTTP server (e.g. \`python -m http.server\` from the project root) and open http://localhost:8000/viz/handwriting.html`);
+    }
+  </script>
+</body>
+</html>
