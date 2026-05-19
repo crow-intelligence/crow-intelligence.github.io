@@ -70,6 +70,23 @@ a:hover { color: var(--accent-hover); }
 }
 .nav-links a:hover { color: var(--accent); }
 
+/* Hamburger toggle — hidden on desktop, shown under 768px (mirrors main site) */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 5px;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-dim);
+}
+
 /* Hero */
 .hero {
   padding: 100px 0 60px;
@@ -208,6 +225,22 @@ footer {
   .essay-card { flex-direction: column; }
   .essay-card-image { width: 100%; min-height: 180px; }
   .essay-card-body { padding: 24px; }
+
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    padding: 16px 24px;
+    gap: 14px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { margin-left: 0; }
 }
 </style>
 </head>
@@ -218,7 +251,10 @@ footer {
     <a href="/" class="nav-brand" aria-label="Crow Intelligence">
       <img src="/logos/brand/crow-nav.svg" alt="Crow Intelligence">
     </a>
-    <div class="nav-links">
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
       <a href="/projects.html">Projects</a>
       <a href="/packages.html">Packages</a>
       <a href="/services/ai-due-diligence.html">Due Diligence</a>
@@ -292,6 +328,17 @@ footer {
     <p><a href="/">Crow Intelligence</a> &middot; <a href="/about.html">About</a> &middot; <a href="mailto:hello@crowintelligence.org">hello@crowintelligence.org</a></p>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var toggle = document.querySelector('.nav-toggle');
+    var links = document.querySelector('.nav-links');
+    toggle.addEventListener('click', function () {
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+</script>
 
 </body>
 </html>
