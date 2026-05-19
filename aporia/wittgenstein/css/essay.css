@@ -56,6 +56,37 @@ a:hover { color: var(--accent-hover); }
   margin: 0 0 18px;
 }
 
+/* ── Brand bar: fixed at the top, overlays the full-bleed hero and stays
+   stuck while the page scrolls. Links back to crowintelligence.org. ── */
+.brand-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: rgba(26, 26, 31, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 200;
+}
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+.brand-link:hover { opacity: 1; }
+.brand-logo {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
 .i { font-style: italic; }
 
 .section-rule {
