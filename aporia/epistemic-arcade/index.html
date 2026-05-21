@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Epistemic Arcade</title>
+    <meta name="description" content="A scrollytelling experiment about where the mind ends." />
+    <meta property="og:title" content="The Epistemic Arcade" />
+    <meta property="og:description" content="A scrollytelling experiment about where the mind ends." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://crowintelligence.org/aporia/epistemic-arcade/" />
+    <meta property="og:image" content="https://crowintelligence.org/aporia/epistemic-arcade/imgs/social-preview.png" />
+    <meta property="og:image:secure_url" content="https://crowintelligence.org/aporia/epistemic-arcade/imgs/social-preview.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="The Epistemic Arcade — two retro Tetris boards side by side under a neon-green title." />
+    <meta property="og:site_name" content="Crow Intelligence" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Epistemic Arcade" />
+    <meta name="twitter:description" content="A scrollytelling experiment about where the mind ends." />
+    <meta name="twitter:image" content="https://crowintelligence.org/aporia/epistemic-arcade/imgs/social-preview.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <header class="brand-bar">
+      <a class="brand-link" href="/" aria-label="Crow Intelligence">
+        <img src="imgs/crow-nav.svg" alt="Crow Intelligence" class="brand-logo" />
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="brand-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="brand-nav" id="brand-nav" aria-label="Site">
+        <a href="/projects.html">Projects</a>
+        <a href="/packages.html">Packages</a>
+        <a href="/services/ai-due-diligence.html">Due Diligence</a>
+        <a href="/aporia/">Aporia</a>
+        <a href="/about.html">About</a>
+        <a href="https://blog.crowintelligence.org/">Blog</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <div id="loading" class="loading">Loading telemetry…</div>
+
+    <div class="layout" hidden>
+      <main class="prose">
+        <header class="masthead">
+          <h1>The Epistemic Arcade</h1>
+          <p class="byline">A scrollytelling experiment about where the mind ends.</p>
+        </header>
+
+        <section class="step" data-step="1">
+          <h2>Where does the mind end and the world begin?</h2>
+          <p>
+            For most of modern history, we assumed a strict boundary: cognition happens entirely
+            within the skull. The world is just the stage where the brain's decisions are acted
+            out.
+          </p>
+          <p>
+            But in 1998, philosophers Andy Clark and David Chalmers proposed a radical alternative.
+            They argued that if a piece of the outside world functions in the exact same way as a
+            piece of your brain, there is no meaningful reason to draw a line at the skull. The
+            mind can leak out into the environment.
+          </p>
+        </section>
+
+        <section class="step" data-step="2">
+          <h2>Otto and the Arcade</h2>
+          <p>
+            Clark and Chalmers famously used the thought experiment of Otto, a man with memory loss
+            who relies completely on a notebook. Because the notebook functions identically to
+            biological memory, they argued, the notebook is part of Otto's mind.
+          </p>
+          <p>
+            But four years earlier, cognitive scientists David Kirsh and Paul Maglio proved this
+            wasn't just a thought experiment. They watched humans play Tetris.
+          </p>
+          <p>
+            They noticed players frantically rotating blocks on the way down. These rapid
+            keystrokes weren't mistakes. The players were offloading the heavy cognitive burden of
+            mental rotation onto the physical screen. Pushing a button was computationally cheaper
+            than calculating matrix transformations in the brain. The physical action was,
+            literally, a thought.
+          </p>
+        </section>
+
+        <section class="step" data-step="3">
+          <h2>Training the Philosophers</h2>
+          <p>
+            To test the boundaries of the mind, we built an arcade. We trained two Reinforcement
+            Learning AI agents to play Tetris. Both have the same neural architecture. Both see the
+            exact same board. The only difference is their philosophy, encoded into their reward
+            functions.
+          </p>
+          <p>
+            <strong>Agent Alpha — The Internalist.</strong> Punished with a strict point penalty
+            for every single keystroke. It must compute the spatial reality of the board entirely
+            within its own hidden layers before making a move.
+          </p>
+          <p>
+            <strong>Agent Beta — The Extended Mind.</strong> Operates without keystroke penalties.
+            It is free to manipulate the physical environment to see what happens.
+          </p>
+          <p class="caption">
+            Below: both agents at <span class="phosphor">epoch&nbsp;10&nbsp;000</span>. Still
+            essentially random — the philosophies haven't yet imprinted themselves on play.
+          </p>
+        </section>
+
+        <section class="step" data-step="4">
+          <h2>The Divergence</h2>
+          <p>By checkpoint 250&nbsp;000, the two philosophies have violently diverged.</p>
+          <p>
+            Watch Agent Alpha on the left. It processes everything internally. It waits, computes
+            the optimal placement, and acts with robotic, single-keystroke efficiency.
+          </p>
+          <p>
+            Now watch Agent Beta on the right. It is fidgeting. It spins the T-block redundantly,
+            just to see how the geometry aligns with the stack below. These are what Kirsh and
+            Maglio called <em>epistemic actions</em> — changing the world to make thinking easier.
+            Beta is thinking with its hands.
+          </p>
+          <p class="caption">
+            The cyan ghost-trails mark frames where the JSON's
+            <code>is_epistemic_action</code> flag fires.
+          </p>
+        </section>
+
+        <section class="step" data-step="5">
+          <h2>The Mastery</h2>
+          <p>
+            By the millionth timestep, both agents play with practised skill — but the philosophies
+            they've internalised have hardened into style.
+          </p>
+          <p>
+            Agent Alpha continues to act with surgical economy. Each piece is placed in its final
+            orientation with the minimum keystrokes possible. The penalty has trained a clean,
+            deliberate mover.
+          </p>
+          <p>
+            Agent Beta still fidgets. The redundant rotations and lateral oscillations haven't
+            faded with training; they've stabilised as part of how it cognises the board. The cyan
+            ghost-trails are denser than ever.
+          </p>
+          <p class="caption">
+            Watch the screens. The internalist computes. The extended mind thinks out loud.
+          </p>
+        </section>
+
+        <section class="step" data-step="6">
+          <h2>The Data: a Parity Principle</h2>
+          <p>The telemetry proves the Parity Principle.</p>
+          <p>
+            Both agents learned to survive the game, but they built fundamentally different
+            cognitive systems. Agent Beta didn't fail to learn mental rotation; it learned that the
+            screen was a better hard drive than its own neural weights.
+          </p>
+          <p>
+            By epoch 1&nbsp;000&nbsp;000, over 20% of Beta's physical actions were purely cognitive
+            offloading. Its mind had extended into the pixels.
+          </p>
+          <p class="caption">
+            Source: <code>data/telemetry_{alpha,beta}.json</code> — 100 evaluation games per
+            checkpoint, top&nbsp;5 sample games by cumulative reward exported per checkpoint.
+          </p>
+        </section>
+
+        <footer class="colophon">
+          <p>
+            Built on PPO via stable-baselines3 over a custom 10&times;20 Gymnasium Tetris
+            environment. Two agents, identical architecture, contrasting reward functions. Code +
+            data: <code>extended-mind-tetris</code>.
+          </p>
+        </footer>
+      </main>
+
+      <aside class="visual" aria-label="Tetris and chart visuals">
+        <div class="visual-frame">
+          <div class="canvas-stack">
+            <div class="agent-pair">
+              <figure class="agent-cell" data-agent="alpha">
+                <canvas id="canvas-alpha" width="200" height="400"></canvas>
+                <figcaption>α &mdash; Internalist</figcaption>
+              </figure>
+              <figure class="agent-cell" data-agent="beta">
+                <canvas id="canvas-beta" width="200" height="400"></canvas>
+                <figcaption>β &mdash; Extended Mind</figcaption>
+              </figure>
+            </div>
+            <div class="chart-wrap">
+              <canvas id="chart" width="600" height="400"></canvas>
+            </div>
+            <div class="insert-coin">[INSERT COIN]</div>
+            <div class="loading-checkpoint">[ LOADING CHECKPOINT&hellip; ]</div>
+            <div class="epoch-badge"><span id="epoch-label">epoch&nbsp;&mdash;</span></div>
+          </div>
+          <div class="scanlines" aria-hidden="true"></div>
+        </div>
+      </aside>
+    </div>
+
+    <script>
+      (function () {
+        var t = document.querySelector('.nav-toggle');
+        var n = document.querySelector('.brand-nav');
+        if (!t || !n) return;
+        t.addEventListener('click', function () {
+          var open = n.classList.toggle('open');
+          t.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -79,7 +79,6 @@ DEFAULT_PAGINATION = 10
 GOOGLE_ANALYTICS = 'G-SH38KZF2M9'
 
 # Custom variables
-SUBSTACK_URL = 'https://mindtheminds.substack.com/'
 EMAIL = 'hello@crowintelligence.org'
 LOGO_PATH = 'logos/brand/crow-intelligence.svg'
 

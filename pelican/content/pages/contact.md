@@ -22,12 +22,6 @@ Well, let's change that.
 </div>
 <div class="card">
 <div class="card-accent"></div>
-<h3>Substack</h3>
-<p>Long-form writing on AI, cognition, and language.</p>
-<p><a href="https://mindtheminds.substack.com/" target="_blank" class="btn btn-secondary">Mind the Minds</a></p>
-</div>
-<div class="card">
-<div class="card-accent"></div>
 <h3>LinkedIn</h3>
 <p>Connect with us professionally.</p>
 <div class="linkedin-links">
