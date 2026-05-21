@@ -103,18 +103,27 @@ code {
 .layout {
   display: grid;
   grid-template-columns: var(--col-prose) var(--col-visual);
-  gap: var(--gutter);
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "masthead visual"
+    "prose    visual";
+  column-gap: var(--gutter);
   max-width: calc(var(--col-prose) + var(--col-visual) + var(--gutter) + 4rem);
   margin: 0 auto;
   padding: 0 2rem;
 }
 
+.masthead {
+  grid-area: masthead;
+}
+
 .prose {
-  padding-top: 4rem;
+  grid-area: prose;
   padding-bottom: 6rem;
 }
 
 .visual {
+  grid-area: visual;
   position: sticky;
   top: 48px; /* clear the fixed brand bar */
   height: calc(100vh - 48px);
@@ -128,6 +137,7 @@ code {
    --------------------------------------------------------------------------- */
 
 .masthead {
+  padding-top: 4rem;
   padding-bottom: 4rem;
   border-bottom: 1px solid #333;
   margin-bottom: 4rem;
@@ -209,6 +219,7 @@ code {
   width: 100%;
   max-width: 600px;
   aspect-ratio: 5 / 4;
+  max-height: 100%; /* never taller than the (sticky) .visual container */
   background: var(--canvas-bg);
   border: 2px solid #222;
   border-radius: 14px;
@@ -252,6 +263,8 @@ code {
 
 .agent-cell {
   margin: 0;
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -259,6 +272,7 @@ code {
 }
 
 .agent-cell canvas {
+  /* width/height are set in px by setupCanvas (contain-fit, responsive). */
   background: var(--canvas-bg);
   image-rendering: pixelated;
   border: 1px solid #1d1d1d;
@@ -404,25 +418,45 @@ code {
    --------------------------------------------------------------------------- */
 
 @media (max-width: 960px) {
-  :root {
-    --col-prose: 1fr;
-    --col-visual: 1fr;
-    --gutter: 0;
-  }
-
   .layout {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "masthead"
+      "visual"
+      "prose";
+    column-gap: 0;
+    max-width: none;
+    padding: 0 1.25rem;
   }
 
+  /* Sticky (not relative): the visual pins below the brand bar while the
+     text steps scroll past it — the scrollytelling actually works. */
   .visual {
-    position: relative;
-    top: auto;
-    height: 70vh;
-    margin-bottom: 3rem;
+    position: sticky;
+    top: 56px; /* 48px brand bar + breathing room */
+    height: 60vh;
+    height: 60dvh; /* dvh tracks the mobile dynamic toolbar */
+    margin: 0 0 2rem;
   }
 
   .masthead h1 {
     font-size: 2.8rem;
+  }
+
+  /* Taller frame so the two side-by-side boards get more room; max-height on
+     .visual-frame still keeps it inside the sticky .visual on short screens. */
+  .visual-frame {
+    aspect-ratio: 4 / 5;
+  }
+
+  .step {
+    min-height: 70vh;
+  }
+
+  .agent-pair {
+    gap: 1rem;
+    padding: 0.75rem 0.75rem 1.5rem;
   }
 }
 

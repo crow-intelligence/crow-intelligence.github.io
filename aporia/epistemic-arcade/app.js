@@ -101,14 +101,41 @@ function decodeBoard(boardString) {
  * --------------------------------------------------------------------------- */
 
 function setupCanvas(canvas) {
-  // High-DPI scaling for crisper rendering on retina screens.
+  // The board is drawn in fixed board-pixel units (BOARD_COLS*CELL_PX wide);
+  // the canvas may be displayed at any size (responsive on mobile). Contain-fit
+  // the 1:2 board into the space one of the two side-by-side cells gets inside
+  // the .agent-pair flex row — constrained by BOTH width and height so it never
+  // overflows the CRT frame. Then scale the context so the fixed board-pixel
+  // drawing code fills the (possibly downscaled) canvas exactly.
   const dpr = window.devicePixelRatio || 1;
-  canvas.width = BOARD_COLS * CELL_PX * dpr;
-  canvas.height = BOARD_ROWS * CELL_PX * dpr;
-  canvas.style.width = `${BOARD_COLS * CELL_PX}px`;
-  canvas.style.height = `${BOARD_ROWS * CELL_PX}px`;
+  const boardW = BOARD_COLS * CELL_PX;
+  const boardH = BOARD_ROWS * CELL_PX;
+
+  let availW = boardW;
+  let availH = boardH;
+  const pair = canvas.closest(".agent-pair");
+  if (pair && pair.clientWidth > 0 && pair.clientHeight > 0) {
+    const cs = getComputedStyle(pair);
+    const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    const gap = parseFloat(cs.columnGap) || 0;
+    availW = (pair.clientWidth - padX - gap) / 2;
+    // Reserve room under the canvas for the agent's figcaption label.
+    const caption = canvas.parentElement.querySelector("figcaption");
+    const capH = caption ? caption.offsetHeight + 10 : 0;
+    availH = pair.clientHeight - padY - capH;
+  }
+
+  const scale = Math.min(availW / boardW, availH / boardH);
+  const cssW = Math.max(1, Math.round(boardW * scale));
+  const cssH = Math.max(1, Math.round(boardH * scale));
+  canvas.style.width = `${cssW}px`;
+  canvas.style.height = `${cssH}px`;
+  canvas.width = Math.round(cssW * dpr);
+  canvas.height = Math.round(cssH * dpr);
   const ctx = canvas.getContext("2d");
-  ctx.scale(dpr, dpr);
+  ctx.setTransform(1, 0, 0, 1, 0, 0); // clear any prior scale before re-fitting
+  ctx.scale(canvas.width / boardW, canvas.height / boardH);
   return ctx;
 }
 
@@ -248,10 +275,9 @@ function tickAgent(ctx, agent, advance, withGhosting) {
   // frames. A simple FIFO with cap GHOST_QUEUE_LEN means we just pop the oldest
   // when we push a new one below.
   const ghosts = state.ghostQueue[agent];
-  // Render previous-tick ghosts first (so the live frame draws over them).
-  if (withGhosting) drawGhosts(ctx, ghosts);
 
   clearBoard(ctx);
+  // Render ghosts under the live frame, then draw the board over them.
   if (withGhosting) drawGhosts(ctx, ghosts);
   drawDecodedBoard(ctx, decoded, pieceColor);
 
@@ -387,6 +413,18 @@ async function crtReboot(epoch, token) {
   const epochLabel = document.getElementById("epoch-label");
   const loadingCheckpoint = document.querySelector(".loading-checkpoint");
 
+  // Already showing this epoch (re-entering the same playback step) — just
+  // normalise the chrome and skip the fade so the boards never blink.
+  if (state.currentEpoch === epoch) {
+    insertCoin.classList.remove("visible");
+    chartWrap.classList.remove("visible");
+    agentPair.classList.remove("hidden", "fading");
+    loadingCheckpoint.classList.remove("visible");
+    canvasAlpha.style.opacity = "1";
+    canvasBeta.style.opacity = "1";
+    return;
+  }
+
   // Reset chrome so the agent pair is the live surface again.
   insertCoin.classList.remove("visible");
   chartWrap.classList.remove("visible");
@@ -420,22 +458,45 @@ async function crtReboot(epoch, token) {
   agentPair.classList.remove("fading");
 }
 
+const STEP_SWITCH_MARGIN = 0.1;
+const stepRatios = new Map();
+
 function initObserver() {
   const sections = document.querySelectorAll(".step");
+  sections.forEach((s) => stepRatios.set(Number(s.dataset.step), 0));
+
   const observer = new IntersectionObserver(
     (entries) => {
-      // Pick the entry that's most in-view.
-      let best = null;
+      // Keep a live intersection ratio for every step, not just the ones in
+      // this callback batch — so the winner is a global decision.
       for (const e of entries) {
-        if (!e.isIntersecting) continue;
-        if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
+        const n = Number(e.target.dataset.step);
+        stepRatios.set(n, e.isIntersecting ? e.intersectionRatio : 0);
       }
-      if (best) {
-        const stepNum = Number(best.target.dataset.step);
-        setStep(stepNum);
+      // The active step is whichever dominates the viewport's centre band.
+      let winner = null;
+      let winnerRatio = 0;
+      for (const [n, r] of stepRatios) {
+        if (r > winnerRatio) {
+          winner = n;
+          winnerRatio = r;
+        }
+      }
+      if (winner == null || winner === state.activeStep) return;
+      // Hysteresis: switch only once the winner clearly leads the current
+      // step, or once the current step has left the band entirely. This stops
+      // the epoch transition flapping when scrolling near a section boundary.
+      const currentRatio = stepRatios.get(state.activeStep) || 0;
+      if (winnerRatio - currentRatio > STEP_SWITCH_MARGIN || currentRatio === 0) {
+        setStep(winner);
       }
     },
-    { threshold: [0.25, 0.5, 0.75] },
+    {
+      // Observe only the middle 30% of the viewport: the active step is the
+      // one occupying the centre, which is unambiguous and stable.
+      rootMargin: "-35% 0px -35% 0px",
+      threshold: Array.from({ length: 21 }, (_, i) => i / 20),
+    },
   );
   sections.forEach((s) => observer.observe(s));
 }
@@ -554,6 +615,17 @@ function reveal() {
   document.querySelector(".layout").hidden = false;
 }
 
+// Re-fit the canvases to their laid-out size on viewport/orientation change.
+// rAF-debounced; reassigns the contexts the tick() loop reads.
+let resizeRaf = 0;
+function handleResize() {
+  cancelAnimationFrame(resizeRaf);
+  resizeRaf = requestAnimationFrame(() => {
+    ctxAlpha = setupCanvas(canvasAlpha);
+    ctxBeta = setupCanvas(canvasBeta);
+  });
+}
+
 async function boot() {
   canvasAlpha = document.getElementById("canvas-alpha");
   canvasBeta = document.getElementById("canvas-beta");
@@ -574,6 +646,10 @@ async function boot() {
   setStep(1);
   state.lastTickMs = performance.now();
   state.tBlockLastChangeMs = performance.now();
+  window.addEventListener("resize", handleResize);
+  window.addEventListener("orientationchange", handleResize);
+  // Re-fit now that .layout is visible and the canvases have a real width.
+  handleResize();
   requestAnimationFrame(tick);
 }
 

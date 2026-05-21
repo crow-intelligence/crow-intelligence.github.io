@@ -53,12 +53,36 @@
     <div id="loading" class="loading">Loading telemetry…</div>
 
     <div class="layout" hidden>
-      <main class="prose">
-        <header class="masthead">
-          <h1>The Epistemic Arcade</h1>
-          <p class="byline">A scrollytelling experiment about where the mind ends.</p>
-        </header>
+      <header class="masthead">
+        <h1>The Epistemic Arcade</h1>
+        <p class="byline">A scrollytelling experiment about where the mind ends.</p>
+      </header>
 
+      <aside class="visual" aria-label="Tetris and chart visuals">
+        <div class="visual-frame">
+          <div class="canvas-stack">
+            <div class="agent-pair">
+              <figure class="agent-cell" data-agent="alpha">
+                <canvas id="canvas-alpha" width="200" height="400"></canvas>
+                <figcaption>α &mdash; Internalist</figcaption>
+              </figure>
+              <figure class="agent-cell" data-agent="beta">
+                <canvas id="canvas-beta" width="200" height="400"></canvas>
+                <figcaption>β &mdash; Extended Mind</figcaption>
+              </figure>
+            </div>
+            <div class="chart-wrap">
+              <canvas id="chart" width="600" height="400"></canvas>
+            </div>
+            <div class="insert-coin">[INSERT COIN]</div>
+            <div class="loading-checkpoint">[ LOADING CHECKPOINT&hellip; ]</div>
+            <div class="epoch-badge"><span id="epoch-label">epoch&nbsp;&mdash;</span></div>
+          </div>
+          <div class="scanlines" aria-hidden="true"></div>
+        </div>
+      </aside>
+
+      <main class="prose">
         <section class="step" data-step="1">
           <h2>Where does the mind end and the world begin?</h2>
           <p>
@@ -183,30 +207,6 @@
           </p>
         </footer>
       </main>
-
-      <aside class="visual" aria-label="Tetris and chart visuals">
-        <div class="visual-frame">
-          <div class="canvas-stack">
-            <div class="agent-pair">
-              <figure class="agent-cell" data-agent="alpha">
-                <canvas id="canvas-alpha" width="200" height="400"></canvas>
-                <figcaption>α &mdash; Internalist</figcaption>
-              </figure>
-              <figure class="agent-cell" data-agent="beta">
-                <canvas id="canvas-beta" width="200" height="400"></canvas>
-                <figcaption>β &mdash; Extended Mind</figcaption>
-              </figure>
-            </div>
-            <div class="chart-wrap">
-              <canvas id="chart" width="600" height="400"></canvas>
-            </div>
-            <div class="insert-coin">[INSERT COIN]</div>
-            <div class="loading-checkpoint">[ LOADING CHECKPOINT&hellip; ]</div>
-            <div class="epoch-badge"><span id="epoch-label">epoch&nbsp;&mdash;</span></div>
-          </div>
-          <div class="scanlines" aria-hidden="true"></div>
-        </div>
-      </aside>
     </div>
 
     <script>
