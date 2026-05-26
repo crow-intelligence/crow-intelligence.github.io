@@ -90,6 +90,9 @@ companies as a self-assessment.
 
 <p><a href="https://github.com/crow-intelligence/ai-dd-checklist">github.com/crow-intelligence/ai-dd-checklist</a> <!-- TODO: provisional URL — update once the repo exists --></p>
 
+*Looking at an internal AI deployment rather than an external investment?
+See [The AI Adoption Audit](/services/ai-adoption-audit.html).*
+
 ## Get in touch
 
 If you have a deal you are evaluating, write to us at

@@ -59,6 +59,7 @@ MENUITEMS = [
     ('Projects', '/projects.html'),
     ('Packages', '/packages.html'),
     ('Due Diligence', '/services/ai-due-diligence.html'),
+    ('AI Adoption', '/services/ai-adoption-audit.html'),
     ('Aporia', '/aporia/'),
     ('About', '/about.html'),
     ('Blog', 'https://blog.crowintelligence.org/'),
