@@ -4,6 +4,7 @@ URL: services/ai-due-diligence.html
 Save_as: services/ai-due-diligence.html
 Status: published
 Summary: Independent technical due diligence on AI and NLP startups for venture funds in Central Europe.
+Og_image: /images/social-preview/due-diligence.png
 
 Most venture funds in Central Europe have finance and investment people on
 the team, not AI engineers. When the deal is an AI or NLP startup, that gap

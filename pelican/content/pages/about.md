@@ -2,6 +2,7 @@ Title: About
 Slug: about
 Status: published
 Summary: Crow Intelligence is an independent research lab studying how language shapes thought. Founded by Zoltán Varjú and Orsolya Putz, PhD.
+Og_image: /images/social-preview/about.png
 
 <div class="about-intro">
 

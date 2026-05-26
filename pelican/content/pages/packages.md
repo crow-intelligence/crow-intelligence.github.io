@@ -2,6 +2,7 @@ Title: Open Source Packages
 Slug: packages
 Status: published
 Summary: Open source Python tools for computational text analysis: chronowords for semantic shift detection, kenon for co-occurrence networks, and corvus cookiecutter template for data science projects.
+Og_image: /images/social-preview/packages.png
 
 <div class="about-intro">
 

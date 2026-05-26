@@ -8,6 +8,8 @@
 {% block og_url %}{{ SITEURL }}/{{ article.url }}{% endblock %}
 {% block twitter_title %}{{ article.title }} — {{ SITENAME }}{% endblock %}
 {% block twitter_description %}{{ article.summary|striptags|truncate(155, True, '…') }}{% endblock %}
+{% block og_image %}{{ SITEURL }}{% if article.og_image %}{{ article.og_image }}{% else %}/images/social-preview/home.png{% endif %}{% endblock %}
+{% block twitter_image %}{{ SITEURL }}{% if article.og_image %}{{ article.og_image }}{% else %}/images/social-preview/home.png{% endif %}{% endblock %}
 
 {% block extra_schema %}
 <script type="application/ld+json">
