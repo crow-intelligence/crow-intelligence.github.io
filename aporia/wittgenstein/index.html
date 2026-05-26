@@ -9,14 +9,14 @@
        THREE of: this <title>, the og:/twitter: title metas just below,
        and the <h1 class="hero__title"> in the body.
        ════════════════════════════════════════════════════════════════ -->
-  <title>Whereof one cannot speak, there must be silence — Crow Intelligence</title>
+  <title>Whereof one cannot speak, thereof one must be silent — Crow Intelligence</title>
   <meta name="description"
         content="A visual reading of Wittgenstein's Tractatus: 2,025 sentences as a handwritten spiral, sized by centrality and coloured by community.">
 
   <link rel="canonical" href="https://crowintelligence.org/aporia/wittgenstein/">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Whereof one cannot speak, there must be silence">
+  <meta property="og:title" content="Whereof one cannot speak, thereof one must be silent">
   <meta property="og:description"
         content="A visual reading of Wittgenstein's Tractatus: 2,025 sentences as a handwritten spiral, sized by centrality and coloured by community.">
   <meta property="og:url" content="https://crowintelligence.org/aporia/wittgenstein/">
@@ -27,9 +27,9 @@
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="640">
-  <meta property="og:image:alt" content="Whereof one cannot speak, there must be silence — a portrait of Wittgenstein ringed by a spiral of the Tractatus's logical symbols.">
+  <meta property="og:image:alt" content="Whereof one cannot speak, thereof one must be silent — a portrait of Wittgenstein ringed by a spiral of the Tractatus's logical symbols.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Whereof one cannot speak, there must be silence">
+  <meta name="twitter:title" content="Whereof one cannot speak, thereof one must be silent">
   <meta name="twitter:description"
         content="A visual reading of Wittgenstein's Tractatus as a handwritten spiral.">
   <meta name="twitter:image" content="https://crowintelligence.org/aporia/wittgenstein/imgs/social-preview.png">
@@ -74,10 +74,7 @@
     <div class="hero__overlay"></div>
     <div class="hero__content">
       <!-- TITLE: edit here (and <title> + og:/twitter: title in <head>). -->
-      <h1 class="hero__title">Whereof one cannot speak, there must be silence</h1>
-      <p class="hero__lede">
-        The <span class="i">Tractatus</span> has a form — almost a rhyme.
-      </p>
+      <h1 class="hero__title">Whereof one cannot speak, thereof one must be silent</h1>
     </div>
     <div class="hero__scroll-cue" aria-hidden="true">
       <span>scroll</span>
@@ -145,11 +142,17 @@
 
   <hr class="section-rule">
 
-  <!-- ═══════════════════════ COLOPHON ═══════════════════════════════ -->
+  <!-- ═══════════════════════ HAUS WITTGENSTEIN ══════════════════════ -->
   <main class="container">
-    <section class="reveal" id="about">
-      <p class="kicker">Colophon</p>
-      <h2 class="section-title">How this was made</h2>
+    <section class="reveal" id="haus">
+      <p class="kicker">A postscript</p>
+      <h2 class="section-title">Haus Wittgenstein</h2>
+      <p class="section-lede">
+        Wittgenstein got deeply involved in designing his sister's house in
+        Vienna. He drew the door handles, the latches and the window catches
+        himself, with painstaking attention to every detail. The Haus reads
+        almost as a postscript to the <span class="i">Tractatus</span>.
+      </p>
       <figure class="figure-wide">
         <img src="imgs/haus_villa.png"
              alt="Haus Wittgenstein (Stonborough House), Kundmanngasse 19,
@@ -157,14 +160,26 @@
                   Paul Engelmann, in sepia."
              loading="lazy">
       </figure>
+    </section>
+  </main>
+
+  <hr class="section-rule">
+
+  <!-- ═══════════════════════ COLOPHON ═══════════════════════════════ -->
+  <main class="container">
+    <section class="reveal" id="about">
+      <p class="kicker">Colophon</p>
+      <h2 class="section-title">How this was made</h2>
       <p class="method">
         <b>The graph.</b> The Ogden 1922 translation is split into 2,025
         sentences (NLTK Punkt). Each sentence is embedded with the
-        all-MiniLM-L6-v2 sentence-transformer; cosine similarity over those
-        vectors, thresholded and pruned to each sentence's strongest
-        neighbours, builds a sentence graph. Weighted PageRank on the graph
-        gives every sentence a <i>size</i>; Louvain community detection gives
-        it a <i>colour</i>.
+        all-MiniLM-L6-v2 sentence-transformer; the embedding matrix is then
+        turned into a k-nearest-neighbours graph with scikit-learn
+        (<code>sklearn.neighbors.kneighbors_graph</code>), and edges below
+        a cosine-similarity threshold are dropped. PageRank on the resulting
+        graph gives every sentence a <i>size</i> — central, recurrent
+        propositions grow large — and Louvain community detection partitions
+        the sentences into clusters, each rendered in its own <i>colour</i>.
       </p>
       <p class="method">
         <b>The 2D spiral.</b> The flat visualisation is a turtle walk.
