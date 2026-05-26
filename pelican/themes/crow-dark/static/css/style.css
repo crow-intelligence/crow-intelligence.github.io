@@ -416,6 +416,29 @@ strong {
     line-height: 1.6;
 }
 
+/* Aporia teaser cards on the homepage — no image, full left padding */
+.aporia-card .project-info {
+    padding: 28px;
+}
+
+/* "See all → " end-of-section links — soft navigational cue, not a CTA */
+.section-more {
+    margin-top: 28px;
+    text-align: right;
+    font-size: 0.95rem;
+}
+
+.section-more a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+    transition: border-bottom-style 0.2s ease;
+}
+
+.section-more a:hover {
+    border-bottom-style: solid;
+}
+
 /* ── Package Cards ── */
 .package-grid {
     display: grid;

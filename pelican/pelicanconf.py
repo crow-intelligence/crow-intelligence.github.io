@@ -106,6 +106,7 @@ PROJECTS = [
         'url': '/site/index.html',
         'image': '/site/img/punctuation_spiral.png',
         'label': 'NLP & Digital Humanities',
+        'featured': True,
     },
     {
         'title': 'The Nagel Index — Public vs. Private Personality',
@@ -113,6 +114,7 @@ PROJECTS = [
         'url': '/dashboard/index.html',
         'image': '/dashboard_portraits/lincoln_portrait.png',
         'label': 'Personality Analytics',
+        'featured': True,
     },
     {
         'title': 'Market Metaphors — Kindleberger Phases × Narrative Economics',
@@ -120,6 +122,7 @@ PROJECTS = [
         'url': '/web/index.html',
         'image': '/web/preview.svg',
         'label': 'Computational Rhetoric',
+        'featured': True,
     },
     {
         'title': 'Semantic Shifts in Presidential Rhetoric',
@@ -127,6 +130,7 @@ PROJECTS = [
         'url': '/analysis/index.html',
         'image': '/analysis/preview.svg',
         'label': 'Computational Semantics',
+        'featured': False,
     },
     {
         'title': 'Semantic Explorer — Interactive Co-occurrence Networks',
@@ -134,6 +138,7 @@ PROJECTS = [
         'url': '/semantic_explorer/app/index.html',
         'image': '/semantic_explorer/preview.svg',
         'label': 'Semantic Networks',
+        'featured': False,
     },
 ]
 

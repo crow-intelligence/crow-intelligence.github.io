@@ -74,7 +74,7 @@
 <section class="section section-alt">
     <div class="container">
         <h2 class="section-title">Projects</h2>
-        {% for project in PROJECTS %}
+        {% for project in PROJECTS if project.featured %}
         <a href="{{ project.url }}" class="project-card">
             <img src="{{ project.image }}" alt="{{ project.title }}">
             <div class="project-info">
@@ -84,35 +84,57 @@
             </div>
         </a>
         {% endfor %}
+        <p class="section-more"><a href="{{ SITEURL }}/projects.html">See all projects →</a></p>
     </div>
 </section>
 
 <section class="section">
     <div class="container">
-        <h2 class="section-title">Open Source</h2>
-        <div class="package-grid">
-            {% for pkg in PACKAGES %}
-            <div class="package-card">
-                {% if pkg.logo %}
-                <img src="/{{ pkg.logo }}" alt="{{ pkg.name }}" class="package-logo">
-                <h3 class="sr-only">{{ pkg.name }}</h3>
-                {% else %}
-                <h3>{{ pkg.name }}</h3>
-                {% endif %}
-                <div class="package-meta">{{ pkg.version }} · {{ pkg.license }} · Python {{ pkg.python }}</div>
-                <p>{{ pkg.description }}</p>
-                <div class="package-links">
-                    {% if pkg.pypi %}<a href="{{ pkg.pypi }}" target="_blank">PyPI</a>{% endif %}
-                    {% if pkg.github %}<a href="{{ pkg.github }}" target="_blank">GitHub</a>{% endif %}
-                    {% if pkg.docs %}<a href="{{ pkg.docs }}" target="_blank">Docs</a>{% endif %}
-                </div>
-            </div>
-            {% endfor %}
+        <h2 class="section-title">Aporia — Visual Essays</h2>
+        <div class="what-we-do" style="margin-bottom: 24px;">
+            <p>Aporia is our series of long-form visual essays — arguments made with
+            data, built on our own open-source tools. Each piece reopens a question
+            we thought was settled.</p>
         </div>
+        <a href="/aporia/nagel-essay/" class="project-card aporia-card">
+            <div class="project-info">
+                <span class="project-label">Computational Psycholinguistics</span>
+                <h3>The great modern crimes are public crimes</h3>
+                <p>Big Five personality analysis of seven American leaders, public speeches vs. private writings.</p>
+            </div>
+        </a>
+        <a href="/aporia/wittgenstein/" class="project-card aporia-card">
+            <div class="project-info">
+                <span class="project-label">Computational Philosophy</span>
+                <h3>Whereof one cannot speak, thereof one must be silent</h3>
+                <p>A visual reading of Wittgenstein's <em>Tractatus</em> as a handwritten spiral.</p>
+            </div>
+        </a>
+        <a href="/aporia/epistemic-arcade/" class="project-card aporia-card">
+            <div class="project-info">
+                <span class="project-label">Philosophy of Mind</span>
+                <h3>Where does the mind end and the world begin?</h3>
+                <p>Two reinforcement-learning agents testing Clark &amp; Chalmers' extended-mind hypothesis.</p>
+            </div>
+        </a>
+        <p class="section-more"><a href="/aporia/">Explore Aporia →</a></p>
     </div>
 </section>
 
 <section class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">Open Source</h2>
+        <div class="what-we-do">
+            <p>We build and maintain open-source Python tooling for text and
+            language analysis: <strong>chronowords</strong> for semantic shift
+            over time, <strong>kenon</strong> for co-occurrence networks, and
+            <strong>corvus</strong> as a project template.</p>
+            <p><a href="{{ SITEURL }}/packages.html" class="btn btn-accent">See all packages</a></p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
     <div class="container">
         <h2 class="section-title">Meet Our Team</h2>
         <div class="team-grid">
@@ -129,7 +151,7 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section section-alt">
     <div class="container">
         <h2 class="section-title">Collaborators &amp; Partners</h2>
         <p class="section-intro">We have worked with organisations across green finance, pharma intelligence,
@@ -146,6 +168,21 @@
                 {% endif %}
             </div>
             {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Get in touch</h2>
+        <div class="what-we-do">
+            <p>If your organisation is wrestling with a problem in language,
+            cognition, or data — or with an internal AI tool that isn't landing —
+            we'd like to hear about it. Write to us, or book a short call.</p>
+            <p>
+                <a href="https://cal.com/zoltan-varju-h4s0aq/15min" target="_blank" rel="noopener" class="btn btn-accent">Book a 15-min call</a>
+                <a href="{{ SITEURL }}/contact.html" class="btn btn-secondary">Send a message</a>
+            </p>
         </div>
     </div>
 </section>
