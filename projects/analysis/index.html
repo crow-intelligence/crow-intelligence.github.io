@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
 <title>Semantic Shifts in Presidential Rhetoric</title>
 <meta name="description" content="Tracking how the meaning of freedom, democracy, and war evolves across 250 years of American presidential discourse.">
 <link rel="canonical" href="https://crowintelligence.org/analysis/">
@@ -209,9 +210,32 @@ svg text { font-family: var(--mono); fill: var(--dim); font-size: 11px; }
   .hero h1 { font-size: 2rem; }
   .stats-row { gap: 20px; }
 }
+
+/* Crow Intelligence chrome */
+.ci-header { background: #1a1a20; border-bottom: 1px solid #3a3a44; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-family: 'Courier Prime', monospace, system-ui, -apple-system, sans-serif; font-size: 0.85rem; flex-wrap: wrap; }
+.ci-header .ci-brand { display: inline-flex; align-items: center; text-decoration: none; }
+.ci-header .ci-brand img { height: 26px; width: auto; display: block; }
+.ci-header nav { display: flex; gap: 18px; align-items: center; }
+.ci-header nav a { color: #e8e6e1; text-decoration: none; transition: color 0.2s ease; }
+.ci-header nav a:hover { color: #e8c97e; }
+.ci-footer { background: #1a1a20; border-top: 1px solid #3a3a44; padding: 24px; text-align: center; color: #9a988f; font-family: 'Courier Prime', monospace, system-ui, -apple-system, sans-serif; font-size: 0.8rem; margin-top: 32px; }
+.ci-footer a { color: #c7c5bd; text-decoration: none; border-bottom: 1px dotted #6a6862; }
+.ci-footer a:hover { color: #e8c97e; border-bottom-color: #e8c97e; }
+.ci-footer p { margin: 6px 0; }
 </style>
 </head>
 <body>
+
+<header class="ci-header">
+  <a href="https://crowintelligence.org/" class="ci-brand" aria-label="Crow Intelligence">
+    <img src="https://crowintelligence.org/logos/brand/crow-nav.svg" alt="Crow Intelligence">
+  </a>
+  <nav>
+    <a href="https://crowintelligence.org/projects.html">More projects</a>
+    <a href="https://crowintelligence.org/services/ai-due-diligence.html">Due diligence</a>
+    <a href="https://crowintelligence.org/contact.html">Contact</a>
+  </nav>
+</header>
 
 <div class="tooltip" id="tooltip"></div>
 
@@ -825,5 +849,11 @@ function init() {
 
 document.addEventListener('DOMContentLoaded', init);
 </script>
+
+<footer class="ci-footer">
+  <p>A <a href="https://crowintelligence.org/">Crow Intelligence</a> project ·
+     <a href="mailto:hello@crowintelligence.org">hello@crowintelligence.org</a> ·
+     <a href="https://crowintelligence.org/projects.html">More projects</a></p>
+</footer>
 </body>
 </html>

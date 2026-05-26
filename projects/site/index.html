@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
   <title>The Wealth of Nations — 250th Anniversary Digital Edition</title>
   <meta name="description" content="Topic modeling, NER, and rhetorical metaphor analysis across all five books of Adam Smith's 1776 masterwork.">
   <link rel="canonical" href="https://crowintelligence.org/site/">
@@ -26,8 +27,34 @@
 
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/landing.css">
+
+  <!-- Crow Intelligence chrome -->
+  <style>
+    .ci-header { background: #1a1a20; border-bottom: 1px solid #3a3a44; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-family: 'Courier Prime', monospace, system-ui, -apple-system, sans-serif; font-size: 0.85rem; flex-wrap: wrap; }
+    .ci-header .ci-brand { display: inline-flex; align-items: center; text-decoration: none; }
+    .ci-header .ci-brand img { height: 26px; width: auto; display: block; }
+    .ci-header nav { display: flex; gap: 18px; align-items: center; }
+    .ci-header nav a { color: #e8e6e1; text-decoration: none; transition: color 0.2s ease; }
+    .ci-header nav a:hover { color: #e8c97e; }
+    .ci-footer { background: #1a1a20; border-top: 1px solid #3a3a44; padding: 24px; text-align: center; color: #9a988f; font-family: 'Courier Prime', monospace, system-ui, -apple-system, sans-serif; font-size: 0.8rem; }
+    .ci-footer a { color: #c7c5bd; text-decoration: none; border-bottom: 1px dotted #6a6862; }
+    .ci-footer a:hover { color: #e8c97e; border-bottom-color: #e8c97e; }
+    .ci-footer p { margin: 6px 0; }
+    .ci-footer .ci-credits { color: #6a6862; font-size: 0.75rem; margin-top: 8px; }
+  </style>
 </head>
 <body>
+  <header class="ci-header">
+    <a href="https://crowintelligence.org/" class="ci-brand" aria-label="Crow Intelligence">
+      <img src="https://crowintelligence.org/logos/brand/crow-nav.svg" alt="Crow Intelligence">
+    </a>
+    <nav>
+      <a href="https://crowintelligence.org/projects.html">More projects</a>
+      <a href="https://crowintelligence.org/services/ai-due-diligence.html">Due diligence</a>
+      <a href="https://crowintelligence.org/contact.html">Contact</a>
+    </nav>
+  </header>
+
   <!-- Hero -->
   <section class="hero">
     <h1>The Wealth of Nations</h1>
@@ -139,8 +166,11 @@
   </div>
 
   <!-- Footer -->
-  <footer class="site-footer">
-    <p>Wealth of Nations 250th Anniversary Digital Edition &middot; Built with Python, spaCy, BERTopic, and Transformers</p>
+  <footer class="ci-footer">
+    <p>A <a href="https://crowintelligence.org/">Crow Intelligence</a> project ·
+       <a href="mailto:hello@crowintelligence.org">hello@crowintelligence.org</a> ·
+       <a href="https://crowintelligence.org/projects.html">More projects</a></p>
+    <p class="ci-credits">Wealth of Nations 250th Anniversary Digital Edition · Built with Python, spaCy, BERTopic, and Transformers</p>
   </footer>
 
   <script src="js/landing.js"></script>

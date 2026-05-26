@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
 <title>The Nagel Index — Richard Nixon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -467,9 +468,45 @@
     .cloud-pair { grid-template-columns: 1fr; height: auto; }
     .cloud-col { height: 240px; }
   }
+
+  /* Crow Intelligence chrome */
+  .ci-header { background: #1a1a20; border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-family: var(--font-data); font-size: 0.85rem; flex-wrap: wrap; position: relative; z-index: 200; }
+  .ci-header .ci-brand { display: inline-flex; align-items: center; text-decoration: none; }
+  .ci-header .ci-brand img { height: 26px; width: auto; display: block; }
+  .ci-header nav { display: flex; gap: 18px; align-items: center; }
+  .ci-header nav a { color: var(--text); text-decoration: none; transition: color 0.2s ease; }
+  .ci-header nav a:hover { color: #e8c97e; }
+  .ci-intro { max-width: 920px; margin: 24px auto 0; padding: 0 24px; color: var(--text-dim); font-family: var(--font-data); font-size: 0.95rem; line-height: 1.6; }
+  .ci-intro p { margin-bottom: 10px; }
+  .ci-intro a { color: #e8c97e; }
+  .ci-footer { background: #1a1a20; border-top: 1px solid var(--border); padding: 24px; text-align: center; color: var(--text-dim); font-family: var(--font-data); font-size: 0.8rem; margin-top: 32px; }
+  .ci-footer a { color: #c7c5bd; text-decoration: none; border-bottom: 1px dotted #6a6862; }
+  .ci-footer a:hover { color: #e8c97e; border-bottom-color: #e8c97e; }
+  .ci-footer p { margin: 6px 0; }
 </style>
 </head>
 <body>
+
+<header class="ci-header">
+  <a href="https://crowintelligence.org/" class="ci-brand" aria-label="Crow Intelligence">
+    <img src="https://crowintelligence.org/logos/brand/crow-nav.svg" alt="Crow Intelligence">
+  </a>
+  <nav>
+    <a href="https://crowintelligence.org/projects.html">More projects</a>
+    <a href="https://crowintelligence.org/services/ai-due-diligence.html">Due diligence</a>
+    <a href="https://crowintelligence.org/contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="ci-intro">
+  <p><strong>The Nagel Index</strong> measures the gap between the public and
+  private personality of historical figures — the Big Five traits a leader
+  shows in their formal speeches versus the ones they reveal in their private
+  letters.</p>
+  <p>The methodology — corpora, scoring, and uncertainty — is described in
+  the companion essay,
+  <a href="https://crowintelligence.org/aporia/nagel-essay/">The Nagel Index: public mask, private letter</a>.</p>
+</section>
 
 <nav class="figure-selector" id="figure-selector" aria-label="Public figures">
   <span class="figure-selector-title">Public figures</span>
@@ -1045,6 +1082,12 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSources();
 });
 </script>
+
+<footer class="ci-footer">
+  <p>A <a href="https://crowintelligence.org/">Crow Intelligence</a> project ·
+     <a href="mailto:hello@crowintelligence.org">hello@crowintelligence.org</a> ·
+     <a href="https://crowintelligence.org/projects.html">More projects</a></p>
+</footer>
 
 </body>
 </html>
