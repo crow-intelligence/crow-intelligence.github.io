@@ -25,22 +25,38 @@
 
 <section class="section section-alt">
     <div class="container">
-        <h2 class="section-title">Meet Our Team</h2>
-        <div class="team-grid">
-            {% for member in TEAM %}
-            <div class="team-member">
-                <a href="{{ member.linkedin }}" target="_blank" class="team-photo">
-                    <img src="/{{ member.photo }}" alt="{{ member.name }}">
-                </a>
-                <h3><a href="{{ member.linkedin }}" target="_blank">{{ member.name }}</a></h3>
-                <p><strong>{{ member.role }}.</strong> {{ member.bio }}</p>
-            </div>
-            {% endfor %}
+        <h2 class="section-title">What We Do</h2>
+        <div class="what-we-do">
+            <p>We conduct original research and take on analysis commissions for organisations
+            that need deep expertise in language, cognition, and data.</p>
+            <p>Our work is analytical and advisory. We specialise in the hard problems
+            that come before and after the code — specification, evaluation, and
+            interpretation. We help organisations think clearly about what to build,
+            whether it is working, and what the results actually mean. Increasingly we
+            apply this same lens to technical due diligence for venture funds evaluating
+            AI and NLP investments.</p>
+            <p>If your organisation is working on a problem that involves text, language,
+            narrative, or the behaviour of AI systems, we would like to hear from you.</p>
+            <p><a href="{{ SITEURL }}/contact.html" class="btn btn-accent">Discuss a commission</a></p>
         </div>
     </div>
 </section>
 
 <section class="section">
+    <div class="container">
+        <h2 class="section-title">Due diligence for venture funds</h2>
+        <div class="what-we-do">
+            <p>We provide independent technical due diligence on AI and NLP startups
+            for early-stage venture funds in Central Europe. Our work covers the
+            questions investors most often cannot answer from a pitch deck — whether
+            the technology is real, whether the data is defensible, whether the team
+            can hold the line, and whether the company is ready for the EU AI Act.</p>
+            <p><a href="{{ SITEURL }}/services/ai-due-diligence.html" class="btn btn-accent">Read more</a></p>
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt">
     <div class="container">
         <h2 class="section-title">Projects</h2>
         {% for project in PROJECTS %}
@@ -56,7 +72,7 @@
     </div>
 </section>
 
-<section class="section section-alt">
+<section class="section">
     <div class="container">
         <h2 class="section-title">Open Source</h2>
         <div class="package-grid">
@@ -81,40 +97,24 @@
     </div>
 </section>
 
-<section class="section">
-    <div class="container">
-        <h2 class="section-title">What We Do</h2>
-        <div class="what-we-do">
-            <p>We conduct original research and take on analysis commissions for organisations
-            that need deep expertise in language, cognition, and data.</p>
-            <p>Our work is analytical and advisory. We specialise in the hard problems
-            that come before and after the code — specification, evaluation, and
-            interpretation. We help organisations think clearly about what to build,
-            whether it is working, and what the results actually mean. Increasingly we
-            apply this same lens to technical due diligence for venture funds evaluating
-            AI and NLP investments.</p>
-            <p>If your organisation is working on a problem that involves text, language,
-            narrative, or the behaviour of AI systems, we would like to hear from you.</p>
-            <p><a href="mailto:{{ EMAIL }}" class="btn btn-accent">hello@crowintelligence.org</a></p>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <h2 class="section-title">Due diligence for venture funds</h2>
-        <div class="what-we-do">
-            <p>We provide independent technical due diligence on AI and NLP startups
-            for early-stage venture funds in Central Europe. Our work covers the
-            questions investors most often cannot answer from a pitch deck — whether
-            the technology is real, whether the data is defensible, whether the team
-            can hold the line, and whether the company is ready for the EU AI Act.</p>
-            <p><a href="{{ SITEURL }}/services/ai-due-diligence.html" class="btn btn-accent">Read more</a></p>
-        </div>
-    </div>
-</section>
-
 <section class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">Meet Our Team</h2>
+        <div class="team-grid">
+            {% for member in TEAM %}
+            <div class="team-member">
+                <a href="{{ member.linkedin }}" target="_blank" class="team-photo">
+                    <img src="/{{ member.photo }}" alt="{{ member.name }}">
+                </a>
+                <h3><a href="{{ member.linkedin }}" target="_blank">{{ member.name }}</a></h3>
+                <p><strong>{{ member.role }}.</strong> {{ member.bio }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
     <div class="container">
         <h2 class="section-title">Collaborators &amp; Partners</h2>
         <p class="section-intro">We have worked with organisations across green finance, pharma intelligence,
