@@ -12,13 +12,54 @@ Well, let's change that.
 
 </div>
 
-## Get in Touch
+## Send us a message
+
+<form action="https://formspree.io/f/mykvnroj" method="POST" class="contact-form">
+  <input type="hidden" name="_subject" value="New enquiry — crowintelligence.org">
+  <input type="hidden" name="_next" value="https://crowintelligence.org/thanks.html">
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <label>
+    <span>Your name</span>
+    <input type="text" name="name" required autocomplete="name">
+  </label>
+  <label>
+    <span>Organisation <em>(optional)</em></span>
+    <input type="text" name="organisation" autocomplete="organization">
+  </label>
+  <label>
+    <span>Email</span>
+    <input type="email" name="email" required autocomplete="email">
+  </label>
+  <label>
+    <span>What can we help with?</span>
+    <select name="inquiry_type">
+      <option>Due diligence</option>
+      <option>Research commission</option>
+      <option>Collaboration</option>
+      <option>Other</option>
+    </select>
+  </label>
+  <label>
+    <span>Message</span>
+    <textarea name="message" rows="6" required></textarea>
+  </label>
+  <button type="submit" class="btn btn-accent">Send message</button>
+  <p class="contact-form-note">We read every enquiry ourselves and typically reply within two working days.</p>
+</form>
+
+## Other ways to reach us
 
 <div class="contact-grid">
 <div class="card">
 <div class="card-accent"></div>
+<h3>Book a call</h3>
+<p>Fifteen minutes, directly with Zoltán.</p>
+<p><a href="https://cal.com/zoltan-varju-h4s0aq/15min" target="_blank" rel="noopener" class="btn btn-accent">Book a 15-min call</a></p>
+</div>
+<div class="card">
+<div class="card-accent"></div>
 <h3>Email</h3>
-<p>The fastest way to reach us.</p>
+<p>If you would rather write directly.</p>
 <p><a href="mailto:hello@crowintelligence.org" class="btn btn-accent">hello@crowintelligence.org</a></p>
 </div>
 <div class="card">

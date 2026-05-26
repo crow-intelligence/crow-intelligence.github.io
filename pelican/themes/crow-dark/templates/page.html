@@ -10,6 +10,7 @@
 {% block twitter_description %}{{ page_desc }}{% endblock %}
 {% block og_image %}{{ SITEURL }}{% if page.og_image %}{{ page.og_image }}{% else %}/images/social-preview/home.png{% endif %}{% endblock %}
 {% block twitter_image %}{{ SITEURL }}{% if page.og_image %}{{ page.og_image }}{% else %}/images/social-preview/home.png{% endif %}{% endblock %}
+{% block meta_robots %}{{ page.robots|default('index, follow') }}{% endblock %}
 
 {% block content %}
 <section class="hero hero-compact">

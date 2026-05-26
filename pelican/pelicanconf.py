@@ -75,9 +75,6 @@ AUTHOR_FEED_RSS = None
 # Pagination
 DEFAULT_PAGINATION = 10
 
-# Google Analytics
-GOOGLE_ANALYTICS = 'G-SH38KZF2M9'
-
 # Custom variables
 EMAIL = 'hello@crowintelligence.org'
 LOGO_PATH = 'logos/brand/crow-intelligence.svg'

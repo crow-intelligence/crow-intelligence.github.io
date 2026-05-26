@@ -92,4 +92,64 @@ companies as a self-assessment.
 
 ## Get in touch
 
-<a href="mailto:hello@crowintelligence.org">hello@crowintelligence.org</a>
+If you have a deal you are evaluating, write to us at
+[hello@crowintelligence.org](mailto:hello@crowintelligence.org) — or, if you
+would rather start with a short conversation, book a fifteen-minute call
+directly.
+
+<p><a href="https://cal.com/zoltan-varju-h4s0aq/15min" target="_blank" rel="noopener" class="btn btn-accent">Book a 15-min call</a> <a href="/contact.html" class="btn btn-secondary">Send a message</a></p>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "AI & NLP Due Diligence",
+  "serviceType": "Technical due diligence",
+  "description": "Independent technical due diligence on AI and NLP startups for early-stage venture funds in Central Europe. Covers technology, data, IP, team, and EU AI Act readiness.",
+  "url": "https://crowintelligence.org/services/ai-due-diligence.html",
+  "provider": {
+    "@type": "Organization",
+    "name": "Crow Intelligence",
+    "url": "https://crowintelligence.org/",
+    "email": "hello@crowintelligence.org"
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Central Europe"
+  },
+  "audience": {
+    "@type": "BusinessAudience",
+    "audienceType": "Early-stage venture capital funds"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "AI Due Diligence Engagement Formats",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Red-flag review",
+          "description": "One to three days. Focused look at the most failure-prone parts of the technology. Short memo with red/amber/green flags by category, plus a verbal debrief with the deal partner."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Standard AI due diligence",
+          "description": "Five to ten days. Founder and engineering interviews, architecture review, model evaluation methodology audit, data and IP review, team assessment. Delivered as a structured report with executive summary and 100-day remediation plan."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Deep AI due diligence",
+          "description": "Two to four weeks. For Series A and later. Includes code review, MLOps inspection, full data licensing audit. Long-form report suitable for investment committee presentation."
+        }
+      }
+    ]
+  }
+}
+</script>

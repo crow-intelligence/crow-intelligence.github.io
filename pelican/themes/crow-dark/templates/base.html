@@ -6,7 +6,7 @@
     <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
     <meta name="description" content="{% block meta_description %}Independent research at the intersection of cognitive linguistics, NLP, and data analysis.{% endblock %}">
     <meta name="author" content="{{ AUTHOR }}">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}">
     <link rel="canonical" href="{% block canonical_url %}{{ SITEURL }}/{% endblock %}">
 
     <!-- Favicons -->
@@ -68,17 +68,6 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="/{{ THEME_STATIC_DIR }}/css/style.css">
-
-    {% if GOOGLE_ANALYTICS %}
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '{{ GOOGLE_ANALYTICS }}');
-    </script>
-    {% endif %}
 </head>
 <body>
     <nav class="main-nav">
@@ -107,11 +96,7 @@
                 <img src="/{{ LOGO_PATH }}" alt="{{ SITENAME }} Logo">
             </div>
             <p>&copy; 2025 {{ SITENAME }}. All rights reserved.</p>
-            <p class="footer-note">
-                This site uses Google Analytics to improve user experience.
-                For questions about data collection, contact us at
-                <a href="mailto:{{ EMAIL }}">{{ EMAIL }}</a>
-            </p>
+            <p class="footer-links"><a href="{{ SITEURL }}/privacy.html">Privacy</a></p>
         </div>
     </footer>
 
