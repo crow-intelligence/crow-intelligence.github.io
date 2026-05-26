@@ -30,8 +30,12 @@ arriving in our inbox. Formspree publishes its
 [data processing addendum](https://formspree.io/legal/data-processing-agreement/);
 we have agreed to that DPA.
 
-Once a message reaches us, it sits in our email account hosted by
-**[EMAIL PROVIDER — to confirm before publishing]**.
+Once a message reaches us, it sits in our **Google Workspace** mailbox,
+provided by Google Ireland Limited. Google's
+[Cloud Privacy Notice](https://cloud.google.com/terms/cloud-privacy-notice)
+and the Google Workspace
+[Data Processing Addendum](https://workspace.google.com/terms/dpa_terms.html)
+apply.
 
 We do not pass your details to anyone else.
 
