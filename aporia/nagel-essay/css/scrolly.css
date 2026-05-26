@@ -30,9 +30,10 @@
 .opening-question {
   font-family: var(--font-display);
   font-size: 36px;
+  font-weight: normal; /* override browser-default <h1> bold */
   line-height: 1.5;
   max-width: 600px;
-  margin-top: 80px;
+  margin: 80px 0 0; /* override browser-default <h1> bottom margin */
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.8s ease, transform 0.8s ease;
