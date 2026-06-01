@@ -14,6 +14,12 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+# Run the GitHub-maintained JavaScript actions on Node 24. They ship targeting
+# Node 20, which the runner deprecates (forced to Node 24 from 2026-06-16). This
+# opts in early so the deprecation warning is resolved ahead of the cutoff.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
