@@ -56,11 +56,8 @@ STATIC_PATHS = ['images']
 DISPLAY_PAGES_ON_MENU = False
 DISPLAY_CATEGORIES_ON_MENU = False
 MENUITEMS = [
-    ('Projects', '/projects.html'),
-    ('Packages', '/packages.html'),
-    ('Due Diligence', '/services/ai-due-diligence.html'),
-    ('AI Adoption', '/services/ai-adoption-audit.html'),
-    ('Aporia', '/aporia/'),
+    ('Portfolio', '/portfolio.html'),
+    ('Services', '/services.html'),
     ('About', '/about.html'),
     ('Blog', 'https://blog.crowintelligence.org/'),
     ('Contact', '/contact.html'),
@@ -111,7 +108,7 @@ PROJECTS = [
     {
         'title': 'The Nagel Index — Public vs. Private Personality',
         'description': "Big Five personality analysis of political leaders, measuring the gap between their public speeches and private correspondence. Inspired by Thomas Nagel's essay on ruthlessness in public life.",
-        'url': '/dashboard/index.html',
+        'url': '/aporia/nagel-essay/',
         'image': '/dashboard_portraits/lincoln_portrait.png',
         'label': 'Personality Analytics',
         'featured': True,
@@ -139,6 +136,55 @@ PROJECTS = [
         'image': '/semantic_explorer/preview.svg',
         'label': 'Semantic Networks',
         'featured': False,
+    },
+    {
+        'title': 'The Tractatus as a Flat Spiral',
+        'description': "The complete text of Wittgenstein's Tractatus walked out as a flat, right-angle spiral — one continuous path through its numbered propositions, set in handwriting and coloured by topical cluster. Companion visualisation to the Aporia essay.",
+        'url': '/aporia/wittgenstein/viz/handwriting.html',
+        'image': '/aporia/wittgenstein/imgs/handwriting_2d.png',
+        'label': 'Computational Philosophy',
+        'featured': False,
+    },
+    {
+        'title': 'The Tractatus as a Helix',
+        'description': "The same spiral lifted into three dimensions: each proposition set a constant step above the last, so the Tractatus climbs as it turns. Rendered in handwriting and navigable sentence by sentence.",
+        'url': '/aporia/wittgenstein/viz/handwriting_3d.html',
+        'image': '/aporia/wittgenstein/imgs/social-preview.png',
+        'label': 'Computational Philosophy',
+        'featured': False,
+    },
+    {
+        'title': 'The Punctuation Spiral',
+        'description': "The Tractatus stripped to its punctuation alone — every mark in sequence, spiralled outward. What remains when the words are removed: the rhythm and breath of the argument.",
+        'url': '/aporia/wittgenstein/punctuation_spiral.html',
+        'image': '/aporia/wittgenstein/imgs/punctuation_spiral.png',
+        'label': 'Computational Philosophy',
+        'featured': False,
+    },
+]
+
+# Aporia — visual essays
+APORIA = [
+    {
+        'title': 'The great modern crimes are public crimes',
+        'description': 'Big Five personality analysis of seven American leaders, public speeches vs. private writings.',
+        'url': '/aporia/nagel-essay/',
+        'image': '/aporia/nagel-essay/imgs/social-preview.png',
+        'label': 'Computational Psycholinguistics',
+    },
+    {
+        'title': 'Whereof one cannot speak, thereof one must be silent',
+        'description': "A visual reading of Wittgenstein's Tractatus as a handwritten spiral.",
+        'url': '/aporia/wittgenstein/',
+        'image': '/aporia/wittgenstein/imgs/social-preview.png',
+        'label': 'Computational Philosophy',
+    },
+    {
+        'title': 'Where does the mind end and the world begin?',
+        'description': "Two reinforcement-learning agents testing Clark & Chalmers' extended-mind hypothesis.",
+        'url': '/aporia/epistemic-arcade/',
+        'image': '/aporia/epistemic-arcade/imgs/social-preview.png',
+        'label': 'Philosophy of Mind',
     },
 ]
 

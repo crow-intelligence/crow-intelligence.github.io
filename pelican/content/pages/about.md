@@ -103,7 +103,7 @@ the <a href="/aporia/">Aporia</a> essay project and maintains the open-source
 <a href="https://github.com/crow-intelligence/kenon">kenon</a> and
 <a href="https://github.com/crow-intelligence/chronowords">chronowords</a>
 Python packages for semantic networks and temporal word embeddings. He
-provides <a href="/services/ai-due-diligence.html">technical due diligence</a>
+provides <a href="/services.html#due-diligence">technical due diligence</a>
 and AI advisory to venture funds and early-stage AI startups in Central
 Europe.</p>
 </div>
