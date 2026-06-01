@@ -130,3 +130,24 @@ right fit, we will say so.
 <p><a href="https://cal.com/zoltan-varju-h4s0aq/15min" target="_blank" rel="noopener" class="btn btn-accent">Book a 15-min call</a> <a href="/contact.html" class="btn btn-secondary">Send a message</a></p>
 
 Or write to [hello@crowintelligence.org](mailto:hello@crowintelligence.org).
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "The AI Adoption Audit",
+  "serviceType": "AI adoption diagnostic",
+  "description": "A fixed-scope diagnostic that finds why an internal AI tool has stalled — examining the data and retrieval layer alongside the cognitive layer — and sets out a prioritised plan of what to change.",
+  "url": "https://crowintelligence.org/services/ai-adoption-audit.html",
+  "provider": {
+    "@type": "Organization",
+    "name": "Crow Intelligence",
+    "url": "https://crowintelligence.org/",
+    "email": "hello@crowintelligence.org"
+  },
+  "audience": {
+    "@type": "BusinessAudience",
+    "audienceType": "Scale-ups and enterprise innovation teams"
+  }
+}
+</script>

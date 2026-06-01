@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Services — {{ SITENAME }}{% endblock %}
+{% block meta_description %}AI & NLP due diligence for venture funds, the AI Adoption Audit for stalled internal tools, and commissioned analysis and visualisation.{% endblock %}
+{% block canonical_url %}{{ SITEURL }}/services.html{% endblock %}
+{% block og_title %}Services — {{ SITENAME }}{% endblock %}
+{% block og_description %}AI & NLP due diligence for venture funds, the AI Adoption Audit for stalled internal tools, and commissioned analysis and visualisation.{% endblock %}
+{% block og_url %}{{ SITEURL }}/services.html{% endblock %}
+{% block twitter_title %}Services — {{ SITENAME }}{% endblock %}
+{% block twitter_description %}AI & NLP due diligence for venture funds, the AI Adoption Audit for stalled internal tools, and commissioned analysis and visualisation.{% endblock %}
+{% block og_image %}{{ SITEURL }}/images/social-preview/due-diligence.png{% endblock %}
+{% block twitter_image %}{{ SITEURL }}/images/social-preview/due-diligence.png{% endblock %}
+
+{% block content %}
+<section class="hero hero-compact">
+    <div class="container">
+        <h1>{{ page.title }}</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="projects-grid">
+            {% for service in SERVICES %}
+            <a href="{{ SITEURL }}{{ service.url }}" class="project-card-vertical">
+                <img src="{{ service.image }}" alt="{{ service.title }}">
+                <div class="project-card-body">
+                    <span class="project-label">{{ service.label }}</span>
+                    <h2>{{ service.title }}</h2>
+                    <p>{{ service.description }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

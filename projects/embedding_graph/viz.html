@@ -1,6 +1,21 @@
 <head>
   <title>Word embedding graph</title>
-  <style> body { margin: 0; } </style>
+  <style>
+    body { margin: 0; }
+    /* Crow Intelligence chrome — fixed slim header overlaid on the canvas */
+    .ci-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 8px 16px; flex-wrap: wrap;
+      background: #1a1a20; border-bottom: 1px solid #3a3a44;
+      font-family: 'Courier Prime', ui-monospace, monospace; font-size: 0.8rem;
+    }
+    .ci-header .ci-brand { display: inline-flex; align-items: center; text-decoration: none; }
+    .ci-header .ci-brand img { height: 22px; width: auto; display: block; }
+    .ci-header nav { display: flex; gap: 16px; align-items: center; }
+    .ci-header nav a { color: #e8e6e1; text-decoration: none; transition: color 0.2s ease; }
+    .ci-header nav a:hover { color: #e8c97e; }
+  </style>
 
   <script src="//unpkg.com/3d-force-graph"></script>
 <!--  <script src="3d-force-graph.js"></script>-->
@@ -12,6 +27,16 @@ Nodes colored by their cluster." />
 </head>
 
 <body>
+  <header class="ci-header">
+    <a href="https://crowintelligence.org/" class="ci-brand" aria-label="Crow Intelligence">
+      <img src="https://crowintelligence.org/logos/brand/crow-nav.svg" alt="Crow Intelligence">
+    </a>
+    <nav>
+      <a href="https://crowintelligence.org/portfolio.html">Portfolio</a>
+      <a href="https://crowintelligence.org/services.html">Services</a>
+      <a href="https://crowintelligence.org/contact.html">Contact</a>
+    </nav>
+  </header>
   <div id="3d-graph"></div>
 
   <script>

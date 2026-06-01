@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Portfolio — {{ SITENAME }}{% endblock %}
+{% block meta_description %}Aporia visual essays, interactive research projects, and open-source Python packages from Crow Intelligence.{% endblock %}
+{% block canonical_url %}{{ SITEURL }}/portfolio.html{% endblock %}
+{% block og_title %}Portfolio — {{ SITENAME }}{% endblock %}
+{% block og_description %}Aporia visual essays, interactive research projects, and open-source Python packages from Crow Intelligence.{% endblock %}
+{% block og_url %}{{ SITEURL }}/portfolio.html{% endblock %}
+{% block twitter_title %}Portfolio — {{ SITENAME }}{% endblock %}
+{% block twitter_description %}Aporia visual essays, interactive research projects, and open-source Python packages from Crow Intelligence.{% endblock %}
+{% block og_image %}{{ SITEURL }}/images/social-preview/home.png{% endblock %}
+{% block twitter_image %}{{ SITEURL }}/images/social-preview/home.png{% endblock %}
+
+{% block content %}
+<section class="hero hero-compact">
+    <div class="container">
+        <h1>{{ page.title }}</h1>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">Aporia — Visual Essays</h2>
+        <div class="projects-grid">
+            {% for essay in APORIA[:4] %}
+            <a href="{{ essay.url }}" class="project-card-vertical">
+                <img src="{{ essay.image }}" alt="{{ essay.title }}">
+                <div class="project-card-body">
+                    <span class="project-label">{{ essay.label }}</span>
+                    <h2>{{ essay.title }}</h2>
+                    <p>{{ essay.description }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <p class="section-more"><a href="{{ SITEURL }}/aporia/">View all Aporia essays →</a></p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+            {% for project in PROJECTS[:4] %}
+            <a href="{{ project.url }}" class="project-card-vertical">
+                <img src="{{ project.image }}" alt="{{ project.title }}">
+                <div class="project-card-body">
+                    <span class="project-label">{{ project.label }}</span>
+                    <h2>{{ project.title }}</h2>
+                    <p>{{ project.description }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <p class="section-more"><a href="{{ SITEURL }}/projects.html">View all projects →</a></p>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">Open Source Packages</h2>
+        <div class="package-grid">
+            {% for pkg in PACKAGES[:4] %}
+            <div class="package-card">
+                {% if pkg.logo %}
+                <img class="package-logo" src="/{{ pkg.logo }}" alt="{{ pkg.name }} logo">
+                <h3 class="sr-only">{{ pkg.name }}</h3>
+                {% else %}
+                <h3>{{ pkg.name }}</h3>
+                {% endif %}
+                <p class="package-meta">{{ pkg.version }} · {{ pkg.license }} · Python {{ pkg.python }}</p>
+                <p>{{ pkg.description }}</p>
+                <div class="package-links">
+                    {% if pkg.pypi %}<a href="{{ pkg.pypi }}">PyPI</a>{% endif %}
+                    {% if pkg.github %}<a href="{{ pkg.github }}">GitHub</a>{% endif %}
+                    {% if pkg.docs %}<a href="{{ pkg.docs }}">Docs</a>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <p class="section-more"><a href="{{ SITEURL }}/packages.html">View all packages →</a></p>
+    </div>
+</section>
+{% endblock %}
