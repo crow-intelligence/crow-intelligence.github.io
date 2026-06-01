@@ -22,113 +22,30 @@
     </div>
 </section>
 
-<section class="section section-alt">
+<section class="section">
     <div class="container">
         <h2 class="section-title">What We Do</h2>
         <div class="what-we-do">
-            <p>We conduct original research and take on analysis commissions for organisations
-            that need deep expertise in language, cognition, and data.</p>
-            <p>Our work is analytical and advisory. We specialise in the hard problems
-            that come before and after the code — specification, evaluation, and
-            interpretation. We help organisations think clearly about what to build,
-            whether it is working, and what the results actually mean. Increasingly we
-            apply this same lens to technical due diligence for venture funds evaluating
-            AI and NLP investments.</p>
-            <p>If your organisation is working on a problem that involves text, language,
-            narrative, or the behaviour of AI systems, we would like to hear from you.</p>
-            <p><a href="{{ SITEURL }}/contact.html" class="btn btn-accent">Discuss a commission</a></p>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <h2 class="section-title">Due diligence for venture funds</h2>
-        <div class="what-we-do">
-            <p>We provide independent technical due diligence on AI and NLP startups
-            for early-stage venture funds in Central Europe. Our work covers the
-            questions investors most often cannot answer from a pitch deck — whether
-            the technology is real, whether the data is defensible, whether the team
-            can hold the line, and whether the company is ready for the EU AI Act.</p>
-            <p><a href="{{ SITEURL }}/services.html#due-diligence" class="btn btn-accent">Read more</a></p>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <h2 class="section-title">The AI Adoption Audit</h2>
-        <div class="what-we-do">
-            <p>Most internal AI tools fail for human reasons — not technical ones.
-            We audit the AI tools that have stalled inside your organisation: we
-            find why your people aren't using them, and set out precisely what to
-            change. A fixed-scope diagnostic, typically two to four weeks, for
-            scale-ups and enterprise teams whose AI feature shipped but isn't
-            landing.</p>
-            <p><a href="{{ SITEURL }}/services.html#ai-adoption" class="btn btn-accent">Read more</a></p>
+            <p>We are an independent research and advisory practice working at the
+            intersection of language, cognition, and data — helping organisations
+            think clearly about what to build, whether it is working, and what the
+            results actually mean.</p>
+            <p><strong>AI &amp; NLP Due Diligence</strong> — independent technical review for venture funds.</p>
+            <p><strong>The AI Adoption Audit</strong> — finding why an internal AI tool has stalled.</p>
+            <p><strong>Commissioned Analysis</strong> — visualisation and data storytelling, built on our own tools.</p>
+            <p><a href="{{ SITEURL }}/services.html" class="btn btn-accent">Explore our services</a></p>
         </div>
     </div>
 </section>
 
 <section class="section section-alt">
     <div class="container">
-        <h2 class="section-title">Projects</h2>
-        {% for project in PROJECTS if project.featured %}
-        <a href="{{ project.url }}" class="project-card">
-            <img src="{{ project.image }}" alt="{{ project.title }}">
-            <div class="project-info">
-                <span class="project-label">{{ project.label }}</span>
-                <h3>{{ project.title }}</h3>
-                <p>{{ project.description }}</p>
-            </div>
-        </a>
-        {% endfor %}
-        <p class="section-more"><a href="{{ SITEURL }}/projects.html">See all projects →</a></p>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <h2 class="section-title">Aporia — Visual Essays</h2>
-        <div class="what-we-do" style="margin-bottom: 24px;">
-            <p>Aporia is our series of long-form visual essays — arguments made with
-            data, built on our own open-source tools. Each piece reopens a question
-            we thought was settled.</p>
-        </div>
-        <a href="/aporia/nagel-essay/" class="project-card aporia-card">
-            <div class="project-info">
-                <span class="project-label">Computational Psycholinguistics</span>
-                <h3>The great modern crimes are public crimes</h3>
-                <p>Big Five personality analysis of seven American leaders, public speeches vs. private writings.</p>
-            </div>
-        </a>
-        <a href="/aporia/wittgenstein/" class="project-card aporia-card">
-            <div class="project-info">
-                <span class="project-label">Computational Philosophy</span>
-                <h3>Whereof one cannot speak, thereof one must be silent</h3>
-                <p>A visual reading of Wittgenstein's <em>Tractatus</em> as a handwritten spiral.</p>
-            </div>
-        </a>
-        <a href="/aporia/epistemic-arcade/" class="project-card aporia-card">
-            <div class="project-info">
-                <span class="project-label">Philosophy of Mind</span>
-                <h3>Where does the mind end and the world begin?</h3>
-                <p>Two reinforcement-learning agents testing Clark &amp; Chalmers' extended-mind hypothesis.</p>
-            </div>
-        </a>
-        <p class="section-more"><a href="/aporia/">Explore Aporia →</a></p>
-    </div>
-</section>
-
-<section class="section section-alt">
-    <div class="container">
-        <h2 class="section-title">Open Source</h2>
+        <h2 class="section-title">Portfolio</h2>
         <div class="what-we-do">
-            <p>We build and maintain open-source Python tooling for text and
-            language analysis: <strong>chronowords</strong> for semantic shift
-            over time, <strong>kenon</strong> for co-occurrence networks, and
-            <strong>corvus</strong> as a project template.</p>
-            <p><a href="{{ SITEURL }}/packages.html" class="btn btn-accent">See all packages</a></p>
+            <p>Learn more about our work: the <strong>Aporia</strong> visual essays,
+            our interactive research <strong>projects</strong>, and the open-source
+            <strong>Python packages</strong> that power them.</p>
+            <p><a href="{{ SITEURL }}/portfolio.html" class="btn btn-accent">Browse the portfolio</a></p>
         </div>
     </div>
 </section>

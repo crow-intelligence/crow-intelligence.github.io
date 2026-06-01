@@ -188,6 +188,31 @@ APORIA = [
     },
 ]
 
+# Services
+SERVICES = [
+    {
+        'title': 'AI & NLP Due Diligence',
+        'description': 'Independent technical due diligence on AI and NLP startups for early-stage venture funds — technology, data, IP, team, and EU AI Act readiness.',
+        'url': '/services/ai-due-diligence.html',
+        'image': '/images/social-preview/due-diligence.png',
+        'label': 'For Venture Funds',
+    },
+    {
+        'title': 'The AI Adoption Audit',
+        'description': 'A fixed-scope diagnostic that finds why an internal AI tool has stalled — across the data, retrieval, and cognitive layers — and sets out what to change.',
+        'url': '/services/ai-adoption-audit.html',
+        'image': '/images/social-preview/ai-adoption.png',
+        'label': 'For Enterprise & Scale-ups',
+    },
+    {
+        'title': 'Commissioned Analysis',
+        'description': 'Data analysis, visualisation, and visual storytelling — from a single interactive chart to a scrollable data essay — built on our own open-source tools.',
+        'url': '/services/commissioned-analysis.html',
+        'image': '/images/social-preview/commissioned-analysis.png',
+        'label': 'Visualisation & Story',
+    },
+]
+
 # Open source packages
 PACKAGES = [
     {
