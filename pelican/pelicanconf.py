@@ -163,6 +163,19 @@ PROJECTS = [
     },
 ]
 
+# Hungarian-language projects (shown on the Hungarian portfolio page)
+PROJECTS_HU = [
+    {
+        'title': 'Magyar dalszövegek — diakronikus elemzés',
+        'description': "Hat évtizednyi magyar popzene szövegeinek nyelvi elemzése: "
+                       "jellegzetes szavak, témák alakulása, jelentéseltolódások és "
+                       "szemantikai sodródás a hatvanas évektől napjainkig.",
+        'url': '/music_lyrics/index.html',
+        'image': '/music_lyrics/assets/clouds/decade_1970.png',
+        'label': 'NLP & Digitális bölcsészet',
+    },
+]
+
 # Aporia — visual essays
 APORIA = [
     {

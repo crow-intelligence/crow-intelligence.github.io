@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}{{ SITENAME }} — Független kutatás a nyelv, a megismerés és az MI metszéspontjában{% endblock %}
+{% block og_image %}{{ SITEURL }}/images/social-preview/home.png{% endblock %}
+{% block twitter_image %}{{ SITEURL }}/images/social-preview/home.png{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1 class="hero-logo"><img src="/{{ LOGO_PATH }}" alt="{{ SITENAME }}"></h1>
+        <div class="hero-prose">
+            <p>A Crow Intelligence butik kutató- és tanácsadó műhely, amely a nyelv,
+            a megismerés és a mesterséges intelligencia metszéspontjában dolgozik.</p>
+            <p>Néhány kérdésre azért válaszolunk, mert megfizetnek érte; másokat azért
+            kutatunk, mert nem hagynak nyugodni. Mindkettőt ugyanazzal a módszerrel
+            kezeljük — a számítógépes elemzést a kognitív tudománnyal ötvözve —, és
+            ugyanazzal a bizonyítási igénnyel.</p>
+            <p>Függetlenek vagyunk, szándékosan kicsik, és elkötelezettek amellett, hogy
+            nyíltan dolgozzunk: esszéink és eszközeink nyilvánosak, és az ügyfélmunkánk
+            is jobb ettől.</p>
+        </div>
+        <div class="hero-cta">
+            <a href="{{ SITEURL }}/about.html" class="btn btn-secondary">Rólunk</a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Mivel foglalkozunk</h2>
+        <div class="what-we-do">
+            <p>Független kutató- és tanácsadó műhely vagyunk, amely a nyelv, a megismerés
+            és az adatok metszéspontjában dolgozik — segítünk a szervezeteknek tisztán
+            látni, hogy mit érdemes építeni, működik-e, és valójában mit jelentenek az
+            eredmények.</p>
+            <p><strong>AI &amp; NLP átvilágítás</strong> — független technikai értékelés kockázatitőke-alapok számára.</p>
+            <p><strong>Az AI-bevezetési audit</strong> — annak feltárása, miért akadt el egy belső MI-eszköz.</p>
+            <p><strong>Megrendelt elemzés</strong> — adatvizualizáció és adatközpontú történetmesélés, saját eszközeinkre építve.</p>
+            <p><a href="{{ SITEURL }}/services.html" class="btn btn-accent">Szolgáltatásaink</a></p>
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">Portfólió</h2>
+        <div class="what-we-do">
+            <p>Ismerd meg a munkánkat: az <strong>Aporia</strong> vizuális esszéket,
+            interaktív kutatási <strong>projektjeinket</strong>, és a nyílt forráskódú
+            <strong>Python-csomagokat</strong>, amelyek hajtják őket.</p>
+            <p><a href="{{ SITEURL }}/hu/portfolio.html" class="btn btn-accent">Böngészd a portfóliót</a></p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Csapatunk</h2>
+        <div class="team-grid">
+            {% for member in TEAM %}
+            <div class="team-member">
+                <a href="{{ member.linkedin }}" target="_blank" class="team-photo">
+                    <img src="/{{ member.photo }}" alt="{{ member.name }}">
+                </a>
+                <h3><a href="{{ member.linkedin }}" target="_blank">{{ member.name }}</a></h3>
+                <p><strong>{{ member.role }}.</strong> {{ member.bio }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">Együttműködő partnereink</h2>
+        <p class="section-intro">Dolgoztunk szervezetekkel a zöld pénzügyek, a gyógyszeripari elemzés,
+        a tényfeltáró újságírás, a nyelvészet, a kognitív pszichológia, a városkutatás, a civil
+        szektor és a közéleti átláthatóság területén.</p>
+        <div class="partner-grid">
+            {% for partner in PARTNERS %}
+            <div class="partner-logo">
+                {% if partner.logo %}
+                <img src="/{{ partner.logo }}" alt="{{ partner.name }}">
+                <span class="partner-name">{{ partner.name }}</span>
+                {% else %}
+                <span class="partner-text-logo">{{ partner.name }}</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Lépj velünk kapcsolatba</h2>
+        <div class="what-we-do">
+            <p>Ha a szervezeted egy nyelvi, megismeréssel kapcsolatos vagy adatproblémával
+            küzd — vagy egy belső MI-eszközzel, amely nem találja a helyét —, szívesen
+            hallunk róla. Írj nekünk, vagy foglalj egy rövid beszélgetést.</p>
+            <p>
+                <a href="https://cal.com/zoltan-varju-h4s0aq/15min" target="_blank" rel="noopener" class="btn btn-accent">Foglalj 15 perces hívást</a>
+                <a href="{{ SITEURL }}/contact.html" class="btn btn-secondary">Írj üzenetet</a>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
