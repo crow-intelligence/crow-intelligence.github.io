@@ -83,16 +83,6 @@
                 <a href="{% if link.startswith('http') %}{{ link }}{% else %}{{ SITEURL }}{{ link }}{% endif %}">{{ title }}</a>
                 {% endfor %}
             </div>
-            {% set cur_lang = (page.lang if (page is defined and page) else None) or DEFAULT_LANG %}
-            {% set alt_url = (page.lang_alt if (page is defined and page and page.lang_alt)
-                              else ('/hu/' if cur_lang == 'en' else '/')) %}
-            <div class="lang-switch" aria-label="Language">
-                {% if cur_lang == 'hu' %}
-                <a href="{{ SITEURL }}{{ alt_url }}">EN</a><span class="lang-current">HU</span>
-                {% else %}
-                <span class="lang-current">EN</span><a href="{{ SITEURL }}{{ alt_url }}">HU</a>
-                {% endif %}
-            </div>
         </div>
     </nav>
 
