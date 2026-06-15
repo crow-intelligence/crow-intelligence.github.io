@@ -161,6 +161,15 @@ PROJECTS = [
         'label': 'Computational Philosophy',
         'featured': False,
     },
+    {
+        'title': 'Hungarian Pop Lyrics — A Diachronic Analysis',
+        'description': "Six decades of Hungarian popular-music lyrics: distinctive words, shifting themes, semantic drift and genre from the 1960s to today.",
+        'url': '/music_lyrics/index.html',
+        'image': '/music_lyrics/assets/clouds/decade_1970.png',
+        'label': 'NLP & Digital Humanities',
+        'lang': 'In Hungarian',
+        'featured': False,
+    },
 ]
 
 # Hungarian-language projects (shown on the Hungarian portfolio page)
