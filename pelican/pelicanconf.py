@@ -164,8 +164,8 @@ PROJECTS = [
     {
         'title': 'Hungarian Pop Lyrics — A Diachronic Analysis',
         'description': "Six decades of Hungarian popular-music lyrics: distinctive words, shifting themes, semantic drift and genre from the 1960s to today.",
-        'url': '/music_lyrics/index.html',
-        'image': '/music_lyrics/assets/clouds/decade_1970.png',
+        'url': '/magyar-dalszovegek/#temak',
+        'image': '/magyar-dalszovegek/assets/og.png',
         'label': 'NLP & Digital Humanities',
         'lang': 'In Hungarian',
         'featured': False,
@@ -179,8 +179,8 @@ PROJECTS_HU = [
         'description': "Hat évtizednyi magyar popzene szövegeinek nyelvi elemzése: "
                        "jellegzetes szavak, témák alakulása, jelentéseltolódások és "
                        "szemantikai sodródás a hatvanas évektől napjainkig.",
-        'url': '/music_lyrics/index.html',
-        'image': '/music_lyrics/assets/clouds/decade_1970.png',
+        'url': '/magyar-dalszovegek/index.html',
+        'image': '/magyar-dalszovegek/assets/clouds/decade_1970.png',
         'label': 'NLP & Digitális bölcsészet',
     },
 ]
