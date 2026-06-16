@@ -1080,7 +1080,9 @@ footer p {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    /* Cap at 3 columns per row on desktop; the 340px floor still steps down
+       to 2 then 1 column on narrower screens. */
+    grid-template-columns: repeat(auto-fit, minmax(max(340px, (100% - 48px) / 3), 1fr));
     gap: 24px;
 }
 
