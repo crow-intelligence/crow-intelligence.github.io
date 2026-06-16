@@ -179,8 +179,8 @@ PROJECTS_HU = [
         'description': "Hat évtizednyi magyar popzene szövegeinek nyelvi elemzése: "
                        "jellegzetes szavak, témák alakulása, jelentéseltolódások és "
                        "szemantikai sodródás a hatvanas évektől napjainkig.",
-        'url': '/magyar-dalszovegek/index.html',
-        'image': '/magyar-dalszovegek/assets/clouds/decade_1970.png',
+        'url': '/magyar-dalszovegek/#temak',
+        'image': '/magyar-dalszovegek/assets/og.png',
         'label': 'NLP & Digitális bölcsészet',
     },
 ]
@@ -207,6 +207,14 @@ APORIA = [
         'url': '/aporia/epistemic-arcade/',
         'image': '/aporia/epistemic-arcade/imgs/social-preview.png',
         'label': 'Philosophy of Mind',
+    },
+    {
+        'title': 'Nekem írod a dalt',
+        'description': "A scrollable visual essay on six decades of Hungarian popular song (1950–2026): themes, words, emotions, rhymes and word-networks, decade by decade. In Hungarian.",
+        'url': '/magyar-dalszovegek-essze/',
+        'image': '/magyar-dalszovegek-essze/assets/og.png',
+        'label': 'NLP & Digital Humanities',
+        'lang': 'In Hungarian',
     },
 ]
 
