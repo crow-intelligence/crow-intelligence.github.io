@@ -122,6 +122,14 @@ PROJECTS = [
         'featured': True,
     },
     {
+        'title': 'The Narrative Engine — FOMC Speech Analysis',
+        'description': 'A pilot dashboard comparing how FOMC governors talk about the economy — topic, narrative type, stance, and time-orientation across four speeches, with a drill-down inspector for individual expressions.',
+        'url': '/fomc-dashboard/index.html',
+        'image': '/fomc-dashboard/preview.png',
+        'label': 'Narrative Analytics',
+        'featured': False,
+    },
+    {
         'title': 'Semantic Shifts in Presidential Rhetoric',
         'description': 'Tracking how the meaning of political concepts like freedom, democracy, and war evolves across 250 years of American presidential discourse. Built with our open-source chronowords package — PPMI embeddings, Procrustes alignment, and NMF topic modeling.',
         'url': '/analysis/index.html',
