@@ -4,33 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>The Epistemic Arcade</title>
-    <meta name="description" content="A scrollytelling experiment about where the mind ends." />
-    <meta property="og:title" content="The Epistemic Arcade" />
-    <meta property="og:description" content="A scrollytelling experiment about where the mind ends." />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://crowintelligence.org/aporia/epistemic-arcade/" />
-    <meta property="og:image" content="https://crowintelligence.org/aporia/epistemic-arcade/imgs/social-preview.png" />
-    <meta property="og:image:secure_url" content="https://crowintelligence.org/aporia/epistemic-arcade/imgs/social-preview.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1280" />
-    <meta property="og:image:height" content="640" />
-    <meta property="og:image:alt" content="The Epistemic Arcade — two retro Tetris boards side by side under a neon-green title." />
-    <meta property="og:site_name" content="Crow Intelligence" />
-    <meta property="og:locale" content="en_US" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="The Epistemic Arcade" />
-    <meta name="twitter:description" content="A scrollytelling experiment about where the mind ends." />
-    <meta name="twitter:image" content="https://crowintelligence.org/aporia/epistemic-arcade/imgs/social-preview.png" />
-
-    <link rel="canonical" href="https://crowintelligence.org/aporia/epistemic-arcade/" />
-
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -42,29 +15,202 @@
     <script defer src="app.js"></script>
   </head>
   <body>
-    <header class="brand-bar">
-      <a class="brand-link" href="/" aria-label="Crow Intelligence">
-        <img src="imgs/crow-nav.svg" alt="Crow Intelligence" class="brand-logo" />
-      </a>
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="brand-nav">
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="brand-nav" id="brand-nav" aria-label="Site">
-        <a href="/portfolio.html">Portfolio</a>
-        <a href="/services.html">Services</a>
-        <a href="/about.html">About</a>
-        <a href="https://blog.crowintelligence.org/">Blog</a>
-        <a href="/contact.html">Contact</a>
-      </nav>
-    </header>
-
     <div id="loading" class="loading">Loading telemetry…</div>
 
     <div class="layout" hidden>
-      <header class="masthead">
-        <h1>The Epistemic Arcade</h1>
-        <p class="byline">A scrollytelling experiment about where the mind ends.</p>
-      </header>
+      <main class="prose">
+        <header class="masthead">
+          <h1>The Epistemic Arcade</h1>
+          <p class="byline">What Tetris tells us about where the mind ends.</p>
+        </header>
+
+        <section class="step" data-step="1">
+          <h2>The Extended Mind Thesis &mdash; Where does the mind end and the world begin?</h2>
+          <p>
+            For most of modern history, we assumed a strict boundary: cognition happens entirely
+            within the skull. The world is just the stage where the brain's decisions are acted
+            out.
+          </p>
+          <p>
+            But in 1998, philosophers Andy Clark and David Chalmers proposed a radical alternative.
+            They argued that if a piece of the outside world functions in the exact same way as a
+            piece of your brain, there is no meaningful reason to draw a line at the skull. The
+            mind can leak out into the environment.
+          </p>
+          <p>This might sound strange, but think of:</p>
+          <ul>
+            <li>Using your fingers to count.</li>
+            <li>Using paper and pencil to add two or more numbers.</li>
+            <li>
+              Using a slide rule to do arithmetic &mdash; old school, but generations of students
+              did this.
+            </li>
+            <li>
+              Using your mobile phone to remember your friends' phone numbers, birthdays, and so
+              on &mdash; see Chalmers,
+              <a href="https://www.youtube.com/watch?v=ksasPjrYFTg" target="_blank" rel="noopener noreferrer">Is your phone part of your mind?</a>,
+              TEDxSydney.
+            </li>
+            <li>
+              Using LLMs for writing essays, analysing data, and so on &mdash; see Clark,
+              <a href="https://www.nature.com/articles/s41467-025-59906-9" target="_blank" rel="noopener noreferrer">Extending Minds with Generative AI</a>.
+            </li>
+          </ul>
+          <p>
+            Clark and Chalmers famously used the thought experiment of Otto, a man with memory loss
+            who relies completely on a notebook. Because the notebook functions identically to
+            biological memory, they argued, the notebook is part of Otto's mind.
+          </p>
+        </section>
+
+        <section class="step" data-step="2">
+          <h2>Tetris reveals the extended mind</h2>
+          <p>
+            Four years earlier, cognitive scientists David Kirsh and Paul Maglio showed this wasn't
+            just a thought experiment. They watched humans play Tetris.
+          </p>
+          <p>
+            They noticed players rotating blocks (or <em>zoids</em>) on the way down. The rapid
+            keystrokes weren't mistakes. Sometimes the shape of a zoid is not obvious &mdash; it
+            takes a moment to see it in its full form. By rotating it early, the player can reveal
+            that form. And by rotating zoids, we can more accurately predict whether one will fit
+            a suitable place. Players are offloading the cognitive burden of mental rotation onto
+            the physical screen. Instead of computationally expensive mental rotation, the player
+            pushes a button &mdash; an <em>epistemic action</em>.
+          </p>
+          <p class="caption">
+            &ldquo;Physical actions that make mental computation easier, faster, or more
+            reliable&hellip; external actions that an agent performs to change his or her own
+            computational state.&rdquo; &mdash; Kirsh &amp; Maglio (1994).
+          </p>
+        </section>
+
+        <section class="step" data-step="3">
+          <h2>Building the Arcade</h2>
+          <p>
+            So we built a place to watch the same thing happen inside a machine.
+          </p>
+          <p>
+            Two reinforcement-learning agents, Alpha and Beta. Same neural architecture. Same
+            board, a standard ten-by-twenty well. Same training, same algorithm. One difference,
+            and only one: the reward. Every keystroke costs Alpha a small penalty, so motion is
+            something it has to justify. Beta moves for free.
+          </p>
+          <p>
+            Let's call Agent Alpha <strong>The Internalist</strong>, and Agent Beta
+            <strong>The Extended Mind</strong>. But keep in mind they only differ in their reward
+            functions &mdash; they are not minds in any sense, just models of Tetris players.
+          </p>
+          <p class="caption">
+            At <span class="phosphor">epoch&nbsp;10&nbsp;000</span>, both agents still play
+            essentially randomly. The reward shaping hasn't yet imprinted itself on play.
+          </p>
+        </section>
+
+        <section class="step" data-step="4">
+          <h2>The Divergence</h2>
+          <p>
+            By a quarter of a million frames the two have come apart, and you can see it without
+            being told.
+          </p>
+          <p>
+            Alpha, on the left, is spare. It waits, sets a piece down, moves on. Every rotation
+            it spends, it spends once; the penalty has pressed its play toward the minimum. Beta,
+            on the right, will not hold still. It spins pieces it has already oriented, walks them
+            left and then back right, tries the fit and tries it again. The cyan ghost-trails mark
+            the frames the telemetry flags as <em>epistemic actions</em> &mdash; Beta's screen
+            fills with them; Alpha's stays dark.
+          </p>
+          <p>
+            It looks, frame for frame, like Kirsh and Maglio's players, and the pull to narrate
+            it their way is almost irresistible: Beta is thinking with its hands, working the
+            screen the way the experts did. But remember, Alpha and Beta are just models &mdash;
+            we used reward functions to simulate two different behaviours.
+          </p>
+          <p class="caption">
+            The cyan ghost-trails mark frames where the JSON's
+            <code>is_epistemic_action</code> flag fires.
+          </p>
+        </section>
+
+        <section class="step" data-step="5">
+          <h2>The Mastery</h2>
+          <p>
+            By the millionth timestep, both agents play with practised skill &mdash; but the
+            approaches they've internalised have hardened into style.
+          </p>
+          <p>
+            Agent Alpha and Agent Beta now play with the same precision. Alpha gets there with
+            very few moves and rotations; Beta uses rotation extensively. The reward functions
+            did their work very well.
+          </p>
+          <p class="caption">
+            Watch the screens. The internalist computes. The extended mind thinks out loud.
+          </p>
+        </section>
+
+        <section class="step" data-step="6">
+          <h2>The Data</h2>
+          <p>
+            Both agents learned to survive the game, but they built fundamentally different
+            &ldquo;cognitive systems&rdquo;. Both are equally good at Tetris. Agent Alpha does this
+            almost without rotation, while Agent Beta first rotated heavily, then stabilised at
+            about 20-something percent of frames being rotations. One would be tempted to say
+            Agent Beta offloaded rotation to the screen.
+          </p>
+          <p class="caption">
+            Source: <code>data/telemetry_{alpha,beta}.json</code> &mdash; 100 evaluation games per
+            checkpoint, top&nbsp;5 sample games by cumulative reward exported per checkpoint.
+          </p>
+        </section>
+
+        <section class="step" data-step="6">
+          <h2>On the experiment</h2>
+          <p>
+            Two agents trained with PPO (via <code>stable-baselines3</code>) on a custom
+            ten-by-twenty Tetris environment built on Gymnasium. Identical architecture, identical
+            observations, identical training; the reward functions differ only by a per-keystroke
+            movement penalty, applied to Alpha and set to zero for Beta. Telemetry is drawn from
+            100 evaluation games per checkpoint, with the top five games by cumulative reward
+            exported at each checkpoint.
+          </p>
+        </section>
+
+        <section class="step" data-step="6">
+          <h2>Further reading</h2>
+          <ul>
+            <li>
+              Clark, A. &amp; Chalmers, D. (1998). <em>The Extended Mind.</em>
+              <cite>Analysis</cite>, 58(1), 7&ndash;19. &mdash; The classic paper that introduced
+              the thesis of the extended mind.
+            </li>
+            <li>
+              Kirsh, D. &amp; Maglio, P. (1994). <em>On Distinguishing Epistemic from Pragmatic
+              Action.</em> <cite>Cognitive Science</cite>, 18(4), 513&ndash;549. &mdash; The
+              experiment that showed Tetris players use epistemic actions.
+            </li>
+            <li>
+              Clark, A. (2025).
+              <a href="https://doi.org/10.1038/s41467-025-59906-9" target="_blank" rel="noopener noreferrer"><em>Extending Minds with Generative AI</em></a>.
+              <cite>Nature Communications</cite>, 16, 4627. &mdash; A nice summary of how to
+              interpret generative AI as a form of extended mind.
+            </li>
+            <li>
+              Chalmers, D. J. (2011).
+              <a href="https://www.youtube.com/watch?v=ksasPjrYFTg" target="_blank" rel="noopener noreferrer"><em>Is Your Phone Part of Your Mind?</em></a>
+              TEDxSydney. &mdash; An easy-to-follow talk on the extended mind thesis using mobile
+              phones as a worked example, with attention to the pros and cons of extending our
+              minds with external tools.
+            </li>
+            <li>
+              Haas, J. (2022).
+              <a href="https://compass.onlinelibrary.wiley.com/doi/10.1111/phc3.12865" target="_blank" rel="noopener noreferrer"><em>Reinforcement learning: A brief guide for philosophers of mind</em></a>.
+              <cite>Philosophy Compass</cite>. &mdash; A nice introduction to reinforcement
+              learning.
+            </li>
+          </ul>
+        </section>
+      </main>
 
       <aside class="visual" aria-label="Tetris and chart visuals">
         <div class="visual-frame">
@@ -82,151 +228,12 @@
             <div class="chart-wrap">
               <canvas id="chart" width="600" height="400"></canvas>
             </div>
-            <div class="insert-coin">[INSERT COIN]</div>
-            <div class="loading-checkpoint">[ LOADING CHECKPOINT&hellip; ]</div>
+            <div class="loading-checkpoint">[ LOADING&hellip; ]</div>
             <div class="epoch-badge"><span id="epoch-label">epoch&nbsp;&mdash;</span></div>
           </div>
           <div class="scanlines" aria-hidden="true"></div>
         </div>
       </aside>
-
-      <main class="prose">
-        <section class="step" data-step="1">
-          <h2>Where does the mind end and the world begin?</h2>
-          <p>
-            For most of modern history, we assumed a strict boundary: cognition happens entirely
-            within the skull. The world is just the stage where the brain's decisions are acted
-            out.
-          </p>
-          <p>
-            But in 1998, philosophers Andy Clark and David Chalmers proposed a radical alternative.
-            They argued that if a piece of the outside world functions in the exact same way as a
-            piece of your brain, there is no meaningful reason to draw a line at the skull. The
-            mind can leak out into the environment.
-          </p>
-        </section>
-
-        <section class="step" data-step="2">
-          <h2>Otto and the Arcade</h2>
-          <p>
-            Clark and Chalmers famously used the thought experiment of Otto, a man with memory loss
-            who relies completely on a notebook. Because the notebook functions identically to
-            biological memory, they argued, the notebook is part of Otto's mind.
-          </p>
-          <p>
-            But four years earlier, cognitive scientists David Kirsh and Paul Maglio proved this
-            wasn't just a thought experiment. They watched humans play Tetris.
-          </p>
-          <p>
-            They noticed players frantically rotating blocks on the way down. These rapid
-            keystrokes weren't mistakes. The players were offloading the heavy cognitive burden of
-            mental rotation onto the physical screen. Pushing a button was computationally cheaper
-            than calculating matrix transformations in the brain. The physical action was,
-            literally, a thought.
-          </p>
-        </section>
-
-        <section class="step" data-step="3">
-          <h2>Training the Philosophers</h2>
-          <p>
-            To test the boundaries of the mind, we built an arcade. We trained two Reinforcement
-            Learning AI agents to play Tetris. Both have the same neural architecture. Both see the
-            exact same board. The only difference is their philosophy, encoded into their reward
-            functions.
-          </p>
-          <p>
-            <strong>Agent Alpha — The Internalist.</strong> Punished with a strict point penalty
-            for every single keystroke. It must compute the spatial reality of the board entirely
-            within its own hidden layers before making a move.
-          </p>
-          <p>
-            <strong>Agent Beta — The Extended Mind.</strong> Operates without keystroke penalties.
-            It is free to manipulate the physical environment to see what happens.
-          </p>
-          <p class="caption">
-            Below: both agents at <span class="phosphor">epoch&nbsp;10&nbsp;000</span>. Still
-            essentially random — the philosophies haven't yet imprinted themselves on play.
-          </p>
-        </section>
-
-        <section class="step" data-step="4">
-          <h2>The Divergence</h2>
-          <p>By checkpoint 250&nbsp;000, the two philosophies have violently diverged.</p>
-          <p>
-            Watch Agent Alpha on the left. It processes everything internally. It waits, computes
-            the optimal placement, and acts with robotic, single-keystroke efficiency.
-          </p>
-          <p>
-            Now watch Agent Beta on the right. It is fidgeting. It spins the T-block redundantly,
-            just to see how the geometry aligns with the stack below. These are what Kirsh and
-            Maglio called <em>epistemic actions</em> — changing the world to make thinking easier.
-            Beta is thinking with its hands.
-          </p>
-          <p class="caption">
-            The cyan ghost-trails mark frames where the JSON's
-            <code>is_epistemic_action</code> flag fires.
-          </p>
-        </section>
-
-        <section class="step" data-step="5">
-          <h2>The Mastery</h2>
-          <p>
-            By the millionth timestep, both agents play with practised skill — but the philosophies
-            they've internalised have hardened into style.
-          </p>
-          <p>
-            Agent Alpha continues to act with surgical economy. Each piece is placed in its final
-            orientation with the minimum keystrokes possible. The penalty has trained a clean,
-            deliberate mover.
-          </p>
-          <p>
-            Agent Beta still fidgets. The redundant rotations and lateral oscillations haven't
-            faded with training; they've stabilised as part of how it cognises the board. The cyan
-            ghost-trails are denser than ever.
-          </p>
-          <p class="caption">
-            Watch the screens. The internalist computes. The extended mind thinks out loud.
-          </p>
-        </section>
-
-        <section class="step" data-step="6">
-          <h2>The Data: a Parity Principle</h2>
-          <p>The telemetry proves the Parity Principle.</p>
-          <p>
-            Both agents learned to survive the game, but they built fundamentally different
-            cognitive systems. Agent Beta didn't fail to learn mental rotation; it learned that the
-            screen was a better hard drive than its own neural weights.
-          </p>
-          <p>
-            By epoch 1&nbsp;000&nbsp;000, over 20% of Beta's physical actions were purely cognitive
-            offloading. Its mind had extended into the pixels.
-          </p>
-          <p class="caption">
-            Source: <code>data/telemetry_{alpha,beta}.json</code> — 100 evaluation games per
-            checkpoint, top&nbsp;5 sample games by cumulative reward exported per checkpoint.
-          </p>
-        </section>
-
-        <footer class="colophon">
-          <p>
-            Built on PPO via stable-baselines3 over a custom 10&times;20 Gymnasium Tetris
-            environment. Two agents, identical architecture, contrasting reward functions. Code +
-            data: <code>extended-mind-tetris</code>.
-          </p>
-        </footer>
-      </main>
     </div>
-
-    <script>
-      (function () {
-        var t = document.querySelector('.nav-toggle');
-        var n = document.querySelector('.brand-nav');
-        if (!t || !n) return;
-        t.addEventListener('click', function () {
-          var open = n.classList.toggle('open');
-          t.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-      })();
-    </script>
   </body>
 </html>

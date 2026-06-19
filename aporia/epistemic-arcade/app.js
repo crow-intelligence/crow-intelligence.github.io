@@ -41,6 +41,9 @@ const PIECE_COLOR = {
 const FPS_DEFAULT = 15;
 const CRT_FADE_MS = 400;
 const CRT_HOLD_MS = 220;
+
+const LOADING_TEXT_INITIAL = "[ LOADING… ]";
+const LOADING_TEXT_SWAP = "[ LOADING CHECKPOINT… ]";
 const GHOST_QUEUE_LEN = 2;
 const GHOST_ALPHA = 0.3;
 const CELL_PX = 20;
@@ -101,41 +104,14 @@ function decodeBoard(boardString) {
  * --------------------------------------------------------------------------- */
 
 function setupCanvas(canvas) {
-  // The board is drawn in fixed board-pixel units (BOARD_COLS*CELL_PX wide);
-  // the canvas may be displayed at any size (responsive on mobile). Contain-fit
-  // the 1:2 board into the space one of the two side-by-side cells gets inside
-  // the .agent-pair flex row — constrained by BOTH width and height so it never
-  // overflows the CRT frame. Then scale the context so the fixed board-pixel
-  // drawing code fills the (possibly downscaled) canvas exactly.
+  // High-DPI scaling for crisper rendering on retina screens.
   const dpr = window.devicePixelRatio || 1;
-  const boardW = BOARD_COLS * CELL_PX;
-  const boardH = BOARD_ROWS * CELL_PX;
-
-  let availW = boardW;
-  let availH = boardH;
-  const pair = canvas.closest(".agent-pair");
-  if (pair && pair.clientWidth > 0 && pair.clientHeight > 0) {
-    const cs = getComputedStyle(pair);
-    const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-    const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-    const gap = parseFloat(cs.columnGap) || 0;
-    availW = (pair.clientWidth - padX - gap) / 2;
-    // Reserve room under the canvas for the agent's figcaption label.
-    const caption = canvas.parentElement.querySelector("figcaption");
-    const capH = caption ? caption.offsetHeight + 10 : 0;
-    availH = pair.clientHeight - padY - capH;
-  }
-
-  const scale = Math.min(availW / boardW, availH / boardH);
-  const cssW = Math.max(1, Math.round(boardW * scale));
-  const cssH = Math.max(1, Math.round(boardH * scale));
-  canvas.style.width = `${cssW}px`;
-  canvas.style.height = `${cssH}px`;
-  canvas.width = Math.round(cssW * dpr);
-  canvas.height = Math.round(cssH * dpr);
+  canvas.width = BOARD_COLS * CELL_PX * dpr;
+  canvas.height = BOARD_ROWS * CELL_PX * dpr;
+  canvas.style.width = `${BOARD_COLS * CELL_PX}px`;
+  canvas.style.height = `${BOARD_ROWS * CELL_PX}px`;
   const ctx = canvas.getContext("2d");
-  ctx.setTransform(1, 0, 0, 1, 0, 0); // clear any prior scale before re-fitting
-  ctx.scale(canvas.width / boardW, canvas.height / boardH);
+  ctx.scale(dpr, dpr);
   return ctx;
 }
 
@@ -197,7 +173,7 @@ function diffCells(curr, prev) {
 }
 
 /* ---------------------------------------------------------------------------
- * Step 1 synthetic: a single T-block rotating
+ * Steps 1 & 2 synthetic: a single T-block rotating on Alpha
  * --------------------------------------------------------------------------- */
 
 function drawSpinningT(ctx, orientation) {
@@ -209,27 +185,6 @@ function drawSpinningT(ctx, orientation) {
   for (const [dr, dc] of offsets) {
     drawCell(ctx, anchorR + dr, anchorC + dc, COLORS.magenta);
   }
-}
-
-/* ---------------------------------------------------------------------------
- * Step 2 synthetic: a static "completed" board snapshot + INSERT COIN overlay
- * --------------------------------------------------------------------------- */
-
-function drawCompletedBoard(ctx, agent) {
-  // Use the final frame of the highest-reward sample at epoch 1_000_000 as a
-  // representative "completed" board: it's full of locked stack.
-  const samples = state.telemetry[agent]?.sample_games?.filter(
-    (g) => g.metadata.epoch === 1_000_000,
-  );
-  const game = samples?.[0];
-  if (!game || !game.game_frames.length) {
-    clearBoard(ctx);
-    return;
-  }
-  const frame = game.game_frames[game.game_frames.length - 1];
-  const decoded = decodeBoard(frame.board_state);
-  clearBoard(ctx);
-  drawDecodedBoard(ctx, decoded, COLORS.green);
 }
 
 /* ---------------------------------------------------------------------------
@@ -275,9 +230,10 @@ function tickAgent(ctx, agent, advance, withGhosting) {
   // frames. A simple FIFO with cap GHOST_QUEUE_LEN means we just pop the oldest
   // when we push a new one below.
   const ghosts = state.ghostQueue[agent];
+  // Render previous-tick ghosts first (so the live frame draws over them).
+  if (withGhosting) drawGhosts(ctx, ghosts);
 
   clearBoard(ctx);
-  // Render ghosts under the live frame, then draw the board over them.
   if (withGhosting) drawGhosts(ctx, ghosts);
   drawDecodedBoard(ctx, decoded, pieceColor);
 
@@ -317,18 +273,16 @@ let canvasBeta;
 function tick(nowMs) {
   const step = state.activeStep;
 
-  if (step === 1) {
-    // Single T-block rotating; one rotation per 800ms.
+  if (step === 1 || step === 2) {
+    // Synthetic intro: a single T-block rotating on Alpha to illustrate the
+    // very thing Kirsh & Maglio describe in step 2. Beta stays dark until the
+    // real epoch playback begins at step 3.
     const elapsed = nowMs - state.tBlockLastChangeMs;
     if (elapsed >= 800) {
       state.tBlockOrientation = (state.tBlockOrientation + 1) % 4;
       state.tBlockLastChangeMs = nowMs;
     }
     drawSpinningT(ctxAlpha, state.tBlockOrientation);
-    clearBoard(ctxBeta);
-  } else if (step === 2) {
-    // Static completed board on Alpha; Beta blank (INSERT COIN overlay handled in CSS).
-    drawCompletedBoard(ctxAlpha, "alpha");
     clearBoard(ctxBeta);
   } else if (step === 3 || step === 4 || step === 5) {
     // Autonomous playback loop: rAF drives the wall clock, frame index advances
@@ -361,20 +315,26 @@ const EPOCH_LABEL = {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Single source of truth for every visual flag the controller toggles. Every
+// setStep branch (and every crtReboot phase) calls this with the full desired
+// state, so a fast back-scroll mid-transition can never leave a stale overlay.
+function normalizeChrome({ loadingCheckpoint, chartWrap, agentPair, fading }) {
+  document.querySelector(".loading-checkpoint").classList.toggle("visible", loadingCheckpoint);
+  document.querySelector(".chart-wrap").classList.toggle("visible", chartWrap);
+  const pair = document.querySelector(".agent-pair");
+  pair.classList.toggle("hidden", !agentPair);
+  pair.classList.toggle("fading", fading);
+}
+
 async function setStep(n) {
   if (state.activeStep === n) return;
   state.activeStep = n;
   const token = ++state.transitionToken;
 
-  const agentPair = document.querySelector(".agent-pair");
-  const chartWrap = document.querySelector(".chart-wrap");
-  const insertCoin = document.querySelector(".insert-coin");
   const epochLabel = document.getElementById("epoch-label");
 
   if (n === 1) {
-    chartWrap.classList.remove("visible");
-    agentPair.classList.remove("hidden", "fading");
-    insertCoin.classList.remove("visible");
+    normalizeChrome({ loadingCheckpoint: false, chartWrap: false, agentPair: true, fading: false });
     epochLabel.textContent = "intro";
     canvasBeta.style.opacity = "0";
     canvasAlpha.style.opacity = "1";
@@ -382,20 +342,16 @@ async function setStep(n) {
     return;
   }
   if (n === 2) {
-    chartWrap.classList.remove("visible");
-    agentPair.classList.remove("hidden", "fading");
-    insertCoin.classList.add("visible");
-    epochLabel.textContent = "demo";
+    normalizeChrome({ loadingCheckpoint: false, chartWrap: false, agentPair: true, fading: false });
+    epochLabel.textContent = "DEMO";
     canvasBeta.style.opacity = "0";
     canvasAlpha.style.opacity = "1";
     state.currentEpoch = null;
     return;
   }
   if (n === 6) {
-    insertCoin.classList.remove("visible");
-    agentPair.classList.remove("fading");
-    agentPair.classList.add("hidden");
-    chartWrap.classList.add("visible");
+    // The Data step is not a checkpoint — no diegetic overlay, just swap to chart.
+    normalizeChrome({ loadingCheckpoint: false, chartWrap: true, agentPair: false, fading: false });
     epochLabel.textContent = "1 M timesteps";
     ensureChart();
     state.currentEpoch = null;
@@ -407,34 +363,21 @@ async function setStep(n) {
 }
 
 async function crtReboot(epoch, token) {
-  const agentPair = document.querySelector(".agent-pair");
-  const chartWrap = document.querySelector(".chart-wrap");
-  const insertCoin = document.querySelector(".insert-coin");
   const epochLabel = document.getElementById("epoch-label");
-  const loadingCheckpoint = document.querySelector(".loading-checkpoint");
+  const loadingEl = document.querySelector(".loading-checkpoint");
 
-  // Already showing this epoch (re-entering the same playback step) — just
-  // normalise the chrome and skip the fade so the boards never blink.
-  if (state.currentEpoch === epoch) {
-    insertCoin.classList.remove("visible");
-    chartWrap.classList.remove("visible");
-    agentPair.classList.remove("hidden", "fading");
-    loadingCheckpoint.classList.remove("visible");
-    canvasAlpha.style.opacity = "1";
-    canvasBeta.style.opacity = "1";
-    return;
-  }
+  // First entry from a synthetic step (currentEpoch is null) is an *initial*
+  // load, not a checkpoint swap: show a simple "LOADING…" and skip the hold.
+  // Real epoch-to-epoch swaps (3↔4, 4↔5) get "LOADING CHECKPOINT…" plus the
+  // extra hold so the diegetic reboot reads deliberately.
+  const isFirstLoad = state.currentEpoch == null;
+  loadingEl.textContent = isFirstLoad ? LOADING_TEXT_INITIAL : LOADING_TEXT_SWAP;
 
-  // Reset chrome so the agent pair is the live surface again.
-  insertCoin.classList.remove("visible");
-  chartWrap.classList.remove("visible");
-  agentPair.classList.remove("hidden");
   canvasAlpha.style.opacity = "1";
   canvasBeta.style.opacity = "1";
 
-  // 1. Fade the canvas wrapper to opacity 0 over CRT_FADE_MS; show LOADING text.
-  agentPair.classList.add("fading");
-  loadingCheckpoint.classList.add("visible");
+  // 1. Fade the canvas wrapper to opacity 0 and reveal the LOADING overlay.
+  normalizeChrome({ loadingCheckpoint: true, chartWrap: false, agentPair: true, fading: true });
   epochLabel.textContent = EPOCH_LABEL[epoch];
 
   // 2. Wait for the fade-out to complete.
@@ -449,54 +392,30 @@ async function crtReboot(epoch, token) {
   state.currentEpoch = epoch;
   state.lastTickMs = performance.now();
 
-  // Hold LOADING briefly so the diegetic reboot reads.
-  await sleep(CRT_HOLD_MS);
-  if (token !== state.transitionToken) return;
+  if (!isFirstLoad) {
+    await sleep(CRT_HOLD_MS);
+    if (token !== state.transitionToken) return;
+  }
 
-  // 4. Fade canvas back in.
-  loadingCheckpoint.classList.remove("visible");
-  agentPair.classList.remove("fading");
+  // 4. Hide the overlay and fade the canvas back in.
+  normalizeChrome({ loadingCheckpoint: false, chartWrap: false, agentPair: true, fading: false });
 }
-
-const STEP_SWITCH_MARGIN = 0.1;
-const stepRatios = new Map();
 
 function initObserver() {
   const sections = document.querySelectorAll(".step");
-  sections.forEach((s) => stepRatios.set(Number(s.dataset.step), 0));
-
+  // Centerline trigger band: a section is "active" iff it crosses the middle
+  // 10% strip of the viewport. With min-height: 90vh sections, exactly one
+  // step ever sits on the centerline — no flapping between adjacent sections
+  // during fast scroll, exactly one setStep call per direction.
   const observer = new IntersectionObserver(
     (entries) => {
-      // Keep a live intersection ratio for every step, not just the ones in
-      // this callback batch — so the winner is a global decision.
       for (const e of entries) {
-        const n = Number(e.target.dataset.step);
-        stepRatios.set(n, e.isIntersecting ? e.intersectionRatio : 0);
-      }
-      // The active step is whichever dominates the viewport's centre band.
-      let winner = null;
-      let winnerRatio = 0;
-      for (const [n, r] of stepRatios) {
-        if (r > winnerRatio) {
-          winner = n;
-          winnerRatio = r;
-        }
-      }
-      if (winner == null || winner === state.activeStep) return;
-      // Hysteresis: switch only once the winner clearly leads the current
-      // step, or once the current step has left the band entirely. This stops
-      // the epoch transition flapping when scrolling near a section boundary.
-      const currentRatio = stepRatios.get(state.activeStep) || 0;
-      if (winnerRatio - currentRatio > STEP_SWITCH_MARGIN || currentRatio === 0) {
-        setStep(winner);
+        if (!e.isIntersecting) continue;
+        setStep(Number(e.target.dataset.step));
+        return;
       }
     },
-    {
-      // Observe only the middle 30% of the viewport: the active step is the
-      // one occupying the centre, which is unambiguous and stable.
-      rootMargin: "-35% 0px -35% 0px",
-      threshold: Array.from({ length: 21 }, (_, i) => i / 20),
-    },
+    { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
   );
   sections.forEach((s) => observer.observe(s));
 }
@@ -615,17 +534,6 @@ function reveal() {
   document.querySelector(".layout").hidden = false;
 }
 
-// Re-fit the canvases to their laid-out size on viewport/orientation change.
-// rAF-debounced; reassigns the contexts the tick() loop reads.
-let resizeRaf = 0;
-function handleResize() {
-  cancelAnimationFrame(resizeRaf);
-  resizeRaf = requestAnimationFrame(() => {
-    ctxAlpha = setupCanvas(canvasAlpha);
-    ctxBeta = setupCanvas(canvasBeta);
-  });
-}
-
 async function boot() {
   canvasAlpha = document.getElementById("canvas-alpha");
   canvasBeta = document.getElementById("canvas-beta");
@@ -646,10 +554,6 @@ async function boot() {
   setStep(1);
   state.lastTickMs = performance.now();
   state.tBlockLastChangeMs = performance.now();
-  window.addEventListener("resize", handleResize);
-  window.addEventListener("orientationchange", handleResize);
-  // Re-fit now that .layout is visible and the canvases have a real width.
-  handleResize();
   requestAnimationFrame(tick);
 }
 
