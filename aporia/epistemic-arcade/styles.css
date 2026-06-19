@@ -421,3 +421,78 @@ code {
     font-size: 2.8rem;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Site chrome — Crow Intelligence brand bar + footer (arcade-themed)
+   --------------------------------------------------------------------------- */
+
+.brand-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: #0d0d0d;
+  border-bottom: 1px solid rgba(57, 255, 20, 0.22);
+  flex-wrap: wrap;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.brand-link:hover {
+  opacity: 1;
+}
+
+.brand-logo {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+
+.brand-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.brand-nav a {
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  margin-left: 22px;
+  transition: color 0.2s ease;
+}
+
+.brand-nav a:hover {
+  color: var(--accent-green);
+}
+
+.site-footer {
+  border-top: 1px solid rgba(57, 255, 20, 0.18);
+  padding: 28px 24px;
+  text-align: center;
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  background: #0d0d0d;
+}
+
+.site-footer a {
+  color: var(--text-dim);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(57, 255, 20, 0.4);
+}
+
+.site-footer a:hover {
+  color: var(--accent-green);
+  border-bottom-color: var(--accent-green);
+}
