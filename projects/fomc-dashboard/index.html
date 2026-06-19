@@ -15,6 +15,7 @@
   <meta name="twitter:title" content="The Narrative Engine — FOMC Speech Analysis">
   <meta name="twitter:description" content="A pilot dashboard comparing how FOMC governors talk about the economy — topic, narrative type, stance, and time-orientation across four speeches.">
   <meta name="twitter:image" content="https://crowintelligence.org/fomc-dashboard/preview.png">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
   <style>
     :root {
@@ -220,9 +221,34 @@
               background: #eef1f5; color: #334; font-family: monospace; }
     .tl-rank { display: inline-block; font-family: monospace; font-size: 11px; color: var(--muted);
                margin-right: 8px; min-width: 22px; }
+
+    /* Crow Intelligence chrome (matches other microsites) */
+    .ci-header { background: #1a1a20; border-bottom: 1px solid #3a3a44; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-family: 'Courier Prime', monospace, system-ui, -apple-system, sans-serif; font-size: 0.85rem; flex-wrap: wrap; }
+    .ci-header .ci-brand { display: inline-flex; align-items: center; text-decoration: none; }
+    .ci-header .ci-brand img { height: 26px; width: auto; display: block; }
+    .ci-header nav { display: flex; gap: 18px; align-items: center; background: none; border: none; padding: 0; position: static; }
+    .ci-header nav a { color: #e8e6e1; text-decoration: none; transition: color 0.2s ease; }
+    .ci-header nav a:hover { color: #e8c97e; }
+    .ci-footer { background: #1a1a20; border-top: 1px solid #3a3a44; padding: 24px; text-align: center; color: #9a988f; font-family: 'Courier Prime', monospace, system-ui, -apple-system, sans-serif; font-size: 0.8rem; }
+    .ci-footer a { color: #c7c5bd; text-decoration: none; border-bottom: 1px dotted #6a6862; }
+    .ci-footer a:hover { color: #e8c97e; border-bottom-color: #e8c97e; }
+    .ci-footer p { margin: 6px 0; }
+    .ci-footer .ci-credits { color: #6a6862; font-size: 0.75rem; margin-top: 8px; }
   </style>
 </head>
 <body>
+
+<header class="ci-header">
+  <a href="https://crowintelligence.org/" class="ci-brand" aria-label="Crow Intelligence">
+    <img src="https://crowintelligence.org/logos/brand/crow-nav.svg" alt="Crow Intelligence">
+  </a>
+  <nav>
+    <a href="https://crowintelligence.org/portfolio.html">Portfolio</a>
+    <a href="https://crowintelligence.org/services.html">Services</a>
+    <a href="https://crowintelligence.org/about.html">About</a>
+    <a href="https://crowintelligence.org/contact.html">Contact</a>
+  </nav>
+</header>
 
 <header>
   <h1>The Narrative Engine</h1>
@@ -8414,6 +8440,13 @@ function escapeHtml(s) {
 // initial render
 renderCompare();
 </script>
+
+<footer class="ci-footer">
+  <p>A <a href="https://crowintelligence.org/">Crow Intelligence</a> project ·
+     <a href="mailto:hello@crowintelligence.org">hello@crowintelligence.org</a> ·
+     <a href="https://crowintelligence.org/portfolio.html">Portfolio</a></p>
+  <p class="ci-credits">The Narrative Engine — a pilot dashboard. Charts rendered with Plotly. &copy; 2026 Crow Intelligence.</p>
+</footer>
 
 </body>
 </html>
