@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
   <title>The Narrative Engine — FOMC Speech Analysis</title>
   <meta name="description" content="A pilot dashboard comparing how FOMC governors talk about the economy — topic, narrative type, stance, and time-orientation across four speeches, with a drill-down inspector for individual expressions.">
   <link rel="canonical" href="https://crowintelligence.org/fomc-dashboard/">
@@ -234,9 +235,73 @@
     .ci-footer a:hover { color: #e8c97e; border-bottom-color: #e8c97e; }
     .ci-footer p { margin: 6px 0; }
     .ci-footer .ci-credits { color: #6a6862; font-size: 0.75rem; margin-top: 8px; }
+
+    /* Password gate (cosmetic) */
+    #pw-gate { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center;
+               justify-content: center; padding: 24px;
+               background: radial-gradient(circle at 50% 35%, #25426b 0%, #16273f 60%, #0f1b2d 100%); }
+    #pw-gate .pw-card { background: #fff; border-radius: 12px; padding: 36px 32px; width: 100%;
+               max-width: 380px; text-align: center; box-shadow: 0 18px 50px rgba(0,0,0,0.4); }
+    #pw-gate .pw-lock { font-size: 34px; line-height: 1; }
+    #pw-gate h2 { font-size: 19px; margin: 14px 0 6px; color: var(--ink); font-weight: 600; }
+    #pw-gate p { font-size: 13px; color: var(--muted); margin: 0 0 20px; line-height: 1.5; }
+    #pw-gate input { width: 100%; box-sizing: border-box; padding: 11px 13px; font-size: 14px;
+               border: 1px solid var(--line); border-radius: 7px; font-family: inherit;
+               margin-bottom: 12px; }
+    #pw-gate input:focus { outline: none; border-color: var(--accent); }
+    #pw-gate button { width: 100%; padding: 11px; font-size: 14px; font-weight: 600; color: #fff;
+               background: var(--accent); border: none; border-radius: 7px; cursor: pointer;
+               font-family: inherit; }
+    #pw-gate button:hover { background: #142a4a; }
+    #pw-gate .pw-error { color: #b3261e; font-size: 12.5px; height: 16px; margin: 10px 0 0; }
+    #pw-gate.pw-shake .pw-card { animation: pw-shake 0.35s; }
+    @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)}
+               40%,80%{transform:translateX(7px)} }
   </style>
 </head>
 <body>
+
+<div id="pw-gate">
+  <form class="pw-card" id="pw-form" autocomplete="off">
+    <div class="pw-lock">🔒</div>
+    <h2>Protected dashboard</h2>
+    <p>This dashboard is password-protected.<br>Enter the password to continue.</p>
+    <input type="password" id="pw-input" placeholder="Password" aria-label="Password" autofocus>
+    <button type="submit">Unlock</button>
+    <p class="pw-error" id="pw-error" role="alert"></p>
+  </form>
+</div>
+
+<script>
+  // Cosmetic password gate — not real security (page loads behind it).
+  (function () {
+    var GATE_PASSWORD = "crow";
+    var gate = document.getElementById("pw-gate");
+    function unlock() {
+      gate.style.display = "none";
+      document.body.style.overflow = "";
+      try { sessionStorage.setItem("fomc_unlocked", "1"); } catch (e) {}
+    }
+    if (sessionStorage.getItem && sessionStorage.getItem("fomc_unlocked") === "1") {
+      unlock();
+    } else {
+      document.body.style.overflow = "hidden";
+    }
+    document.getElementById("pw-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var val = document.getElementById("pw-input").value;
+      if (val === GATE_PASSWORD) {
+        unlock();
+      } else {
+        document.getElementById("pw-error").textContent = "Incorrect password.";
+        gate.classList.remove("pw-shake");
+        void gate.offsetWidth; // restart animation
+        gate.classList.add("pw-shake");
+        document.getElementById("pw-input").select();
+      }
+    });
+  })();
+</script>
 
 <header class="ci-header">
   <a href="https://crowintelligence.org/" class="ci-brand" aria-label="Crow Intelligence">

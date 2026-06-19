@@ -98,14 +98,6 @@ TEAM = [
 # Featured projects
 PROJECTS = [
     {
-        'title': 'The Narrative Engine — FOMC Speech Analysis',
-        'description': 'A pilot dashboard comparing how FOMC governors talk about the economy — topic, narrative type, stance, and time-orientation across four speeches, with a drill-down inspector for individual expressions.',
-        'url': '/fomc-dashboard/index.html',
-        'image': '/fomc-dashboard/preview.png',
-        'label': 'Narrative Analytics',
-        'featured': True,
-    },
-    {
         'title': 'The Wealth of Nations — 250th Anniversary Digital Edition',
         'description': "An interactive exploration of Adam Smith's 1776 masterwork. Topic modeling, named entity recognition, rhetorical metaphor analysis, and full-text search across all five books.",
         'url': '/site/index.html',
