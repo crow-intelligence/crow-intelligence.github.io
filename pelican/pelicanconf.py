@@ -130,6 +130,14 @@ PROJECTS = [
         'featured': False,
     },
     {
+        'title': 'Chokepoint News-Risk Dashboard',
+        'description': "Topic-modelled daily geopolitical risk across the world's maritime chokepoints — Suez, the Red Sea, Hormuz, Panama, the Bosphorus and the Danish straits — tracking how risk is framed in the news as it unfolds.",
+        'url': '/chokepoints/',
+        'image': '/chokepoints/preview.svg',
+        'label': 'News-Risk Analytics',
+        'featured': False,
+    },
+    {
         'title': 'Semantic Shifts in Presidential Rhetoric',
         'description': 'Tracking how the meaning of political concepts like freedom, democracy, and war evolves across 250 years of American presidential discourse. Built with our open-source chronowords package — PPMI embeddings, Procrustes alignment, and NMF topic modeling.',
         'url': '/analysis/index.html',

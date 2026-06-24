@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 440" font-family="'Courier Prime', 'Courier New', monospace">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a1f"/>
+      <stop offset="100%" stop-color="#24242b"/>
+    </linearGradient>
+    <linearGradient id="accent-line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e8c97e"/>
+      <stop offset="100%" stop-color="#3B8BD4"/>
+    </linearGradient>
+    <linearGradient id="risk-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e74c3c" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#e74c3c" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="560" height="440" fill="url(#bg)"/>
+  <rect x="0" y="0" width="560" height="3" fill="url(#accent-line)"/>
+
+  <!-- Title -->
+  <text x="40" y="58" fill="#e8c97e" font-size="20" letter-spacing="1">Chokepoint News-Risk</text>
+  <text x="40" y="80" fill="#9a988f" font-size="11" letter-spacing="2">DAILY GEOPOLITICAL RISK · TOPIC-MODELLED NEWS</text>
+
+  <!-- Faint shipping-lane arcs across a stylised strait -->
+  <g stroke="#3B8BD4" stroke-width="1" fill="none" opacity="0.28" stroke-dasharray="3 5">
+    <path d="M40,150 C180,110 380,210 520,160"/>
+    <path d="M40,180 C180,150 380,250 520,200"/>
+  </g>
+
+  <!-- Risk area chart -->
+  <g>
+    <!-- gridlines -->
+    <g stroke="#35353d" stroke-width="0.5" opacity="0.5">
+      <line x1="40" y1="250" x2="520" y2="250"/>
+      <line x1="40" y1="300" x2="520" y2="300"/>
+      <line x1="40" y1="350" x2="520" y2="350"/>
+    </g>
+    <!-- filled risk index -->
+    <path d="M40,330 L80,318 L120,335 L160,300 L200,312 L240,268 L280,288 L320,240
+             L360,262 L400,228 L440,250 L480,214 L520,236 L520,380 L40,380 Z"
+          fill="url(#risk-fill)"/>
+    <!-- risk line -->
+    <path d="M40,330 L80,318 L120,335 L160,300 L200,312 L240,268 L280,288 L320,240
+             L360,262 L400,228 L440,250 L480,214 L520,236"
+          fill="none" stroke="#e74c3c" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- alert spike marker -->
+    <circle cx="480" cy="214" r="4.5" fill="#e8c97e"/>
+    <circle cx="480" cy="214" r="9" fill="none" stroke="#e8c97e" stroke-width="1" opacity="0.5"/>
+  </g>
+
+  <!-- Chokepoint node legend -->
+  <g font-size="11" fill="#cfcdc6">
+    <g>
+      <circle cx="46" cy="408" r="3.5" fill="#3B8BD4"/>
+      <text x="56" y="412">Suez</text>
+    </g>
+    <g>
+      <circle cx="130" cy="408" r="3.5" fill="#3B8BD4"/>
+      <text x="140" y="412">Red Sea</text>
+    </g>
+    <g>
+      <circle cx="240" cy="408" r="3.5" fill="#3B8BD4"/>
+      <text x="250" y="412">Hormuz</text>
+    </g>
+    <g>
+      <circle cx="346" cy="408" r="3.5" fill="#3B8BD4"/>
+      <text x="356" y="412">Panama</text>
+    </g>
+    <g>
+      <circle cx="456" cy="408" r="3.5" fill="#3B8BD4"/>
+      <text x="466" y="412">Bosphorus</text>
+    </g>
+  </g>
+</svg>
