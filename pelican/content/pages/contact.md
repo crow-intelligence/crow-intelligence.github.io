@@ -64,6 +64,12 @@ Well, let's change that.
 </div>
 <div class="card">
 <div class="card-accent"></div>
+<h3>Newsletter</h3>
+<p>Our notes on language, cognition, and AI.</p>
+<p><a href="https://mindtheminds.substack.com/" target="_blank" rel="noopener" class="btn btn-accent">Read Mind the Minds</a></p>
+</div>
+<div class="card">
+<div class="card-accent"></div>
 <h3>LinkedIn</h3>
 <p>Connect with us professionally.</p>
 <div class="linkedin-links">
