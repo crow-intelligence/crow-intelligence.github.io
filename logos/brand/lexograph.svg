@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="440" height="160" style="background-color: #1A1B20;">
+  <defs>
+    <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur1" />
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="35%" stop-color="#D946EF"/>
+      <stop offset="65%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+
+    <g id="lexograph-paths">
+      <path d="M 80,40 V 110 A 20,20 0 0 0 100,130 H 110" stroke="#9333EA" />
+      <path d="M 120,105 H 170 A 25,25 0 0 0 170,55 H 140 A 25,25 0 0 0 120,80 V 105 A 25,25 0 0 0 145,130 H 180" stroke="#D946EF" />
+      <path d="M 200,55 L 250,130" stroke="#F97316" />
+      <path d="M 250,55 L 200,130" stroke="#A855F7" />
+      <path d="M 312.5,55 A 37.5,37.5 0 0 0 312.5,130" stroke="#4F46E5" />
+      <path d="M 312.5,130 A 37.5,37.5 0 0 0 312.5,55" stroke="#06B6D4" />
+      <path d="M 390,55 A 37.5,37.5 0 1 1 389.9,55" stroke="#06B6D4" />
+      <path d="M 427.5,92.5 V 140 A 30,30 0 0 1 397.5,170 H 370" stroke="#F59E0B" />
+      <path d="M 460,130 V 55" stroke="#F59E0B" />
+      <path d="M 460,85 A 35,35 0 0 1 495,50 H 510" stroke="#F59E0B" />
+      <path d="M 592.5,92.5 A 37.5,37.5 0 1 1 517.5,92.5 A 37.5,37.5 0 1 1 592.5,92.5" stroke="#A855F7" />
+      <path d="M 592.5,55 V 130" stroke="#F97316" />
+      <path d="M 625,55 V 170" stroke="#F59E0B" />
+      <path d="M 625,92.5 A 37.5,37.5 0 1 1 700,92.5 A 37.5,37.5 0 1 1 625,92.5" stroke="#FACC15" />
+      <path d="M 730,30 V 130" stroke="#06B6D4" />
+      <path d="M 730,85 A 35,35 0 0 1 765,50 H 775 A 30,30 0 0 1 805,80 V 130" stroke="#06B6D4" />
+    </g>
+  </defs>
+
+  <use href="#lexograph-paths" fill="none" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" filter="url(#neonGlow)" />
+  
+  <use href="#lexograph-paths" fill="none" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+
+  <use href="#lexograph-paths" fill="none" stroke="#1A1B20" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+
+  <g fill="#FFFFFF">
+    <circle cx="80" cy="40" r="2.5" /> <circle cx="110" cy="130" r="2.5" />
+    <circle cx="120" cy="105" r="2.5" /> <circle cx="180" cy="130" r="2.5" />
+    <circle cx="200" cy="55" r="2.5" /> <circle cx="250" cy="130" r="2.5" />
+    <circle cx="250" cy="55" r="2.5" /> <circle cx="200" cy="130" r="2.5" />
+    <circle cx="312.5" cy="55" r="2.5" /> <circle cx="312.5" cy="130" r="2.5" />
+    <circle cx="370" cy="170" r="2.5" /> 
+    <circle cx="460" cy="130" r="2.5" /> <circle cx="460" cy="55" r="2.5" /> <circle cx="510" cy="50" r="2.5" />
+    <circle cx="592.5" cy="55" r="2.5" /> <circle cx="592.5" cy="130" r="2.5" />
+    <circle cx="625" cy="55" r="2.5" /> <circle cx="625" cy="170" r="2.5" />
+    <circle cx="730" cy="30" r="2.5" /> <circle cx="730" cy="130" r="2.5" /> <circle cx="805" cy="130" r="2.5" />
+  </g>
+
+  <g text-anchor="middle" font-family="'Quicksand', 'Varela Round', 'Nunito', 'Segoe UI', sans-serif" font-size="34" letter-spacing="3.5" font-weight="600">
+    <text x="442" y="240" fill="none" stroke="url(#textGrad)" stroke-width="7" stroke-linejoin="round" filter="url(#neonGlow)">generative text visualization</text>
+    <text x="442" y="240" fill="none" stroke="url(#textGrad)" stroke-width="7" stroke-linejoin="round">generative text visualization</text>
+    <text x="442" y="240" fill="none" stroke="#1A1B20" stroke-width="2.5" stroke-linejoin="round">generative text visualization</text>
+  </g>
+</svg>

@@ -1,7 +1,7 @@
 Title: Open Source Packages
 Slug: packages
 Status: published
-Summary: Open source Python tools for computational text analysis: chronowords for semantic shift detection, kenon for co-occurrence networks, and corvus cookiecutter template for data science projects.
+Summary: Open source Python tools for computational text analysis: chronowords for semantic shift detection, kenon for co-occurrence networks, keyflux for corpus keyness and allotaxonographs, lexograph for text visualisation, and the corvus cookiecutter template.
 Og_image: /images/social-preview/packages.png
 
 <div class="about-intro">
@@ -52,6 +52,52 @@ Named after the Greek *kenon* (κενόν) — the void that enables connection.
 
 ---
 
+## keyflux
+
+<img src="/logos/brand/keyflux.svg" alt="keyflux logo" style="max-width: 300px; margin-bottom: 1rem;">
+
+Corpus keyness, rank-turbulence divergence, and allotaxonographs — in pure
+Python. Derive keywords and lockwords from a focus-versus-reference comparison
+using proper corpus-linguistic measures (log-likelihood for significance, log
+ratio for effect size), compare the ranked lists with rank-turbulence divergence,
+and render the allotaxonograph — the rank-rank map plus the ranked list of which
+exact words drove the shift.
+
+It replaces the usual "Jaccard overlap on the top-N keywords" summary with a
+transparent, pip-installable pipeline. Figures are matplotlib — no JavaScript
+runtime.
+
+- [PyPI](https://pypi.org/project/keyflux/)
+- [GitHub](https://github.com/crow-intelligence/keyflux)
+- [Docs](https://keyflux.readthedocs.io/)
+
+`pip install keyflux`
+
+---
+
+## lexograph
+
+<img src="/logos/brand/lexograph.svg" alt="lexograph logo" style="max-width: 300px; margin-bottom: 1rem;">
+
+Spatialize linear text into pictures you can read. Through one
+segment → layout → encode → render pipeline, lexograph turns a text into a
+figure: punctuation spirals, 2-D and 3-D sentence walks, recurrence dotplots
+that plot a text against itself, and concordance plots for a term's dispersion.
+
+Every preset returns a matplotlib figure and never calls `show()`, so it renders
+inline in Jupyter and saves cleanly. The visualisation member of the corpus-lx
+family, alongside chronowords, kenon, and keyflux.
+
+Named after the Greek *graphein* (γράφειν) — to write, to draw.
+
+- [PyPI](https://pypi.org/project/lexograph/)
+- [GitHub](https://github.com/crow-intelligence/lexograph)
+- [Docs](https://lexograph.readthedocs.io/)
+
+`pip install lexograph`
+
+---
+
 ## corvus
 
 <img src="/logos/brand/corvus.svg" alt="corvus logo" style="max-width: 300px; margin-bottom: 1rem;">
@@ -67,16 +113,6 @@ linguistics and NLP research, now publicly available.
 - [GitHub](https://github.com/crow-intelligence/corvus)
 
 `uvx cookiecutter https://github.com/crow-intelligence/corvus.git`
-
----
-
-## lexograph *(coming soon)*
-
-Computational text art and visualisation. Turtle graphics sentence
-walks, punctuation spirals, rhythm punch cards, and concordance plots.
-Depends on both chronowords and kenon.
-
-Named after the Greek *graphein* (γράφειν) — to write, to draw.
 
 ---
 
@@ -105,6 +141,36 @@ Named after the Greek *graphein* (γράφειν) — to write, to draw.
     "name": "kenon",
     "description": "Construct semantic and co-occurrence networks from text using corpus-internal statistics, spaCy tokenization, and network backbone extraction.",
     "url": "https://pypi.org/project/kenon/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Python 3.11+",
+    "license": "https://opensource.org/licenses/MIT",
+    "author": {
+      "@type": "Organization",
+      "name": "Crow Intelligence",
+      "url": "https://crowintelligence.org"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "keyflux",
+    "description": "Corpus keyness, rank-turbulence divergence, and allotaxonographs — keywords and lockwords via log-likelihood and log ratio, in pure Python.",
+    "url": "https://pypi.org/project/keyflux/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Python 3.11+",
+    "license": "https://opensource.org/licenses/MIT",
+    "author": {
+      "@type": "Organization",
+      "name": "Crow Intelligence",
+      "url": "https://crowintelligence.org"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "lexograph",
+    "description": "Spatialize linear text into pictures you can read: punctuation spirals, sentence walks, recurrence dotplots, and concordances, rendered with matplotlib.",
+    "url": "https://pypi.org/project/lexograph/",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Python 3.11+",
     "license": "https://opensource.org/licenses/MIT",
