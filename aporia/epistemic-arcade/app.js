@@ -191,6 +191,46 @@ function drawSpinningT(ctx, orientation) {
  * Live Tetris playback for one agent
  * --------------------------------------------------------------------------- */
 
+// Count holes in a final-frame board string: per column, any empty cell that
+// has at least one filled cell above it.
+function countHoles(boardString) {
+  let holes = 0;
+  for (let c = 0; c < BOARD_COLS; c++) {
+    let seenFilled = false;
+    for (let r = 0; r < BOARD_ROWS; r++) {
+      const cell = boardString.charCodeAt(r * BOARD_COLS + c) - 48; // '0' or '1'
+      if (cell) seenFilled = true;
+      else if (seenFilled) holes++;
+    }
+  }
+  return holes;
+}
+
+function epistemicRate(game) {
+  const eps = game.game_frames.reduce((n, f) => n + (f.is_epistemic_action ? 1 : 0), 0);
+  return eps / game.game_frames.length;
+}
+
+// Pick the top-5 sample whose look best matches the section's narrative.
+// Each step needs a different thing on screen:
+//   - The Mastery (1M): cleanest end-state, for both agents — they look equally practised.
+//   - The Divergence (250K) for Beta: most fidgety, so the cyan ghost-trails read at a glance.
+//   - Everything else: samples[0] (already the top-reward game).
+// Stays within the top-5 already exported; doesn't touch aggregate metrics.
+function pickSampleForDisplay(samples, agent, epoch) {
+  if (epoch === 1_000_000) {
+    return [...samples].sort(
+      (a, b) =>
+        countHoles(a.game_frames[a.game_frames.length - 1].board_state) -
+        countHoles(b.game_frames[b.game_frames.length - 1].board_state),
+    )[0];
+  }
+  if (epoch === 250_000 && agent === "beta") {
+    return [...samples].sort((a, b) => epistemicRate(b) - epistemicRate(a))[0];
+  }
+  return samples[0];
+}
+
 function loadGameForEpoch(agent, epoch) {
   const telemetry = state.telemetry[agent];
   if (!telemetry) return;
@@ -200,8 +240,7 @@ function loadGameForEpoch(agent, epoch) {
     state.currentGame[agent] = null;
     return;
   }
-  // Already sorted descending by reward; first match is the top sample.
-  const game = samples[0];
+  const game = pickSampleForDisplay(samples, agent, epoch);
   state.currentGame[agent] = {
     epoch,
     frames: game.game_frames,
