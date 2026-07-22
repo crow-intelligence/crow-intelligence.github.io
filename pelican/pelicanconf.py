@@ -138,6 +138,15 @@ PROJECTS = [
         'featured': False,
     },
     {
+        'title': 'Corruption Press Networks — The K-Monitor Archive',
+        'description': "A data-driven analysis of K-Monitor's Hungarian corruption news archive: the most frequent and characteristic words, vocabulary richness, the co-occurrence network of the actors — people and institutions — and the types of corruption, broken down by parliamentary cycle.",
+        'url': '/kmdb/',
+        'image': '/kmdb/preview.svg',
+        'label': 'NLP & Digital Humanities',
+        'lang': 'In Hungarian',
+        'featured': False,
+    },
+    {
         'title': 'Semantic Shifts in Presidential Rhetoric',
         'description': 'Tracking how the meaning of political concepts like freedom, democracy, and war evolves across 250 years of American presidential discourse. Built with our open-source chronowords package — PPMI embeddings, Procrustes alignment, and NMF topic modeling.',
         'url': '/analysis/index.html',
