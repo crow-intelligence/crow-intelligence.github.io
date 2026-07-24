@@ -213,6 +213,13 @@ PROJECTS_HU = [
 # Aporia — visual essays
 APORIA = [
     {
+        'title': 'The Wrath and the Journey',
+        'description': 'A computational reading of the Iliad and the Odyssey: what each poem hoards, who speaks to whom, and where the map runs out.',
+        'url': '/aporia/homer/',
+        'image': '/aporia/homer/og.png',
+        'label': 'Computational Classics',
+    },
+    {
         'title': 'The great modern crimes are public crimes',
         'description': 'Big Five personality analysis of seven American leaders, public speeches vs. private writings.',
         'url': '/aporia/nagel-essay/',
