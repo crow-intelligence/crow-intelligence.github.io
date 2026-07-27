@@ -1,0 +1,260 @@
+/* Felsőzsolca inspection dashboard.
+ *
+ * Palette from the project's data-visualisation reference instance, validated
+ * with scripts/validate_palette.js for both modes — not chosen by eye. Light and
+ * dark are separately selected steps from the same hues, never an automatic flip.
+ *
+ * Everything is written against role variables so the two modes swap in one place.
+ */
+
+:root {
+  color-scheme: light;
+
+  --surface-1: #fcfcfb;   /* chart surface */
+  --plane: #f9f9f7;       /* page behind the cards */
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --gridline: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.10);
+
+  /* Categorical slots, fixed order. A series keeps its hue for ever. */
+  --series-1: #2a78d6;    /* blue */
+  --series-2: #eb6834;    /* orange */
+  --series-3: #1baf7a;    /* aqua */
+  --series-4: #eda100;    /* yellow */
+  --series-5: #e87ba4;    /* magenta */
+
+  /* Diverging poles + neutral midpoint. Warm/cool, so the ends read as
+   * opposite and the middle reads as "nothing". */
+  --diverge-cold: #2a78d6;
+  --diverge-neutral: #f0efec;
+  --diverge-warm: #e34948;
+
+  /* Two shades of one hue for before/after. Not two categorical colours: these are
+   * one subject at two times, not two subjects. */
+  --era-before: #9ec5f4;
+  --era-after: #184f95;
+}
+
+:root[data-theme="dark"],
+:root:where(:not([data-theme="light"])) {
+  /* placeholder so the cascade order is explicit; real values below */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --plane: #0d0d0d;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted: #898781;
+    --gridline: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.10);
+
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+
+    --diverge-cold: #3987e5;
+    --diverge-neutral: #383835;
+    --diverge-warm: #e66767;
+
+    --era-before: #256abf;
+    --era-after: #b7d3f6;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface-1: #1a1a19;
+  --plane: #0d0d0d;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --text-muted: #898781;
+  --gridline: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255, 255, 255, 0.10);
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+
+  --diverge-cold: #3987e5;
+  --diverge-neutral: #383835;
+  --diverge-warm: #e66767;
+
+  --era-before: #256abf;
+  --era-after: #b7d3f6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--plane);
+  color: var(--text-primary);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+header.page {
+  padding: 1.5rem 1.25rem 0.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+header.page h1 { font-size: 1.35rem; margin: 0 0 .25rem; }
+header.page p { margin: 0; color: var(--text-secondary); max-width: 62ch; }
+
+.warn {
+  max-width: 1100px;
+  margin: 1rem auto 0;
+  padding: .7rem 1rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--series-2);
+  border-radius: 4px;
+  background: var(--surface-1);
+  color: var(--text-secondary);
+  font-size: .88rem;
+}
+
+main { max-width: 1100px; margin: 0 auto; padding: 1rem 1.25rem 4rem; }
+
+.card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.1rem 1.25rem 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.card h2 { font-size: 1.05rem; margin: 0 0 .15rem; }
+.card .sub { color: var(--text-secondary); font-size: .88rem; margin: 0 0 1rem; max-width: 68ch; }
+
+.controls {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 auto 0;
+  max-width: 1100px;
+  padding: .5rem 1.25rem 0;
+}
+
+button {
+  font: inherit;
+  font-size: .85rem;
+  padding: .3rem .7rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-1);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+button[aria-pressed="true"] { border-color: var(--text-secondary); font-weight: 600; }
+
+figure { margin: 0; }
+figcaption {
+  color: var(--text-muted);
+  font-size: .78rem;
+  margin-top: .55rem;
+  max-width: 70ch;
+}
+
+/* Chart SVGs only. This MUST stay scoped: a bare `svg { width: 100% }` also hits
+ * Leaflet's overlay SVG, which sets its own width/height to match a viewBox with a
+ * negative origin. Overriding those does not hide the map layers — it silently
+ * rescales them out of view, leaving 177 correctly-coloured paths in the DOM and a
+ * blank map on screen. */
+figure > svg { display: block; width: 100%; height: auto; overflow: visible; }
+figure > svg text { fill: var(--text-muted); font-size: 11px; }
+figure > svg .axis-line { stroke: var(--axis); stroke-width: 1; }
+figure > svg .gridline { stroke: var(--gridline); stroke-width: 1; }
+
+/* Legend: identity is never carried by colour alone. */
+.legend { display: flex; gap: 1rem; flex-wrap: wrap; margin: .1rem 0 .6rem; font-size: .82rem; color: var(--text-secondary); }
+.legend .item { display: inline-flex; align-items: center; gap: .35rem; }
+.legend .chip { width: 14px; height: 14px; border-radius: 3px; }
+
+.scale { display: flex; align-items: center; gap: .4rem; font-size: .78rem; color: var(--text-muted); }
+.scale .ramp { height: 12px; width: 140px; border-radius: 2px; }
+
+table.data {
+  border-collapse: collapse;
+  font-size: .82rem;
+  font-variant-numeric: tabular-nums;
+  width: 100%;
+  margin-top: .5rem;
+}
+table.data th, table.data td { text-align: right; padding: .18rem .5rem; border-bottom: 1px solid var(--gridline); }
+table.data th:first-child, table.data td:first-child { text-align: left; }
+table.data th { color: var(--text-secondary); font-weight: 600; }
+
+.tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: var(--surface-1);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: .35rem .55rem;
+  font-size: .8rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .18);
+  opacity: 0;
+  transition: opacity .1s;
+  z-index: 9999;
+  font-variant-numeric: tabular-nums;
+}
+.tooltip[data-show="1"] { opacity: 1; }
+
+.source { color: var(--text-muted); font-size: .76rem; margin-top: .75rem; }
+.hidden { display: none; }
+
+#map {
+  height: 520px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--plane);
+}
+@media (max-width: 560px) { #map { height: 380px; } }
+
+/* Leaflet's own chrome, pulled into the page's ink so it does not fight it. */
+.leaflet-container { font: inherit; background: var(--plane); }
+.leaflet-control-layers, .leaflet-bar a, .leaflet-control-scale-line {
+  background: var(--surface-1);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+.leaflet-control-layers label { font-size: .82rem; }
+.leaflet-control-attribution {
+  background: var(--surface-1) !important;
+  color: var(--text-muted) !important;
+  font-size: .7rem;
+}
+.leaflet-control-attribution a { color: var(--text-secondary); }
+.legend svg { width: 26px; height: 12px; flex: none; }
+
+/* 30 m pixels shown as 30 m pixels. Smoothing would invent detail Landsat does not
+ * have, and the grain IS the mixed-pixel caveat: in a town of detached houses with
+ * gardens, almost every one of these squares blends roof, road and vegetation. */
+.sat-image { image-rendering: pixelated; }
+
+.yearbar { display: flex; gap: .3rem; flex-wrap: wrap; align-items: center; margin: .2rem 0 .7rem; }
+.yearbar button { font-variant-numeric: tabular-nums; }
+.yearbar .sep { width: 1px; height: 20px; background: var(--border); margin: 0 .4rem; }
+.yearbar .flood { border-color: var(--diverge-warm); }
+
+/* Print and forced-colors: the book may be greyscale in places, so the texture
+ * channel turns on automatically here rather than being an opt-in nicety. */
+@media print {
+  body { background: #fff; }
+  .card { break-inside: avoid; border: 1px solid #999; }
+  .controls, .tooltip { display: none; }
+}

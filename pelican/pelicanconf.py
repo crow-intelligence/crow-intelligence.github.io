@@ -147,6 +147,16 @@ PROJECTS = [
         'featured': False,
     },
     {
+        'title': 'Felsőzsolca — A Town in Data',
+        'description': "A data portrait of a Hungarian town: warming stripes of annual mean temperature, housing and population, incomes and local economy, what changed between two censuses, and year-by-year Landsat imagery of the town and its industrial zone.",
+        'url': '/felsozsolca/',
+        'image': '/felsozsolca/preview.svg',
+        'label': 'Geospatial Analytics',
+        'lang': 'In Hungarian',
+        'wip': True,
+        'featured': False,
+    },
+    {
         'title': 'Semantic Shifts in Presidential Rhetoric',
         'description': 'Tracking how the meaning of political concepts like freedom, democracy, and war evolves across 250 years of American presidential discourse. Built with our open-source chronowords package — PPMI embeddings, Procrustes alignment, and NMF topic modeling.',
         'url': '/analysis/index.html',

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Felsőzsolca — belső áttekintő</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="page">
+  <h1>Felsőzsolca — belső áttekintő</h1>
+  <p>
+    Munkaeszköz a könyvhöz: itt gyűjtjük össze a szóba jöhető ábrákat, hogy el
+    lehessen dönteni, melyik éri meg a nyomdát. Nem ez a nyilvános térkép.
+  </p>
+</header>
+
+<div class="warn">
+  <strong>Ez belső anyag.</strong> A rajta lévő számok addig nem publikálhatók, amíg
+  a mögöttük álló fázis nincs elfogadva. A hőmérsékleti adatsor kész; a műholdas
+  rétegek és a területhasználat még nem futott le.
+</div>
+
+<div class="controls">
+  <button id="theme" aria-pressed="false">Sötét</button>
+</div>
+
+<main>
+
+  <section class="card">
+    <h2>Melegedési sávok — évi középhőmérséklet</h2>
+    <p class="sub" id="climate-sub">Betöltés…</p>
+    <div id="climate-charts"></div>
+
+    <p class="source" id="climate-source"></p>
+
+    <details style="margin-top:.6rem">
+      <summary style="cursor:pointer;font-size:.85rem;color:var(--text-secondary)">
+        Amit tudni kell erről az adatsorról
+      </summary>
+      <ul id="climate-caveats" style="font-size:.83rem;color:var(--text-secondary);max-width:70ch"></ul>
+    </details>
+
+    <p style="margin-top:.7rem">
+      <button data-toggle="#climate-table" aria-pressed="false">Táblázat</button>
+    </p>
+    <div id="climate-table" class="hidden"></div>
+  </section>
+
+  <section class="card">
+    <h2>Térkép — műholdkép évenként, határ és infrastruktúra</h2>
+    <p class="sub" id="map-sub">Betöltés…</p>
+    <div class="yearbar" id="yearbar"></div>
+    <p class="source" id="sat-caption" style="margin:0 0 .6rem"></p>
+    <div class="legend" id="map-legend"></div>
+    <div id="map"></div>
+    <figcaption id="map-caption"></figcaption>
+    <p class="source" id="map-source"></p>
+
+    <details style="margin-top:.6rem">
+      <summary style="cursor:pointer;font-size:.85rem;color:var(--text-secondary)">
+        Miért nem idősor ez a réteg?
+      </summary>
+      <p style="font-size:.83rem;color:var(--text-secondary);max-width:70ch">
+        Az eredeti terv egy 2012-es és egy mai OSM állapot összehasonlítása volt.
+        Elvetettük. Az OSM azt rögzíti, mikor <em>rajzolta be valaki</em> az
+        objektumot, nem azt, mikor épült: a település 3572 épületének 95%-a máig az
+        első verziójánál tart, egyiken sincs <code>start_date</code>, és egyetlen
+        felhasználó 2025 decemberében 1429 épületet vitt fel. A töltés első
+        geometriája 2014-ben jelenik meg — négy évvel az árvíz után —, ráadásul
+        <code>highway=track</code> címkével; a <code>man_made=dyke</code> egyetlen
+        2019-es átcímkézési hullámban került rá. Zsilip egyáltalán nincs az adatban.
+        Egy ilyen animáció a térképészek munkanaptárát mutatná, a településtörténet
+        látszatával. A változást ezért műholdkép mutatja majd; ez a réteg a mai
+        állapot, a dátumok pedig felső becslések, amiket a szerzőnek kell
+        megerősítenie.
+      </p>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2>Lakásállomány és népesség</h2>
+    <p class="sub" id="ksh-sub">Betöltés…</p>
+    <div class="legend" id="ksh-legend"></div>
+    <div id="ksh-chart"></div>
+    <figcaption id="ksh-caption"></figcaption>
+    <p class="source" id="ksh-source"></p>
+    <p style="margin-top:.7rem">
+      <button data-toggle="#ksh-table" aria-pressed="false">Táblázat</button>
+    </p>
+    <div id="ksh-table" class="hidden"></div>
+  </section>
+
+  <section class="card">
+    <h2>És mihez képest? — összehasonlítás az országgal</h2>
+    <p class="sub" id="baseline-sub">Betöltés…</p>
+    <div class="legend" id="baseline-legend"></div>
+    <div id="baseline-chart"></div>
+    <figcaption id="baseline-caption"></figcaption>
+    <p class="source" id="baseline-source"></p>
+  </section>
+
+  <section class="card">
+    <h2>Mi változott két népszámlálás között</h2>
+    <p class="sub" id="census-sub">Betöltés…</p>
+    <div class="legend" id="census-legend"></div>
+    <div id="census-chart"></div>
+    <figcaption id="census-caption"></figcaption>
+    <p class="source" id="census-source"></p>
+  </section>
+
+  <section class="card">
+    <h2>Autó, vállalkozás, internet — és bolt</h2>
+    <p class="sub" id="trend-sub">Betöltés…</p>
+    <div class="legend" id="trend-legend"></div>
+    <div id="trend-chart"></div>
+    <figcaption id="trend-caption"></figcaption>
+    <p class="source" id="trend-source"></p>
+    <p style="margin-top:.7rem">
+      <button data-toggle="#economy-table" aria-pressed="false">Táblázat</button>
+    </p>
+    <div id="economy-table" class="hidden"></div>
+  </section>
+
+  <section class="card">
+    <h2>Jövedelem — folyó és változatlan áron</h2>
+    <p class="sub" id="income-sub">Betöltés…</p>
+    <div class="yearbar" id="income-bar"></div>
+    <div class="legend" id="income-legend"></div>
+    <div id="income-chart"></div>
+    <figcaption id="income-caption"></figcaption>
+    <p class="source" id="income-source"></p>
+  </section>
+
+  <section class="card">
+    <h2>Ipari zóna és beépítettség — műhold</h2>
+    <p class="sub">
+      A műholdképek a fenti térképkártyán vannak, évenként kapcsolhatóan.
+    </p>
+  </section>
+
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
