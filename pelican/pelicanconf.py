@@ -253,8 +253,8 @@ APORIA = [
     {
         'title': 'Nekem írod a dalt',
         'description': "A scrollable visual essay on six decades of Hungarian popular song (1950–2026): themes, words, emotions, rhymes and word-networks, decade by decade. In Hungarian.",
-        'url': '/magyar-dalszovegek-essze/',
-        'image': '/magyar-dalszovegek-essze/assets/og.png',
+        'url': '/aporia/magyar-dalszovegek-essze/',
+        'image': '/aporia/magyar-dalszovegek-essze/assets/og.png',
         'label': 'NLP & Digital Humanities',
         'lang': 'In Hungarian',
     },
