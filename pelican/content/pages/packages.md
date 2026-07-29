@@ -1,7 +1,7 @@
 Title: Open Source Packages
 Slug: packages
 Status: published
-Summary: Open source Python tools for computational text analysis: chronowords for semantic shift detection, kenon for co-occurrence networks, keyflux for corpus keyness and allotaxonographs, lexograph for text visualisation, and the corvus cookiecutter template.
+Summary: Open source Python tools for computational text analysis: chronowords for semantic shift detection, kenon for co-occurrence networks, keyflux for corpus keyness and allotaxonographs, lexograph for text visualisation, saphes for readability and lexical diversity, and the corvus cookiecutter template.
 Og_image: /images/social-preview/packages.png
 
 <div class="about-intro">
@@ -98,6 +98,35 @@ Named after the Greek *graphein* (γράφειν) — to write, to draw.
 
 ---
 
+## saphes
+
+<img src="/logos/brand/saphes.svg" alt="saphes logo" style="max-width: 300px; margin-bottom: 1rem;">
+
+Readability and lexical diversity — two metrics, done carefully, with the
+parameters other implementations hardcode. LIX for readability, TTR and MATTR
+for lexical diversity, with every underlying count exposed rather than folded
+away into a single number.
+
+The LIX long-word threshold is fixed at 6 nearly everywhere. That figure comes
+from Björnsson's Swedish original, and it does not travel: in agglutinative
+Hungarian or heavily inflected Ancient Greek almost every token counts as
+"long" and the index saturates into a flat line. Parameterising that threshold —
+and documenting every counting decision, so results are auditable — is the point
+of the package. The core has no dependencies: plain Python and the standard
+library.
+
+Named after the Greek *saphes* (σαφής) — clear, plain, distinct. Aristotle makes
+clarity the chief virtue of style; the other classical axis is *poikilia*
+(ποικιλία), variety. The two metrics are exactly those axes.
+
+- [PyPI](https://pypi.org/project/saphes/)
+- [GitHub](https://github.com/crow-intelligence/saphes)
+- [Docs](https://saphes.readthedocs.io/)
+
+`pip install saphes`
+
+---
+
 ## corvus
 
 <img src="/logos/brand/corvus.svg" alt="corvus logo" style="max-width: 300px; margin-bottom: 1rem;">
@@ -171,6 +200,21 @@ linguistics and NLP research, now publicly available.
     "name": "lexograph",
     "description": "Spatialize linear text into pictures you can read: punctuation spirals, sentence walks, recurrence dotplots, and concordances, rendered with matplotlib.",
     "url": "https://pypi.org/project/lexograph/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Python 3.11+",
+    "license": "https://opensource.org/licenses/MIT",
+    "author": {
+      "@type": "Organization",
+      "name": "Crow Intelligence",
+      "url": "https://crowintelligence.org"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "saphes",
+    "description": "Readability (LIX) and lexical diversity (TTR/MATTR) with configurable parameters, including the LIX long-word threshold that other implementations hardcode.",
+    "url": "https://pypi.org/project/saphes/",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Python 3.11+",
     "license": "https://opensource.org/licenses/MIT",

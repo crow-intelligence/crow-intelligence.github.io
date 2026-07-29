@@ -332,6 +332,17 @@ PACKAGES = [
         'docs': 'https://lexograph.readthedocs.io/',
     },
     {
+        'name': 'saphes',
+        'logo': 'logos/brand/saphes.svg',
+        'version': 'v0.1.0',
+        'license': 'MIT',
+        'python': '3.11+',
+        'description': 'Readability (LIX) and lexical diversity (TTR/MATTR) with the parameters other implementations hardcode. The LIX long-word threshold is fixed at 6 everywhere — a Swedish value that saturates on agglutinative or heavily inflected languages — so saphes exposes it, along with every count behind the score. Dependency-free: plain Python and the standard library.',
+        'pypi': 'https://pypi.org/project/saphes/',
+        'github': 'https://github.com/crow-intelligence/saphes',
+        'docs': 'https://saphes.readthedocs.io/',
+    },
+    {
         'name': 'corvus',
         'logo': 'logos/brand/corvus.svg',
         'version': 'v1.0.0',
