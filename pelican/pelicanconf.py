@@ -81,14 +81,14 @@ LOGO_PATH = 'logos/brand/crow-intelligence.svg'
 TEAM = [
     {
         'name': 'Zoltán Varjú',
-        'role': 'Co-Founder, Crow Intelligence',
+        'role': 'Founder & AI Advisor',
         'bio': 'Two decades at the intersection of language, AI, and data. Technical due diligence and AI advisory for funds and startups; co-founded and exited Complytron (acquired by SEON, 2023).',
         'photo': 'portraits/zoli.jpeg',
         'linkedin': 'https://www.linkedin.com/in/zoltanvarju/',
     },
     {
         'name': 'Orsolya Putz, PhD',
-        'role': 'Cognitive Scientist & AI Engineer',
+        'role': 'Partner & Cognitive Scientist',
         'bio': 'PhD in Cognitive Linguistics. Adjunct Professor at the Technical University of Budapest (BME).',
         'photo': 'portraits/orsi.jpeg',
         'linkedin': 'https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/',

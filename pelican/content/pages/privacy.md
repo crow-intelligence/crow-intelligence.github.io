@@ -1,12 +1,54 @@
 Title: Privacy
 Slug: privacy
 Status: published
-Summary: How Crow Intelligence handles the personal data you send through the contact form.
+Summary: How Crow Intelligence handles cookies, analytics, and the personal data you send through the contact form.
 Og_image: /images/social-preview/home.png
 
-This site does not use analytics, advertising, or third-party tracking. The
-only place we collect personal data is the contact form on the
+This site uses no advertising and no third-party tracking for marketing. We
+collect personal data in two places only: optional analytics cookies, which are
+set solely if you agree to them, and the contact form on the
 [Contact page](/contact.html).
+
+## Who we are
+
+The controller of the data described here is:
+
+- **Zoltán Varjú EV** (*egyéni vállalkozó* — sole trader)
+- Registration number: **52841028**
+- Hungary, European Union
+- [hello@crowintelligence.org](mailto:hello@crowintelligence.org)
+
+"Crow Intelligence" is the trading name under which this research practice
+operates.
+
+## Cookies and analytics
+
+We use **Google Analytics 4** to count visits and see which pages are read. It
+is switched off by default: nothing is loaded and no analytics cookie is set
+until you choose **Accept** in the cookie banner. If you choose **Reject**, or
+simply ignore the banner, the Google Analytics script is never requested.
+
+If you accept, Google Analytics sets `_ga` and `_ga_*` cookies in your browser
+to distinguish one visitor from another. They expire after up to two years. We
+use the data only in aggregate — visits, pages, referrers, rough geography — and
+we do not use it to build advertising profiles. IP addresses are anonymised, and
+Google's advertising features and signals are switched off.
+
+The legal basis is your **consent**, under Article 6(1)(a) of the GDPR. You can
+withdraw it at any time — it is as easy to withdraw as it was to give. Use the
+**Cookie settings** link in the footer of any page, choose Reject, and analytics
+stops immediately. You can also delete the cookies in your browser.
+
+For this processing the data is handled by **Google Ireland Limited** as our
+processor, under Google's
+[Measurement Controller-Controller Data Protection Terms](https://business.safety.google/adsprocessorterms/)
+and its [privacy policy](https://policies.google.com/privacy). Google may
+transfer data outside the EU under the safeguards described there. Google also
+offers a [browser opt-out add-on](https://tools.google.com/dlpage/gaoptout).
+
+Strictly necessary cookies: none. The site stores your cookie choice itself in
+your browser's local storage (not a cookie, and never sent to us) so that we do
+not ask you again on every page.
 
 ## What we collect
 
@@ -55,7 +97,10 @@ that, the messages are deleted from the inbox and archives.
 ## Your rights
 
 Under the GDPR you have the right to ask us what data we hold about you, to
-ask us to correct it, to ask us to delete it, and to object to how we use it.
+ask us to correct it, to ask us to delete it, to object to how we use it, to
+receive it in a portable form, and — where we rely on your consent, as we do for
+analytics — to withdraw that consent at any time without affecting what was
+lawful beforehand.
 To exercise any of these rights, email
 [hello@crowintelligence.org](mailto:hello@crowintelligence.org) and we will
 respond within thirty days.
@@ -69,4 +114,4 @@ your national data-protection authority. In Hungary that is the
 If we change how we handle data on this site, we will update this page and
 note the date below.
 
-*Last updated: 26 May 2026.*
+*Last updated: 3 August 2026.*

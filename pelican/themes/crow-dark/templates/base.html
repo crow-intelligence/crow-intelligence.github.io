@@ -36,25 +36,54 @@
     {
       "@context": "https://schema.org",
       "@type": "ResearchOrganization",
+      "@id": "{{ SITEURL }}/#organization",
       "name": "Crow Intelligence",
       "url": "{{ SITEURL }}/",
       "logo": "{{ SITEURL }}/{{ LOGO_PATH }}",
-      "description": "Independent research at the intersection of cognitive linguistics, natural language processing, and data analysis.",
+      "description": "Independent Research in Language, Cognition & AI",
       "email": "hello@crowintelligence.org",
       "founder": [
         {
           "@type": "Person",
           "name": "Zoltán Varjú",
-          "jobTitle": "Co-Founder, Crow Intelligence",
-          "sameAs": "https://www.linkedin.com/in/zoltanvarju/"
+          "jobTitle": "Founder & AI Advisor",
+          "worksFor": { "@id": "{{ SITEURL }}/#organization" },
+          "sameAs": [
+            "https://bsky.app/profile/zoltanv.bsky.social",
+            "https://mindtheminds.substack.com/",
+            "https://www.linkedin.com/in/zoltanvarju"
+          ]
         },
         {
           "@type": "Person",
-          "name": "Orsolya Putz",
-          "jobTitle": "Cognitive Linguist & AI Engineer",
-          "sameAs": "https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/"
+          "name": "Orsolya Putz, PhD",
+          "jobTitle": "Partner & Cognitive Scientist",
+          "worksFor": { "@id": "{{ SITEURL }}/#organization" },
+          "sameAs": [
+            "https://www.linkedin.com/in/orsolya-putz-phd-5242a5157"
+          ]
         }
       ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Services",
+        "itemListElement": [
+          {%- for service in SERVICES %}
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": {{ service.title|tojson }},
+              "description": {{ service.description|tojson }},
+              "url": "{{ SITEURL }}{{ service.url }}",
+              "serviceType": {{ service.label|tojson }},
+              "provider": { "@id": "{{ SITEURL }}/#organization" },
+              "areaServed": "EU"
+            }
+          }{{ "," if not loop.last }}
+          {%- endfor %}
+        ]
+      },
       "sameAs": [
         "https://github.com/crow-intelligence",
         "https://bsky.app/profile/zoltanv.bsky.social",
@@ -69,23 +98,28 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="/{{ THEME_STATIC_DIR }}/css/style.css">
+
+    <!-- Cookie consent + analytics loader. Analytics stays blocked until opt-in. -->
+    <script defer src="/consent.js"></script>
 </head>
 <body>
-    <nav class="main-nav">
-        <div class="container">
-            <a href="{{ SITEURL }}/" class="nav-brand" aria-label="{{ SITENAME }}">
-                <img src="/logos/brand/crow-nav.svg" alt="{{ SITENAME }}">
-            </a>
-            <button class="nav-toggle" aria-label="Toggle navigation">
-                <span></span><span></span><span></span>
-            </button>
-            <div class="nav-links">
-                {% for title, link in MENUITEMS %}
-                <a href="{% if link.startswith('http') %}{{ link }}{% else %}{{ SITEURL }}{{ link }}{% endif %}">{{ title }}</a>
-                {% endfor %}
+    <header>
+        <nav class="main-nav">
+            <div class="container">
+                <a href="{{ SITEURL }}/" class="nav-brand" aria-label="{{ SITENAME }}">
+                    <img src="/logos/brand/crow-nav.svg" alt="{{ SITENAME }}">
+                </a>
+                <button class="nav-toggle" aria-label="Toggle navigation">
+                    <span></span><span></span><span></span>
+                </button>
+                <div class="nav-links">
+                    {% for title, link in MENUITEMS %}
+                    <a href="{% if link.startswith('http') %}{{ link }}{% else %}{{ SITEURL }}{{ link }}{% endif %}">{{ title }}</a>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     <main>
         {% block content %}{% endblock %}
@@ -97,7 +131,11 @@
                 <img src="/{{ LOGO_PATH }}" alt="{{ SITENAME }} Logo">
             </div>
             <p>&copy; 2026 {{ SITENAME }}. All rights reserved.</p>
-            <p class="footer-links"><a href="{{ SITEURL }}/privacy.html">Privacy</a></p>
+            <p class="footer-links">
+                <a href="{{ SITEURL }}/privacy.html">Privacy</a>
+                <a href="{{ SITEURL }}/terms.html">Terms</a>
+                <a href="#" onclick="if(window.CrowConsent){window.CrowConsent.open();}return false;">Cookie settings</a>
+            </p>
         </div>
     </footer>
 

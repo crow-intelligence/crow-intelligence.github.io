@@ -30,4 +30,15 @@ for dir in logos aporia; do
     fi
 done
 
+# Link standalone root-level files that the deploy workflow copies. consent.js
+# is needed locally too, otherwise the cookie banner 404s during local testing.
+for file in consent.js; do
+    target="$REPO_ROOT/$file"
+    link="$OUTPUT/$file"
+    if [ -f "$target" ] && [ ! -e "$link" ]; then
+        ln -s "$target" "$link"
+        echo "  linked $file"
+    fi
+done
+
 echo "Build complete → $OUTPUT"
