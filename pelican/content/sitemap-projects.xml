@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+{#
+  Sitemap for the hand-authored parts of the site: the Aporia hub and essays,
+  and the dataviz microsites. These live outside the Pelican pipeline, so the
+  sitemap plugin never sees them. Built from the same APORIA / PROJECTS /
+  PROJECTS_HU lists the site renders, so it cannot drift.
+
+  Fragments are stripped (sitemaps must list plain URLs) and duplicates dropped
+  (PROJECTS points at several /aporia/… pages that APORIA already lists).
+#}
+{% set ns = namespace(seen=[]) %}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% for raw in ['/aporia/'] + (APORIA + PROJECTS + PROJECTS_HU) | map(attribute='url') | list %}
+{% set url = raw.split('#')[0] %}
+{% if url and url not in ns.seen %}
+{% set ns.seen = ns.seen + [url] %}
+  <url>
+    <loc>{{ SITEURL }}{{ url }}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+{% endif %}
+{% endfor %}
+</urlset>

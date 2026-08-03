@@ -37,12 +37,32 @@ DIRECT_TEMPLATES = ['index']
 # from content/llms.txt with the full settings context, so it is generated from
 # the same APORIA / PROJECTS / PACKAGES / SERVICES lists the site renders and
 # cannot drift out of date.
-TEMPLATE_PAGES = {'llms.txt': 'llms.txt'}
+#
+# sitemap-projects.xml covers what the sitemap plugin cannot see: the Aporia
+# essays and the dataviz microsites are hand-authored HTML outside the Pelican
+# pipeline, so they never appear in the plugin's sitemap.xml. Both files are
+# listed in robots.txt.
+TEMPLATE_PAGES = {
+    'llms.txt': 'llms.txt',
+    'sitemap-projects.xml': 'sitemap-projects.xml',
+}
 
 # Plugins
 PLUGINS = ['sitemap']
 SITEMAP = {
     'format': 'xml',
+    # The blog moved to blog.crowintelligence.org, so Pelican still generates
+    # author/category/tag/blog-index pages that are only meta-refresh redirect
+    # stubs. Submitting redirect stubs wastes crawl budget — keep them out.
+    # Patterns are matched with re.search against the URL as the plugin sees it,
+    # which has no leading slash (e.g. "author/crow-intelligence.html").
+    'exclude': [
+        r'(^|/)author/',
+        r'(^|/)category/',
+        r'(^|/)tag/',
+        r'(^|/)blog/$',
+        r'sitemap-projects\.xml$',
+    ],
     'priorities': {
         'articles': 0.8,
         'pages': 0.9,
