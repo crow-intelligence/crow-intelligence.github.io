@@ -1,7 +1,23 @@
+from datetime import date, datetime, timezone
+from email.utils import format_datetime
+
 AUTHOR = 'Crow Intelligence'
 SITENAME = 'Crow Intelligence'
 SITEURL = ''
 SITESUBTITLE = 'AI Consultancy & Strategy'
+
+
+def _rfc822(d):
+    """Format a date as RFC-822, which RSS 2.0 requires for <pubDate>.
+
+    Done here rather than with strftime('%a, %d %b …') in the template because
+    strftime's day and month names follow the locale; email.utils always emits
+    the English forms the spec requires.
+    """
+    return format_datetime(datetime(d.year, d.month, d.day, tzinfo=timezone.utc))
+
+
+JINJA_FILTERS = {'rfc822': _rfc822}
 
 PATH = 'content'
 OUTPUT_PATH = '../output'
@@ -42,9 +58,13 @@ DIRECT_TEMPLATES = ['index']
 # essays and the dataviz microsites are hand-authored HTML outside the Pelican
 # pipeline, so they never appear in the plugin's sitemap.xml. Both files are
 # listed in robots.txt.
+# feed.xml is an RSS 2.0 feed of the essays and projects. Pelican's own feed
+# generator only carries *articles*, and this site has one; the essays and
+# dashboards are pages and hand-authored HTML it cannot see.
 TEMPLATE_PAGES = {
     'llms.txt': 'llms.txt',
     'sitemap-projects.xml': 'sitemap-projects.xml',
+    'feed.xml': 'feed.xml',
 }
 
 # Plugins
@@ -62,6 +82,7 @@ SITEMAP = {
         r'(^|/)tag/',
         r'(^|/)blog/$',
         r'sitemap-projects\.xml$',
+        r'feed\.xml$',
     ],
     'priorities': {
         'articles': 0.8,
@@ -127,6 +148,7 @@ PROJECTS = [
         'title': 'The Wealth of Nations — 250th Anniversary Digital Edition',
         'description': "An interactive exploration of Adam Smith's 1776 masterwork. Topic modeling, named entity recognition, rhetorical metaphor analysis, and full-text search across all five books.",
         'url': '/site/index.html',
+        'date': date(2026, 3, 27),
         'image': '/site/img/punctuation_spiral.png',
         'label': 'NLP & Digital Humanities',
         'featured': True,
@@ -135,6 +157,7 @@ PROJECTS = [
         'title': 'The Nagel Index — Public vs. Private Personality',
         'description': "Big Five personality analysis of political leaders, measuring the gap between their public speeches and private correspondence. Inspired by Thomas Nagel's essay on ruthlessness in public life.",
         'url': '/aporia/nagel-essay/',
+        'date': date(2026, 3, 31),
         'image': '/dashboard_portraits/lincoln_portrait.png',
         'label': 'Personality Analytics',
         'featured': True,
@@ -143,6 +166,7 @@ PROJECTS = [
         'title': 'Market Metaphors — Kindleberger Phases × Narrative Economics',
         'description': 'Tracing the evolution of metaphorical language in 158,666 financial news headlines (2009–2020) across five crisis events, mapping metaphor domains to the Minsky–Kindleberger panic cycle.',
         'url': '/web/index.html',
+        'date': date(2026, 3, 27),
         'image': '/web/preview.svg',
         'label': 'Computational Rhetoric',
         'featured': True,
@@ -151,6 +175,7 @@ PROJECTS = [
         'title': 'The Narrative Engine — FOMC Speech Analysis',
         'description': 'A pilot dashboard comparing how FOMC governors talk about the economy — topic, narrative type, stance, and time-orientation across four speeches, with a drill-down inspector for individual expressions.',
         'url': '/fomc-dashboard/index.html',
+        'date': date(2026, 6, 19),
         'image': '/fomc-dashboard/preview.png',
         'label': 'Narrative Analytics',
         'featured': False,
@@ -159,6 +184,7 @@ PROJECTS = [
         'title': 'Chokepoint News-Risk Dashboard',
         'description': "Topic-modelled daily geopolitical risk across the world's maritime chokepoints — Suez, the Red Sea, Hormuz, Panama, the Bosphorus and the Danish straits — tracking how risk is framed in the news as it unfolds.",
         'url': '/chokepoints/',
+        'date': date(2026, 6, 24),
         'image': '/chokepoints/preview.svg',
         'label': 'News-Risk Analytics',
         'featured': False,
@@ -167,6 +193,7 @@ PROJECTS = [
         'title': 'Corruption Press Networks — The K-Monitor Archive',
         'description': "A data-driven analysis of K-Monitor's Hungarian corruption news archive: the most frequent and characteristic words, vocabulary richness, the co-occurrence network of the actors — people and institutions — and the types of corruption, broken down by parliamentary cycle.",
         'url': '/kmdb/',
+        'date': date(2026, 7, 22),
         'image': '/kmdb/preview.svg',
         'label': 'NLP & Digital Humanities',
         'lang': 'In Hungarian',
@@ -176,6 +203,7 @@ PROJECTS = [
         'title': 'Felsőzsolca — A Town in Data',
         'description': "A data portrait of a Hungarian town: warming stripes of annual mean temperature, housing and population, incomes and local economy, what changed between two censuses, and year-by-year Landsat imagery of the town and its industrial zone.",
         'url': '/felsozsolca/',
+        'date': date(2026, 7, 27),
         'image': '/felsozsolca/preview.svg',
         'label': 'Geospatial Analytics',
         'lang': 'In Hungarian',
@@ -186,6 +214,7 @@ PROJECTS = [
         'title': 'Semantic Shifts in Presidential Rhetoric',
         'description': 'Tracking how the meaning of political concepts like freedom, democracy, and war evolves across 250 years of American presidential discourse. Built with our open-source chronowords package — PPMI embeddings, Procrustes alignment, and NMF topic modeling.',
         'url': '/analysis/index.html',
+        'date': date(2026, 3, 27),
         'image': '/analysis/preview.svg',
         'label': 'Computational Semantics',
         'featured': False,
@@ -194,6 +223,7 @@ PROJECTS = [
         'title': 'Semantic Explorer — Interactive Co-occurrence Networks',
         'description': 'Explore the semantic structure of classic texts through interactive ego networks. Type a seed word, click to expand, and trace how meaning propagates through Tolstoy, Plato, Adam Smith, Darwin, and more. Built with our open-source kenon package.',
         'url': '/semantic_explorer/app/index.html',
+        'date': date(2026, 3, 27),
         'image': '/semantic_explorer/preview.svg',
         'label': 'Semantic Networks',
         'featured': False,
@@ -202,6 +232,7 @@ PROJECTS = [
         'title': 'The Tractatus as a Flat Spiral',
         'description': "The complete text of Wittgenstein's Tractatus walked out as a flat, right-angle spiral — one continuous path through its numbered propositions, set in handwriting and coloured by topical cluster. Companion visualisation to the Aporia essay.",
         'url': '/aporia/wittgenstein/viz/handwriting.html',
+        'date': date(2026, 5, 19),
         'image': '/aporia/wittgenstein/imgs/handwriting_2d.png',
         'label': 'Computational Philosophy',
         'featured': False,
@@ -210,6 +241,7 @@ PROJECTS = [
         'title': 'The Tractatus as a Helix',
         'description': "The same spiral lifted into three dimensions: each proposition set a constant step above the last, so the Tractatus climbs as it turns. Rendered in handwriting and navigable sentence by sentence.",
         'url': '/aporia/wittgenstein/viz/handwriting_3d.html',
+        'date': date(2026, 5, 19),
         'image': '/aporia/wittgenstein/imgs/social-preview.png',
         'label': 'Computational Philosophy',
         'featured': False,
@@ -218,6 +250,7 @@ PROJECTS = [
         'title': 'The Punctuation Spiral',
         'description': "The Tractatus stripped to its punctuation alone — every mark in sequence, spiralled outward. What remains when the words are removed: the rhythm and breath of the argument.",
         'url': '/aporia/wittgenstein/punctuation_spiral.html',
+        'date': date(2026, 6, 1),
         'image': '/aporia/wittgenstein/imgs/punctuation_spiral.png',
         'label': 'Computational Philosophy',
         'featured': False,
@@ -226,6 +259,7 @@ PROJECTS = [
         'title': 'Hungarian Pop Lyrics — A Diachronic Analysis',
         'description': "Six decades of Hungarian popular-music lyrics: distinctive words, shifting themes, semantic drift and genre from the 1960s to today.",
         'url': '/magyar-dalszovegek/#temak',
+        'date': date(2026, 6, 16),
         'image': '/magyar-dalszovegek/assets/og.png',
         'label': 'NLP & Digital Humanities',
         'lang': 'In Hungarian',
@@ -259,6 +293,7 @@ APORIA = [
                        'maps the geography of each poem — finding that 21.3% of the Odyssey is open water, '
                        'and reading the Catalogue of Ships against the wanderings.',
         'url': '/aporia/homer/',
+        'date': date(2026, 7, 24),
         'image': '/aporia/homer/og.png',
         'label': 'Computational Classics',
     },
@@ -270,6 +305,7 @@ APORIA = [
                        'Lincoln reads as the same man in both registers; Nixon does not. Takes its title '
                        "and its question from Thomas Nagel's essay on ruthlessness in public life.",
         'url': '/aporia/nagel-essay/',
+        'date': date(2026, 3, 31),
         'image': '/aporia/nagel-essay/imgs/social-preview.png',
         'label': 'Computational Psycholinguistics',
     },
@@ -281,6 +317,7 @@ APORIA = [
                        'handwriting and coloured by topical cluster. Companion visualisations lift the '
                        'spiral into 3-D and strip the text to its punctuation alone.',
         'url': '/aporia/wittgenstein/',
+        'date': date(2026, 5, 19),
         'image': '/aporia/wittgenstein/imgs/social-preview.png',
         'label': 'Computational Philosophy',
     },
@@ -293,6 +330,7 @@ APORIA = [
                        'screen rather than in its head. Their strategies diverge as the epistemic actions '
                        'are priced in or out.',
         'url': '/aporia/epistemic-arcade/',
+        'date': date(2026, 5, 21),
         'image': '/aporia/epistemic-arcade/imgs/social-preview.png',
         'label': 'Philosophy of Mind',
     },
@@ -304,6 +342,7 @@ APORIA = [
                        'Hungarian popular song, quoting real lyrics decade by decade and tracking how '
                        'each word shifts meaning and company. Written in Hungarian.',
         'url': '/aporia/magyar-dalszovegek-essze/',
+        'date': date(2026, 7, 28),
         'image': '/aporia/magyar-dalszovegek-essze/assets/og.png',
         'label': 'NLP & Digital Humanities',
         'lang': 'In Hungarian',

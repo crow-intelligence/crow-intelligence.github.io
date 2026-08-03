@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+{#
+  RSS 2.0 feed of the lab's published work: the Aporia essays and the
+  interactive research projects.
+
+  Pelican's own feed generator only carries articles, and this site has one;
+  everything worth syndicating is a page or hand-authored HTML it cannot see.
+  So the feed is built from the same APORIA / PROJECTS lists the site renders,
+  newest first, deduped by URL (PROJECTS repeats /aporia/nagel-essay/).
+#}
+{% set ns = namespace(seen=[]) %}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Crow Intelligence</title>
+    <link>{{ SITEURL }}/</link>
+    <description>Essays and interactive research from Crow Intelligence, an independent lab studying how language shapes thought.</description>
+    <language>en</language>
+    <atom:link href="{{ SITEURL }}/feed.xml" rel="self" type="application/rss+xml" />
+{% for item in (APORIA + PROJECTS) | sort(attribute='date', reverse=true) %}
+{% set url = item.url.split('#')[0] %}
+{% if url not in ns.seen %}
+{% set ns.seen = ns.seen + [url] %}
+    {# Jinja autoescaping is off in Pelican, so escape explicitly: titles and
+       descriptions contain ampersands (e.g. "Clark & Chalmers"). #}
+    <item>
+      <title>{{ item.title | e }}</title>
+      <link>{{ SITEURL }}{{ url | e }}</link>
+      <guid isPermaLink="true">{{ SITEURL }}{{ url | e }}</guid>
+      <pubDate>{{ item.date | rfc822 }}</pubDate>
+      <description>{{ item.description | e }}</description>
+    </item>
+{% endif %}
+{% endfor %}
+  </channel>
+</rss>
