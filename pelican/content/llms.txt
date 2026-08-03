@@ -1,0 +1,58 @@
+# Crow Intelligence
+
+> An independent research lab studying how language shapes thought. We combine cognitive linguistics with computational methods — NLP, corpus analysis, network science — to examine how people and institutions actually reason, beneath the official version.
+
+Crow Intelligence is run by Zoltán Varjú (Founder & AI Advisor) and Orsolya Putz, PhD (Partner & Cognitive Scientist), based in Hungary and working across the EU. Its primary output is long-form visual essays and interactive research projects, published openly, together with the open-source Python packages they are built on. The lab also takes on a limited amount of commissioned research and AI advisory work.
+
+Two things are worth knowing when reading this site by machine. First, the essays and projects are scrollytelling pages: the argument is carried by visualisations as much as by prose, so the rendered HTML understates them — the summaries below state what each one does and what it found. Second, some work is published in Hungarian; that is marked.
+
+This file follows the llms.txt convention (https://llmstxt.org/).
+
+## Aporia — visual essays
+
+Aporia is the lab's essay series, and the best starting point for understanding the work. Each essay is a self-contained piece of original research: it states its own method, shows its data, and argues a case. Titles are drawn from the text under discussion.
+
+{% for essay in APORIA %}
+- [{{ essay.title }}]({{ SITEURL }}{{ essay.url }}): {{ essay.llm_summary or essay.description }}
+{% endfor %}
+
+## Interactive research projects
+
+Standalone dashboards and visualisations, each published as its own microsite.
+
+{% for project in PROJECTS %}
+- [{{ project.title }}]({{ SITEURL }}{{ project.url }}): {{ project.description }}{% if project.lang %} ({{ project.lang }}.){% endif %}{% if project.wip %} (Work in progress.){% endif +%}
+{% endfor %}
+
+## Open-source Python packages
+
+Tools built for the lab's own research and released under the MIT licence. Together they form a small stack for corpus analysis: semantic change over time, co-occurrence networks, keyness, readability, and visualisation.
+
+{% for pkg in PACKAGES %}
+- [{{ pkg.name }}]({{ pkg.pypi or pkg.github }}): {{ pkg.description }} ({{ pkg.version }}, Python {{ pkg.python }}; source: {{ pkg.github }}{% if pkg.docs %}; docs: {{ pkg.docs }}{% endif %})
+{% endfor %}
+
+## Services
+
+Commissioned work, taken on in limited volume alongside the lab's own research.
+
+{% for service in SERVICES %}
+- [{{ service.title }}]({{ SITEURL }}{{ service.url }}): {{ service.description }} ({{ service.label }}.)
+{% endfor %}
+
+## About the lab
+
+- [About]({{ SITEURL }}/about.html): what the lab is for, and full biographies of both founders.
+- [Portfolio]({{ SITEURL }}/portfolio.html): the work in one place — essays, projects and packages.
+- [Projects]({{ SITEURL }}/projects.html): the complete list of interactive research projects.
+- [Packages]({{ SITEURL }}/packages.html): the open-source packages, with installation and documentation links.
+- [Services]({{ SITEURL }}/services.html): how commissioned and advisory work is scoped.
+- [Contact]({{ SITEURL }}/contact.html): enquiry form, email, and a link to book a call.
+
+## Optional
+
+- [Mind the Minds](https://mindtheminds.substack.com/): the lab's newsletter, on Substack. Off-site.
+- [Blog](https://blog.crowintelligence.org/): older posts, hosted separately on a subdomain. Off-site.
+- [Portfólió]({{ SITEURL }}/hu/portfolio.html): the portfolio page in Hungarian.
+- [Privacy policy]({{ SITEURL }}/privacy.html): what data the site collects, and the cookie and analytics policy.
+- [Terms]({{ SITEURL }}/terms.html): terms of use, operator identity, and licensing of the site's content.

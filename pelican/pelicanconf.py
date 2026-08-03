@@ -33,6 +33,12 @@ INDEX_SAVE_AS = 'blog/index.html'
 # Only use index (for blog listing) and archives
 DIRECT_TEMPLATES = ['index']
 
+# llms.txt (llmstxt.org): a curated Markdown map of the site for LLMs. Rendered
+# from content/llms.txt with the full settings context, so it is generated from
+# the same APORIA / PROJECTS / PACKAGES / SERVICES lists the site renders and
+# cannot drift out of date.
+TEMPLATE_PAGES = {'llms.txt': 'llms.txt'}
+
 # Plugins
 PLUGINS = ['sitemap']
 SITEMAP = {
@@ -220,11 +226,18 @@ PROJECTS_HU = [
     },
 ]
 
-# Aporia — visual essays
+# Aporia — visual essays.
+# `llm_summary` is used only by llms.txt: a denser line stating method and
+# finding, for machine readers that never see the essay's visuals. Optional —
+# llms.txt falls back to `description` when it is absent.
 APORIA = [
     {
         'title': 'The Wrath and the Journey',
         'description': 'A computational reading of the Iliad and the Odyssey: what each poem hoards, who speaks to whom, and where the map runs out.',
+        'llm_summary': 'Compares the Iliad and the Odyssey as corpora. Extracts proper nouns and themes, '
+                       'builds a character co-occurrence network (the "small world" of Greek heroes), and '
+                       'maps the geography of each poem — finding that 21.3% of the Odyssey is open water, '
+                       'and reading the Catalogue of Ships against the wanderings.',
         'url': '/aporia/homer/',
         'image': '/aporia/homer/og.png',
         'label': 'Computational Classics',
@@ -232,6 +245,10 @@ APORIA = [
     {
         'title': 'The great modern crimes are public crimes',
         'description': 'Big Five personality analysis of seven American leaders, public speeches vs. private writings.',
+        'llm_summary': 'Measures the gap between public and private personality in American leaders by '
+                       'scoring Big Five traits on public speeches versus private letters and diaries. '
+                       'Lincoln reads as the same man in both registers; Nixon does not. Takes its title '
+                       "and its question from Thomas Nagel's essay on ruthlessness in public life.",
         'url': '/aporia/nagel-essay/',
         'image': '/aporia/nagel-essay/imgs/social-preview.png',
         'label': 'Computational Psycholinguistics',
@@ -239,6 +256,10 @@ APORIA = [
     {
         'title': 'Whereof one cannot speak, thereof one must be silent',
         'description': "A visual reading of Wittgenstein's Tractatus as a handwritten spiral.",
+        'llm_summary': "Reads Wittgenstein's Tractatus as a shape: the whole text walked out as one "
+                       'continuous right-angle spiral through its numbered propositions, set in '
+                       'handwriting and coloured by topical cluster. Companion visualisations lift the '
+                       'spiral into 3-D and strip the text to its punctuation alone.',
         'url': '/aporia/wittgenstein/',
         'image': '/aporia/wittgenstein/imgs/social-preview.png',
         'label': 'Computational Philosophy',
@@ -246,6 +267,11 @@ APORIA = [
     {
         'title': 'Where does the mind end and the world begin?',
         'description': "Two reinforcement-learning agents testing Clark & Chalmers' extended-mind hypothesis.",
+        'llm_summary': "An empirical test of Clark & Chalmers' extended-mind thesis. Two reinforcement-"
+                       'learning agents (PPO) learn Tetris under identical architectures but opposite '
+                       'reward functions — one charged for every keystroke, one free to rotate pieces on '
+                       'screen rather than in its head. Their strategies diverge as the epistemic actions '
+                       'are priced in or out.',
         'url': '/aporia/epistemic-arcade/',
         'image': '/aporia/epistemic-arcade/imgs/social-preview.png',
         'label': 'Philosophy of Mind',
@@ -253,6 +279,10 @@ APORIA = [
     {
         'title': 'Nekem írod a dalt',
         'description': "A scrollable visual essay on six decades of Hungarian popular song (1950–2026): themes, words, emotions, rhymes and word-networks, decade by decade. In Hungarian.",
+        'llm_summary': 'Traces seven words — szerelem (love), lány (girl), csaj (chick), pénz (money), '
+                       'éjszaka (night), szabadság (freedom), élet (life) — through seventy years of '
+                       'Hungarian popular song, quoting real lyrics decade by decade and tracking how '
+                       'each word shifts meaning and company. Written in Hungarian.',
         'url': '/aporia/magyar-dalszovegek-essze/',
         'image': '/aporia/magyar-dalszovegek-essze/assets/og.png',
         'label': 'NLP & Digital Humanities',
