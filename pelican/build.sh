@@ -21,7 +21,7 @@ for dir in "$REPO_ROOT"/projects/*/; do
 done
 
 # Link root-level asset directories
-for dir in logos aporia; do
+for dir in logos aporia .well-known; do
     target="$REPO_ROOT/$dir"
     link="$OUTPUT/$dir"
     if [ -d "$target" ] && [ ! -e "$link" ]; then

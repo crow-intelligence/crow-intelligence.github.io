@@ -52,6 +52,7 @@ jobs:
       - name: Copy asset directories into output
         run: |
           for dir in \
+            .well-known \
             aporia altair_maps analysis charts countries countries_bump \
             countries_worldmap dashboard dashboard_portraits \
             embedding_graph endings external_css folium_maps \
