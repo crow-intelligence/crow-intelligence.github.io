@@ -147,7 +147,7 @@ PROJECTS = [
     {
         'title': 'The Wealth of Nations — 250th Anniversary Digital Edition',
         'description': "An interactive exploration of Adam Smith's 1776 masterwork. Topic modeling, named entity recognition, rhetorical metaphor analysis, and full-text search across all five books.",
-        'url': '/site/index.html',
+        'url': '/site/',
         'date': date(2026, 3, 27),
         'image': '/site/img/punctuation_spiral.png',
         'label': 'NLP & Digital Humanities',
@@ -165,7 +165,7 @@ PROJECTS = [
     {
         'title': 'Market Metaphors — Kindleberger Phases × Narrative Economics',
         'description': 'Tracing the evolution of metaphorical language in 158,666 financial news headlines (2009–2020) across five crisis events, mapping metaphor domains to the Minsky–Kindleberger panic cycle.',
-        'url': '/web/index.html',
+        'url': '/web/',
         'date': date(2026, 3, 27),
         'image': '/web/preview.svg',
         'label': 'Computational Rhetoric',
@@ -174,7 +174,7 @@ PROJECTS = [
     {
         'title': 'The Narrative Engine — FOMC Speech Analysis',
         'description': 'A pilot dashboard comparing how FOMC governors talk about the economy — topic, narrative type, stance, and time-orientation across four speeches, with a drill-down inspector for individual expressions.',
-        'url': '/fomc-dashboard/index.html',
+        'url': '/fomc-dashboard/',
         'date': date(2026, 6, 19),
         'image': '/fomc-dashboard/preview.png',
         'label': 'Narrative Analytics',
@@ -213,7 +213,7 @@ PROJECTS = [
     {
         'title': 'Semantic Shifts in Presidential Rhetoric',
         'description': 'Tracking how the meaning of political concepts like freedom, democracy, and war evolves across 250 years of American presidential discourse. Built with our open-source chronowords package — PPMI embeddings, Procrustes alignment, and NMF topic modeling.',
-        'url': '/analysis/index.html',
+        'url': '/analysis/',
         'date': date(2026, 3, 27),
         'image': '/analysis/preview.svg',
         'label': 'Computational Semantics',
