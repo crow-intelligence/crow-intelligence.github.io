@@ -136,7 +136,7 @@ TEAM = [
     {
         'name': 'Orsolya Putz, PhD',
         'role': 'Partner & Cognitive Scientist',
-        'bio': 'PhD in Cognitive Linguistics. Adjunct Professor at the Technical University of Budapest (BME).',
+        'bio': 'PhD in Cognitive Linguistics. Assistant Professor at the Budapest University of Technology and Economics (BME).',
         'photo': 'portraits/orsi.jpeg',
         'linkedin': 'https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/',
     },

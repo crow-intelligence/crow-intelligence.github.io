@@ -78,8 +78,8 @@ act on it without further interpretation.
 
 Crow Intelligence is led by Zoltán Varjú, an NLP engineer and architect
 with two decades in the field and an exit (Complytron, acquired by SEON),
-and Orsolya Putz, PhD in cognitive linguistics and adjunct professor at
-the Technical University of Budapest. We have been working in NLP since
+and Orsolya Putz, PhD in cognitive linguistics and assistant professor at
+the Budapest University of Technology and Economics. We have been working in NLP since
 before the term became fashionable.
 
 ## Our open due-diligence checklist

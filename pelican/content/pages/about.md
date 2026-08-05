@@ -45,7 +45,7 @@ whether it is working, and what it means.
 </a>
 <div class="bio-text">
 <p>Orsolya is a cognitive linguist and AI engineer. She holds a PhD from
-Eötvös Loránd University and is an adjunct professor at the Budapest University
+Eötvös Loránd University and is an assistant professor at the Budapest University
 of Technology and Economics (BME).</p>
 
 <p>Her book <a href="https://www.jbe-platform.com/content/books/9789027261724"><em>Metaphor and National Identity: Alternative Conceptualization of the
