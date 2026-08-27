@@ -587,3 +587,27 @@ h1.cover {
   .chapters-all { max-width: none; }
   .chapter { break-inside: avoid; }
 }
+
+/* -------------------------------------------------- the summaries, as their own page */
+
+/* The thirty-seven were written out below the globe for one release. They were 90% of
+ * that page and a wall in front of the thing a reader came for, so they are a page now:
+ * no globe, no scripts, just the book in summary. */
+
+body.reading main { max-width: 720px; }
+.chapters-title { font-family: var(--display); font-size: var(--fs-h2); margin: 0 0 var(--sp-2); }
+body.reading .lede { text-align: left; font-size: var(--fs-body); }
+
+.crumb {
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  margin: var(--sp-3) 0;
+}
+
+/* On the globe, the two ways through to the summaries. */
+.read-on {
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+}

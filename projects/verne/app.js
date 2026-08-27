@@ -112,16 +112,6 @@ async function main() {
   window.addEventListener("hashchange", render);
   window.addEventListener("popstate", render);
 
-  /* Each written-out chapter links back up to the globe. Here the scroll is wanted, so
-   * it is done explicitly — and without `behavior: "smooth"`, which is why this needs
-   * no reduced-motion guard. */
-  for (const link of document.querySelectorAll("a.to-globe")) {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      go(`#ch-${link.dataset.chapter}`);
-      document.querySelector("#globe").scrollIntoView({ block: "start" });
-    });
-  }
   render();
 }
 
@@ -131,11 +121,22 @@ function readHash() {
   return match ? Number(match[1]) : null;
 }
 
-/* Change the state without letting the browser jump to the section the hash names. */
+/* Change the state without letting the browser jump to whatever the hash names.
+ *
+ * It dispatches the event the page already listens for rather than calling render()
+ * directly — which it cannot do anyway, render() being a closure inside main(). It tried
+ * to, and every tab click threw a ReferenceError while the initial load and the Back
+ * button went on working, which is why nothing caught it.
+ *
+ * Going through the event restores the property the docstring above claims: one listener
+ * is the only thing that renders, and a click, a keystroke, a pasted link and the Back
+ * button are four doors into it rather than four copies of it.
+ */
 function go(hash) {
-  if (location.hash === hash) return render();
-  history.pushState(null, "", hash || location.pathname + location.search);
-  render();
+  if (location.hash !== hash) {
+    history.pushState(null, "", hash || location.pathname + location.search);
+  }
+  window.dispatchEvent(new HashChangeEvent("hashchange"));
 }
 
 function buildChapterBar(chapters) {
@@ -144,14 +145,20 @@ function buildChapterBar(chapters) {
   for (const entry of chapters) {
     const tab = document.createElement("a");
     tab.className = "tab tabular";
-    tab.href = `#ch-${entry.chapter}`;
+    /* The href points at the summary and the click never follows it.
+     *
+     * With scripting off that makes the thirty-seven tabs a working table of contents
+     * into chapters/, instead of thirty-seven fragments naming nothing on this page.
+     * With scripting on the click is prevented and the globe turns where it stands. One
+     * link, one meaning, both modes. */
+    tab.href = `./chapters/#ch-${entry.chapter}`;
     tab.id = `tab-${entry.chapter}`;
     tab.role = "tab";
     tab.tabIndex = -1;
     tab.textContent = String(entry.chapter);
     tab.addEventListener("click", (event) => {
       event.preventDefault();
-      go(tab.getAttribute("href"));
+      go(`#ch-${entry.chapter}`);
     });
     tab.title = entry.title;
     // The preview follows the pointer without committing to a chapter, so the bar can
@@ -180,7 +187,7 @@ function buildChapterBar(chapters) {
       const next = tabs.get(numbers[to]);
       next.tabIndex = 0;
       next.focus();
-      go(next.getAttribute("href"));
+      go(`#ch-${numbers[to]}`);
     } else if (event.key === "Escape") {
       go("");
     } else if (event.key === " ") {
@@ -252,11 +259,11 @@ function stepper(entry, total) {
   const back = anchor(t("chapter.previous"), `#ch-${Math.max(1, entry.chapter - 1)}`);
   const on = anchor(t("chapter.next"), `#ch-${Math.min(total, entry.chapter + 1)}`);
   const all = anchor(t("chapters.overview"), "");
-  // Down to the same chapter written out in full — the pairing that turns a duplicate
-  // into two views of one thing.
+  // Out to the same chapter written out in full, on the page that carries all of them.
+  // A real link this time: it goes somewhere else, so it should behave like one.
   const read = document.createElement("a");
   read.textContent = t("chapter.read_below");
-  read.href = `#ch-${entry.chapter}`;
+  read.href = `./chapters/#ch-${entry.chapter}`;
   row.append(back, on, all, read);
   return row;
 }
