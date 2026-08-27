@@ -1,0 +1,589 @@
+/* Around the World in Eighty Days — an engraved globe on warm paper.
+ *
+ * Light only, and deliberately so rather than by omission. The whole visual argument is
+ * printed paper: cream stock, brick accent, a Didone display face, a coastline drawn as an
+ * engraving. A dark mode of that is not a recolouring, it is a different artefact — it means
+ * re-picking land, ocean, graticule and six transport hues and validating contrast twice.
+ * `color-scheme: light` below states the choice, so the browser stops inverting form
+ * controls and scrollbars behind our back.
+ *
+ * The seam is left open and costs almost nothing: every colour is a role variable in the one
+ * block below, and the canvas reads its colours through getComputedStyle rather than
+ * hardcoding them. Adding `:root[data-theme="dark"]` later is one CSS block and no JS.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* --- ink and paper (kmdb_dashboard's tokens, so two Crow pieces match) --- */
+  --ink: #1a1a17;
+  --paper: #f7f5ef;
+  --body: #2c2a24;
+  --muted: #5a5346;
+  --line: #cfc9ba;
+  --accent: #7a1f1f;
+  --card-bg: #fffdf8;
+
+  /* --- the globe ---
+   * Ocean darker than land, which is the opposite of a satellite photograph and the whole
+   * point: this is an engraved atlas, where the sea is hatched and the land is the lit,
+   * raised thing. Both stay inside the paper family so nothing on it glows. */
+  --ocean: #ddd5c1;
+  --land: #fbf9f2;
+  --land-edge: #9a917d;
+  --graticule: rgba(74, 67, 55, 0.22);
+  --border: #9c8f74;
+  --sphere-edge: #8a8271;
+
+  /* --- transport modes ---
+   * Hue is the category and the dash pattern repeats it, because colour alone is not a
+   * channel every reader has. The legend prints the dash, so the key survives greyscale. */
+  --mode-sea: #2f5d50;
+  --mode-rail: #7a1f1f;
+  --mode-beast: #856404;
+  --mode-ice: #34568b;
+  --mode-road: #a8431a;
+  --mode-foot: #5a5346;
+  --mode-other: #5a5346;
+
+  /* --- type --- */
+  --display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --text: "EB Garamond", Georgia, "Times New Roman", serif;
+
+  --fs-h1: 3rem;
+  --fs-h2: 1.8rem;
+  --fs-h3: 1.2rem;
+  --fs-sub: 1.25rem;
+  --fs-body: 1.0625rem;
+  --fs-small: 0.92rem;
+  --fs-label: 0.76rem;
+  --ls-label: 0.09em;
+  --lh-body: 1.62;
+  --lh-tight: 1.15;
+  --measure: 66ch;
+
+  --sp-1: 6px;
+  --sp-2: 12px;
+  --sp-3: 18px;
+  --sp-4: 28px;
+  --sp-5: 44px;
+  --sp-6: 56px;
+}
+
+@media (max-width: 640px) {
+  :root { --fs-h1: 2rem; --fs-h2: 1.4rem; --fs-h3: 1.05rem; }
+}
+
+@media (prefers-contrast: more) {
+  :root { --line: #8b8474; --muted: #40392e; --graticule: rgba(60, 55, 45, 0.32); }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--body);
+  font-family: var(--text);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  /* Old-style figures sit on the baseline like lowercase letters and belong in prose.
+   * The day counts opt out, below, because a column of numbers wants to line up. */
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tabular {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: var(--lh-tight);
+  /* Playfair is a Didone: its hairlines disappear below about 14px, so it is never used
+   * for a small label. Those go to the text face in letterspaced capitals instead. */
+}
+
+h1 { font-size: var(--fs-h1); margin: 0 0 var(--sp-2); }
+h2 { font-size: var(--fs-h2); margin: var(--sp-6) 0 var(--sp-2); }
+h3 { font-size: var(--fs-h3); margin: var(--sp-4) 0 var(--sp-1); }
+
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.label {
+  font-family: var(--text);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------- site chrome */
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--card-bg);
+  color: var(--ink);
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line);
+  z-index: 10;
+}
+.skip:focus { left: var(--sp-3); top: var(--sp-2); }
+
+/* Not sticky, so it scrolls away and never collides with the globe. */
+.top-nav { border-bottom: 1px solid var(--line); background: var(--card-bg); }
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--sp-2) var(--sp-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  align-items: baseline;
+  justify-content: space-between;
+}
+.nav-brand { font-family: var(--display); font-size: var(--fs-h3); text-decoration: none; }
+.nav-links { display: flex; gap: var(--sp-3); flex-wrap: wrap; }
+.nav-links a {
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--muted);
+}
+.nav-links a:hover { color: var(--accent); }
+
+main { max-width: 1100px; margin: 0 auto; padding: var(--sp-5) var(--sp-3) var(--sp-6); }
+
+.lede {
+  font-size: var(--fs-sub);
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--muted);
+  margin: 0 0 var(--sp-4);
+  max-width: var(--measure);
+}
+
+p { max-width: var(--measure); }
+
+/* The one-paragraph explainer under every heading. House signature; do not drop it. */
+.note { color: var(--muted); max-width: var(--measure); margin: 0 0 var(--sp-3); }
+
+/* ------------------------------------------------------- honesty, above the fold */
+
+.provenance {
+  border-left: 3px solid var(--accent);
+  background: var(--card-bg);
+  padding: var(--sp-2) var(--sp-3);
+  margin: 0 0 var(--sp-4);
+  max-width: var(--measure);
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.provenance strong { color: var(--ink); }
+.provenance p { margin: 0 0 var(--sp-1); max-width: none; }
+.provenance p:last-child { margin-bottom: 0; }
+
+/* -------------------------------------------------------------------- the globe */
+
+.globe-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: var(--sp-4);
+  align-items: start;
+}
+@media (max-width: 820px) {
+  .globe-wrap { grid-template-columns: 1fr; }
+}
+
+.stage {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.stage canvas,
+.stage svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.stage canvas { touch-action: none; cursor: grab; }
+.stage canvas.dragging { cursor: grabbing; }
+
+/* The dots are real elements rather than pixels, so they get focus rings, labels and a
+ * touch target for free. `.behind` is the far side of the world: not shown, not clickable. */
+.stage svg { pointer-events: none; }
+.stop { pointer-events: auto; }
+.stop.behind { display: none; }
+.stop circle.hit { fill: transparent; }
+.stop circle.pin {
+  fill: var(--card-bg);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+.stop text {
+  font-family: var(--text);
+  font-size: 13px;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+}
+.stop text .day { fill: var(--muted); }
+
+.controls {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--sp-2);
+  flex-wrap: wrap;
+}
+button {
+  font-family: var(--text);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--body);
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  padding: var(--sp-1) var(--sp-3);
+  cursor: pointer;
+  min-height: 32px;
+}
+button:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ------------------------------------------------------------------- the legend */
+
+.legend { border-top: 1px solid var(--line); padding-top: var(--sp-2); }
+.legend h3 { margin-top: 0; }
+.legend ul { list-style: none; margin: 0 0 var(--sp-3); padding: 0; }
+.legend li {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: var(--sp-2);
+  align-items: center;
+  margin-bottom: var(--sp-1);
+  font-size: var(--fs-small);
+}
+.legend svg { display: block; }
+
+/* --------------------------------------------------------------- the itinerary */
+
+.itinerary { list-style: none; padding: 0; margin: 0; max-width: var(--measure); }
+.itinerary > li {
+  border-top: 1px solid var(--line);
+  padding: var(--sp-2) 0;
+}
+.itinerary .stop-name { font-family: var(--display); font-size: var(--fs-h3); }
+.itinerary .renamed { color: var(--muted); font-style: italic; }
+.itinerary .day-badge {
+  float: right;
+  color: var(--muted);
+  font-size: var(--fs-small);
+}
+.itinerary .onward { color: var(--muted); font-size: var(--fs-small); margin: 0; }
+
+/* ----------------------------------------------------------------- the closing */
+
+footer {
+  border-top: 1px solid var(--line);
+  margin-top: var(--sp-6);
+  padding: var(--sp-3);
+  text-align: center;
+  color: var(--muted);
+  font-size: var(--fs-small);
+}
+footer p { max-width: none; margin: var(--sp-1) 0; }
+
+/* ---------------------------------------------------------------------- motion */
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ----------------------------------------------------------------------- print */
+
+@media print {
+  .top-nav, .controls, .skip { display: none; }
+  :root { --paper: #fff; --card-bg: #fff; }
+  body { font-size: 11pt; }
+  /* The dash channel is what carries the legend into greyscale. */
+}
+
+/* ------------------------------------------------------------- the chapter bar */
+
+.chapterbar {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  padding: var(--sp-2) 0;
+  margin-bottom: var(--sp-4);
+  z-index: 5;
+}
+/* Sticky only where it fits on one or two rows. On a phone thirty-seven tabs wrap to
+ * four rows, and four rows of sticky is most of the screen. */
+@media (min-width: 821px) {
+  .chapterbar { position: sticky; top: 0; }
+}
+
+.chapterbar .tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0 var(--sp-1);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  background: var(--card-bg);
+  font-size: var(--fs-label);
+  text-decoration: none;
+}
+.tab:hover { border-color: var(--accent); color: var(--accent); }
+.tab[aria-selected="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+
+.chapterbar .preview {
+  margin: var(--sp-2) 0 0;
+  color: var(--muted);
+  font-size: var(--fs-small);
+  max-width: var(--measure);
+  min-height: 2.4em;
+}
+
+/* ------------------------------------------------------------------- the panel */
+
+.panel { font-size: var(--fs-small); }
+@media (min-width: 821px) {
+  /* Clears the sticky chapter bar, so a heading never hides behind it. */
+  .panel { position: sticky; top: 88px; max-height: calc(100vh - 100px); overflow-y: auto; }
+}
+.panel h3 {
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  margin: var(--sp-3) 0 var(--sp-1);
+}
+.panel > h3:first-of-type {
+  /* The chapter's own heading, as printed: eighty characters of capitals. */
+  font-size: var(--fs-h3);
+  line-height: 1.25;
+}
+.panel p { max-width: none; margin: 0 0 var(--sp-2); }
+.panel section { border-top: 1px solid var(--line); padding-top: var(--sp-2); }
+.panel .note { font-size: var(--fs-label); line-height: 1.5; }
+.panel ul.plain { list-style: none; margin: 0 0 var(--sp-2); padding: 0; }
+.panel ul.plain li { display: flex; gap: var(--sp-2); align-items: baseline; }
+.panel ul.plain li svg { flex: none; }
+/* Dimmed rather than hidden: the same "nobody is asserting this" channel as a pin's
+ * broken ring, applied to a position carried forward from an earlier chapter. */
+.panel .faint { color: var(--muted); }
+.panel li.faint { opacity: 0.75; }
+
+.stepper { display: flex; gap: var(--sp-3); margin-bottom: var(--sp-2); }
+.stepper a { font-size: var(--fs-label); letter-spacing: var(--ls-label); text-transform: uppercase; }
+
+/* ---------------------------------------------------- a chapter's places */
+
+/* Shape first, colour second. The nine stops own large-and-paper-filled, so these have
+ * to be tellable from them and from each other with the hue taken away — in print, in
+ * greyscale, and for a reader who does not separate these colours. */
+.place .mark { fill: var(--muted); stroke: none; }
+.place .halo { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.place.is-here .mark { fill: var(--accent); }
+.place.is-past .mark { fill: var(--muted); opacity: 0.6; }
+.place.is-future .mark { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
+.place.is-cyclic .mark { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
+.place.is-cyclic .half { fill: var(--ink); stroke: none; }
+.place.is-off_route .mark,
+.place.is-unknown .mark { fill: none; stroke: var(--muted); stroke-width: 1.2; opacity: 0.75; }
+.place.behind { display: none; }
+.place.is-lit .mark { stroke: var(--accent); stroke-width: 2; }
+
+/* In chapter mode the stop labels stay but recede: they are what keeps the globe legible
+ * while a reader is looking at Kholby, and the chapter's own marks are small enough not
+ * to fight them. The day numbers go, because in a chapter they mean nothing. */
+.stage svg.chapter .stop text { opacity: 0.45; font-size: 11px; }
+.stage svg.chapter .stop text .day { display: none; }
+.stage svg.chapter .stop[data-place-class] text { opacity: 1; }
+.stop.is-lit circle.pin { stroke: var(--accent); }
+
+/* Where the party is. Drawn from Fogg's own pin, and the only ringed mark on the globe —
+ * there is exactly one of them, so it can afford to be the loudest thing there. */
+.place.party .mark { fill: var(--accent); }
+.place.party .halo { stroke: var(--accent); stroke-width: 2; }
+
+/* The key's own swatches, drawn with the same rules. */
+.legend ul.places { margin-top: var(--sp-2); }
+.legend ul.places li { grid-template-columns: 20px 1fr; }
+.legend .swatch { width: 12px; height: 12px; border-radius: 50%; background: var(--muted); }
+.legend .is-here .swatch { background: var(--accent); box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--accent); }
+.legend .is-past .swatch { opacity: 0.6; }
+.legend .is-future .swatch { background: var(--paper); border: 1.5px solid var(--ink); }
+.legend .is-cyclic .swatch { background: linear-gradient(90deg, var(--ink) 50%, var(--paper) 50%); border: 1.5px solid var(--ink); }
+.legend .is-off_route .swatch { background: none; border: 1px solid var(--muted); border-radius: 0; transform: rotate(45deg); width: 10px; height: 10px; }
+
+.panel ul.places { list-style: none; margin: 0 0 var(--sp-2); padding: 0; }
+.panel ul.places li { padding: 2px 0; border-left: 3px solid transparent; padding-left: var(--sp-2); }
+.panel ul.places li.is-here { border-left-color: var(--accent); }
+.panel ul.places li:hover { background: var(--card-bg); }
+.panel ul.places li.unplotted .name { color: var(--muted); }
+.panel ul.places .reason { display: block; font-size: var(--fs-label); }
+
+/* --------------------------------------------------------------- for a reader
+ * who cannot see the globe at all. */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media print {
+  .chapterbar { display: none; }
+  .panel { position: static; max-height: none; overflow: visible; }
+}
+
+/* ------------------------------------------------------------------- the cover */
+
+/* The book's own title page, echoed rather than copied: two lines, a tiny "in", and a
+ * numeral doing the shouting. Playfair carries the words and Abril Fatface the 80,
+ * because a Didone at display size is what a Victorian title page actually was. */
+h1.cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0;
+  margin: var(--sp-4) 0 var(--sp-2);
+  line-height: 0.95;
+}
+.cover-world {
+  font-size: clamp(2rem, 7vw, 4.1rem);
+  letter-spacing: -0.01em;
+}
+.cover-days {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(0.4rem, 1.6vw, 1.1rem);
+}
+.cover-small {
+  font-size: clamp(1.1rem, 3vw, 1.9rem);
+  font-style: italic;
+  color: var(--muted);
+}
+.cover-eighty {
+  font-family: "Abril Fatface", var(--display);
+  font-size: clamp(4rem, 15vw, 9rem);
+  line-height: 0.82;
+  color: var(--accent);
+}
+.lede { text-align: center; margin-left: auto; margin-right: auto; }
+
+/* ------------------------------------------------------------ the border control */
+
+.segmented { display: inline-flex; }
+.segmented button {
+  border-right-width: 0;
+  min-width: 58px;
+}
+.segmented button:last-child { border-right-width: 1px; }
+.segmented button[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+.borders-note {
+  font-size: var(--fs-label);
+  text-align: center;
+  margin: var(--sp-1) auto 0;
+}
+
+.about-lede {
+  font-family: var(--display);
+  font-size: var(--fs-sub);
+  font-style: italic;
+  color: var(--ink);
+}
+
+/* ------------------------------------------- the chapters, written out in full */
+
+/* The section that exists because a crawler running no JavaScript used to read 107
+ * words of this page. It is also, straightforwardly, what a reader who does not want
+ * to click thirty-seven tabs is after. */
+
+.chapters-all { max-width: var(--measure); }
+
+.chapter {
+  border-top: 1px solid var(--line);
+  padding-top: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+.chapter h3 {
+  /* Gutenberg prints these in capitals and a printed title is a quotation, so they are
+   * set small with a little letterspacing rather than rewritten into title case. */
+  font-size: 1.05rem;
+  line-height: 1.35;
+  letter-spacing: 0.015em;
+  margin: 0 0 var(--sp-2);
+}
+.chapter-number {
+  color: var(--accent);
+  margin-right: var(--sp-2);
+}
+.chapter p { margin: 0 0 var(--sp-2); }
+
+.chapter-facts {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.chapter-facts dt {
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  margin-top: var(--sp-2);
+}
+.chapter-facts dd { margin: 0; }
+
+.chapter-back { font-size: var(--fs-label); }
+.chapter-back a { letter-spacing: var(--ls-label); text-transform: uppercase; }
+
+/* Shown only when the payloads fail. Until now the handler wrote into an element that
+ * had been deleted, so a failure was a blank page that said nothing. */
+.page-error {
+  border-left: 3px solid var(--accent);
+  background: var(--card-bg);
+  padding: var(--sp-2) var(--sp-3);
+  margin-bottom: var(--sp-3);
+  max-width: var(--measure);
+}
+
+@media print {
+  /* The written-out chapters are the part of this page that prints usefully. */
+  .chapters-all { max-width: none; }
+  .chapter { break-inside: avoid; }
+}
