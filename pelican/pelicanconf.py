@@ -172,6 +172,20 @@ PROJECTS = [
         'featured': True,
     },
     {
+        'title': 'Around the World in 80 Days: Route Map and Chapter Summaries',
+        'description': "Jules Verne's 1872 novel read as a dataset: Phileas "
+                       "Fogg's eighty-day itinerary drawn on an orthographic "
+                       "globe, all 37 chapters summarised, every one of the 342 "
+                       "place names the book uses resolved against Wikidata or "
+                       "held back with a stated reason, and the political "
+                       "borders of 1880 laid over today's.",
+        'url': '/verne/',
+        'date': date(2026, 8, 27),
+        'image': '/verne/preview.svg',
+        'label': 'NLP & Digital Humanities',
+        'featured': False,
+    },
+    {
         'title': 'The Narrative Engine — FOMC Speech Analysis',
         'description': 'A pilot dashboard comparing how FOMC governors talk about the economy — topic, narrative type, stance, and time-orientation across four speeches, with a drill-down inspector for individual expressions.',
         'url': '/fomc-dashboard/',
