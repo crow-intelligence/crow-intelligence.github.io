@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 440" role="img"
+     aria-label="Around the World in 80 Days: a globe with Phileas Fogg's route drawn across it.">
+  <!-- The card the site's projects grid renders. It sits on a dark background, so this
+       is dark; and the grid will not load this page's fonts, so every letterform here is
+       a path or a generic family. No external references of any kind. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a1f"/>
+      <stop offset="100%" stop-color="#24242b"/>
+    </linearGradient>
+    <clipPath id="disc"><circle cx="280" cy="232" r="132"/></clipPath>
+  </defs>
+
+  <rect width="560" height="440" fill="url(#sky)"/>
+  <rect width="560" height="6" fill="#7a1f1f"/>
+
+  <g clip-path="url(#disc)">
+    <circle cx="280" cy="232" r="132" fill="#2c2c34"/>
+    <!-- Graticule: six meridians as ellipses, five parallels as lines. Schematic, and
+         enough to read as a globe at card size. -->
+    <g stroke="#43434e" stroke-width="1" fill="none">
+      <ellipse cx="280" cy="232" rx="132" ry="132"/>
+      <ellipse cx="280" cy="232" rx="99" ry="132"/>
+      <ellipse cx="280" cy="232" rx="55" ry="132"/>
+      <ellipse cx="280" cy="232" rx="8" ry="132"/>
+      <path d="M148 232h264M160 180h240M160 284h240M186 136h188M186 328h188"/>
+    </g>
+  </g>
+  <circle cx="280" cy="232" r="132" fill="none" stroke="#5a5a68" stroke-width="1.5"/>
+
+  <!-- The route: eastward round the world, rail dashed and steamer solid, the same two
+       channels the page itself uses. -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M196 178 Q280 120 366 176" stroke="#2f5d50" stroke-width="3"/>
+    <path d="M366 176 Q404 232 358 288" stroke="#7a1f1f" stroke-width="3"
+          stroke-dasharray="7 5"/>
+    <path d="M358 288 Q280 340 200 286" stroke="#2f5d50" stroke-width="3"/>
+    <path d="M200 286 Q160 232 196 178" stroke="#7a1f1f" stroke-width="3"
+          stroke-dasharray="7 5"/>
+  </g>
+  <g fill="#f7f5ef" stroke="#1a1a1f" stroke-width="2">
+    <circle cx="196" cy="178" r="7"/>
+    <circle cx="366" cy="176" r="5"/>
+    <circle cx="358" cy="288" r="5"/>
+    <circle cx="200" cy="286" r="5"/>
+  </g>
+
+  <text x="280" y="60" text-anchor="middle" fill="#f7f5ef" font-family="Georgia, serif"
+        font-size="30">Around the World</text>
+  <text x="280" y="96" text-anchor="middle" fill="#7a1f1f" font-family="Georgia, serif"
+        font-size="34" font-weight="bold">in 80 Days</text>
+  <text x="280" y="404" text-anchor="middle" fill="#8a8a96" font-family="Georgia, serif"
+        font-size="15">Jules Verne's route, mapped chapter by chapter</text>
+</svg>
