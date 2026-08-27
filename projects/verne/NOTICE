@@ -1,0 +1,62 @@
+# What ships in this directory, and under whose licence
+
+This is the published copy of the "Around the World in 80 Days" globe, served at
+https://crowintelligence.org/verne/. The page itself is CC BY-NC-SA 4.0 and the code that
+generated it is MIT — but four things here came from somebody else, and one of them is
+copyleft.
+
+Each licence text sits beside the files it covers, which is why this directory carries a
+NOTICE at all: a licence in another repository is a licence that did not travel.
+
+
+## data/borders_1880.json — GPL-3.0
+
+Derived from `geojson/world_1880.geojson` in **historical-basemaps** by **André Ourednik**
+(https://github.com/aourednik/historical-basemaps), at commit
+`62d8f1a03a71f2d3ff17f2d166f7553f256bce68`.
+
+That repository carries a plain, unmodified GNU General Public License v3.0 and no
+separate licence for the data. The file here is a modified version of that work:
+coordinates rounded to one decimal place, rings re-wound where the source wound a hole as
+an exterior, features the source did not name removed, and everything dissolved into a
+single geometry.
+
+**It is distributed under the GPL-3.0, not under the licence of the page around it.** The
+full text is at https://www.gnu.org/licenses/gpl-3.0.txt.
+
+Whether copyleft in fact reaches a rounded, re-wound, feature-filtered extract of geometry
+is a question of law, not of fact. It is recorded here rather than resolved.
+
+The source's own README says of the whole collection:
+
+> It is __work in progress__: verify the maps by comparison to other sources before using
+> in academic work.
+
+
+## data/land.json and data/borders_modern.json — public domain
+
+Derived from **Natural Earth** (https://www.naturalearthdata.com/), release `v5.1.2`,
+files `ne_110m_land.geojson` and `ne_110m_admin_0_countries.geojson`. Natural Earth is
+public domain: *"No permission is needed to use Natural Earth. Crediting the authors is
+unnecessary."* The credit is given anyway.
+
+
+## fonts/ — SIL Open Font License 1.1
+
+Abril Fatface (Type-Ø-Tones), EB Garamond (Georg Duffner, Octavio Pardo) and Playfair
+Display (Claus Eggers Sørensen), as subset woff2. The full licence text for each is in
+this directory — `fonts/OFL-abrilfatface.txt`, `fonts/OFL-ebgaramond.txt`,
+`fonts/OFL-playfairdisplay.txt` — because the OFL requires it to travel with the fonts.
+
+
+## vendor/ — ISC
+
+d3-geo, d3-array and internmap, by Mike Bostock. Full text in `vendor/LICENSES.md`, and
+the versions and their hashes in `vendor/README.md`.
+
+
+## The text the whole thing is about — public domain
+
+*Around the World in Eighty Days* by Jules Verne, from Project Gutenberg ebook #103. The
+chapter summaries and the extracted names are derived from it and are CC BY-NC-SA 4.0
+along with the rest of the page.
