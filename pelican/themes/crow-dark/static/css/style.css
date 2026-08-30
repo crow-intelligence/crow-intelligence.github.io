@@ -1167,3 +1167,20 @@ footer p {
     font-size: 0.95rem;
     line-height: 1.6;
 }
+
+/* Inline list of sibling links — used for the Nagel Index dashboards on the
+   projects page. Reads as a row of links, not as a grid of cards, because they
+   are one project's parts rather than seven projects. */
+.link-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+}
+
+.link-list a {
+    font-family: 'Courier Prime', ui-monospace, monospace;
+    font-size: 0.9rem;
+}

@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Nagel Index — Abraham Lincoln</title>
 <link rel="canonical" href="https://crowintelligence.org/aporia/nagel-essay/dashboards/lincoln_dashboard.html">
+<meta name="description" content="Abraham Lincoln’s Big Five profile, scored separately on his public speeches and his private letters. From the Nagel Index essay.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Nagel Index — Abraham Lincoln">
+<meta property="og:description" content="Abraham Lincoln’s Big Five profile, scored separately on his public speeches and his private letters. From the Nagel Index essay.">
+<meta property="og:url" content="https://crowintelligence.org/aporia/nagel-essay/dashboards/lincoln_dashboard.html">
+<meta property="og:image" content="https://crowintelligence.org/dashboard_portraits/lincoln_portrait.png">
+<meta property="og:site_name" content="Crow Intelligence">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Nagel Index — Abraham Lincoln">
+<meta name="twitter:description" content="Abraham Lincoln’s Big Five profile, scored separately on his public speeches and his private letters. From the Nagel Index essay.">
+<meta name="twitter:image" content="https://crowintelligence.org/dashboard_portraits/lincoln_portrait.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -468,9 +480,125 @@
     .cloud-pair { grid-template-columns: 1fr; height: auto; }
     .cloud-col { height: 240px; }
   }
+
+  /* Crow Intelligence chrome. Matches the header the project microsites carry;
+     kept self-contained because these pages are not built by Pelican and so
+     inherit nothing from the theme. */
+  .ci-header {
+    background: #1a1a20;
+    border-bottom: 1px solid #3a3a44;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-family: 'Courier Prime', ui-monospace, monospace;
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 200;
+  }
+  .ci-header .ci-brand { display: inline-flex; align-items: center; text-decoration: none; }
+  .ci-header .ci-brand img { height: 26px; width: auto; display: block; }
+  .ci-header nav { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .ci-header nav a { color: #e8e6e1; text-decoration: none; transition: color 0.2s ease; }
+  .ci-header nav a:hover { color: #e8c97e; }
+  .ci-intro {
+    max-width: 920px;
+    margin: 24px auto 0;
+    padding: 0 24px;
+    color: #a5a39c;
+    font-family: 'Courier Prime', ui-monospace, monospace;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .ci-intro p { margin-bottom: 10px; }
+  .ci-intro a { color: #e8c97e; }
+  .ci-footer {
+    background: #1a1a20;
+    border-top: 1px solid #3a3a44;
+    padding: 24px;
+    text-align: center;
+    color: #a5a39c;
+    font-family: 'Courier Prime', ui-monospace, monospace;
+    font-size: 0.8rem;
+    margin-top: 32px;
+  }
+  .ci-footer a { color: #c7c5bd; text-decoration: none; border-bottom: 1px dotted #6a6862; }
+  .ci-footer a:hover { color: #e8c97e; border-bottom-color: #e8c97e; }
+  .ci-footer p { margin: 6px 0; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://crowintelligence.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Aporia",
+      "item": "https://crowintelligence.org/aporia/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "The Nagel Index",
+      "item": "https://crowintelligence.org/aporia/nagel-essay/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Abraham Lincoln",
+      "item": "https://crowintelligence.org/aporia/nagel-essay/dashboards/lincoln_dashboard.html"
+    }
+  ]
+}
+</script>
 </head>
 <body>
+<header class="ci-header">
+  <a href="https://crowintelligence.org/" class="ci-brand" aria-label="Crow Intelligence">
+    <img src="https://crowintelligence.org/logos/brand/crow-nav.svg" alt="Crow Intelligence">
+  </a>
+  <nav aria-label="Site">
+    <a href="https://crowintelligence.org/portfolio.html">Portfolio</a>
+    <a href="https://crowintelligence.org/services.html">Services</a>
+    <a href="https://crowintelligence.org/about.html">About</a>
+    <a href="https://blog.crowintelligence.org/">Blog</a>
+    <a href="https://crowintelligence.org/contact.html">Contact</a>
+  </nav>
+</header>
+<section class="ci-intro" id="about-this-dashboard">
+  <!-- PROSE SLOT — 150-250 words, to be written by the author.
+       What this section needs, none of it invented here:
+         1. Who Abraham Lincoln is, in a sentence, for a reader who arrived from a
+            search result and has not read the essay.
+         2. Which sources supplied the PUBLIC register (which speeches or
+            addresses, and roughly how many).
+         3. Which sources supplied the PRIVATE register (which letters, diaries
+            or memoranda, and roughly how many).
+         4. What the gap between the two turned out to be for this figure —
+            trait names and the direction of the difference.
+         5. One sentence on what that result does and does not license.
+       The parent essay at /aporia/nagel-essay/ has the material for 2-5.
+       Until it is written the page carries the shared framing below, so it is
+       never empty. -->
+  <p><strong>The Nagel Index</strong> measures the gap between the public and
+  private personality of historical figures &mdash; the Big Five traits a leader
+  shows in their formal speeches against the ones they reveal in their private
+  letters.</p>
+  <p>This dashboard covers <strong>Abraham Lincoln</strong>. The method &mdash; the
+  corpora, the scoring, and how uncertainty is handled &mdash; is set out in the
+  companion essay, <a href="https://crowintelligence.org/aporia/nagel-essay/">The Nagel Index: does
+  power change a person?</a></p>
+</section>
+
 
 <nav class="figure-selector" id="figure-selector" aria-label="Public figures">
   <span class="figure-selector-title">Public figures</span>
@@ -1047,5 +1175,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<footer class="ci-footer">
+  <p><a href="https://crowintelligence.org/aporia/nagel-essay/">The Nagel Index</a> ·
+     <a href="https://crowintelligence.org/aporia/">Aporia</a> ·
+     <a href="https://crowintelligence.org/">Crow Intelligence</a></p>
+  <p><a href="mailto:hello@crowintelligence.org">hello@crowintelligence.org</a></p>
+  <p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+</footer>
 </body>
 </html>

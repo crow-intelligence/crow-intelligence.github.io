@@ -33,4 +33,22 @@
         </div>
     </div>
 </section>
+
+{# The seven Nagel Index dashboards. They sit under the essay rather than in
+   PROJECTS, but /aporia/nagel-essay/dashboards/washington_dashboard.html is one
+   of the most-visited pages on the site and until now nothing linked to it. #}
+<section class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">The Nagel Index — dashboards</h2>
+        <p>One interactive dashboard per figure, showing the Big Five traits
+        scored on public speeches against private letters. The method is set out
+        in the essay, <a href="{{ SITEURL }}/aporia/nagel-essay/">The Nagel
+        Index</a>.</p>
+        <ul class="link-list">
+            {% for dash in NAGEL_DASHBOARDS %}
+            <li><a href="{{ dash.url }}">{{ dash.figure }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
 {% endblock %}

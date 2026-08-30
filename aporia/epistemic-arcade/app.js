@@ -569,11 +569,15 @@ async function loadTelemetry() {
 }
 
 function reveal() {
-  document.getElementById("loading").classList.add("hidden");
-  document.querySelector(".layout").hidden = false;
+  const loading = document.getElementById("loading");
+  loading.classList.add("hidden");
+  loading.hidden = true;
 }
 
 async function boot() {
+  // The overlay is hidden in the markup so that the essay is readable without
+  // JavaScript. Show it only now, when there is JavaScript to take it away.
+  document.getElementById("loading").hidden = false;
   canvasAlpha = document.getElementById("canvas-alpha");
   canvasBeta = document.getElementById("canvas-beta");
   ctxAlpha = setupCanvas(canvasAlpha);
@@ -582,9 +586,17 @@ async function boot() {
   try {
     await loadTelemetry();
   } catch (err) {
-    document.getElementById("loading").textContent =
-      "Telemetry failed to load. Serve from the project root (see web/README.md).";
+    // The simulation is gone, but the essay is not. Take the full-screen
+    // overlay away and report the failure where the charts would have been,
+    // rather than leaving the reader staring at an error over the text.
     console.error(err);
+    reveal();
+    const checkpoint = document.querySelector(".loading-checkpoint");
+    if (checkpoint) {
+      checkpoint.textContent =
+        "Telemetry failed to load. Serve from the project root (see web/README.md).";
+      checkpoint.classList.add("visible");
+    }
     return;
   }
   reveal();

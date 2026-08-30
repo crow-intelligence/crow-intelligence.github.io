@@ -223,6 +223,25 @@ svg text { font-family: var(--mono); fill: var(--dim); font-size: 11px; }
 .ci-footer a { color: #c7c5bd; text-decoration: none; border-bottom: 1px dotted #6a6862; }
 .ci-footer a:hover { color: #e8c97e; border-bottom-color: #e8c97e; }
 .ci-footer p { margin: 6px 0; }
+  /* "About this project" block — server-rendered, so the page says what it is
+     before any JavaScript runs. Follows the pattern set by /kmdb/. */
+  .ci-about {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px 24px 8px;
+    color: #a5a39c;
+    font-family: 'Courier Prime', ui-monospace, monospace;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .ci-about h2 {
+    color: #e8e6e1;
+    font-family: 'IM Fell English', Georgia, serif;
+    font-weight: 400;
+    margin: 0 0 10px;
+  }
+  .ci-about p { margin: 0 0 12px; }
+  .ci-about a { color: #e8c97e; }
 </style>
 <!-- Cookie consent + analytics loader. Analytics stays blocked until opt-in. -->
 <script defer src="/consent.js"></script>
@@ -286,9 +305,47 @@ svg text { font-family: var(--mono); fill: var(--dim); font-size: 11px; }
   <nav>
     <a href="https://crowintelligence.org/portfolio.html">Portfolio</a>
     <a href="https://crowintelligence.org/services.html">Services</a>
+    <a href="https://crowintelligence.org/about.html">About</a>
+    <a href="https://blog.crowintelligence.org/">Blog</a>
     <a href="https://crowintelligence.org/contact.html">Contact</a>
   </nav>
 </header>
+<section class="ci-about" id="about-this-project">
+  <h2>About this project</h2>
+
+  <!-- PROSE SLOT — expand to 250+ words. Everything below restates what the
+       page's own methodology section already says. What it still needs:
+         1. The corpus source. The page never names where the speeches come
+            from, which is the single most important omission — it is also why
+            this project carries no `isBasedOn` in its Dataset schema.
+         2. Corpus size: speeches and tokens per quarter-century period.
+         3. Which words were tracked and why those.
+         4. The findings, with numbers: which concepts drifted furthest from
+            their 1775-1799 baseline, and what the nearest-neighbour shifts
+            actually show.
+         5. A link to the repository.
+       Points 1-4 are not stated anywhere in the repo. -->
+
+  <p>This project asks how the meaning of political concepts &mdash; freedom,
+  democracy, war &mdash; has changed across 250 years of American presidential
+  discourse, by measuring the company those words keep rather than consulting a
+  dictionary.</p>
+
+  <p>Each quarter-century of lemmatised speeches becomes a word&ndash;context
+  co-occurrence matrix built from skip-grams (window = 5), counted with
+  Count-Min Sketch for memory efficiency. The matrix is transformed to Positive
+  Pointwise Mutual Information with context distribution smoothing
+  (&alpha; = 0.75) and reduced to 100 dimensions by truncated SVD. Because
+  embeddings trained separately are not comparable, the periods are aligned with
+  orthogonal Procrustes &mdash; the rotation that best matches the shared
+  vocabulary &mdash; and semantic drift is then read as cosine distance in that
+  common space. Topics come from NMF over a single TF-IDF matrix spanning all
+  periods, so a topic means the same thing in every era.</p>
+
+  <p>Built with <a href="https://crowintelligence.org/packages.html">chronowords</a>
+  (<a href="https://github.com/crow-intelligence/chronowords">source</a>,
+  <a href="https://chronowords.readthedocs.io/en/latest/">documentation</a>).</p>
+</section>
 
 <div class="tooltip" id="tooltip"></div>
 
