@@ -213,10 +213,6 @@ PROJECTS = [
         'image': '/chokepoints/preview.svg',
         'label': 'News-Risk Analytics',
         'featured': False,
-        # The landing page is still a redirect stub with no readable content, so
-        # it is marked noindex and kept out of the sitemap. Drop this flag once
-        # the stub is replaced by a real landing page.
-        'noindex': True,
     },
     {
         'title': 'Corruption Press Networks — The K-Monitor Archive',

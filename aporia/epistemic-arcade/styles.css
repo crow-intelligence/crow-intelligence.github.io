@@ -498,3 +498,40 @@ code {
     padding: 2rem 0;
   }
 }
+
+/* Crow Intelligence chrome. This essay had no navigation at all — its only
+   links were five external citations — so a reader arriving from a search
+   result had no way into the rest of the site. */
+.ci-header {
+  background: #12121a;
+  border-bottom: 1px solid #2a2a3a;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--font-retro, ui-monospace, monospace);
+  font-size: 0.8rem;
+  position: relative;
+  z-index: 300;
+}
+.ci-header .ci-brand { display: inline-flex; align-items: center; text-decoration: none; }
+.ci-header .ci-brand img { height: 24px; width: auto; display: block; }
+.ci-header nav { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.ci-header nav a { color: #d7d5cf; text-decoration: none; }
+.ci-header nav a:hover { color: var(--accent-green, #7ee787); }
+.ci-footer {
+  background: #12121a;
+  border-top: 1px solid #2a2a3a;
+  padding: 24px;
+  text-align: center;
+  color: #8f8d87;
+  font-family: var(--font-retro, ui-monospace, monospace);
+  font-size: 0.78rem;
+  position: relative;
+  z-index: 300;
+}
+.ci-footer a { color: #c7c5bd; text-decoration: none; border-bottom: 1px dotted #55535d; }
+.ci-footer a:hover { color: var(--accent-green, #7ee787); }
+.ci-footer p { margin: 6px 0; }

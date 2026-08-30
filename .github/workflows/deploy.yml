@@ -91,6 +91,12 @@ jobs:
             fi
           done
 
+      # Assert the head/nav invariants across every page in a sitemap. This is
+      # what stops the six navigation variants and three head variants drifting
+      # apart again; it runs after the asset copies so it sees the real artifact.
+      - name: Lint the built site
+        run: python3 scripts/lint_html.py output
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: output
