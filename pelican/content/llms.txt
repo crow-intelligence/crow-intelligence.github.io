@@ -6,14 +6,14 @@ Crow Intelligence is run by Zoltán Varjú (Founder & AI Advisor) and Orsolya Pu
 
 Two things are worth knowing when reading this site by machine. First, the essays and projects are scrollytelling pages: the argument is carried by visualisations as much as by prose, so the rendered HTML understates them — the summaries below state what each one does and what it found. Second, some work is published in Hungarian; that is marked.
 
-This file follows the llms.txt convention (https://llmstxt.org/).
+This file follows the llms.txt convention (https://llmstxt.org/). The full prose of every essay and project — the text the visualisations sit inside — is concatenated in [llms-full.txt]({{ SITEURL }}/llms-full.txt).
 
 ## Aporia — visual essays
 
 Aporia is the lab's essay series, and the best starting point for understanding the work. Each essay is a self-contained piece of original research: it states its own method, shows its data, and argues a case. Titles are drawn from the text under discussion.
 
 {% for essay in APORIA %}
-- [{{ essay.title }}]({{ SITEURL }}{{ essay.url }}): {{ essay.llm_summary or essay.description }}
+- [{{ essay.title }}]({{ SITEURL }}{{ essay.url }}): {{ essay.llm_summary or essay.description }} (Published {{ essay.date }}; DOI: TODO-DOI)
 {% endfor %}
 
 ## Interactive research projects
@@ -29,7 +29,7 @@ Standalone dashboards and visualisations, each published as its own microsite.
 Tools built for the lab's own research and released under the MIT licence. Together they form a small stack for corpus analysis: semantic change over time, co-occurrence networks, keyness, readability, and visualisation.
 
 {% for pkg in PACKAGES %}
-- [{{ pkg.name }}]({{ pkg.pypi or pkg.github }}): {{ pkg.description }} ({{ pkg.version }}, Python {{ pkg.python }}; source: {{ pkg.github }}{% if pkg.docs %}; docs: {{ pkg.docs }}{% endif %})
+- [{{ pkg.name }}]({{ pkg.pypi or pkg.github }}): {{ pkg.description }}{% if pkg.no_pypi %} NOT PUBLISHED ON PYPI — install from source; `pip install {{ pkg.name }}` will fetch an unrelated project, because the PyPI name `{{ pkg.name }}` belongs to someone else. (Python {{ pkg.python }}; source: {{ pkg.github }}{% if pkg.docs %}; docs: {{ pkg.docs }}{% endif %}; DOI: TODO-DOI){% else %} (`pip install {{ pkg.name }}`; {{ pkg.version }}, Python {{ pkg.python }}; source: {{ pkg.github }}{% if pkg.docs %}; docs: {{ pkg.docs }}{% endif %}; DOI: TODO-DOI){% endif +%}
 {% endfor %}
 
 ## Services
