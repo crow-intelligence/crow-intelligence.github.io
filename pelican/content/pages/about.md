@@ -37,7 +37,7 @@ whether it is working, and what it means.
 
 ---
 
-## Orsolya Putz, PhD
+## Orsolya Putz, PhD {: #orsolya-putz }
 
 <div class="bio-section">
 <a href="https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/" target="_blank" class="team-photo">
@@ -64,7 +64,7 @@ collective thought?</p>
 
 ---
 
-## Zoltán Varjú
+## Zoltán Varjú {: #zoltan-varju }
 
 <div class="bio-section">
 <a href="https://www.linkedin.com/in/zoltanvarju/" target="_blank" class="team-photo">
@@ -73,6 +73,10 @@ collective thought?</p>
 <div class="bio-text">
 <p>Zoltán is an NLP engineer, data scientist, and serial entrepreneur with twenty
 years of experience building language-based systems.</p>
+
+<p class="orcid-line"><a href="https://orcid.org/0009-0009-6123-1703" target="_blank" rel="noopener me">
+<img src="/logos/orcid.svg" alt="ORCID iD" class="orcid-icon" width="16" height="16">
+orcid.org/0009-0009-6123-1703</a></p>
 
 <p>He co-founded and led two projects funded by the
 <strong>Google Digital News Initiative</strong>:</p>
@@ -133,3 +137,86 @@ cognitive theory — is still rare. That is the gap we are trying to fill.
 - Follow us on [Bluesky](https://bsky.app/profile/zoltanv.bsky.social)
 - Read the [Blog](https://blog.crowintelligence.org/)
 - Reach us at [hello@crowintelligence.org](mailto:hello@crowintelligence.org)
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://crowintelligence.org/about.html#zoltan-varju",
+      "name": "Zoltán Varjú",
+      "alternateName": ["Varjú Zoltán", "Zoltan Varju"],
+      "jobTitle": "Founder & AI Advisor",
+      "worksFor": { "@id": "https://crowintelligence.org/#organization" },
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "ORCID",
+        "value": "https://orcid.org/0009-0009-6123-1703"
+      },
+      "knowsAbout": [
+        "Natural language processing",
+        "Computational linguistics",
+        "Corpus linguistics",
+        "Distributional semantics",
+        "Semantic change",
+        "Network science",
+        "Digital humanities",
+        "AI technical due diligence"
+      ],
+      "sameAs": [
+        "https://orcid.org/0009-0009-6123-1703",
+        "https://www.linkedin.com/in/zoltanvarju/",
+        "https://github.com/zolizoli",
+        "https://www.manning.com/authors/zoltan-varju",
+        "https://x.com/zoltanvarju",
+        "https://bsky.app/profile/zoltanv.bsky.social",
+        "https://mindtheminds.substack.com/"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://crowintelligence.org/about.html#orsolya-putz",
+      "name": "Orsolya Putz",
+      "alternateName": ["Putz Orsolya", "Orsolya Putz, PhD"],
+      "jobTitle": ["Partner & Cognitive Scientist", "Assistant Professor"],
+      "worksFor": { "@id": "https://crowintelligence.org/#organization" },
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Budapest University of Technology and Economics",
+        "url": "https://www.bme.hu/",
+        "department": {
+          "@type": "Organization",
+          "name": "Department of Telecommunications and Artificial Intelligence",
+          "url": "https://www.tmit.bme.hu/"
+        }
+      },
+      "knowsAbout": [
+        "Cognitive linguistics",
+        "Conceptual metaphor theory",
+        "Cognitive semantics",
+        "Cultural linguistics",
+        "Visual metaphor",
+        "Discourse analysis"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/orsolya-putz-phd-5242a5157/",
+        "https://benjamins.com/catalog/persons/427103727",
+        "https://www.researchgate.net/profile/Orsolya-Putz",
+        "https://independent.academia.edu/OrsolyaPutz",
+        "https://www.tmit.bme.hu/putz.orsolya"
+      ]
+    },
+    {
+      "@type": "Book",
+      "@id": "https://crowintelligence.org/about.html#trianon-book",
+      "name": "Metaphor and National Identity: Alternative conceptualization of the Treaty of Trianon",
+      "author": { "@id": "https://crowintelligence.org/about.html#orsolya-putz" },
+      "publisher": { "@type": "Organization", "name": "John Benjamins Publishing Company" },
+      "datePublished": "2019",
+      "inLanguage": "en",
+      "url": "https://www.jbe-platform.com/content/books/9789027261724"
+    }
+  ]
+}
+</script>

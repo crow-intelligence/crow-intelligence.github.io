@@ -400,6 +400,12 @@ SERVICES = [
     },
 ]
 
+# SPDX identifier -> licence URL, so the package schema can emit a resolvable
+# licence rather than the bare string the cards display.
+LICENSE_URLS = {
+    'MIT': 'https://opensource.org/licenses/MIT',
+}
+
 # Open source packages
 PACKAGES = [
     {

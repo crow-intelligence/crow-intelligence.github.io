@@ -42,43 +42,65 @@
   <meta name="twitter:image" content="https://crowintelligence.org/aporia/wittgenstein/imgs/social-preview.png">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Whereof one cannot speak, thereof one must be silent",
-    "description": "A visual reading of Wittgenstein's Tractatus: 2,025 sentences as a handwritten spiral, sized by centrality and coloured by community.",
-    "image": "https://crowintelligence.org/aporia/wittgenstein/imgs/social-preview.png",
-    "url": "https://crowintelligence.org/aporia/wittgenstein/",
-    "datePublished": "2026-05-19",
-    "inLanguage": "en",
-    "isPartOf": {
-      "@type": "CreativeWorkSeries",
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://crowintelligence.org/aporia/wittgenstein/#article",
+  "headline": "Whereof one cannot speak, thereof one must be silent",
+  "description": "A visual reading of Wittgenstein's Tractatus: 2,025 sentences as a handwritten spiral, sized by centrality and coloured by community.",
+  "url": "https://crowintelligence.org/aporia/wittgenstein/",
+  "image": "https://crowintelligence.org/aporia/wittgenstein/imgs/social-preview.png",
+  "inLanguage": "en",
+  "datePublished": "2026-05-19",
+  "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "isAccessibleForFree": true,
+  "identifier": "TODO-DOI",
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "Aporia",
+    "url": "https://crowintelligence.org/aporia/"
+  },
+  "author": {
+    "@id": "https://crowintelligence.org/#organization"
+  },
+  "publisher": {
+    "@id": "https://crowintelligence.org/#organization"
+  },
+  "about": [
+    "Ludwig Wittgenstein",
+    "Tractatus Logico-Philosophicus",
+    "Network analysis",
+    "PageRank",
+    "Louvain community detection"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://crowintelligence.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
       "name": "Aporia",
-      "url": "https://crowintelligence.org/aporia/"
+      "item": "https://crowintelligence.org/aporia/"
     },
-    "author": {
-      "@type": "Organization",
-      "name": "Crow Intelligence",
-      "url": "https://crowintelligence.org/"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Crow Intelligence",
-      "url": "https://crowintelligence.org/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://crowintelligence.org/logos/brand/crow-intelligence.svg"
-      }
-    },
-    "about": [
-      "Ludwig Wittgenstein",
-      "Tractatus Logico-Philosophicus",
-      "Network analysis",
-      "PageRank",
-      "Louvain community detection"
-    ]
-  }
-  </script>
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Whereof one cannot speak, thereof one must be silent",
+      "item": "https://crowintelligence.org/aporia/wittgenstein/"
+    }
+  ]
+}
+</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -87,6 +109,29 @@
   <link rel="stylesheet" href="css/essay.css">
 <!-- Cookie consent + analytics loader. Analytics stays blocked until opt-in. -->
 <script defer src="/consent.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "@id": "https://crowintelligence.org/aporia/wittgenstein/#dataset",
+  "name": "Tractatus Logico-Philosophicus, sentence-segmented and network-annotated",
+  "description": "The Ogden 1922 translation of Wittgenstein's Tractatus Logico-Philosophicus split into 2,025 sentences with NLTK Punkt, annotated with the numbered proposition hierarchy, PageRank centrality and Louvain community assignment.",
+  "url": "https://crowintelligence.org/aporia/wittgenstein/",
+  "inLanguage": "en",
+  "creator": {
+    "@id": "https://crowintelligence.org/#organization"
+  },
+  "temporalCoverage": "1922",
+  "isAccessibleForFree": true,
+  "identifier": "TODO-DOI",
+  "variableMeasured": [
+    "Sentence text",
+    "Tractatus proposition number",
+    "PageRank centrality",
+    "Louvain community"
+  ]
+}
+</script>
 </head>
 <body>
 

@@ -3,6 +3,7 @@ Slug: packages
 Status: published
 Summary: Open source Python tools for computational text analysis: chronowords for semantic shift detection, kenon for co-occurrence networks, keyflux for corpus keyness and allotaxonographs, lexograph for text visualisation, saphes for readability and lexical diversity, and the corvus cookiecutter template.
 Og_image: /images/social-preview/packages.png
+Schema: packages
 
 <div class="about-intro">
 
@@ -146,98 +147,3 @@ linguistics and NLP research, now publicly available.
 ---
 
 *All packages are MIT licensed and open source.*
-
-<script type="application/ld+json">
-[
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "chronowords",
-    "description": "Detect semantic shifts over time in text corpora using PPMI-based word embeddings, NMF topic modeling, and Procrustes alignment.",
-    "url": "https://pypi.org/project/chronowords/",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Python 3.10+",
-    "license": "https://opensource.org/licenses/MIT",
-    "author": {
-      "@type": "Organization",
-      "name": "Crow Intelligence",
-      "url": "https://crowintelligence.org"
-    }
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "kenon",
-    "description": "Construct semantic and co-occurrence networks from text using corpus-internal statistics, spaCy tokenization, and network backbone extraction.",
-    "url": "https://pypi.org/project/kenon/",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Python 3.11+",
-    "license": "https://opensource.org/licenses/MIT",
-    "author": {
-      "@type": "Organization",
-      "name": "Crow Intelligence",
-      "url": "https://crowintelligence.org"
-    }
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "keyflux",
-    "description": "Corpus keyness, rank-turbulence divergence, and allotaxonographs — keywords and lockwords via log-likelihood and log ratio, in pure Python.",
-    "url": "https://pypi.org/project/keyflux/",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Python 3.11+",
-    "license": "https://opensource.org/licenses/MIT",
-    "author": {
-      "@type": "Organization",
-      "name": "Crow Intelligence",
-      "url": "https://crowintelligence.org"
-    }
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "lexograph",
-    "description": "Spatialize linear text into pictures you can read: punctuation spirals, sentence walks, recurrence dotplots, and concordances, rendered with matplotlib.",
-    "url": "https://pypi.org/project/lexograph/",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Python 3.11+",
-    "license": "https://opensource.org/licenses/MIT",
-    "author": {
-      "@type": "Organization",
-      "name": "Crow Intelligence",
-      "url": "https://crowintelligence.org"
-    }
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "saphes",
-    "description": "Readability (LIX) and lexical diversity (TTR/MATTR) with configurable parameters, including the LIX long-word threshold that other implementations hardcode.",
-    "url": "https://pypi.org/project/saphes/",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Python 3.11+",
-    "license": "https://opensource.org/licenses/MIT",
-    "author": {
-      "@type": "Organization",
-      "name": "Crow Intelligence",
-      "url": "https://crowintelligence.org"
-    }
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "corvus",
-    "description": "A cookiecutter template for data science and text analysis projects with uv, ruff, DVC, MLflow, and Sphinx docs.",
-    "url": "https://github.com/crow-intelligence/corvus",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Python 3.10+",
-    "license": "https://opensource.org/licenses/MIT",
-    "author": {
-      "@type": "Organization",
-      "name": "Crow Intelligence",
-      "url": "https://crowintelligence.org"
-    }
-  }
-]
-</script>
