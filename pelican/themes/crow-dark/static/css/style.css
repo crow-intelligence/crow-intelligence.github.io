@@ -705,6 +705,20 @@ strong {
 }
 
 /* ── Bio sections ── */
+/* ORCID iD, shown beside the name it identifies rather than only in the
+   structured data. Sized to sit on the body line, not to announce itself. */
+.orcid-line {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Courier Prime', ui-monospace, monospace;
+    font-size: 0.85rem;
+}
+
+.orcid-icon {
+    flex: none;
+}
+
 .bio-section {
     display: flex;
     gap: 32px;
