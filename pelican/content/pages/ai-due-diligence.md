@@ -91,7 +91,9 @@ companies as a self-assessment.
 <p><a href="https://github.com/crow-intelligence/ai-dd-checklist">github.com/crow-intelligence/ai-dd-checklist</a> <!-- TODO: provisional URL — update once the repo exists --></p>
 
 *Looking at an internal AI deployment rather than an external investment?
-See [The AI Adoption Audit](/services/ai-adoption-audit.html).*
+See [The AI Adoption Audit](/services/ai-adoption-audit.html). Need the analysis
+or the visualisation itself? See
+[Commissioned Analysis](/services/commissioned-analysis.html).*
 
 ## Get in touch
 
@@ -110,12 +112,7 @@ directly.
   "serviceType": "Technical due diligence",
   "description": "Independent technical due diligence on AI and NLP startups for early-stage venture funds in Central Europe. Covers technology, data, IP, team, and EU AI Act readiness.",
   "url": "https://crowintelligence.org/services/ai-due-diligence.html",
-  "provider": {
-    "@type": "Organization",
-    "name": "Crow Intelligence",
-    "url": "https://crowintelligence.org/",
-    "email": "hello@crowintelligence.org"
-  },
+  "provider": { "@id": "https://crowintelligence.org/#organization" },
   "areaServed": {
     "@type": "Place",
     "name": "Central Europe"
