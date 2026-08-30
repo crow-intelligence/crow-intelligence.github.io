@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+{#
+  Sitemap for the Pelican-generated pages and articles.
+
+  Hand-rolled rather than produced by the `sitemap` plugin, for two reasons:
+  the plugin hard-codes <priority> into its XML template, and a uniform priority
+  across every URL carries exactly as much information as none at all (Google
+  ignores the attribute either way); and the plugin's <lastmod> comes from the
+  file mtime, which a CI checkout rewrites to the build time, stamping every
+  entry with the same meaningless date. Here <lastmod> is the last commit date
+  for the source file, and is omitted when git cannot supply one.
+
+  Exclusions are derived, not listed: anything the page itself marks `noindex`
+  (thanks.html), and anything that is only a meta-refresh stub (the /hu/
+  redirects, the /blog/ + author/category/tag stubs). Add a `Robots:` or
+  `Redirect:` header to a page and it drops out of here automatically.
+
+  The hand-authored microsites and essays are in sitemap-projects.xml.
+#}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% for page in pages %}
+{% if 'noindex' not in (page.robots|default('')) and not page.redirect %}
+  <url>
+    <loc>{{ SITEURL }}/{{ page.url }}</loc>
+{% set lastmod = page.source_path | git_lastmod %}
+{% if lastmod %}    <lastmod>{{ lastmod }}</lastmod>
+{% endif %}    <changefreq>monthly</changefreq>
+  </url>
+{% endif %}
+{% endfor %}
+{% for article in articles %}
+  <url>
+    <loc>{{ SITEURL }}/{{ article.url }}</loc>
+{% set lastmod = article.source_path | git_lastmod %}
+{% if lastmod %}    <lastmod>{{ lastmod }}</lastmod>
+{% endif %}    <changefreq>monthly</changefreq>
+  </url>
+{% endfor %}
+</urlset>
+
