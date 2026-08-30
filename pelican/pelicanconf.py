@@ -1,3 +1,4 @@
+import subprocess
 from datetime import date, datetime, timezone
 from email.utils import format_datetime
 
@@ -17,13 +18,41 @@ def _rfc822(d):
     return format_datetime(datetime(d.year, d.month, d.day, tzinfo=timezone.utc))
 
 
-JINJA_FILTERS = {'rfc822': _rfc822}
+def _git_lastmod(source_path):
+    """Return the ISO date of the last commit touching `source_path`, or ''.
+
+    Used for <lastmod> in the sitemaps. A file's mtime is useless here: a CI
+    checkout rewrites every mtime to the moment of the build, which would stamp
+    the whole sitemap with one date and tell search engines nothing. The commit
+    date survives the checkout.
+
+    Returns the empty string — so the template omits <lastmod> entirely — when
+    the file is untracked, or when the checkout is shallow enough that git has
+    no commit for it. An absent lastmod is honest; a wrong one gets cached.
+    """
+    if not source_path:
+        return ''
+    try:
+        out = subprocess.run(
+            ['git', 'log', '-1', '--format=%cs', '--', str(source_path)],
+            capture_output=True, text=True, timeout=10, check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return ''
+    return out.stdout.strip() if out.returncode == 0 else ''
+
+
+JINJA_FILTERS = {'rfc822': _rfc822, 'git_lastmod': _git_lastmod}
 
 PATH = 'content'
 OUTPUT_PATH = '../output'
 
 TIMEZONE = 'Europe/Budapest'
 DEFAULT_LANG = 'en'
+
+# Open Graph locale. British spellings throughout the copy ('visualisation',
+# 'analyse'), so en_GB rather than en_US. Hungarian pages override in base.html.
+OG_LOCALE = 'en_GB'
 
 # Theme
 THEME = 'themes/crow-dark'
@@ -63,37 +92,9 @@ DIRECT_TEMPLATES = ['index']
 # dashboards are pages and hand-authored HTML it cannot see.
 TEMPLATE_PAGES = {
     'llms.txt': 'llms.txt',
+    'sitemap.xml': 'sitemap.xml',
     'sitemap-projects.xml': 'sitemap-projects.xml',
     'feed.xml': 'feed.xml',
-}
-
-# Plugins
-PLUGINS = ['sitemap']
-SITEMAP = {
-    'format': 'xml',
-    # The blog moved to blog.crowintelligence.org, so Pelican still generates
-    # author/category/tag/blog-index pages that are only meta-refresh redirect
-    # stubs. Submitting redirect stubs wastes crawl budget — keep them out.
-    # Patterns are matched with re.search against the URL as the plugin sees it,
-    # which has no leading slash (e.g. "author/crow-intelligence.html").
-    'exclude': [
-        r'(^|/)author/',
-        r'(^|/)category/',
-        r'(^|/)tag/',
-        r'(^|/)blog/$',
-        r'sitemap-projects\.xml$',
-        r'feed\.xml$',
-    ],
-    'priorities': {
-        'articles': 0.8,
-        'pages': 0.9,
-        'indexes': 0.5,
-    },
-    'changefreqs': {
-        'articles': 'monthly',
-        'pages': 'monthly',
-        'indexes': 'daily',
-    }
 }
 
 # Static paths - serve existing project folders through
@@ -202,6 +203,10 @@ PROJECTS = [
         'image': '/chokepoints/preview.svg',
         'label': 'News-Risk Analytics',
         'featured': False,
+        # The landing page is still a redirect stub with no readable content, so
+        # it is marked noindex and kept out of the sitemap. Drop this flag once
+        # the stub is replaced by a real landing page.
+        'noindex': True,
     },
     {
         'title': 'Corruption Press Networks — The K-Monitor Archive',
@@ -236,7 +241,7 @@ PROJECTS = [
     {
         'title': 'Semantic Explorer — Interactive Co-occurrence Networks',
         'description': 'Explore the semantic structure of classic texts through interactive ego networks. Type a seed word, click to expand, and trace how meaning propagates through Tolstoy, Plato, Adam Smith, Darwin, and more. Built with our open-source kenon package.',
-        'url': '/semantic_explorer/app/index.html',
+        'url': '/semantic_explorer/app/',
         'date': date(2026, 3, 27),
         'image': '/semantic_explorer/preview.svg',
         'label': 'Semantic Networks',
@@ -278,19 +283,6 @@ PROJECTS = [
         'label': 'NLP & Digital Humanities',
         'lang': 'In Hungarian',
         'featured': False,
-    },
-]
-
-# Hungarian-language projects (shown on the Hungarian portfolio page)
-PROJECTS_HU = [
-    {
-        'title': 'Magyar dalszövegek — diakronikus elemzés',
-        'description': "Hat évtizednyi magyar popzene szövegeinek nyelvi elemzése: "
-                       "jellegzetes szavak, témák alakulása, jelentéseltolódások és "
-                       "szemantikai sodródás a hatvanas évektől napjainkig.",
-        'url': '/magyar-dalszovegek/#temak',
-        'image': '/magyar-dalszovegek/assets/og.png',
-        'label': 'NLP & Digitális bölcsészet',
     },
 ]
 
@@ -362,6 +354,26 @@ APORIA = [
         'lang': 'In Hungarian',
     },
 ]
+
+# The Nagel Index dashboards — one interactive dashboard per public figure,
+# living under the essay that explains them (/aporia/nagel-essay/dashboards/).
+# Declared here so the sitemap, the projects grid and the per-page breadcrumbs
+# all read the same list. `slug` is the file stem; `lastmod` tracks the parent
+# essay's date, since the dashboards ship with it.
+NAGEL_DASHBOARDS = [
+    {'slug': 'washington', 'figure': 'George Washington'},
+    {'slug': 'lincoln', 'figure': 'Abraham Lincoln'},
+    {'slug': 'jefferson', 'figure': 'Thomas Jefferson'},
+    {'slug': 'nixon', 'figure': 'Richard Nixon'},
+    {'slug': 'bush41', 'figure': 'George H. W. Bush'},
+    {'slug': 'bush43', 'figure': 'George W. Bush'},
+    {'slug': 'kissinger', 'figure': 'Henry Kissinger'},
+]
+for _d in NAGEL_DASHBOARDS:
+    _d['url'] = f"/aporia/nagel-essay/dashboards/{_d['slug']}_dashboard.html"
+    _d['image'] = f"/dashboard_portraits/{_d['slug']}_portrait.png"
+    _d['title'] = f"The Nagel Index — {_d['figure']}"
+    _d['date'] = date(2026, 3, 31)
 
 # Services
 SERVICES = [
