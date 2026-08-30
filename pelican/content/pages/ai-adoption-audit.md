@@ -3,7 +3,8 @@ Slug: ai-adoption-audit
 URL: services/ai-adoption-audit.html
 Save_as: services/ai-adoption-audit.html
 Status: published
-Summary: A fixed-scope diagnostic that finds why an internal AI tool has stalled — and sets out what to change. From Crow Intelligence.
+Summary: An AI readiness assessment for a tool you have already shipped: a fixed-scope diagnostic that finds why adoption stalled, and what to change.
+Og_image: /images/social-preview/ai-adoption.png
 
 Most internal AI tools fail for *human* reasons — not technical ones.
 
@@ -58,6 +59,23 @@ Most technical reviews inspect one layer. Most design reviews inspect the
 other. The failure almost always lives in the seam between them — which is
 the seam we are built to examine.
 
+## How this differs from an AI readiness assessment
+
+A conventional **AI readiness assessment** or **AI maturity assessment** scores
+an organisation before it builds: data foundations, governance, skills, the
+appetite to change. It answers *are we ready to start*.
+
+This audit answers a later and more uncomfortable question: *we did start, and
+it is not landing — why?* The tool exists. The pilot went well. The readiness
+score, whatever it was, did not predict what happened next.
+
+So the shape is the same — a structured diagnostic, a maturity judgement, a
+prioritised plan — and the evidence is different. Instead of scoring intent, we
+examine a system in use: what your people actually do with the tool, where the
+retrieval fails them, and where the design asks more of their attention than the
+task is worth. If a readiness assessment is a survey, this is a post-mortem on a
+patient who is still alive.
+
 ## Cognitive science, translated into engineering
 
 We draw on peer-reviewed cognitive science — how people offload memory
@@ -105,6 +123,31 @@ exploration stage, or for those looking for a vendor to build a system
 from scratch. The audit is for tools that already exist and are not
 landing.
 
+## Questions we are asked
+
+**How long does the audit take?**
+Two to four weeks, typically. The scope is fixed before we start, so the
+duration is not open-ended.
+
+**Is this an AI readiness assessment?**
+Not in the usual sense. A readiness assessment scores an organisation before it
+builds. This examines a tool that has already shipped and is not being used.
+The method is comparable; the evidence is a live system rather than a survey.
+
+**What do we get at the end?**
+A diagnostic report saying where adoption is breaking and why, in plain
+language; a prioritised set of changes, each ranked by likely impact against the
+effort to make it; and a working session with your team to walk through the
+reasoning.
+
+**Do you build the fix as well?**
+Not by default. The deliverable is clarity and a sequenced plan. Some clients
+take it from there themselves; others ask us to stay for the next step.
+
+**Is the audit right for a tool we have not built yet?**
+No. It is for tools that already exist and are not landing. If you are still at
+the open exploration stage, the audit has nothing to examine.
+
 ## The hard thinking before and after the code
 
 We are an independent research and advisory practice working at the
@@ -119,7 +162,9 @@ Our work is the part that engineering alone does not cover: what to
 build, whether it is working, and what the results actually mean.
 
 *Evaluating an AI startup as an investor, rather than an internal tool?
-See [AI & NLP Due Diligence](/services/ai-due-diligence.html).*
+See [AI & NLP Due Diligence](/services/ai-due-diligence.html). Need the
+analysis itself rather than a diagnosis of a tool? See
+[Commissioned Analysis](/services/commissioned-analysis.html).*
 
 ## Begin with a conversation
 
@@ -139,15 +184,62 @@ Or write to [hello@crowintelligence.org](mailto:hello@crowintelligence.org).
   "serviceType": "AI adoption diagnostic",
   "description": "A fixed-scope diagnostic that finds why an internal AI tool has stalled — examining the data and retrieval layer alongside the cognitive layer — and sets out a prioritised plan of what to change.",
   "url": "https://crowintelligence.org/services/ai-adoption-audit.html",
-  "provider": {
-    "@type": "Organization",
-    "name": "Crow Intelligence",
-    "url": "https://crowintelligence.org/",
-    "email": "hello@crowintelligence.org"
-  },
+  "provider": { "@id": "https://crowintelligence.org/#organization" },
+  "alternateName": ["AI readiness assessment", "AI maturity assessment"],
+  "areaServed": [{ "@type": "Place", "name": "European Union" }],
   "audience": {
     "@type": "BusinessAudience",
     "audienceType": "Scale-ups and enterprise innovation teams"
   }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://crowintelligence.org/services/ai-adoption-audit.html#faq",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How long does the audit take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Two to four weeks, typically. The scope is fixed before we start, so the duration is not open-ended."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this an AI readiness assessment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not in the usual sense. A readiness assessment scores an organisation before it builds. This examines a tool that has already shipped and is not being used. The method is comparable; the evidence is a live system rather than a survey."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do we get at the end?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A diagnostic report saying where adoption is breaking and why, in plain language; a prioritised set of changes, each ranked by likely impact against the effort to make it; and a working session with your team to walk through the reasoning."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you build the fix as well?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not by default. The deliverable is clarity and a sequenced plan. Some clients take it from there themselves; others ask us to stay for the next step."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the audit right for a tool we have not built yet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It is for tools that already exist and are not landing. If you are still at the open exploration stage, the audit has nothing to examine."
+      }
+    }
+  ]
 }
 </script>
