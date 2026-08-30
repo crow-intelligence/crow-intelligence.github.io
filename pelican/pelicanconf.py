@@ -1,6 +1,15 @@
+import os
 import subprocess
+import sys
 from datetime import date, datetime, timezone
 from email.utils import format_datetime
+
+# Pelican loads this file by path, so its directory is not necessarily on
+# sys.path; publishconf.py only adds the current directory. Add it explicitly so
+# `prose` imports whether the build runs from pelican/ or from the repo root.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from prose import collect  # noqa: E402
 
 AUTHOR = 'Crow Intelligence'
 SITENAME = 'Crow Intelligence'
@@ -92,6 +101,7 @@ DIRECT_TEMPLATES = ['index']
 # dashboards are pages and hand-authored HTML it cannot see.
 TEMPLATE_PAGES = {
     'llms.txt': 'llms.txt',
+    'llms-full.txt': 'llms-full.txt',
     'sitemap.xml': 'sitemap.xml',
     'sitemap-projects.xml': 'sitemap-projects.xml',
     'feed.xml': 'feed.xml',
@@ -228,6 +238,11 @@ PROJECTS = [
         'lang': 'In Hungarian',
         'wip': True,
         'featured': False,
+        # Held out of llms-full.txt: the page describes itself as internal
+        # working material, and its inclusion in the sitemap is still an
+        # open question. Publishing its full prose to a machine-readable
+        # surface would settle that question by default.
+        'llms_full': False,
     },
     {
         'title': 'Semantic Shifts in Presidential Rhetoric',
@@ -375,6 +390,14 @@ for _d in NAGEL_DASHBOARDS:
     _d['title'] = f"The Nagel Index — {_d['figure']}"
     _d['date'] = date(2026, 3, 31)
 
+# Full text for llms-full.txt. The essays and microsites are hand-authored HTML
+# outside the content tree, so their prose is read off disk here rather than in
+# the template. `_REPO_ROOT` is the parent of pelican/, which is where build.sh
+# and deploy.yml both map `projects/<dir>/` and `aporia/` to `/<dir>/`.
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+APORIA_FULL = collect(_REPO_ROOT, APORIA)
+PROJECTS_FULL = collect(_REPO_ROOT, PROJECTS)
+
 # Services
 SERVICES = [
     {
@@ -411,7 +434,7 @@ PACKAGES = [
     {
         'name': 'chronowords',
         'logo': 'logos/brand/chronowords.svg',
-        'version': 'v0.2.0',
+        'version': 'v0.3.0',
         'license': 'MIT',
         'python': '3.10+',
         'description': 'Detect semantic shifts over time in text corpora. Memory-efficient PPMI-based word embeddings via Count-Min Sketch, NMF topic modeling, and Procrustes alignment for tracking how word meanings evolve across time periods.',
@@ -422,7 +445,7 @@ PACKAGES = [
     {
         'name': 'kenon',
         'logo': 'logos/brand/kenon.svg',
-        'version': 'v0.1.0',
+        'version': 'v0.1.2',
         'license': 'MIT',
         'python': '3.11+',
         'description': 'Construct semantic and co-occurrence networks from text using corpus-internal statistics. Lightweight graph construction through spaCy tokenization, skip-gram windows, and network backbone extraction — no neural models or external training data required.',
@@ -433,7 +456,7 @@ PACKAGES = [
     {
         'name': 'keyflux',
         'logo': 'logos/brand/keyflux.svg',
-        'version': 'v0.1.2',
+        'version': 'v0.2.0',
         'license': 'MIT',
         'python': '3.11+',
         'description': 'Corpus keyness done properly: keywords and lockwords from a focus-versus-reference comparison (log-likelihood significance, log-ratio effect size), rank-turbulence divergence between the ranked lists, and allotaxonograph plots — a transparent, pip-installable pipeline rendered in matplotlib.',
@@ -466,8 +489,12 @@ PACKAGES = [
     {
         'name': 'corvus',
         'logo': 'logos/brand/corvus.svg',
-        'version': 'v1.0.0',
         'license': 'MIT',
+        # Not on PyPI, and not a release we can version: the name `corvus`
+        # on PyPI belongs to an unrelated WebSocket library published by
+        # someone else. Templates must not format this entry like the five
+        # that do have releases.
+        'no_pypi': True,
         'python': '3.10+',
         'description': 'A cookiecutter template for data science and text analysis projects. Pre-configured scaffold with uv, ruff, DVC, MLflow, Sphinx docs, and structured directories — eliminate manual setup and start analysing.',
         'github': 'https://github.com/crow-intelligence/corvus',

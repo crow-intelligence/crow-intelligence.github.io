@@ -1,8 +1,73 @@
+# Crow Intelligence — https://crowintelligence.org/
+#
+# The whole site is open to crawlers, including the AI crawlers, and the named
+# blocks below say so deliberately rather than by omission. A missing rule and
+# an explicit Allow read the same to a crawler but not to a person: the point of
+# listing each agent is that the decision is on the record and reversible in one
+# place. Anything not named falls through to the wildcard block.
+
 User-agent: *
 Allow: /
+
+# --- Search ---
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# --- AI training and retrieval ---
+# Google-Extended and Applebot-Extended are training-only controls: they do not
+# affect search ranking, so allowing them is a separate decision from the two
+# search agents above.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+# --- Sitemaps ---
 
 Sitemap: https://crowintelligence.org/sitemap.xml
 Sitemap: https://crowintelligence.org/sitemap-projects.xml
 
-# AI Model Documentation
-# https://crowintelligence.org/llms.txt
+# --- For language models ---
+# https://llmstxt.org/. These are ordinary crawlable files, not directives; a
+# comment is the only place robots.txt can point at them.
+#   https://crowintelligence.org/llms.txt       — index of the site
+#   https://crowintelligence.org/llms-full.txt  — full prose of every essay and project

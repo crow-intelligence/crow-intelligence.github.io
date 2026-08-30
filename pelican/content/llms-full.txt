@@ -1,0 +1,90 @@
+{#
+  llms-full.txt — the full prose of the essays and projects in one file.
+
+  llms.txt makes the point that these pages are scrollytelling: the argument
+  is carried by visualisations as much as by prose, and a crawler that renders
+  no JavaScript sees less than a reader does. This file is the other half of
+  that claim — the text itself, extracted from the published HTML by
+  pelican/prose.py, so a machine reader never has to execute anything.
+
+  Sections are emitted once each: several PROJECTS entries point at pages the
+  APORIA list already covers, and those repeats are dropped.
+#}
+{% set ns = namespace(seen=[], skipped=[]) -%}
+# Crow Intelligence — full text
+
+> The complete readable prose of every Aporia essay and every research project
+> published at {{ SITEURL }}/. Extracted from the published pages, with markup,
+> navigation and embedded data payloads removed. Companion to
+> {{ SITEURL }}/llms.txt, which is the index.
+
+Generated from the site source. Where a page's substance lives in an
+interactive visualisation, the prose below is what remains when that
+visualisation is removed — it is the floor, not the ceiling.
+
+Licence: CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/).
+DOIs for the essays and packages are pending; each entry below carries a
+TODO-DOI marker in their place.
+
+## Aporia — visual essays
+
+{% for essay, prose in APORIA_FULL -%}
+{% set _ = ns.seen.append(essay.url) -%}
+### {{ essay.title }}
+
+URL: {{ SITEURL }}{{ essay.url }}
+Published: {{ essay.date }}
+Series: Aporia
+DOI: TODO-DOI
+{% if essay.lang %}Language: {{ essay.lang }}.
+{% endif %}
+{{ prose }}
+
+{% endfor -%}
+
+## Interactive research projects
+
+{% for project, prose in PROJECTS_FULL -%}
+{% if project.url in ns.seen -%}
+{% elif project.llms_full is defined and not project.llms_full -%}
+{% set _ = ns.skipped.append(project.title) -%}
+{% else -%}
+{% set _ = ns.seen.append(project.url) -%}
+### {{ project.title }}
+
+URL: {{ SITEURL }}{{ project.url }}
+Published: {{ project.date }}
+Field: {{ project.label }}
+{% if project.lang %}Language: {{ project.lang }}.
+{% endif %}{% if project.wip %}Status: work in progress.
+{% endif %}
+{{ prose }}
+
+{% endif -%}
+{% endfor -%}
+
+## Open-source Python packages
+
+{% for pkg in PACKAGES %}
+### {{ pkg.name }}
+
+{% if pkg.no_pypi %}Not published on PyPI — install from source. `pip install {{ pkg.name }}` will
+fetch an unrelated project, because the PyPI name `{{ pkg.name }}` belongs to
+someone else. Install with: uvx cookiecutter {{ pkg.github }}.git
+{% else %}Install: pip install {{ pkg.name }}
+Version: {{ pkg.version }}
+PyPI: {{ pkg.pypi }}
+{% endif %}Python: {{ pkg.python }}
+Licence: {{ pkg.license }}
+Source: {{ pkg.github }}
+{% if pkg.docs %}Docs: {{ pkg.docs }}
+{% endif %}DOI: TODO-DOI
+
+{{ pkg.description }}
+{% endfor %}
+
+## Not included here
+
+{% if ns.skipped %}{% for title in ns.skipped %}- {{ title }}: held back pending a decision about publication.
+{% endfor %}{% endif %}- Pages whose readable content is a redirect stub rather than prose.
+- The blog at https://blog.crowintelligence.org/, which is a separate site.
