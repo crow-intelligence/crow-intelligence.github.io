@@ -35,7 +35,11 @@
     <meta name="twitter:description" content="{% block twitter_description %}Independent research at the intersection of cognitive linguistics, NLP, and data analysis.{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{{ SITEURL }}/site/img/punctuation_spiral.png{% endblock %}">
 
-    <!-- Schema.org JSON-LD -->
+    <!-- Schema.org JSON-LD.
+         The organisation node is site-wide, so the two founders appear here only
+         as @id references with a name — enough to be self-describing. Their full
+         records (ORCID, name variants, expertise, profiles) live once, on
+         /about.html, keyed to the same @ids. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -44,41 +48,43 @@
       "name": "Crow Intelligence",
       "url": "{{ SITEURL }}/",
       "logo": "{{ SITEURL }}/{{ LOGO_PATH }}",
-      "description": "Independent Research in Language, Cognition & AI",
+      "description": "An independent research lab studying how language shapes thought, combining cognitive linguistics with computational methods — NLP, corpus analysis, and network science.",
       "email": "hello@crowintelligence.org",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "HU"
+      },
+      "areaServed": [
+        { "@type": "Place", "name": "European Union" }
+      ],
+      "knowsAbout": [
+        "Natural language processing",
+        "Cognitive linguistics",
+        "Corpus linguistics",
+        "Computational text analysis",
+        "Network science",
+        "AI technical due diligence",
+        "EU AI Act compliance",
+        "Data visualisation"
+      ],
       "founder": [
         {
           "@type": "Person",
-          "name": "Zoltán Varjú",
-          "jobTitle": "Founder & AI Advisor",
-          "worksFor": { "@id": "{{ SITEURL }}/#organization" },
-          "sameAs": [
-            "https://bsky.app/profile/zoltanv.bsky.social",
-            "https://mindtheminds.substack.com/",
-            "https://www.linkedin.com/in/zoltanvarju"
-          ]
+          "@id": "{{ SITEURL }}/about.html#zoltan-varju",
+          "name": "Zoltán Varjú"
         },
         {
           "@type": "Person",
-          "name": "Orsolya Putz, PhD",
-          "jobTitle": ["Partner & Cognitive Scientist", "Assistant Professor"],
-          "worksFor": { "@id": "{{ SITEURL }}/#organization" },
-          "affiliation": {
-            "@type": "Organization",
-            "name": "Budapest University of Technology and Economics (BME)",
-            "url": "https://www.bme.hu/",
-            "department": {
-              "@type": "Organization",
-              "name": "Department of Telecommunications and Artificial Intelligence",
-              "url": "https://www.tmit.bme.hu/"
-            }
-          },
-          "sameAs": [
-            "https://www.linkedin.com/in/orsolya-putz-phd-5242a5157",
-            "https://www.tmit.bme.hu/putz.orsolya"
-          ]
+          "@id": "{{ SITEURL }}/about.html#orsolya-putz",
+          "name": "Orsolya Putz"
         }
       ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "business enquiries",
+        "email": "hello@crowintelligence.org",
+        "url": "{{ SITEURL }}/contact.html"
+      },
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Services",
@@ -100,8 +106,11 @@
         ]
       },
       "sameAs": [
+        "https://www.linkedin.com/company/crow-intelligence/",
         "https://github.com/crow-intelligence",
+        "https://x.com/crowintelligen1",
         "https://bsky.app/profile/zoltanv.bsky.social",
+        "https://blog.crowintelligence.org/",
         "https://mindtheminds.substack.com/"
       ]
     }

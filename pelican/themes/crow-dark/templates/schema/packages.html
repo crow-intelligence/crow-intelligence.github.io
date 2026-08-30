@@ -1,0 +1,53 @@
+{#
+  Package schema, rendered from the PACKAGES list in pelicanconf.py.
+
+  Previously this was a hand-written SoftwareApplication array inside
+  packages.md, which meant the page, llms.txt and the portfolio cards each
+  carried their own copy of the version numbers — and they disagreed. One
+  source now feeds all three.
+
+  Each package gets both nodes deliberately: SoftwareApplication is what a
+  search engine understands, SoftwareSourceCode is what a repository or a
+  citation tool understands. `identifier` holds TODO-DOI until the Zenodo
+  deposits exist; corvus has no downloadUrl because it is not on PyPI.
+#}
+<script type="application/ld+json">
+[
+{%- for pkg in PACKAGES %}
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": "{{ SITEURL }}/packages.html#{{ pkg.name }}",
+    "name": {{ pkg.name|tojson }},
+    "description": {{ pkg.description|tojson }},
+    "url": "{{ pkg.pypi|default(pkg.github, true) }}",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Python {{ pkg.python }}",
+    "softwareVersion": {{ pkg.version|default('', true)|replace('v', '')|tojson }},
+    "license": {{ LICENSE_URLS.get(pkg.license, pkg.license)|tojson }},
+    "author": { "@id": "{{ SITEURL }}/#organization" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "@id": "{{ SITEURL }}/packages.html#{{ pkg.name }}-source",
+    "name": {{ pkg.name|tojson }},
+    "description": {{ pkg.description|tojson }},
+    "codeRepository": {{ pkg.github|tojson }},
+    "programmingLanguage": "Python",
+    "runtimePlatform": "Python {{ pkg.python }}",
+    "license": {{ LICENSE_URLS.get(pkg.license, pkg.license)|tojson }},
+    {%- if pkg.version %}
+    "softwareVersion": {{ pkg.version|replace('v', '')|tojson }},
+    {%- endif %}
+    {%- if pkg.pypi %}
+    "downloadUrl": {{ pkg.pypi|tojson }},
+    {%- endif %}
+    "applicationCategory": "DeveloperApplication",
+    "identifier": "TODO-DOI",
+    "author": { "@id": "{{ SITEURL }}/#organization" },
+    "targetProduct": { "@id": "{{ SITEURL }}/packages.html#{{ pkg.name }}" }
+  }{{ "," if not loop.last }}
+{%- endfor %}
+]
+</script>
