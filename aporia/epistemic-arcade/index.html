@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>The Epistemic Arcade — Crow Intelligence</title>
     <meta name="description"
-          content="Two reinforcement-learning agents learn Tetris under identical architectures but opposite reward functions: a live test of Clark &amp; Chalmers' extended-mind hypothesis." />
+          content="Two reinforcement-learning agents learn Tetris under opposite reward functions: a live test of Clark &amp; Chalmers' extended-mind hypothesis." />
 
     <link rel="canonical" href="https://crowintelligence.org/aporia/epistemic-arcade/" />
 
@@ -19,7 +19,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:title" content="The Epistemic Arcade — Where does the mind end and the world begin?" />
     <meta property="og:description"
-          content="Two reinforcement-learning agents learn Tetris under identical architectures but opposite reward functions: a live test of Clark &amp; Chalmers' extended-mind hypothesis." />
+          content="Two reinforcement-learning agents learn Tetris under opposite reward functions: a live test of Clark &amp; Chalmers' extended-mind hypothesis." />
     <meta property="og:url" content="https://crowintelligence.org/aporia/epistemic-arcade/" />
     <meta property="og:site_name" content="Crow Intelligence" />
     <meta property="og:locale" content="en_GB" />
@@ -32,7 +32,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="The Epistemic Arcade — Where does the mind end and the world begin?" />
     <meta name="twitter:description"
-          content="Two reinforcement-learning agents learn Tetris under identical architectures but opposite reward functions: a live test of Clark &amp; Chalmers' extended-mind hypothesis." />
+          content="Two reinforcement-learning agents learn Tetris under opposite reward functions: a live test of Clark &amp; Chalmers' extended-mind hypothesis." />
     <meta name="twitter:image" content="https://crowintelligence.org/aporia/epistemic-arcade/imgs/social-preview.png" />
 
     <script type="application/ld+json">
@@ -109,9 +109,27 @@
 <script defer src="/consent.js"></script>
 </head>
   <body>
-    <div id="loading" class="loading">Loading telemetry…</div>
+    <!-- The overlay starts hidden and is shown by app.js. Previously it was the
+         other way round: the overlay was visible and the whole essay carried
+         `hidden`, so a reader without JavaScript — and any crawler that does not
+         execute it — got the words "Loading telemetry" and nothing else. A
+         telemetry fetch failure had the same effect permanently. -->
+    <div id="loading" class="loading" hidden>Loading telemetry…</div>
 
-    <div class="layout" hidden>
+    <header class="ci-header">
+      <a href="https://crowintelligence.org/" class="ci-brand" aria-label="Crow Intelligence">
+        <img src="https://crowintelligence.org/logos/brand/crow-nav.svg" alt="Crow Intelligence">
+      </a>
+      <nav aria-label="Site">
+        <a href="https://crowintelligence.org/portfolio.html">Portfolio</a>
+        <a href="https://crowintelligence.org/services.html">Services</a>
+        <a href="https://crowintelligence.org/about.html">About</a>
+        <a href="https://blog.crowintelligence.org/">Blog</a>
+        <a href="https://crowintelligence.org/contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <div class="layout">
       <main class="prose">
         <header class="masthead">
           <h1>The Epistemic Arcade</h1>
@@ -329,5 +347,11 @@
         </div>
       </aside>
     </div>
-  </body>
+      <footer class="ci-footer">
+      <p><a href="https://crowintelligence.org/aporia/">Aporia</a> &middot;
+         <a href="https://crowintelligence.org/">Crow Intelligence</a> &middot;
+         <a href="mailto:hello@crowintelligence.org">hello@crowintelligence.org</a></p>
+      <p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+    </footer>
+</body>
 </html>
