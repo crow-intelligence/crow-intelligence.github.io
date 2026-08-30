@@ -23,7 +23,9 @@
     "url": "{{ pkg.pypi|default(pkg.github, true) }}",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Python {{ pkg.python }}",
-    "softwareVersion": {{ pkg.version|default('', true)|replace('v', '')|tojson }},
+    {%- if pkg.version %}
+    "softwareVersion": {{ pkg.version|replace('v', '')|tojson }},
+    {%- endif %}
     "license": {{ LICENSE_URLS.get(pkg.license, pkg.license)|tojson }},
     "author": { "@id": "{{ SITEURL }}/#organization" }
   },

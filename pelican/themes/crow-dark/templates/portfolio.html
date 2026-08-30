@@ -67,7 +67,7 @@
                 {% else %}
                 <h3>{{ pkg.name }}</h3>
                 {% endif %}
-                <p class="package-meta">{{ pkg.version }} · {{ pkg.license }} · Python {{ pkg.python }}</p>
+                <p class="package-meta">{% if pkg.version %}{{ pkg.version }} · {% endif %}{{ pkg.license }} · Python {{ pkg.python }}</p>
                 <p>{{ pkg.description }}</p>
                 <div class="package-links">
                     {% if pkg.pypi %}<a href="{{ pkg.pypi }}">PyPI</a>{% endif %}
