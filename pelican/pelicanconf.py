@@ -145,6 +145,20 @@ TEAM = [
 # Featured projects
 PROJECTS = [
     {
+        'title': 'Parlamonitor — Speeches of the 43rd Hungarian Parliament',
+        'description': "An interactive analysis of 1,693 speeches from the 43rd cycle of "
+                       "the Hungarian National Assembly: readability, sentiment, emotion, "
+                       "topics, keywords, and the network of interruptions. Scores cover "
+                       "one cycle, because it is the only cycle with a speech export.",
+        'url': '/parlamonitor-dashboard/',
+        'date': date(2026, 9, 11),
+        'image': '/parlamonitor-dashboard/assets/og.png',
+        'label': 'Computational Political Discourse',
+        'lang': 'In Hungarian',
+        'wip': True,
+        'featured': False,
+    },
+    {
         'title': 'The Wealth of Nations — 250th Anniversary Digital Edition',
         'description': "An interactive exploration of Adam Smith's 1776 masterwork. Topic modeling, named entity recognition, rhetorical metaphor analysis, and full-text search across all five books.",
         'url': '/site/',
