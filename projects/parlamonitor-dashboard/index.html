@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parlamonitor — a 43. ciklus beszédei</title>
+<meta name="description" content="Interaktív elemzés az Országgyűlés 43. ciklusának 1693 felszólalásáról: olvashatóság, hangulat, érzelmek, témák, kulcsszavak és a bekiabálások hálózata.">
+<link rel="canonical" href="https://crowintelligence.org/parlamonitor-dashboard/">
+<meta property="og:title" content="Parlamonitor — a 43. ciklus beszédei">
+<meta property="og:description" content="Olvashatóság, hangulat, érzelmek, témák és bekiabálások 1693 parlamenti felszólalásban.">
+<meta property="og:type" content="website">
+<!-- Absolute: social crawlers do not resolve a relative og:image. -->
+<meta property="og:image" content="https://crowintelligence.org/parlamonitor-dashboard/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://crowintelligence.org/parlamonitor-dashboard/">
+<meta property="og:site_name" content="Crow Intelligence">
+<meta property="og:locale" content="hu_HU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Parlamonitor — a 43. ciklus beszédei">
+<meta name="twitter:description" content="Olvashatóság, hangulat, érzelmek, témák és bekiabálások 1693 parlamenti felszólalásban.">
+<meta name="twitter:image" content="https://crowintelligence.org/parlamonitor-dashboard/assets/og.png">
+<meta name="theme-color" content="#7a1f1f">
+<link rel="icon" href="https://crowintelligence.org/favicon.ico" sizes="any">
+<link rel="icon" href="https://crowintelligence.org/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="https://crowintelligence.org/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "@id": "https://crowintelligence.org/parlamonitor-dashboard/#dataset",
+  "name": "Parlamonitor — az Országgyűlés 43. ciklusának felszólalásai",
+  "description": "1693 felszólalás (826 775 szó) az Országgyűlés 43. ciklusának jegyzőkönyveiből, olvashatósági, hangulati, érzelmi, téma- és kulcsszó-annotációval, valamint a 916 névvel jelölt közbeszólásból épített bekiabálás-hálózattal.",
+  "url": "https://crowintelligence.org/parlamonitor-dashboard/",
+  "inLanguage": "hu",
+  "creator": {
+    "@id": "https://crowintelligence.org/#organization"
+  },
+  "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "isAccessibleForFree": true,
+  "identifier": "TODO-DOI",
+  "measurementTechnique": [
+    "Lemmatisation and sentence splitting with emtsv",
+    "Dependency parsing with HuSpaCy (hu_core_news_md)",
+    "LIX and RIX readability with saphes, Hungarian-calibrated 8-letter threshold",
+    "MATTR lexical diversity, 100-token window",
+    "Mean dependency distance and mean hierarchical depth (Jing & Liu 2015)",
+    "Dictionary-based sentiment (Precognox Hungarian sentiment lexicon)",
+    "Dictionary-based emotion, Ekman six",
+    "BERTopic over huBERT embeddings",
+    "Keyword extraction with TextRank and KeyBERT"
+  ],
+  "variableMeasured": [
+    "Readability (LIX, RIX)",
+    "Lexical diversity (MATTR)",
+    "Syntactic complexity (MDD, MHD)",
+    "Loanword ratio",
+    "Sentiment polarity",
+    "Emotion (anger, disgust, fear, joy, sadness, surprise)",
+    "Moral vocabulary salience by virtue",
+    "Topic assignment",
+    "Keywords per topic",
+    "Interruption network in-degree and out-degree"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Crow Intelligence",
+      "item": "https://crowintelligence.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Projects",
+      "item": "https://crowintelligence.org/projects.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Parlamonitor",
+      "item": "https://crowintelligence.org/parlamonitor-dashboard/"
+    }
+  ]
+}
+</script>
+<script src="vendor/d3.v7.min.js"></script>
+
+<style>
+/* ---------------------------------------------------------------- palette
+   Categorical slots validated with the dataviz skill's checker:
+   node validate_palette.js "#2a78d6,#eb6834,#1baf7a,#eda100" --mode light
+   -> lightness band PASS, chroma floor PASS, CVD separation PASS (worst
+      adjacent dE 9.1 protan), normal-vision floor PASS (22.9),
+      contrast WARN -> relieved by direct labels + the table view.
+   Party colours are these neutral slots in fixed order, NOT party brand
+   colours: the brand hex values are not reliably known and a wrong one in a
+   political dashboard is a factual error. Colour follows the entity, so a
+   filter never repaints the survivors. ------------------------------------ */
+:root {
+  color-scheme: light;
+  --crow: #7a1f1f;
+  --surface-0: #f6f5f2;
+  --surface-1: #fcfcfb;
+  --surface-2: #efeee9;
+  --border: #dedcd4;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #86847d;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --neutral: #9d9b93;
+  --dot-population: #c3c1b8;
+  /* diverging: warm/cool poles + neutral gray midpoint */
+  --div-neg-2: #1f5fa8;
+  --div-neg-1: #7aa8dc;
+  --div-mid:   #d8d6cd;
+  --div-pos-1: #f0a077;
+  --div-pos-2: #c9501f;
+  --grid: #e7e5dd;
+  --focus: #7a1f1f;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --surface-0: #131312; --surface-1: #1a1a19; --surface-2: #242422;
+    --border: #35342f; --text-primary: #ffffff; --text-secondary: #c3c2b7;
+    --text-muted: #8d8b82;
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500;
+    --neutral: #7d7b74; --dot-population: #4a4943;
+    --div-neg-2: #4b93e8; --div-neg-1: #2c5f9c; --div-mid: #3a3936;
+    --div-pos-1: #9c4a22; --div-pos-2: #e0713c;
+    --grid: #2b2a27; --focus: #d98a8a;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface-0: #131312; --surface-1: #1a1a19; --surface-2: #242422;
+  --border: #35342f; --text-primary: #ffffff; --text-secondary: #c3c2b7;
+  --text-muted: #8d8b82;
+  --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500;
+  --neutral: #7d7b74; --dot-population: #4a4943;
+  --div-neg-2: #4b93e8; --div-neg-1: #2c5f9c; --div-mid: #3a3936;
+  --div-pos-1: #9c4a22; --div-pos-2: #e0713c;
+  --grid: #2b2a27; --focus: #d98a8a;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--surface-0); color: var(--text-primary);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+}
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 8px; top: 8px; z-index: 99; background: var(--surface-1);
+  padding: 8px 12px; border: 2px solid var(--focus); border-radius: 6px; }
+/* Crow Intelligence site bar. The page is standalone otherwise — a reader
+   arriving from search had no route into the rest of the site. Sits above the
+   project's own maroon header and stays deliberately quieter than it. */
+.ci-header { background: var(--surface-2); border-bottom: 1px solid var(--border);
+  padding: 9px 24px; display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; font-size: 12.5px; }
+.ci-header .ci-brand { display: inline-flex; align-items: center; text-decoration: none; }
+.ci-header .ci-brand img { height: 20px; width: auto; display: block; }
+.ci-header nav { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.ci-header nav a { color: var(--text-secondary); text-decoration: none; }
+.ci-header nav a:hover { color: var(--crow); text-decoration: underline; }
+header.site { background: var(--crow); color: #fff; padding: 14px 24px;
+  display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+header.site h1 { font-size: 17px; margin: 0; font-weight: 600; letter-spacing: .01em; }
+header.site nav { margin-left: auto; display: flex; gap: 14px; font-size: 13px; }
+header.site nav a { color: #f3dede; text-decoration: none; }
+header.site nav a:hover { color: #fff; text-decoration: underline; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px 72px; }
+section { margin-top: 40px; }
+h2 { font-size: 20px; margin: 0 0 6px; font-weight: 650; }
+.lede { color: var(--text-secondary); margin: 0 0 18px; max-width: 68ch; font-size: 14px; }
+.card { background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px 20px; }
+.controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end;
+  margin-bottom: 16px; }
+.control label { display: block; font-size: 11px; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--text-muted); margin-bottom: 4px; }
+select, input[type=search] {
+  font: inherit; font-size: 14px; padding: 7px 10px; border-radius: 7px;
+  border: 1px solid var(--border); background: var(--surface-1);
+  color: var(--text-primary); min-width: 190px;
+}
+select:focus-visible, input:focus-visible, button:focus-visible, .tab:focus-visible {
+  outline: 2px solid var(--focus); outline-offset: 2px; }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-top: 26px; }
+.tab { font: inherit; font-size: 14px; background: none; border: 0; cursor: pointer;
+  padding: 9px 15px; color: var(--text-secondary); border-bottom: 2px solid transparent; }
+.tab[aria-selected="true"] { color: var(--text-primary); border-bottom-color: var(--crow);
+  font-weight: 600; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  gap: 10px; margin-bottom: 22px; }
+.kpi { background: var(--surface-2); border-radius: 9px; padding: 11px 13px; }
+.kpi .k { font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--text-muted); }
+.kpi .v { font-size: 25px; font-weight: 640; line-height: 1.15; margin-top: 3px;
+  font-variant-numeric: tabular-nums; }
+.kpi .s { font-size: 11.5px; color: var(--text-secondary); }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px;
+  color: var(--text-secondary); margin: 6px 0 14px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.swatch { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+.note { font-size: 12.5px; color: var(--text-muted); margin-top: 10px; max-width: 72ch; }
+.warn { color: var(--crow); font-weight: 600; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--border); }
+th { font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--text-muted); cursor: pointer; user-select: none; white-space: nowrap; }
+th[aria-sort] { color: var(--text-primary); }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.scroll { max-height: 560px; overflow: auto; }
+.tip { position: fixed; pointer-events: none; background: var(--surface-1);
+  border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px;
+  font-size: 12.5px; box-shadow: 0 4px 16px rgba(0,0,0,.13); opacity: 0;
+  transition: opacity .1s; z-index: 40; max-width: 300px; }
+.chip { display: inline-block; background: var(--surface-2); border-radius: 20px;
+  padding: 2px 9px; font-size: 12px; margin: 2px 3px 2px 0; color: var(--text-secondary); }
+section.about { margin-top: 56px; border-top: 1px solid var(--border); padding-top: 22px;
+  font-size: 13px; color: var(--text-secondary); }
+section.about h2 { font-size: 16px; }
+section.about a { color: var(--crow); }
+:root[data-theme="dark"] section.about a, .dark section.about a { color: #e2a0a0; }
+.hidden { display: none !important; }
+.axis text { fill: var(--text-muted); font-size: 10.5px; }
+.axis path, .axis line { stroke: var(--grid); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Ugrás a tartalomra</a>
+<div class="ci-header">
+  <a href="https://crowintelligence.org/" class="ci-brand" aria-label="Crow Intelligence">
+    <img src="https://crowintelligence.org/logos/brand/crow-nav.svg" alt="Crow Intelligence">
+  </a>
+  <nav aria-label="Crow Intelligence">
+    <a href="https://crowintelligence.org/portfolio.html">Portfolio</a>
+    <a href="https://crowintelligence.org/services.html">Services</a>
+    <a href="https://crowintelligence.org/about.html">About</a>
+    <a href="https://blog.crowintelligence.org/">Blog</a>
+    <a href="https://crowintelligence.org/contact.html">Contact</a>
+  </nav>
+</div>
+<header class="site">
+  <h1>Parlamonitor — a 43. ciklus beszédei</h1>
+  <nav>
+    <a href="#profile">Képviselő</a>
+    <a href="#topics">Témák</a>
+    <a href="#network">Bekiabálások</a>
+    <a href="#about">A projektről</a>
+  </nav>
+  <button class="tab" id="theme" style="color:#f3dede" aria-label="Sötét mód">◐</button>
+</header>
+
+<main class="wrap" id="main">
+  <p class="lede" style="margin-top:22px">
+    Az Országgyűlés 43. ciklusának <strong>1693 felszólalása</strong>, négy mérce
+    mentén: mennyire nehéz olvasni, milyen hangulatú, miről szól, és milyen
+    reakciót váltott ki a teremből. Minden szám egyetlen ciklusra vonatkozik —
+    csak ehhez létezik beszédexport.
+  </p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-view="profile">Képviselő &amp; párt</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="topics">Témák és reakciók</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="network">Ki kit szakított félbe</button>
+  </div>
+
+  <!-- ------------------------------------------------------ profile view -->
+  <section id="profile" data-panel="profile">
+    <h2>Hol áll egy képviselő a többiekhez képest?</h2>
+    <p class="lede">
+      Minden sor egy mérce. A halvány pontok mind a 88 képviselőt mutatják, akik
+      legalább öt alkalommal szólaltak fel; a kiemelt pont a kiválasztott
+      képviselő, a függőleges vonal a frakciója mediánja. Így nem egy elszigetelt
+      szám látszik, hanem az, hogy az adott érték szokatlan-e.
+    </p>
+    <div class="controls">
+      <div class="control"><label for="pick-mp">Képviselő</label>
+        <select id="pick-mp"></select></div>
+      <div class="control"><label for="pick-party">Frakció kiemelése</label>
+        <select id="pick-party"></select></div>
+    </div>
+    <div class="card">
+      <div class="kpis" id="kpis"></div>
+      <div id="strips"></div>
+      <p class="note" id="strip-note"></p>
+    </div>
+
+    <h2 style="margin-top:34px">Milyen erényekről beszél?</h2>
+    <p class="lede">
+      Az erénysávok azt mutatják, <em>melyik erkölcsi szókincshez nyúl</em> a
+      képviselő — <strong>nem</strong> azt, hogy rendelkezik-e az adott
+      erénnyel. Ez a különbség nem szerénykedés: a korpuszban az igazmondás
+      szókincsének 41%-a vád („hazugság”, „megtéveszt”), vagyis egyetlen
+      számként az kapná a legmagasabb pontszámot, aki a legtöbbször nevezi
+      hazugnak a másikat. Aki mást hazugsággal vádol, az is az igazmondás
+      normájára hivatkozik — a téma tehát közös, az állásfoglalás nem. A
+      sávokon az összes említés szerepel; hogy ebből mennyi helyeslő és
+      mennyi vádló, azt az egérmutató mutatja meg.
+    </p>
+
+    <div class="card" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px">
+      <div><h3 style="font-size:14px;margin:0 0 4px" id="virtue-mp-title">Képviselő</h3>
+        <div id="virtue-radar-mp"></div></div>
+      <div><h3 style="font-size:14px;margin:0 0 4px">Frakció</h3>
+        <div id="virtue-radar-party"></div></div>
+      <div style="grid-column:1/-1">
+        <div class="legend" id="virtue-legend"></div>
+        <p class="note" id="virtue-note"></p></div>
+    </div>
+
+    <h2 style="margin-top:34px">Miről beszél?</h2>
+    <p class="lede">
+      A képviselő felszólalásainak megoszlása témák szerint, a saját
+      felszólalásaihoz viszonyítva.
+    </p>
+    <div class="card"><div id="topic-mix"></div></div>
+
+  </section>
+
+  <!-- ------------------------------------------------------- topics view -->
+  <section id="topics" data-panel="topics" class="hidden">
+    <h2>Melyik téma milyen reakciót vált ki?</h2>
+    <p class="lede">
+      Soronként egy téma, oszloponként egy mérce. A szín azt mutatja, hány
+      szórásnyira tér el a téma a ciklus átlagától: kék = átlag alatt, narancs =
+      átlag fölött, szürke = átlagos. A reakciók óránkénti gyakoriságok, hogy egy
+      hosszabb vitájú téma ne tűnjön automatikusan indulatosabbnak.
+    </p>
+    <div class="card">
+      <div id="heatmap"></div>
+      <div class="legend" id="heat-legend"></div>
+      <p class="note">A témák a 2. feladat BERTopic-modelljéből származnak; a
+        neveket kézzel írtuk a modell kifejezései és jellemző dokumentumai alapján.
+        A <em>Nem besorolt maradék</em> nem téma: azok a felszólalások, amelyeket a
+        klaszterezés kihagyott.</p>
+    </div>
+    <h2 style="margin-top:34px" id="topic-mp-anchor">Ki beszél miről?</h2>
+    <p class="lede">
+      Válasszon témát, és megjelenik, kik szólaltak fel benne. Az „arány”
+      oszlopok azért állnak egymás mellett, mert kétféle kötődés van: valaki
+      lehet <em>a téma szakértője</em> (a saját felszólalásainak nagy része ide
+      esik), és lehet <em>a vita ura</em> (a téma felszólalásainak nagy része az
+      övé). A kettő rendszerint nem ugyanaz az ember.
+    </p>
+    <div class="controls">
+      <div class="control"><label for="pick-topic">Téma</label>
+        <select id="pick-topic"></select></div>
+      <div class="control"><label for="topic-sort">Rendezés</label>
+        <select id="topic-sort">
+          <option value="speeches">felszólalások száma</option>
+          <option value="share_of_speaker">a képviselő saját arányában</option>
+          <option value="share_of_topic">a téma arányában</option>
+        </select></div>
+    </div>
+    <div class="card"><div id="topic-mp"></div>
+      <p class="note" id="topic-mp-note"></p></div>
+
+    <div class="card" style="margin-top:16px">
+      <h3 style="font-size:14px;margin:0 0 8px">Kulcsszavak témánként</h3>
+      <div id="topic-keywords"></div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------ network view -->
+  <section id="network" data-panel="network" class="hidden">
+    <h2>Ki kit szakított félbe?</h2>
+    <p class="lede">
+      Minden nyíl egy bekiabálótól ahhoz vezet, aki éppen beszélt, és a vonal
+      vastagsága azt mutatja, hányszor fordult elő az adott pár. A pontméret
+      kapcsolóval két nézet között válthat: mennyi félbeszakítást
+      <em>kapott</em> valaki (in-degree), illetve mennyit <em>adott</em>
+      (out-degree). A két nézet ugyanazt a méretskálát és ugyanazt az
+      elrendezést használja, így közvetlenül látszik, ki oszt többet, mint
+      amennyit kap. A 294 élből 226 átível a két oldal között — a félbeszakítás
+      túlnyomórészt kormány–ellenzék műfaj. Kattintásra a képviselő profilja
+      nyílik meg.
+    </p>
+    <div class="controls">
+      <div class="control"><label for="net-size">Pontméret</label>
+        <select id="net-size">
+          <option value="in">Kapott közbeszólás (in-degree)</option>
+          <option value="out">Adott közbeszólás (out-degree)</option>
+        </select></div>
+      <div class="control"><label for="net-filter">Élek</label>
+        <select id="net-filter">
+          <option value="all">Mind</option>
+          <option value="cross-bench">Csak a két oldal között</option>
+          <option value="same-side">Csak azonos oldalon belül</option>
+        </select></div>
+      <div class="control"><label for="net-min">Legalább ennyi félbeszakítás</label>
+        <select id="net-min"><option>1</option><option>2</option><option>3</option><option>5</option></select></div>
+    </div>
+    <div class="card" style="padding:8px"><div id="graph"></div>
+      <div class="legend" id="net-legend"></div>
+      <p class="note" id="net-caption"></p></div>
+  </section>
+
+  <!-- --------------------------------------------------------------- about -->
+  <section class="about" id="about">
+    <h2>A projektről</h2>
+    <p><strong>Adatforrás.</strong> Az Országgyűlés 43. ciklusának jegyzőkönyvei,
+      a parlamonitor adatbázisából exportálva (1693 felszólalás, 826 775 szó,
+      215 kérdés-válasz váltás). A jegyzőkönyvi közbevetéseket („Taps a
+      kormánypártok soraiban.”) a 39–43. ciklusból dolgoztuk fel, összesen
+      261 935 sort.</p>
+    <p><strong>Módszer.</strong> Lemmatizálás és mondatra bontás
+      <a href="https://github.com/nytud/emtsv">emtsv</a>-vel; függőségi elemzés
+      <a href="https://github.com/huspacy/huspacy">HuSpaCy</a>-vel
+      (<code>hu_core_news_md</code>, CC BY-SA 4.0). Olvashatóság:
+      LIX és RIX a <a href="https://saphes.readthedocs.io/">saphes</a>
+      csomaggal, magyarra kalibrált 8 betűs hosszúszó-küszöbbel, magyar
+      betűszámlálással (a <em>cs, gy, ly, ny, sz, ty, zs, dzs</em> egy betű).
+      Szókincs-változatosság: MATTR, 100 tokenes ablakkal. Mondattani
+      összetettség: átlagos függőségi távolság (MDD) és hierarchikus mélység
+      (MHD), Jing &amp; Liu (2015) szerint, legalább 3 szavas mondatokon.
+      Idegenszó-arány: 15 203 lemmás lista alapján (Bakos Ferenc szótárához
+      mérve), tulajdonnevek nélkül. Kulcsszavak: TextRank és KeyBERT.
+      Hangulat és érzelem: <strong>szótáralapú</strong>, nem neurális modell.
+      Hangulat a Precognox magyar szentimentszótárával (1748 pozitív, 5940
+      negatív lemma, CC BY-NC 4.0), tagadáskezeléssel: a tagadás hatókörén
+      belüli szavak polaritása megfordul, így a <em>nem probléma</em> pozitív.
+      A <code>nélkül</code> névutó visszafelé hat, ezt külön kezeljük. Érzelem:
+      Ekman hat alapérzelme <strong>Putz Orsolya saját gyűjtéséből</strong>,
+      a szerző engedélyével. Témák: BERTopic huBERT-beágyazásokon.</p>
+    <p><strong>Amit ez nem mér.</strong> A szótáralapú mérés minden pontszáma
+      visszavezethető a konkrét szavakra, amelyek létrehozták — de a szótár nem
+      olvas kontextust. Két korlátot érdemes fejben tartani. A szentimentszótár
+      3,4-szer nagyobb a negatív oldalon, ezért a súlyozatlan számlálás eleve
+      negatív felé húz. Az érzelemszavak a tartalmas lemmák 2,9%-át teszik ki,
+      ezért a kevés találatot tartalmazó felszólalásokat <em>ritkának</em>
+      jelöljük: a 0,0 egyaránt jelentheti azt, hogy „nincs düh”, és azt, hogy
+      „nincs mit mérni”.</p>
+    <p>A szótárak általános magyar nyelvre készültek, ez a korpusz viszont
+      parlamenti, és néhány szó itt mást jelent. A <code>vita</code> az
+      eljárás neve, az <code>elfogadás</code> a törvényjavaslaté, a
+      <code>fél</code> pedig egyszerre „tart valamitől”, „fél óra” és „a másik
+      fél”. Szűrés nélkül a <code>jó</code>, <code>támogatás</code>,
+      <code>kedves</code> és <code>segít</code> miatt az öröm lett volna a
+      domináns érzelem a felszólalások 62%-ában. Húsz tételt vettünk ki,
+      szavanként, tényleges korpuszbeli használat alapján; mindegyiknél
+      rögzítettük az indokot, az eredeti listák érintetlenül megvannak.
+      <strong>Big Five személyiségpontszám nem készült</strong>: helyette az
+      erényetika szótára felé indultunk el.</p>
+    <p><strong>Köszönet.</strong> Az érzelemszótárak <strong>Putz Orsolya</strong>
+      saját gyűjtésének részei — folyamatban lévő munka, a szerző engedélyével
+      használjuk. A szótárakat nem tesszük közzé.</p>
+    <p><strong>Lefedettség.</strong> Minden képviselőhöz kötött pontszám a 43.
+      ciklusé, mert csak ehhez van beszédexport. A bekiabálás-hálózat 916 névvel
+      jelölt közbeszólásból épül; a ciklus közbeszólásainak további 41%-a
+      felszólaláson kívül hangzott el (szavazás, ügyrend), ezekhez nincs kihez
+      kötni őket.</p>
+    <p><strong>Eszközök.</strong> emtsv · saphes · keyflux · BERTopic · networkx ·
+      D3 v7 · pandas. Az adatfeldolgozás kódja és a részletes módszertani
+      jegyzetek a repóban:
+      <a href="https://github.com/crow-intelligence/parlamonitor-experiments">parlamonitor-experiments</a>
+      (<code>data/derived/*/REPORT.md</code>).</p>
+    <p><strong>Dátum.</strong> Az adatok exportja: 2026. A feldolgozás:
+      2026 szeptember.</p>
+    <p><strong>Licenc.</strong> CC BY-NC-SA 4.0 ·
+      <a href="mailto:hello@crowintelligence.org">hello@crowintelligence.org</a> ·
+      Crow Intelligence</p>
+  </section>
+</main>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
