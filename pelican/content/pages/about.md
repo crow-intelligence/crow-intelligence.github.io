@@ -102,10 +102,9 @@ data, and decisions.</p>
 the <a href="/aporia/">Aporia</a> essay project and maintains the open-source
 <a href="https://github.com/crow-intelligence/kenon">kenon</a> and
 <a href="https://github.com/crow-intelligence/chronowords">chronowords</a>
-Python packages for semantic networks and temporal word embeddings. He
-provides <a href="/services/ai-due-diligence.html">technical due diligence</a>
-and AI advisory to venture funds and early-stage AI startups in Central
-Europe.</p>
+Python packages for semantic networks and temporal word embeddings. He turns client
+text corpora into <a href="/services/language-insight.html">decisions they can
+act on</a>, mostly for organisations in financial services.</p>
 </div>
 </div>
 
@@ -132,4 +131,5 @@ cognitive theory — is still rare. That is the gap we are trying to fill.
 - Subscribe to our newsletter, [Mind the Minds](https://mindtheminds.substack.com/), on Substack
 - Follow us on [Bluesky](https://bsky.app/profile/zoltanv.bsky.social)
 - Read the [Blog](https://blog.crowintelligence.org/)
+- Read [Varjú Károgások](https://karogasok.github.io/), Zoltán's reading diary — one source per post, in Hungarian
 - Reach us at [hello@crowintelligence.org](mailto:hello@crowintelligence.org)

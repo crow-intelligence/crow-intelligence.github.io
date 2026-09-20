@@ -2,4 +2,4 @@ Title: Services
 Slug: services
 Status: published
 Template: services
-Summary: Independent AI advisory from Crow Intelligence — technical due diligence for venture funds, adoption audits for stalled internal AI tools, and commissioned analysis and visualisation.
+Summary: Crow Intelligence turns textual data into decisions — corpus-linguistic analysis for financial services and beyond, plus commissioned analysis and visualisation.

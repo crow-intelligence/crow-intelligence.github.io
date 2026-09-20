@@ -81,6 +81,9 @@ SITEMAP = {
         r'(^|/)category/',
         r'(^|/)tag/',
         r'(^|/)blog/$',
+        # The withdrawn service pages are meta-refresh stubs now; submitting a
+        # redirect to the crawler wastes budget and competes with its target.
+        r'services/ai-(due-diligence|adoption-audit)\.html$',
         r'sitemap-projects\.xml$',
         r'feed\.xml$',
     ],
@@ -129,7 +132,7 @@ TEAM = [
     {
         'name': 'Zoltán Varjú',
         'role': 'Founder & AI Advisor',
-        'bio': 'Two decades at the intersection of language, AI, and data. Technical due diligence and AI advisory for funds and startups; co-founded and exited Complytron (acquired by SEON, 2023).',
+        'bio': 'Two decades at the intersection of language, AI, and data, much of it in fintech and regtech. Turns client text corpora into decisions; co-founded and exited Complytron (acquired by SEON, 2023).',
         'photo': 'portraits/zoli.jpeg',
         'linkedin': 'https://www.linkedin.com/in/zoltanvarju/',
     },
@@ -380,22 +383,19 @@ APORIA = [
 # Services
 SERVICES = [
     {
-        'title': 'AI & NLP Due Diligence',
-        'description': 'Independent technical due diligence on AI and NLP startups for early-stage venture funds — technology, data, IP, team, and EU AI Act readiness.',
-        'url': '/services/ai-due-diligence.html',
-        'image': '/images/social-preview/due-diligence.png',
-        'label': 'For Venture Funds',
-    },
-    {
-        'title': 'The AI Adoption Audit',
-        'description': 'A fixed-scope diagnostic that finds why an internal AI tool has stalled — across the data, retrieval, and cognitive layers — and sets out what to change.',
-        'url': '/services/ai-adoption-audit.html',
-        'image': '/images/social-preview/ai-adoption.png',
-        'label': 'For Enterprise & Scale-ups',
+        'title': 'Actionable Insight from Language Data',
+        'description': 'Corpus-linguistic analysis of your textual data — the frames, '
+                       'metaphors and anchors your market actually reasons with — returning '
+                       'a prioritised list of language changes, not a descriptive report.',
+        'url': '/services/language-insight.html',
+        'image': '/images/social-preview/home.png',
+        'label': 'For Financial Services & Beyond',
     },
     {
         'title': 'Commissioned Analysis',
-        'description': 'Data analysis, visualisation, and visual storytelling — from a single interactive chart to a scrollable data essay — built on our own open-source tools.',
+        'description': 'The build arm of the same practice: analysis, visualisation and '
+                       'visual storytelling — from a single interactive chart to a '
+                       'scrollable data essay, built on our own open-source tools.',
         'url': '/services/commissioned-analysis.html',
         'image': '/images/social-preview/commissioned-analysis.png',
         'label': 'Visualisation & Story',

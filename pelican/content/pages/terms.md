@@ -31,7 +31,7 @@ yours depends on something you read here, please confirm it with us first.
 
 ## Engagements
 
-Due diligence, audits, commissioned analysis, and advisory work are provided
+Language data analysis, commissioned analysis, and advisory work are provided
 only under a separate written agreement setting out scope, fees, timing, and
 confidentiality. The service descriptions on this site are indicative, not
 contractual terms, and do not oblige us to take on any engagement.
