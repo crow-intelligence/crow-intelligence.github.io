@@ -33,7 +33,7 @@ Well, let's change that.
   <label>
     <span>What can we help with?</span>
     <select name="inquiry_type">
-      <option>Due diligence</option>
+      <option>Language data analysis</option>
       <option>Research commission</option>
       <option>Collaboration</option>
       <option>Other</option>
