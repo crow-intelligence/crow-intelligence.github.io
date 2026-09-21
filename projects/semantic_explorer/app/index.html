@@ -350,6 +350,44 @@ svg:active { cursor: grabbing; }
   }
   .ci-about p { margin: 0 0 12px; }
   .ci-about a { color: #e8c97e; }
+
+/* The about block used to sit between the header and the app, which pushed the
+   explorer below the fold and made the tool unusable — the text was the first
+   thing you met and the last thing you wanted. It now follows the app in the
+   document, and JavaScript lifts it into an overlay on a first visit only.
+   Nothing here hides it from a crawler: without JavaScript it is an ordinary
+   section, in flow, after the tool. */
+.ci-about-close { display: none; }
+body.ci-about-open { overflow: hidden; }
+.ci-about-backdrop {
+  position: fixed; inset: 0; background: rgba(8, 8, 11, 0.72);
+  z-index: 998; backdrop-filter: blur(2px);
+}
+.ci-about.as-modal {
+  position: fixed; z-index: 999;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: min(680px, calc(100vw - 48px));
+  max-height: min(78vh, 640px); overflow-y: auto;
+  margin: 0; padding: 28px 32px 24px;
+  background: #17171c; border: 1px solid #3a3a44; border-radius: 10px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+.ci-about.as-modal .ci-about-close {
+  display: block; position: sticky; top: -4px; float: right;
+  margin: -12px -14px 0 12px;
+  background: none; border: 0; cursor: pointer;
+  font: 400 30px/1 'Courier Prime', ui-monospace, monospace; color: #a5a39c;
+}
+.ci-about.as-modal .ci-about-close:hover { color: #e8c97e; }
+.ci-about-reopen {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  color: #e8e6e1; font: inherit; text-decoration: none;
+}
+.ci-about-reopen:hover { color: #e8c97e; }
+@media (prefers-reduced-motion: no-preference) {
+  .ci-about.as-modal { animation: ci-about-in 160ms ease-out; }
+  @keyframes ci-about-in { from { opacity: 0; transform: translate(-50%, -46%); } }
+}
 </style>
 <!-- Cookie consent + analytics loader. Analytics stays blocked until opt-in. -->
 <script defer src="/consent.js"></script>
@@ -390,43 +428,10 @@ svg:active { cursor: grabbing; }
     <a href="https://crowintelligence.org/services.html">Services</a>
     <a href="https://crowintelligence.org/about.html">About</a>
     <a href="https://blog.crowintelligence.org/">Blog</a>
+    <button type="button" class="ci-about-reopen" id="ci-about-reopen">About this project</button>
     <a href="https://crowintelligence.org/contact.html">Contact</a>
   </nav>
 </header>
-<section class="ci-about" id="about-this-project">
-  <h2>About this project</h2>
-
-  <!-- PROSE SLOT — expand to 250+ words. The framing below is assembled only
-       from what the page and pelicanconf.py already state. What it still needs:
-         1. The full list of loaded texts, with editions and sources — the page
-            names Tolstoy, Plato, Adam Smith and Darwin but the selector holds
-            more, and none of the editions are stated anywhere in the repo.
-         2. Corpus sizes: tokens or sentences per source.
-         3. The kenon settings actually used — window size, backbone filter and
-            its threshold, minimum edge weight.
-         4. One worked reading: a seed word whose ego network shows something
-            the running text does not.
-         5. A link to the repository that built the graphs.
-       Only the author has 1-5. -->
-
-  <p>An <strong>ego network</strong> is the neighbourhood of a single word: the
-  terms that occur near it often enough to count as its company, and the links
-  among those terms in turn. Reading one tells you what a word travels with in a
-  particular text &mdash; which is not the same as what it means, but is often
-  the more useful question of a corpus.</p>
-
-  <p>This explorer builds those networks from classic texts using corpus-internal
-  statistics only: skip-gram co-occurrence windows and network backbone
-  extraction, with no neural models and no external training data. Type a seed
-  word, click a node to expand it, and trace how meaning propagates outward. In
-  compare mode two sources are placed side by side, so the same seed word can be
-  read against two different authors.</p>
-
-  <p>Built with <a href="https://crowintelligence.org/packages.html">kenon</a>,
-  the lab&rsquo;s open-source package for semantic and co-occurrence networks
-  (<a href="https://github.com/crow-intelligence/kenon">source</a>,
-  <a href="https://kenon.readthedocs.io/en/latest/">documentation</a>).</p>
-</section>
 <div id="app">
     <header>
         <h1>Semantic Explorer</h1>
@@ -1211,6 +1216,85 @@ document.addEventListener("click", (e) => {
 
 // ─── Boot ───────────────────────────────────────────────────
 init();
+</script>
+<section class="ci-about" id="about-this-project">
+  <button type="button" class="ci-about-close" aria-label="Close">&times;</button>
+  <h2>About this project</h2>
+
+  <!-- PROSE SLOT — expand to 250+ words. The framing below is assembled only
+       from what the page and pelicanconf.py already state. What it still needs:
+         1. The full list of loaded texts, with editions and sources — the page
+            names Tolstoy, Plato, Adam Smith and Darwin but the selector holds
+            more, and none of the editions are stated anywhere in the repo.
+         2. Corpus sizes: tokens or sentences per source.
+         3. The kenon settings actually used — window size, backbone filter and
+            its threshold, minimum edge weight.
+         4. One worked reading: a seed word whose ego network shows something
+            the running text does not.
+         5. A link to the repository that built the graphs.
+       Only the author has 1-5. -->
+
+  <p>An <strong>ego network</strong> is the neighbourhood of a single word: the
+  terms that occur near it often enough to count as its company, and the links
+  among those terms in turn. Reading one tells you what a word travels with in a
+  particular text &mdash; which is not the same as what it means, but is often
+  the more useful question of a corpus.</p>
+
+  <p>This explorer builds those networks from classic texts using corpus-internal
+  statistics only: skip-gram co-occurrence windows and network backbone
+  extraction, with no neural models and no external training data. Type a seed
+  word, click a node to expand it, and trace how meaning propagates outward. In
+  compare mode two sources are placed side by side, so the same seed word can be
+  read against two different authors.</p>
+
+  <p>Built with <a href="https://crowintelligence.org/packages.html">kenon</a>,
+  the lab&rsquo;s open-source package for semantic and co-occurrence networks
+  (<a href="https://github.com/crow-intelligence/kenon">source</a>,
+  <a href="https://kenon.readthedocs.io/en/latest/">documentation</a>).</p>
+</section>
+
+<script>
+/* The about panel opens only when asked for. It never interrupts: the tool is
+   the first thing on the page, the prose sits below it, and the header button
+   lifts that same section into an overlay. Deliberately additive — the markup
+   is a plain section in normal flow, not a panel hidden with display:none, so a
+   reader without JavaScript and any crawler that does not run it still get the
+   text. */
+(function () {
+  var panel = document.getElementById('about-this-project');
+  var reopen = document.getElementById('ci-about-reopen');
+  if (!panel) return;
+  var backdrop;
+
+  function open() {
+    if (panel.classList.contains('as-modal')) return;
+    backdrop = document.createElement('div');
+    backdrop.className = 'ci-about-backdrop';
+    backdrop.addEventListener('click', close);
+    document.body.appendChild(backdrop);
+    panel.classList.add('as-modal');
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-modal', 'true');
+    document.body.classList.add('ci-about-open');
+    var btn = panel.querySelector('.ci-about-close');
+    if (btn) btn.focus();
+  }
+
+  function close() {
+    panel.classList.remove('as-modal');
+    panel.removeAttribute('role');
+    panel.removeAttribute('aria-modal');
+    document.body.classList.remove('ci-about-open');
+    if (backdrop) { backdrop.remove(); backdrop = null; }
+    if (reopen) reopen.focus();
+  }
+
+  panel.querySelector('.ci-about-close').addEventListener('click', close);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && panel.classList.contains('as-modal')) close();
+  });
+  if (reopen) reopen.addEventListener('click', open);
+})();
 </script>
 </body>
 </html>

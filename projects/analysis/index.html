@@ -257,6 +257,7 @@ svg text { font-family: var(--mono); fill: var(--dim); font-size: 11px; }
   "creator": {
     "@id": "https://crowintelligence.org/#organization"
   },
+  "isBasedOn": "https://millercenter.org/the-presidency/presidential-speeches",
   "temporalCoverage": "1775/2024",
   "identifier": "TODO-DOI",
   "variableMeasured": [
@@ -314,22 +315,25 @@ svg text { font-family: var(--mono); fill: var(--dim); font-size: 11px; }
   <h2>About this project</h2>
 
   <!-- PROSE SLOT — expand to 250+ words. Everything below restates what the
-       page's own methodology section already says. What it still needs:
-         1. The corpus source. The page never names where the speeches come
-            from, which is the single most important omission — it is also why
-            this project carries no `isBasedOn` in its Dataset schema.
-         2. Corpus size: speeches and tokens per quarter-century period.
-         3. Which words were tracked and why those.
-         4. The findings, with numbers: which concepts drifted furthest from
+       page's own methodology section already says, plus the corpus source.
+       What it still needs:
+         1. Corpus size: speeches and tokens per quarter-century period.
+         2. Which words were tracked and why those.
+         3. The findings, with numbers: which concepts drifted furthest from
             their 1775-1799 baseline, and what the nearest-neighbour shifts
             actually show.
-         5. A link to the repository.
-       Points 1-4 are not stated anywhere in the repo. -->
+         4. A link to the repository.
+       These are not stated anywhere in the repo. -->
 
   <p>This project asks how the meaning of political concepts &mdash; freedom,
   democracy, war &mdash; has changed across 250 years of American presidential
   discourse, by measuring the company those words keep rather than consulting a
   dictionary.</p>
+
+  <p>The speeches come from the
+  <a href="https://millercenter.org/the-presidency/presidential-speeches">Miller
+  Center</a> at the University of Virginia, whose presidential speech archive is
+  the standard transcribed source for this material.</p>
 
   <p>Each quarter-century of lemmatised speeches becomes a word&ndash;context
   co-occurrence matrix built from skip-grams (window = 5), counted with
