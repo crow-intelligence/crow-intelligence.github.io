@@ -546,10 +546,15 @@ PARTNERS = [
         'name': 'Urbanum',
         'logo': 'logos/urbanum_kek.png',
     },
-    {
-        'name': 'Habitat for Humanity',
-        'logo': 'logos/hfhh_logo_black.svg',
-    },
+    # Habitat for Humanity — paused 2026-09-21 at their request, while their
+    # parent organisation reviews logo use. We hold written permission from the
+    # local office; this is their process, not a withdrawal, and they expect it
+    # back in a few weeks. To restore: uncomment, then recover the file with
+    #   git checkout 7e910b6 -- logos/hfhh_logo_black.svg
+    # {
+    #     'name': 'Habitat for Humanity',
+    #     'logo': 'logos/hfhh_logo_black.svg',
+    # },
     {
         'name': 'Széchenyi University',
         'logo': 'logos/uni_szec.png',
