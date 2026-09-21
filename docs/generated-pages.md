@@ -11,6 +11,7 @@ you; the page keeps rendering and quietly loses its metadata.
 |---|---|
 | `aporia/magyar-dalszovegek-essze/index.html` | `music_networks` → `data/essay/index.html` |
 | `projects/magyar-dalszovegek/index.html` | `music_networks` → `data/dashboard/index.html` |
+| `projects/parlamonitor-dashboard/` | `parlamonitor-experiments` → `dashboard/` |
 
 ## Before re-copying, check what diverges
 
@@ -34,6 +35,25 @@ As of 2026-09-21, for the essay:
 - The `.essay-byline` paragraph under the hero lede, and its CSS
 - In the JSON-LD: a full `datePublished` (the generator emits a bare year) and
   `author` as the Person `@id`, not the organisation
+
+## Parlamonitor specifically
+
+`projects/parlamonitor-dashboard/` was copied from `parlamonitor-experiments`
+and then integrated here. Re-apply after a copy:
+
+- `<link rel="canonical">`, `og:url`, `og:site_name`, `og:locale`, and an
+  **absolute** `og:image` — the generator emits a relative one, which no social
+  crawler resolves
+- `og:image:width` / `og:image:height`, the Twitter card tags, and the favicon links
+- The `.ci-header` site bar and its CSS
+- Two JSON-LD blocks: `Dataset` and `BreadcrumbList`
+- The about block is a `<section>` here, not the `<footer>` the generator emits.
+  That matters: it holds the source, corpus size, method and licence, and as a
+  `<footer>` those 441 words read as page furniture rather than content
+
+`data/dashboard.json` is derived and **gitignored upstream**, but has to be
+committed here because Pages serves only what is in the repo. Regenerate it with
+`uv run python scripts/build_dashboard_data.py` rather than editing it.
 
 ## The better fix
 
