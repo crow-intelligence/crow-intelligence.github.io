@@ -1254,12 +1254,13 @@ init();
 </section>
 
 <script>
-/* Show the about panel as an overlay on a first visit, and never again unless
-   asked for. Deliberately additive: the markup renders as a normal section, so
-   a reader without JavaScript — and any crawler that does not run it — gets the
-   prose in flow rather than nothing. */
+/* The about panel opens only when asked for. It never interrupts: the tool is
+   the first thing on the page, the prose sits below it, and the header button
+   lifts that same section into an overlay. Deliberately additive — the markup
+   is a plain section in normal flow, not a panel hidden with display:none, so a
+   reader without JavaScript and any crawler that does not run it still get the
+   text. */
 (function () {
-  var KEY = 'ci-about-seen:semantic-explorer';
   var panel = document.getElementById('about-this-project');
   var reopen = document.getElementById('ci-about-reopen');
   if (!panel) return;
@@ -1285,7 +1286,7 @@ init();
     panel.removeAttribute('aria-modal');
     document.body.classList.remove('ci-about-open');
     if (backdrop) { backdrop.remove(); backdrop = null; }
-    try { localStorage.setItem(KEY, '1'); } catch (e) { /* private mode: show again */ }
+    if (reopen) reopen.focus();
   }
 
   panel.querySelector('.ci-about-close').addEventListener('click', close);
@@ -1293,10 +1294,6 @@ init();
     if (e.key === 'Escape' && panel.classList.contains('as-modal')) close();
   });
   if (reopen) reopen.addEventListener('click', open);
-
-  var seen;
-  try { seen = localStorage.getItem(KEY); } catch (e) { seen = null; }
-  if (!seen) open();
 })();
 </script>
 </body>
