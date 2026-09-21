@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 {#
   Sitemap for the hand-authored parts of the site: the Aporia hub and essays,
-  and the dataviz microsites. These live outside the Pelican pipeline, so the
-  sitemap plugin never sees them. Built from the same APORIA / PROJECTS /
-  PROJECTS_HU lists the site renders, so it cannot drift.
+  the Nagel Index dashboards, and the dataviz microsites. These live outside the
+  Pelican pipeline, so the sitemap plugin never sees them. Built from the same
+  APORIA / PROJECTS / NAGEL_DASHBOARDS lists the site renders, so it cannot drift.
 
   Fragments are stripped (sitemaps must list plain URLs) and duplicates dropped
   (PROJECTS points at several /aporia/… pages that APORIA already lists).
+
+  Entries flagged `noindex` are skipped, so a page marked noindex in the markup
+  cannot also be submitted here — that contradiction is what this sitemap used
+  to ship.
+
+  No <priority>: it is uniform across a sitemap by construction here, and a
+  uniform priority carries exactly as much information as none at all. <lastmod>
+  is the attribute search engines actually read, so it is present on every entry
+  and comes from the `date` each list already declares.
 #}
 {% set ns = namespace(seen=[]) %}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{% for raw in ['/aporia/'] + (APORIA + PROJECTS + PROJECTS_HU) | map(attribute='url') | list %}
-{% set url = raw.split('#')[0] %}
-{% if url and url not in ns.seen %}
+  <url>
+    <loc>{{ SITEURL }}/aporia/</loc>
+    <lastmod>{{ APORIA | map(attribute='date') | max }}</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+{% for item in APORIA + PROJECTS + NAGEL_DASHBOARDS %}
+{% set url = item.url.split('#')[0] %}
+{% if url and url not in ns.seen and not item.noindex %}
 {% set ns.seen = ns.seen + [url] %}
   <url>
     <loc>{{ SITEURL }}{{ url }}</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+{% if item.date %}    <lastmod>{{ item.date }}</lastmod>
+{% endif %}    <changefreq>monthly</changefreq>
   </url>
 {% endif %}
 {% endfor %}
