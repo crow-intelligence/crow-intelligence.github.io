@@ -33,9 +33,9 @@
   "image": "https://crowintelligence.org/aporia/magyar-dalszovegek-essze/assets/og.png",
   "inLanguage": "hu",
   "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.hu",
-  "datePublished": "2026",
+  "datePublished": "2026-09-21",
   "isPartOf": {"@type": "CreativeWorkSeries", "name": "Aporia", "url": "https://crowintelligence.org/aporia/"},
-  "author": {"@type": "Organization", "name": "Crow Intelligence", "url": "https://crowintelligence.org/"},
+  "author": {"@type": "Person", "@id": "https://crowintelligence.org/about.html#zoltan-varju", "name": "Varjú Zoltán"},
   "publisher": {"@type": "Organization", "name": "Crow Intelligence", "url": "https://crowintelligence.org/"}
 }
 </script>
@@ -287,6 +287,18 @@
     .step { opacity: 1; } .kw-row { opacity: 1; transform: none; animation: none; }
     .hero__scroll-cue .chev { animation: none; }
   }
+
+/* Byline, matching the other Aporia essays. NOTE: hand-added here, like the
+   canonical and OG tags above — see the re-integration checklist in
+   docs/generated-pages.md before re-copying this file from music_networks. */
+.essay-byline {
+  font-family: 'Courier Prime', ui-monospace, monospace;
+  font-size: 0.82rem; letter-spacing: 0.04em; color: #9a988f; margin: 0.9rem 0 0;
+}
+.essay-byline a { color: inherit; text-decoration: none; border-bottom: 1px dotted currentColor; }
+.essay-byline a:hover { color: #e8c97e; border-bottom-color: #e8c97e; }
+.essay-byline-sep { opacity: 0.55; padding: 0 0.15em; }
+.essay-byline time { white-space: nowrap; }
 </style>
 <!-- Cookie consent + analytics loader. Analytics stays blocked until opt-in. -->
 <script defer src="/consent.js"></script>
@@ -314,6 +326,7 @@
   <div class="hero__content">
     <h1 class="hero__title">Nekem írod a dalt — neked elemzem</h1>
     <p class="hero__lede">A könnyűzene dalszövegeinek több mint hetven éve.</p>
+    <p class="essay-byline">Írta <a href="https://crowintelligence.org/about.html#zoltan-varju" rel="author">Varjú Zoltán</a> <span class="essay-byline-sep">·</span> <time datetime="2026-09-21">2026. szeptember 21.</time></p>
   </div>
   <div class="hero__scroll-cue" aria-hidden="true"><span>görgess</span><span class="chev"></span></div>
 </header>

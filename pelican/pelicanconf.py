@@ -373,7 +373,7 @@ APORIA = [
                        'Hungarian popular song, quoting real lyrics decade by decade and tracking how '
                        'each word shifts meaning and company. Written in Hungarian.',
         'url': '/aporia/magyar-dalszovegek-essze/',
-        'date': date(2026, 7, 28),
+        'date': date(2026, 9, 21),
         'image': '/aporia/magyar-dalszovegek-essze/assets/og.png',
         'label': 'NLP & Digital Humanities',
         'lang': 'In Hungarian',
