@@ -85,27 +85,41 @@ Currently: 39 pages, 0 errors, 23 accepted exemptions, 0 stale.
 ## Still needs a human decision
 
 1. **A social card for `/services/language-insight.html`.** It falls back to the generic
-   brand image, so LinkedIn shares of the main sales page look generic. The old cards were
-   typeset text reading "AI DUE DILIGENCE" and could not be reused; matching the template
-   needs IM Fell English, present only as `woff2`.
-2. **The prose slots in #12.** Seven Nagel dashboards, `/chokepoints/`,
-   `/semantic_explorer/app/` and `/analysis/` each carry an empty section with a written
-   brief. Several need facts that **exist nowhere in the repo** — notably the corpus source
-   for `/analysis/`, which is why its `Dataset` has no `isBasedOn`, and the GDELT date range
-   and findings for `/chokepoints/`.
-3. **Essay bylines.** No Aporia essay has one, including four of 3,000–6,500 words. Adding
-   one means naming an author.
-4. **Are the three WordPress URLs actually live?** They are not in this repo and cannot be
-   served by this deploy. If they return 200, another origin answers for the apex — and a
-   Cloudflare rule cannot override that.
-5. **`/felsozsolca/`.** Still in the sitemap, per your deferral. Held out of `llms-full.txt`
-   and exempted in the linter, because publishing the full prose of a page that calls itself
-   internal working material would settle the question by default.
-6. **The Parlamonitor generator fixes** are still uncommitted in `~/projects/parlamonitor`.
-   The site is safe because a regenerated payload shipped, but the leak returns on the next
-   rebuild until they land.
-7. **`docs/redirects.md` is documentation, not configuration.** Eight Cloudflare rules of
-   the ten Free allows, ready to paste when DNS moves. Rules 2–4 are marked `[PROVISIONAL]`.
+   brand image, so a LinkedIn share of the main sales page shows nothing about the page.
+   The old cards were typeset text reading "AI DUE DILIGENCE" and could not be reused;
+   matching the template needs IM Fell English as a `.ttf`/`.otf`, since the only copy in
+   the repo is `woff2`, which the image library cannot read. Cosmetic, not blocking.
+
+2. **The seven Nagel dashboards** each carry an empty, briefed prose section awaiting
+   per-figure sources and findings. `/aporia/nagel-essay/dashboards/washington_dashboard.html`
+   is the third most-visited page on the site, so this is the highest-value of the open items.
+
+3. **The Parlamonitor generator still leaks a home directory.** Three scripts in
+   `parlamonitor-experiments` write `"source": str(path)` into provenance, which is how
+   `/home/zoli/...` reached the published payload. The live site is clean because a
+   regenerated payload shipped, but **the leak returns on the next rebuild.** The fix is one
+   line in each — `heckle_network.py`, `speech_metrics.py`, `speech_syntax.py` — using the
+   `relative_to(ROOT)` idiom those files already have. That is a separate repository, so it
+   is yours to make.
+
+4. **A byline for `aporia/magyar-dalszovegek-essze/`.** The other four essays are signed;
+   this one is generated from `music_networks`, so its byline belongs in that generator's
+   template rather than here.
+
+5. **`/felsozsolca/` and `/chokepoints/`** are both work in progress and deliberately
+   untouched. For the record: both are in `sitemap-projects.xml`, `/felsozsolca/` is held out
+   of `llms-full.txt`, and both carry linter exemptions.
+
+**Closed since this list was written.** The three "zombie WordPress pages" were checked
+against the live site: `/2020/02/21/getting-started-with-sql/`, `/author/crowintelligenceteam/`,
+`/portfolio-3/`, `/privacy-policy/`, `/research/` and `/au/` **all return 404**. Nothing else
+is serving the apex, so there was no duplicate content and no second origin.
+
+The Cloudflare migration was **dropped**: no external links point at the withdrawn services
+and search traffic is minimal, so real 301s would recover almost nothing. The redirect map
+that documented it is deleted. The Pelican meta-refresh stubs stay — they cost nothing, work
+today without any third party, and keep `/hu/` and the two withdrawn service URLs from
+404ing.
 
 ## Deliberately left alone
 
