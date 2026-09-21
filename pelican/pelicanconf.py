@@ -180,8 +180,12 @@ PROJECTS = [
     },
     {
         'title': 'The Nagel Index — Public vs. Private Personality',
-        'description': "Big Five personality analysis of political leaders, measuring the gap between their public speeches and private correspondence. Inspired by Thomas Nagel's essay on ruthlessness in public life.",
-        'url': '/aporia/nagel-essay/',
+        'description': "Big Five personality analysis of political leaders, measuring the gap between their public speeches and private correspondence. Seven interactive dashboards, one per figure. Inspired by Thomas Nagel's essay on ruthlessness in public life.",
+        # The dashboards, not the essay — the essay has its own card via APORIA,
+        # and this one has always carried the Lincoln portrait. Lincoln is also
+        # what the dashboards index canonicalises to, and every dashboard
+        # carries the seven-figure picker, so this is the entry point.
+        'url': '/aporia/nagel-essay/dashboards/lincoln_dashboard.html',
         'date': date(2026, 3, 31),
         'image': '/dashboard_portraits/lincoln_portrait.png',
         'label': 'Personality Analytics',
