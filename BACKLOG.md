@@ -4,6 +4,7 @@ Open work on the Crow Intelligence site. Oldest at the bottom of each section. S
 
 ## Next up
 
+- [ ] Pygments ReDoS advisory (low) cannot be fixed while Pelican pins `pygments<2.20.0` and the fix is 2.20.0 — Pelican 4.12.0 is the latest release and still carries that cap. Pygments only runs at build time over our own content, so there is no untrusted input; re-check when Pelican relaxes the bound.
 - [ ] Restore the Habitat for Humanity partner logo once their parent organisation approves logo use. Paused 2026-09-21 at their request — we hold written permission from the local office, and they expect it back within weeks. Instructions are in the commented-out `PARTNERS` entry in `pelicanconf.py`.
 - [ ] Decide fate of `pelican/content/articles/inaugural-post.md`. It still generates an orphan page at `/blog/inaugural-post.html` with nothing linking to it. Options: (a) republish on `blog.crowintelligence.org` and delete from this repo, (b) delete from the repo outright, (c) keep and relink from the main site somehow.
 - [ ] Clean up the legacy copy loop in `.github/workflows/deploy.yml:36-47`. Dirs like `altair_maps`, `charts`, `countries`, etc. all live under `projects/` now and are already covered by the second loop. Harmless, but dead weight.
