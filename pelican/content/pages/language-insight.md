@@ -4,7 +4,7 @@ URL: services/language-insight.html
 Save_as: services/language-insight.html
 Status: published
 Summary: Text analytics that ends in a decision, not a dashboard. We read how your market actually frames what you sell — and tell you what to change.
-Og_image: /images/social-preview/home.png
+Og_image: /images/social-preview/language-insight.png
 
 Your analytics can already tell you *what* your market is saying. It cannot
 tell you what to do about it.

@@ -416,7 +416,7 @@ SERVICES = [
                        'metaphors and anchors your market actually reasons with — returning '
                        'a prioritised list of language changes, not a descriptive report.',
         'url': '/services/language-insight.html',
-        'image': '/images/social-preview/home.png',
+        'image': '/images/social-preview/language-insight.png',
         'label': 'For Financial Services & Beyond',
     },
     {
