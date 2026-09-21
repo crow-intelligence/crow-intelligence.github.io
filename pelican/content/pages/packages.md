@@ -144,6 +144,10 @@ linguistics and NLP research, now publicly available.
 
 `uvx cookiecutter https://github.com/crow-intelligence/corvus.git`
 
+**Not published on PyPI — install from source.** The PyPI name `corvus`
+belongs to an unrelated project, so `pip install corvus` will not get you this
+template.
+
 ---
 
 *All packages are MIT licensed and open source.*
