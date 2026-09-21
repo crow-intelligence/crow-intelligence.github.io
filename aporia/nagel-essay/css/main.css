@@ -241,3 +241,16 @@ body {
   .brand-nav.open { display: flex; }
   .brand-nav a { margin-left: 0; }
 }
+
+/* Author byline. The essays ran unsigned; these are 3,000-6,500 word pieces
+   with a named argument, and an unsigned essay reads as institutional output
+   rather than someone's work. */
+.essay-byline {
+  font-family: 'Courier Prime', ui-monospace, monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: #9a988f;
+  margin: 0.9rem 0 0;
+}
+.essay-byline a { color: inherit; text-decoration: none; border-bottom: 1px dotted currentColor; }
+.essay-byline a:hover { color: #e8c97e; border-bottom-color: #e8c97e; }
