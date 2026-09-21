@@ -326,6 +326,61 @@
 </style>
 <!-- Cookie consent + analytics loader. Analytics stays blocked until opt-in. -->
 <script defer src="/consent.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "@id": "https://crowintelligence.org/kmdb/#dataset",
+  "name": "K-Monitor corruption press archive (kmdb_base)",
+  "description": "Approximately 64,800 Hungarian-language news articles about alleged corruption, collected and hand-labelled by the K-Monitor anti-corruption NGO. Article text was completed from the original source or a Wayback Machine snapshot where the stored text was missing or truncated. Linguistic processing (tokenisation, lemmatisation, POS tagging) with emtsv/emMorph; actors and corruption types come from K-Monitor's manual tags.",
+  "url": "https://crowintelligence.org/kmdb/",
+  "inLanguage": "hu",
+  "creator": {
+    "@id": "https://crowintelligence.org/#organization"
+  },
+  "isBasedOn": "https://adatbazis.k-monitor.hu/",
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "temporalCoverage": "2002/..",
+  "isAccessibleForFree": true,
+  "identifier": "TODO-DOI",
+  "variableMeasured": [
+    "Article count per year and per Hungarian parliamentary cycle",
+    "Publication outlet",
+    "K-Monitor content category",
+    "Tagged entity type (person, institution)",
+    "Corruption type label",
+    "Actor co-occurrence network edges",
+    "BERTopic topic assignment",
+    "Outlet political alignment at time of publication"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://crowintelligence.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Projects",
+      "item": "https://crowintelligence.org/projects.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "K-Monitor corruption press archive (kmdb_base)",
+      "item": "https://crowintelligence.org/kmdb/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Ugrás a tartalomra</a>

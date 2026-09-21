@@ -12,6 +12,12 @@
 {% block twitter_image %}{{ SITEURL }}{% if page.og_image %}{{ page.og_image }}{% else %}/images/social-preview/home.png{% endif %}{% endblock %}
 {% block meta_robots %}{{ page.robots|default('index, follow') }}{% endblock %}
 
+{# Page-specific structured data. A `Schema: <name>` header in the markdown
+   pulls in themes/crow-dark/templates/schema/<name>.html, so schema built from
+   pelicanconf.py data lives in a template instead of being retyped by hand in
+   the page body. #}
+{% block extra_schema %}{% if page.schema %}{% include 'schema/' ~ page.schema ~ '.html' %}{% endif %}{% endblock %}
+
 {% block content %}
 <section class="hero hero-compact">
     <div class="container">

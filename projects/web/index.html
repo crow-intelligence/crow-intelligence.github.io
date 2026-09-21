@@ -247,6 +247,61 @@ svg { width: 100%; overflow: visible; }
 </style>
 <!-- Cookie consent + analytics loader. Analytics stays blocked until opt-in. -->
 <script defer src="/consent.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "@id": "https://crowintelligence.org/web/#dataset",
+  "name": "Financial news headlines with metaphor annotations, 2009–2020",
+  "description": "158,666 financial news headlines spanning 2009 to 2020, annotated for metaphorical language across eight metaphor domains and mapped to the phases of the Minsky–Kindleberger panic cycle over five crisis events. Paired with daily S&P 500 market data.",
+  "url": "https://crowintelligence.org/web/",
+  "inLanguage": "en",
+  "creator": {
+    "@id": "https://crowintelligence.org/#organization"
+  },
+  "isBasedOn": [
+    "https://www.kaggle.com/",
+    "https://huggingface.co/lwachowiak/Metaphor-Detection-XLMR"
+  ],
+  "temporalCoverage": "2009/2020",
+  "isAccessibleForFree": true,
+  "identifier": "TODO-DOI",
+  "variableMeasured": [
+    "Headline text",
+    "Metaphor domain match (8 domains)",
+    "Metaphor ratio per headline",
+    "Kindleberger phase",
+    "Crisis event",
+    "S&P 500 daily return"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://crowintelligence.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Projects",
+      "item": "https://crowintelligence.org/projects.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Financial news headlines with metaphor annotations",
+      "item": "https://crowintelligence.org/web/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 

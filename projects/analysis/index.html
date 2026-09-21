@@ -226,6 +226,56 @@ svg text { font-family: var(--mono); fill: var(--dim); font-size: 11px; }
 </style>
 <!-- Cookie consent + analytics loader. Analytics stays blocked until opt-in. -->
 <script defer src="/consent.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "@id": "https://crowintelligence.org/analysis/#dataset",
+  "name": "United States presidential speeches, 1775–2024",
+  "description": "A lemmatised corpus of American presidential speeches spanning 1775 to 2024, split into quarter-century periods. Each period is processed into a word–context co-occurrence matrix (skipgrams, window=5), transformed to PPMI with context distribution smoothing (α=0.75), reduced to 100-dimensional embeddings via truncated SVD, and aligned across periods with orthogonal Procrustes.",
+  "url": "https://crowintelligence.org/analysis/",
+  "inLanguage": "en",
+  "creator": {
+    "@id": "https://crowintelligence.org/#organization"
+  },
+  "temporalCoverage": "1775/2024",
+  "identifier": "TODO-DOI",
+  "variableMeasured": [
+    "Quarter-century period",
+    "100-dimensional aligned word embedding",
+    "Cosine distance from the 1775–1799 baseline",
+    "Nearest neighbours per period",
+    "NMF topic proportion",
+    "Unique vocabulary size per period"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://crowintelligence.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Projects",
+      "item": "https://crowintelligence.org/projects.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "United States presidential speeches",
+      "item": "https://crowintelligence.org/analysis/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
