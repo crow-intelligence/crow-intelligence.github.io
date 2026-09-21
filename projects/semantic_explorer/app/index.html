@@ -331,6 +331,25 @@ svg:active { cursor: grabbing; }
 .ci-footer a { color: #c7c5bd; text-decoration: none; border-bottom: 1px dotted #6a6862; }
 .ci-footer a:hover { color: #e8c97e; border-bottom-color: #e8c97e; }
 .ci-footer p { margin: 6px 0; }
+  /* "About this project" block — server-rendered, so the page says what it is
+     before any JavaScript runs. Follows the pattern set by /kmdb/. */
+  .ci-about {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px 24px 8px;
+    color: #a5a39c;
+    font-family: 'Courier Prime', ui-monospace, monospace;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .ci-about h2 {
+    color: #e8e6e1;
+    font-family: 'IM Fell English', Georgia, serif;
+    font-weight: 400;
+    margin: 0 0 10px;
+  }
+  .ci-about p { margin: 0 0 12px; }
+  .ci-about a { color: #e8c97e; }
 </style>
 <!-- Cookie consent + analytics loader. Analytics stays blocked until opt-in. -->
 <script defer src="/consent.js"></script>
@@ -369,9 +388,45 @@ svg:active { cursor: grabbing; }
   <nav>
     <a href="https://crowintelligence.org/portfolio.html">Portfolio</a>
     <a href="https://crowintelligence.org/services.html">Services</a>
+    <a href="https://crowintelligence.org/about.html">About</a>
+    <a href="https://blog.crowintelligence.org/">Blog</a>
     <a href="https://crowintelligence.org/contact.html">Contact</a>
   </nav>
 </header>
+<section class="ci-about" id="about-this-project">
+  <h2>About this project</h2>
+
+  <!-- PROSE SLOT — expand to 250+ words. The framing below is assembled only
+       from what the page and pelicanconf.py already state. What it still needs:
+         1. The full list of loaded texts, with editions and sources — the page
+            names Tolstoy, Plato, Adam Smith and Darwin but the selector holds
+            more, and none of the editions are stated anywhere in the repo.
+         2. Corpus sizes: tokens or sentences per source.
+         3. The kenon settings actually used — window size, backbone filter and
+            its threshold, minimum edge weight.
+         4. One worked reading: a seed word whose ego network shows something
+            the running text does not.
+         5. A link to the repository that built the graphs.
+       Only the author has 1-5. -->
+
+  <p>An <strong>ego network</strong> is the neighbourhood of a single word: the
+  terms that occur near it often enough to count as its company, and the links
+  among those terms in turn. Reading one tells you what a word travels with in a
+  particular text &mdash; which is not the same as what it means, but is often
+  the more useful question of a corpus.</p>
+
+  <p>This explorer builds those networks from classic texts using corpus-internal
+  statistics only: skip-gram co-occurrence windows and network backbone
+  extraction, with no neural models and no external training data. Type a seed
+  word, click a node to expand it, and trace how meaning propagates outward. In
+  compare mode two sources are placed side by side, so the same seed word can be
+  read against two different authors.</p>
+
+  <p>Built with <a href="https://crowintelligence.org/packages.html">kenon</a>,
+  the lab&rsquo;s open-source package for semantic and co-occurrence networks
+  (<a href="https://github.com/crow-intelligence/kenon">source</a>,
+  <a href="https://kenon.readthedocs.io/en/latest/">documentation</a>).</p>
+</section>
 <div id="app">
     <header>
         <h1>Semantic Explorer</h1>
