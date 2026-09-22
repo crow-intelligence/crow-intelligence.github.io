@@ -12,6 +12,7 @@ Open work on the Crow Intelligence site. Oldest at the bottom of each section. S
 
 ## Nice to have
 
+- [ ] `'featured'` is declared on 15 `PROJECTS` entries in `pelicanconf.py` and read by no template — the homepage renders no project cards at all. Either wire it up (a featured strip on the homepage) or drop the key; right now it reads as a live switch that does nothing.
 - [ ] Add main-site nav to the featured project microsites (`/site/`, `/dashboard/`, `/web/`, `/analysis/`, `/semantic_explorer/`). Each has its own styling, so this needs per-page integration work, not a single edit.
 - [ ] Decide whether the Nagel essay (`/aporia/nagel-essay/`) should carry the main site nav on top of its section-dots nav, or whether the immersive scrolly format is intentional.
 - [ ] Tidy `projects/verne/chapters/index.html`: it omits the two skip links and the two font preloads that its sibling `projects/verne/index.html:185-188,199-200` carries, and it holds 16 `data-i18n*` plus 37 `data-chapter` attributes that no script reads (the language ladder was removed — see `i18n.js:9-11`). Inert, but they read as live hooks.
