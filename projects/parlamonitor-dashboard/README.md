@@ -12,9 +12,49 @@ python3 -m http.server 8765 --directory dashboard
 It must be served over HTTP rather than opened as `file://`, because it fetches
 the bundle.
 
-`data/dashboard.json` (~2.2 MB) is derived and therefore gitignored, like
+`data/dashboard.json` (~3 MB) is derived and therefore gitignored, like
 everything else under `data/derived/`. Rebuild it with the command above; it
 takes a second and needs no models.
+
+A second file, `data/vocabulary.json` (~1.7 MB), backs the Szókincs tab. It is
+fetched only when that tab is first opened, so the first paint never waits for
+it. It holds per-entity word counts, not comparisons. The divergence is
+computed in the page by `rtd.js`, which `tests/test_dashboard_rtd.py` holds to
+keyflux's numbers. Both files are written by `build_dashboard_data.py`. Each
+optional view is left out when its input has not been built.
+
+## Publishing: the site copy is a mirror, not a fork
+
+The page is published at <https://crowintelligence.org/parlamonitor-dashboard/>
+from the site repo `crow-intelligence.github.io`, folder
+`projects/parlamonitor-dashboard/`. **This directory is the single source.**
+Everything the site needs lives here, in `index.html`:
+
+- the canonical link and the absolute Open Graph and Twitter tags;
+- the favicons and the `consent.js` cookie banner;
+- the `Dataset` and `BreadcrumbList` JSON-LD;
+- the `.ci-header` site bar;
+- the about block as a `<section>`, since it is content and not page furniture.
+
+The site copy is then an exact mirror and never hand-edited:
+
+```bash
+make check-site   # what differs from the site copy; exit 1 on drift
+make sync-site    # rebuild the data, then mirror dashboard/ into the site repo
+```
+
+`scripts/sync_site.py` copies the published set (page, `app.js`, `rtd.js`,
+`vendor/`, `assets/`, both data files) and deletes files the source no longer
+has. It refuses in two cases:
+- the site copy has uncommitted changes, which would be hand edits it
+  overwrites;
+- any published file contains a home-directory path.
+
+It never commits or pushes. Publishing is a branch and a PR in the site repo,
+merged there.
+
+Locally, the absolute links point at the live site, and `/consent.js` is a
+harmless 404.
 
 ## Why these forms
 

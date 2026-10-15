@@ -4,11 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Parlamonitor — a 43. ciklus beszédei</title>
-<meta name="description" content="Interaktív elemzés az Országgyűlés 43. ciklusának 1693 felszólalásáról: olvashatóság, hangulat, érzelmek, témák, kulcsszavak és a bekiabálások hálózata.">
 <link rel="canonical" href="https://crowintelligence.org/parlamonitor-dashboard/">
+<meta name="description" content="Interaktív elemzés az Országgyűlés 43. ciklusának 1693 felszólalásáról: olvashatóság, hangulat, érzelmek, témák, kulcsszavak és a bekiabálások hálózata.">
 <meta property="og:title" content="Parlamonitor — a 43. ciklus beszédei">
 <meta property="og:description" content="Olvashatóság, hangulat, érzelmek, témák és bekiabálások 1693 parlamenti felszólalásban.">
 <meta property="og:type" content="website">
+<!-- Site integration lives here, in the source, not in the published copy:
+     scripts/sync_site.py mirrors this directory into crow-intelligence.github.io
+     byte for byte, so anything added only over there is overwritten. -->
 <!-- Absolute: social crawlers do not resolve a relative og:image. -->
 <meta property="og:image" content="https://crowintelligence.org/parlamonitor-dashboard/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -24,13 +27,17 @@
 <link rel="icon" href="https://crowintelligence.org/favicon.ico" sizes="any">
 <link rel="icon" href="https://crowintelligence.org/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="https://crowintelligence.org/apple-touch-icon.png">
+<!-- The site's cookie banner; Google Analytics loads only after an explicit opt-in.
+     Root-relative, so it resolves on crowintelligence.org and is a harmless 404 when
+     the dashboard is served on its own. -->
+<script defer src="/consent.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Dataset",
   "@id": "https://crowintelligence.org/parlamonitor-dashboard/#dataset",
   "name": "Parlamonitor — az Országgyűlés 43. ciklusának felszólalásai",
-  "description": "1693 felszólalás (826 775 szó) az Országgyűlés 43. ciklusának jegyzőkönyveiből, olvashatósági, hangulati, érzelmi, téma- és kulcsszó-annotációval, valamint a 916 névvel jelölt közbeszólásból épített bekiabálás-hálózattal.",
+  "description": "1693 felszólalás (826 775 szó) az Országgyűlés 43. ciklusának jegyzőkönyveiből, olvashatósági, hangulati, érzelmi, téma- és kulcsszó-annotációval, a 916 névvel jelölt közbeszólásból épített bekiabálás-hálózattal, valamint a felszólalók és a bekiabálások (42–43. ciklus) szókincsének összevetésével.",
   "url": "https://crowintelligence.org/parlamonitor-dashboard/",
   "inLanguage": "hu",
   "creator": {
@@ -48,7 +55,8 @@
     "Dictionary-based sentiment (Precognox Hungarian sentiment lexicon)",
     "Dictionary-based emotion, Ekman six",
     "BERTopic over huBERT embeddings",
-    "Keyword extraction with TextRank and KeyBERT"
+    "Keyword extraction with TextRank and KeyBERT",
+    "Rank-turbulence divergence and allotaxonometry (Dodds et al. 2020) with keyflux"
   ],
   "variableMeasured": [
     "Readability (LIX, RIX)",
@@ -60,7 +68,9 @@
     "Moral vocabulary salience by virtue",
     "Topic assignment",
     "Keywords per topic",
-    "Interruption network in-degree and out-degree"
+    "Interruption network in-degree and out-degree",
+    "Heckle vocabulary divergence between benches, cycles 42 and 43",
+    "Speech vocabulary divergence between speakers, factions and sides"
   ]
 }
 </script>
@@ -127,6 +137,9 @@
   --div-pos-2: #c9501f;
   --grid: #e7e5dd;
   --focus: #7a1f1f;
+  /* sequential, one hue (crow maroon), light -> dark; validated as an ordinal
+     ramp against --surface-1: monotone L, adjacent dL >= 0.06, light end 2.14:1 */
+  --seq-1: #d6a39b; --seq-2: #bc7369; --seq-3: #9a463d; --seq-4: #7a1f1f;
 }
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme="light"])) {
@@ -139,6 +152,7 @@
     --div-neg-2: #4b93e8; --div-neg-1: #2c5f9c; --div-mid: #3a3936;
     --div-pos-1: #9c4a22; --div-pos-2: #e0713c;
     --grid: #2b2a27; --focus: #d98a8a;
+    --seq-1: #823a35; --seq-2: #a2564e; --seq-3: #c4786f; --seq-4: #e6a89f;
   }
 }
 :root[data-theme="dark"] {
@@ -151,6 +165,9 @@
   --div-neg-2: #4b93e8; --div-neg-1: #2c5f9c; --div-mid: #3a3936;
   --div-pos-1: #9c4a22; --div-pos-2: #e0713c;
   --grid: #2b2a27; --focus: #d98a8a;
+  /* dark flips the anchor: low counts sit near the surface, high counts glow;
+     validated against --surface-1 #1a1a19, light end 2.16:1 */
+  --seq-1: #823a35; --seq-2: #a2564e; --seq-3: #c4786f; --seq-4: #e6a89f;
 }
 
 * { box-sizing: border-box; }
@@ -158,9 +175,6 @@ body {
   margin: 0; background: var(--surface-0); color: var(--text-primary);
   font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
 }
-.skip { position: absolute; left: -9999px; }
-.skip:focus { left: 8px; top: 8px; z-index: 99; background: var(--surface-1);
-  padding: 8px 12px; border: 2px solid var(--focus); border-radius: 6px; }
 /* Crow Intelligence site bar. The page is standalone otherwise — a reader
    arriving from search had no route into the rest of the site. Sits above the
    project's own maroon header and stays deliberately quieter than it. */
@@ -172,6 +186,9 @@ body {
 .ci-header nav { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
 .ci-header nav a { color: var(--text-secondary); text-decoration: none; }
 .ci-header nav a:hover { color: var(--crow); text-decoration: underline; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 8px; top: 8px; z-index: 99; background: var(--surface-1);
+  padding: 8px 12px; border: 2px solid var(--focus); border-radius: 6px; }
 header.site { background: var(--crow); color: #fff; padding: 14px 24px;
   display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
 header.site h1 { font-size: 17px; margin: 0; font-weight: 600; letter-spacing: .01em; }
@@ -234,6 +251,19 @@ section.about a { color: var(--crow); }
 :root[data-theme="dark"] section.about a, .dark section.about a { color: #e2a0a0; }
 .hidden { display: none !important; }
 .axis text { fill: var(--text-muted); font-size: 10.5px; }
+.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; flex-wrap: wrap; }
+.seg button { font: inherit; font-size: 13.5px; padding: 7px 13px; border: 0;
+  background: var(--surface-1); color: var(--text-secondary); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--border); }
+.seg button[aria-checked="true"] { background: var(--surface-2); color: var(--text-primary);
+  font-weight: 600; box-shadow: inset 0 -2px 0 var(--crow); }
+.allotax { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 18px; align-items: start; }
+@media (max-width: 860px) { .allotax { grid-template-columns: 1fr; } }
+.allotax h3 { font-size: 13px; font-weight: 600; margin: 0 0 6px; color: var(--text-secondary); }
+details.table-view { margin-top: 14px; font-size: 13px; }
+details.table-view summary { cursor: pointer; color: var(--text-secondary); }
 .axis path, .axis line { stroke: var(--grid); }
 </style>
 </head>
@@ -257,6 +287,7 @@ section.about a { color: var(--crow); }
     <a href="#profile">Képviselő</a>
     <a href="#topics">Témák</a>
     <a href="#network">Bekiabálások</a>
+    <a href="#vocab">Szókincs</a>
     <a href="#about">A projektről</a>
   </nav>
   <button class="tab" id="theme" style="color:#f3dede" aria-label="Sötét mód">◐</button>
@@ -266,14 +297,16 @@ section.about a { color: var(--crow); }
   <p class="lede" style="margin-top:22px">
     Az Országgyűlés 43. ciklusának <strong>1693 felszólalása</strong>, négy mérce
     mentén: mennyire nehéz olvasni, milyen hangulatú, miről szól, és milyen
-    reakciót váltott ki a teremből. Minden szám egyetlen ciklusra vonatkozik —
-    csak ehhez létezik beszédexport.
+    reakciót váltott ki a teremből. Minden szám a 43. ciklusra vonatkozik —
+    csak ehhez létezik beszédexport —, kivéve a bekiabálások szókincsének
+    összevetését, amely a 42. ciklus jegyzőkönyvi közbevetéseit is használja.
   </p>
 
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" aria-selected="true" data-view="profile">Képviselő &amp; párt</button>
     <button class="tab" role="tab" aria-selected="false" data-view="topics">Témák és reakciók</button>
     <button class="tab" role="tab" aria-selected="false" data-view="network">Ki kit szakított félbe</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="vocab">Szókincs</button>
   </div>
 
   <!-- ------------------------------------------------------ profile view -->
@@ -405,6 +438,52 @@ section.about a { color: var(--crow); }
     <div class="card" style="padding:8px"><div id="graph"></div>
       <div class="legend" id="net-legend"></div>
       <p class="note" id="net-caption"></p></div>
+
+    <section id="allotax-section" aria-labelledby="allotax-title">
+      <h2 id="allotax-title">Mit kiabálnak be — és mi változik, ha egy párt átül a másik oldalra?</h2>
+      <p class="lede" id="allotax-lede"></p>
+      <div class="controls">
+        <div class="control"><label id="allotax-switch-label">Összevetés</label>
+          <div class="seg" role="radiogroup" aria-labelledby="allotax-switch-label" id="allotax-switch"></div></div>
+      </div>
+      <div class="card">
+        <p class="note" id="allotax-intro" style="margin:0 0 12px"></p>
+        <div class="allotax">
+          <div><h3 id="allotax-diamond-title"></h3><div id="allotax-diamond"></div>
+            <div class="legend" id="allotax-legend"></div></div>
+          <div><h3 id="allotax-shift-title"></h3><div id="allotax-shift"></div></div>
+        </div>
+        <p class="note" id="allotax-caption"></p>
+        <p class="note" id="allotax-caveat"></p>
+        <details class="table-view"><summary id="allotax-table-summary"></summary>
+          <div class="scroll"><table id="allotax-table"></table></div></details>
+      </div>
+    </section>
+  </section>
+
+  <!-- -------------------------------------------------------- vocab view -->
+  <section id="vocab" data-panel="vocab" class="hidden">
+    <section id="vocab-section" aria-labelledby="vocab-title" style="margin-top:0">
+      <h2 id="vocab-title">Ki beszél úgy, mint ki?</h2>
+      <p class="lede" id="vocab-lede"></p>
+      <div class="controls">
+        <div class="control"><label for="vocab-a" id="vocab-a-label"></label><select id="vocab-a"></select></div>
+        <div class="control"><button type="button" class="tab" id="vocab-swap"
+          aria-label="" style="border:1px solid var(--border);border-radius:7px">⇄</button></div>
+        <div class="control"><label for="vocab-b" id="vocab-b-label"></label><select id="vocab-b"></select></div>
+      </div>
+      <div class="card">
+        <div class="allotax">
+          <div><h3 id="vocab-diamond-title"></h3><div id="vocab-diamond"></div>
+            <div class="legend" id="vocab-legend"></div></div>
+          <div><h3 id="vocab-shift-title"></h3><div id="vocab-shift"></div></div>
+        </div>
+        <p class="note" id="vocab-caption"></p>
+        <p class="note" id="vocab-note"></p>
+        <details class="table-view"><summary id="vocab-table-summary"></summary>
+          <div class="scroll"><table id="vocab-table"></table></div></details>
+      </div>
+    </section>
   </section>
 
   <!-- --------------------------------------------------------------- about -->
@@ -433,7 +512,17 @@ section.about a { color: var(--crow); }
       belüli szavak polaritása megfordul, így a <em>nem probléma</em> pozitív.
       A <code>nélkül</code> névutó visszafelé hat, ezt külön kezeljük. Érzelem:
       Ekman hat alapérzelme <strong>Putz Orsolya saját gyűjtéséből</strong>,
-      a szerző engedélyével. Témák: BERTopic huBERT-beágyazásokon.</p>
+      a szerző engedélyével. Témák: BERTopic huBERT-beágyazásokon.
+      Bekiabálások szókincse: a 42. és 43. ciklus közbevetéseiből, a
+      jegyzőkönyvekben ismétlődő, szó szerint másolt blokkok nélkül; a
+      többmondatos bekiabálásokat egészben olvassuk. Az összevetés
+      rangturbulencia-divergenciával (RTD, α = 1/3) és allotaxonográffal
+      készült (Dodds és mtsai.), a <strong>keyflux</strong> csomaggal. A
+      töltelékszavakat a spaCy magyar listája, a segédigék, a megszólítások és
+      az NLTK listájának négy további szava alapján szűrtük. A felszólalások
+      szókincsének összevetése ugyanígy készül, a 43. ciklus beszédeiből; a
+      különbséget a böngésző számolja, a keyflux eljárásával egyezően
+      (ezt teszt ellenőrzi).</p>
     <p><strong>Amit ez nem mér.</strong> A szótáralapú mérés minden pontszáma
       visszavezethető a konkrét szavakra, amelyek létrehozták — de a szótár nem
       olvas kontextust. Két korlátot érdemes fejben tartani. A szentimentszótár
