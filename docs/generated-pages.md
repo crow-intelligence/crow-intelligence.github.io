@@ -1,8 +1,9 @@
 # Pages generated elsewhere, integrated here
 
-Two pages in this repo are built by a different project and copied in. They are
-**not** byte-identical to their source: each has picked up site integration by
-hand — canonical, Open Graph, the cookie-consent script, and now a byline.
+Three pages in this repo are built by a different project and copied in. The
+two `music_networks` pages are **not** byte-identical to their source: each has
+picked up site integration by hand — canonical, Open Graph, the cookie-consent
+script, and a byline. Parlamonitor no longer works that way; see below.
 
 **A straight `cp` from the generator destroys that work silently.** Nothing warns
 you; the page keeps rendering and quietly loses its metadata.
@@ -11,7 +12,7 @@ you; the page keeps rendering and quietly loses its metadata.
 |---|---|
 | `aporia/magyar-dalszovegek-essze/index.html` | `music_networks` → `data/essay/index.html` |
 | `projects/magyar-dalszovegek/index.html` | `music_networks` → `data/dashboard/index.html` |
-| `projects/parlamonitor-dashboard/` | `parlamonitor-experiments` → `dashboard/` |
+| `projects/parlamonitor-dashboard/` | `parlamonitor-experiments` → `dashboard/` — **mirrored, never hand-edited** |
 
 ## Before re-copying, check what diverges
 
@@ -38,34 +39,49 @@ As of 2026-09-21, for the essay:
 
 ## Parlamonitor specifically
 
-`projects/parlamonitor-dashboard/` was copied from `parlamonitor-experiments`
-and then integrated here. Re-apply after a copy:
+Since 2026-10-15, `projects/parlamonitor-dashboard/` is a **byte-for-byte
+mirror** of `parlamonitor-experiments/dashboard/`. All the site integration
+lives in the generator's `index.html`, so there is nothing to re-apply after a
+copy:
 
-- `<link rel="canonical">`, `og:url`, `og:site_name`, `og:locale`, and an
-  **absolute** `og:image` — the generator emits a relative one, which no social
-  crawler resolves
-- `og:image:width` / `og:image:height`, the Twitter card tags, and the favicon links
-- The `.ci-header` site bar and its CSS
-- Two JSON-LD blocks: `Dataset` and `BreadcrumbList`
-- The about block is a `<section>` here, not the `<footer>` the generator emits.
-  That matters: it holds the source, corpus size, method and licence, and as a
-  `<footer>` those 441 words read as page furniture rather than content
+- canonical, absolute OG/Twitter tags, the favicons;
+- `consent.js`;
+- both JSON-LD blocks;
+- the `.ci-header` bar;
+- the about `<section>`.
 
-`data/dashboard.json` is derived and **gitignored upstream**, but has to be
-committed here because Pages serves only what is in the repo. Regenerate it with
-`uv run python scripts/build_dashboard_data.py` rather than editing it.
+**Do not edit files in this folder.** Change them upstream, then mirror them
+with the generator's own tool, from the `parlamonitor-experiments` checkout:
+
+```bash
+make check-site   # what differs from this copy; exit 1 on drift
+make sync-site    # rebuild the dashboard data, then mirror dashboard/ here
+```
+
+`scripts/sync_site.py` copies the page, `app.js`, `rtd.js`, `vendor/`,
+`assets/` and both data files, and deletes files the source no longer has. It
+**refuses** in two cases:
+- this folder has uncommitted changes, which are hand edits it would overwrite;
+- anything it would publish contains a home-directory path.
+
+It never commits. Publishing stays a branch and a PR here.
+
+`data/dashboard.json` and `data/vocabulary.json` are derived and **gitignored
+upstream**, but have to be committed here because Pages serves only what is in
+the repo.
 
 ## The better fix
 
 All of it belongs in the generator's template, so the copy needs no repair at
-all. Until then this file is the checklist.
+all. Parlamonitor has made that move (above). For the `music_networks` pages,
+this file is still the checklist.
 
 Two known gaps that can only be fixed upstream, because they would be
 overwritten here on the next run:
 
 - The essay's meta description is **199 characters**, past the ~160 the SERP
   shows, and its `og:description` differs from it.
-- The dashboard's meta description is **215 characters**.
+- The `magyar-dalszovegek` dashboard's meta description is **215 characters**.
 
 Both are exempted in `scripts/lint_html.py` with that reason, so the build does
 not fail on something this repo cannot fix.
