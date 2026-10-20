@@ -5,7 +5,7 @@ bundle it fetches.
 
 ```bash
 uv run python scripts/build_dashboard_data.py   # writes data/dashboard.json
-python3 -m http.server 8765 --directory dashboard
+make serve    # or: uv run python scripts/serve_dashboard.py
 # then open http://127.0.0.1:8765/
 ```
 
@@ -15,6 +15,13 @@ the bundle.
 `data/dashboard.json` (~3 MB) is derived and therefore gitignored, like
 everything else under `data/derived/`. Rebuild it with the command above; it
 takes a second and needs no models.
+
+`data/living/` (19 files, ~8 MB together) backs the Élő parlament tab. It
+holds one file per sitting day, fetched one at a time as a reader picks a day.
+
+A third, `data/lines.json` (~0.9 MB), backs the Taps és derültség tab. It holds
+word counts per kind of line and every speaker's best lines, and is also
+fetched on first use.
 
 A second file, `data/vocabulary.json` (~1.7 MB), backs the Szókincs tab. It is
 fetched only when that tab is first opened, so the first paint never waits for
@@ -44,7 +51,7 @@ make sync-site    # rebuild the data, then mirror dashboard/ into the site repo
 ```
 
 `scripts/sync_site.py` copies the published set (page, `app.js`, `rtd.js`,
-`vendor/`, `assets/`, both data files) and deletes files the source no longer
+`vendor/`, `assets/`, the three data files and `data/living/`) and deletes files the source no longer
 has. It refuses in two cases:
 - the site copy has uncommitted changes, which would be hand edits it
   overwrites;

@@ -37,7 +37,7 @@
   "@type": "Dataset",
   "@id": "https://crowintelligence.org/parlamonitor-dashboard/#dataset",
   "name": "Parlamonitor — az Országgyűlés 43. ciklusának felszólalásai",
-  "description": "1693 felszólalás (826 775 szó) az Országgyűlés 43. ciklusának jegyzőkönyveiből, olvashatósági, hangulati, érzelmi, téma- és kulcsszó-annotációval, a 916 névvel jelölt közbeszólásból épített bekiabálás-hálózattal, valamint a felszólalók és a bekiabálások (42–43. ciklus) szókincsének összevetésével.",
+  "description": "1693 felszólalás (826 775 szó) az Országgyűlés 43. ciklusának jegyzőkönyveiből, olvashatósági, hangulati, érzelmi, téma- és kulcsszó-annotációval, az 1115 névvel jelölt közbeszólásból épített bekiabálás-hálózattal, valamint a felszólalók és a bekiabálások (42–43. ciklus) szókincsének összevetésével.",
   "url": "https://crowintelligence.org/parlamonitor-dashboard/",
   "inLanguage": "hu",
   "creator": {
@@ -70,7 +70,8 @@
     "Keywords per topic",
     "Interruption network in-degree and out-degree",
     "Heckle vocabulary divergence between benches, cycles 42 and 43",
-    "Speech vocabulary divergence between speakers, factions and sides"
+    "Speech vocabulary divergence between speakers, factions and sides",
+    "Sentences followed by applause, laughter or heckling, and their rhetorical features"
   ]
 }
 </script>
@@ -140,6 +141,9 @@
   /* sequential, one hue (crow maroon), light -> dark; validated as an ordinal
      ramp against --surface-1: monotone L, adjacent dL >= 0.06, light end 2.14:1 */
   --seq-1: #d6a39b; --seq-2: #bc7369; --seq-3: #9a463d; --seq-4: #7a1f1f;
+  /* Élő parlament: who answers. Outside the faction slots so nothing collides;
+     5.3:1 and 10:1 against --surface-1, and told apart by position too. */
+  --flow-own: #6b6a64; --flow-other: #7a1f1f;
 }
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme="light"])) {
@@ -153,6 +157,7 @@
     --div-pos-1: #9c4a22; --div-pos-2: #e0713c;
     --grid: #2b2a27; --focus: #d98a8a;
     --seq-1: #823a35; --seq-2: #a2564e; --seq-3: #c4786f; --seq-4: #e6a89f;
+    --flow-own: #b3b1a7; --flow-other: #e08b84;
   }
 }
 :root[data-theme="dark"] {
@@ -168,6 +173,7 @@
   /* dark flips the anchor: low counts sit near the surface, high counts glow;
      validated against --surface-1 #1a1a19, light end 2.16:1 */
   --seq-1: #823a35; --seq-2: #a2564e; --seq-3: #c4786f; --seq-4: #e6a89f;
+  --flow-own: #b3b1a7; --flow-other: #e08b84;
 }
 
 * { box-sizing: border-box; }
@@ -264,6 +270,57 @@ section.about a { color: var(--crow); }
 .allotax h3 { font-size: 13px; font-weight: 600; margin: 0 0 6px; color: var(--text-secondary); }
 details.table-view { margin-top: 14px; font-size: 13px; }
 details.table-view summary { cursor: pointer; color: var(--text-secondary); }
+.line-quote { border-left: 3px solid var(--border); padding: 4px 0 4px 12px; margin: 8px 0 12px;
+  font-size: 14px; max-width: 78ch; }
+.line-quote .react { display: block; font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+.line-group h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--text-muted); margin: 16px 0 4px; display: flex; align-items: center; gap: 6px; }
+.transcript { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr) minmax(0, 1fr);
+  column-gap: 18px; font-size: 15px; line-height: 1.6; }
+.transcript .bench-h { font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--text-muted); padding-bottom: 8px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.transcript .gov { text-align: right; }
+.transcript .say { padding: 3px 0; }
+.transcript .say.playing { outline: 2px solid var(--text-primary); outline-offset: 2px; border-radius: 4px; }
+.player { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: flex-end;
+  gap: 10px 22px; padding: 12px 14px; margin: 0 0 14px; background: var(--surface-1);
+  border: 1px solid var(--border); border-radius: 10px; }
+.player .play { font-size: 20px; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--border);
+  background: var(--surface-2); color: var(--text-primary); cursor: pointer; }
+.player .play[aria-pressed="true"] { background: var(--text-primary); color: var(--surface-1); }
+.player .range { display: inline-flex; align-items: center; gap: 8px; }
+.player input[type="range"], table.mapping input[type="checkbox"] { accent-color: var(--focus); }
+.player output { font-size: 13px; color: var(--text-secondary); min-width: 10ch; }
+.player .now { flex-basis: 100%; margin: 0; font-size: 13.5px; color: var(--text-secondary); }
+table.mapping td:first-child { width: 2.5em; }
+table.mapping button.solo { font: inherit; font-size: 12px; padding: 2px 8px; border-radius: 6px;
+  border: 1px solid var(--border); background: transparent; color: var(--text-secondary); cursor: pointer; }
+table.mapping button.solo[aria-pressed="true"] { background: var(--text-primary); color: var(--surface-1); }
+.transcript .say.reacted { background: var(--surface-2); border-radius: 4px; padding: 3px 6px; margin: 0 -6px; }
+.rnote { font-size: 12.5px; color: var(--text-secondary); margin: 3px 0 6px; line-height: 1.4; }
+.rnote.own { border-right: 3px solid var(--flow-own); padding-right: 7px; }
+.transcript .opp .rnote { border-right: 0; padding-right: 0; }
+.transcript .opp .rnote.own { border-left: 3px solid var(--flow-own); padding-left: 7px; }
+.transcript .opp .rnote.other, .rnote.other { border-left: 3px solid var(--flow-other); padding-left: 7px; }
+.transcript .gov .rnote.other { border-left: 0; padding-left: 0; border-right: 3px solid var(--flow-other); padding-right: 7px; }
+.rnote .who { font-weight: 600; color: var(--text-primary); }
+.rnote .bubble { display: inline-block; background: var(--surface-2); border-radius: 10px; padding: 2px 9px; margin-top: 2px; }
+.rnote.center { font-size: 12px; color: var(--text-muted); border: 0; padding: 0; margin: 2px 0 4px; }
+.cut { color: var(--crow); font-weight: 700; }
+.rnote.hostile { border-width: 0 0 0 5px; }
+.transcript .gov .rnote.hostile { border-width: 0 5px 0 0; }
+.hostile-tag { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--text-primary);
+  border: 1px solid var(--flow-other); border-radius: 4px; padding: 0 4px; margin-left: 4px; white-space: nowrap; }
+.inline-dir { color: var(--text-muted); font-size: 12.5px; font-style: italic; }
+@media (max-width: 760px) {
+  .transcript { grid-template-columns: 1fr; }
+  .transcript .gov { text-align: left; }
+  .transcript .bench-h.side { display: none; }
+  .transcript .gov .rnote.own, .transcript .gov .rnote.other { border-right: 0; padding-right: 0;
+    border-left: 3px solid var(--flow-own); padding-left: 7px; }
+  .transcript .gov .rnote.other { border-left-color: var(--flow-other); }
+}
+.small-multiples { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
 .axis path, .axis line { stroke: var(--grid); }
 </style>
 </head>
@@ -288,6 +345,8 @@ details.table-view summary { cursor: pointer; color: var(--text-secondary); }
     <a href="#topics">Témák</a>
     <a href="#network">Bekiabálások</a>
     <a href="#vocab">Szókincs</a>
+    <a href="#lines">Taps</a>
+    <a href="#elo">Élő parlament</a>
     <a href="#about">A projektről</a>
   </nav>
   <button class="tab" id="theme" style="color:#f3dede" aria-label="Sötét mód">◐</button>
@@ -307,6 +366,8 @@ details.table-view summary { cursor: pointer; color: var(--text-secondary); }
     <button class="tab" role="tab" aria-selected="false" data-view="topics">Témák és reakciók</button>
     <button class="tab" role="tab" aria-selected="false" data-view="network">Ki kit szakított félbe</button>
     <button class="tab" role="tab" aria-selected="false" data-view="vocab">Szókincs</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="lines">Taps és derültség</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="elo">Élő parlament</button>
   </div>
 
   <!-- ------------------------------------------------------ profile view -->
@@ -416,7 +477,7 @@ details.table-view summary { cursor: pointer; color: var(--text-secondary); }
       <em>kapott</em> valaki (in-degree), illetve mennyit <em>adott</em>
       (out-degree). A két nézet ugyanazt a méretskálát és ugyanazt az
       elrendezést használja, így közvetlenül látszik, ki oszt többet, mint
-      amennyit kap. A 294 élből 226 átível a két oldal között — a félbeszakítás
+      amennyit kap. A 364 élből 271 átível a két oldal között — a félbeszakítás
       túlnyomórészt kormány–ellenzék műfaj. Kattintásra a képviselő profilja
       nyílik meg.
     </p>
@@ -486,6 +547,103 @@ details.table-view summary { cursor: pointer; color: var(--text-secondary); }
     </section>
   </section>
 
+  <!-- -------------------------------------------------------- lines view -->
+  <section id="lines" data-panel="lines" class="hidden">
+    <section id="lines-cmp-section" style="margin-top:0">
+      <h2 id="lines-cmp-title"></h2>
+      <p class="lede" id="lines-cmp-lede"></p>
+      <div class="controls">
+        <div class="control"><label id="lines-switch-label"></label>
+          <div class="seg" role="radiogroup" aria-labelledby="lines-switch-label" id="lines-switch"></div></div>
+      </div>
+      <div class="card">
+        <div class="allotax">
+          <div><h3 id="lines-diamond-title"></h3><div id="lines-diamond"></div>
+            <div class="legend" id="lines-legend"></div></div>
+          <div><h3 id="lines-shift-title"></h3><div id="lines-shift"></div></div>
+        </div>
+        <p class="note" id="lines-caption"></p>
+      </div>
+    </section>
+    <section id="lines-features-section">
+      <h2 id="lines-features-title"></h2>
+      <p class="lede" id="lines-features-lede"></p>
+      <div class="card">
+        <div id="lines-features"></div>
+        <div class="legend" id="lines-features-legend"></div>
+        <p class="note" id="lines-features-note"></p>
+        <details class="table-view"><summary id="lines-features-summary"></summary>
+          <div class="scroll"><table id="lines-features-table"></table></div></details>
+      </div>
+    </section>
+    <section id="lines-position-section">
+      <h2 id="lines-position-title"></h2>
+      <p class="lede" id="lines-position-lede"></p>
+      <div class="card">
+        <div class="kpis" id="lines-position-kpis"></div>
+        <div class="small-multiples" id="lines-position"></div>
+        <p class="note" id="lines-position-note"></p>
+      </div>
+    </section>
+    <section id="lines-mp-section">
+      <h2 id="lines-mp-title"></h2>
+      <p class="lede" id="lines-mp-lede"></p>
+      <div class="controls">
+        <div class="control"><label for="lines-mp" id="lines-mp-label"></label><select id="lines-mp"></select></div>
+      </div>
+      <div class="card">
+        <div class="kpis" id="lines-mp-kpis"></div>
+        <div id="lines-mp-best"></div>
+        <p class="note" id="lines-mp-note"></p>
+      </div>
+    </section>
+  </section>
+
+  <!-- ------------------------------------------------- living parliament -->
+  <section id="elo" data-panel="elo" class="hidden">
+    <section id="elo-day-section" style="margin-top:0">
+      <h2 id="elo-day-title"></h2>
+      <p class="lede" id="elo-day-lede"></p>
+      <div class="controls">
+        <div class="control"><label for="elo-day" id="elo-day-label"></label><select id="elo-day"></select></div>
+        <div class="control"><label id="elo-view-label"></label>
+          <div class="seg" role="radiogroup" aria-labelledby="elo-view-label" id="elo-view"></div></div>
+      </div>
+      <div class="card">
+        <div id="elo-seismo"></div>
+        <div class="legend" id="elo-legend"></div>
+        <p class="note" id="elo-note"></p>
+        <details class="table-view"><summary id="elo-table-summary"></summary>
+          <div class="scroll"><table id="elo-table"></table></div></details>
+      </div>
+    </section>
+    <section id="elo-sound-section">
+      <h2 id="elo-sound-title"></h2>
+      <p class="lede" id="elo-sound-lede"></p>
+    </section>
+    <div class="player" id="elo-player">
+      <button type="button" class="play" id="elo-play" aria-pressed="false">▶</button>
+      <div class="control"><label id="elo-mode-label"></label>
+        <div class="seg" role="radiogroup" aria-labelledby="elo-mode-label" id="elo-mode"></div></div>
+      <div class="control"><label for="elo-length" id="elo-length-label"></label>
+        <span class="range"><input type="range" id="elo-length"><output id="elo-length-out" for="elo-length"></output></span></div>
+      <div class="control"><label for="elo-volume" id="elo-volume-label"></label><input type="range" id="elo-volume"></div>
+      <p class="now" id="elo-now" aria-live="polite"></p>
+    </div>
+    <div class="card">
+      <div class="scroll"><table class="mapping" id="elo-mapping"></table></div>
+      <p class="note" id="elo-sound-note"></p>
+    </div>
+    <section id="elo-speech-section">
+      <h2 id="elo-speech-title"></h2>
+      <p class="lede" id="elo-speech-lede"></p>
+      <div class="card">
+        <div id="elo-speech-head" style="margin-bottom:14px"></div>
+        <div class="transcript" id="elo-transcript"></div>
+      </div>
+    </section>
+  </section>
+
   <!-- --------------------------------------------------------------- about -->
   <section class="about" id="about">
     <h2>A projektről</h2>
@@ -522,7 +680,22 @@ details.table-view summary { cursor: pointer; color: var(--text-secondary); }
       az NLTK listájának négy további szava alapján szűrtük. A felszólalások
       szókincsének összevetése ugyanígy készül, a 43. ciklus beszédeiből; a
       különbséget a böngésző számolja, a keyflux eljárásával egyezően
-      (ezt teszt ellenőrzi).</p>
+      (ezt teszt ellenőrzi). Taps és derültség: a beszédek szövegébe írt
+      jegyzőkönyvi közbevetéseket (4597) visszahelyeztük arra a mondatra,
+      amely után elhangzottak (99,6%-uk illeszthető; a többit nem soroljuk be).
+      A beszéd végi, udvariassági tapsot és a puszta köszönetet külön
+      kezeljük, a megszólításokat (<em>Tisztelt Ház!</em>) pedig kihagytuk az
+      összehasonlítás alapjából. Élő parlament: a reakciók időpontja becslés —
+      a beszéd kezdete és hossza alapján, aszerint, hogy a beszéd szavainak
+      hányad része hangzott el addig a mondatig. Ellenséges bekiabálás: amelyben
+      vádló, megszégyenítő vagy sértő szó áll (például <em>hazudik, szégyen,
+      tolvaj</em>) — 58 szavas, kézzel ellenőrzött lista alapján; a terem zaja
+      a jegyzőkönyv saját bejegyzése (<em>zaj, moraj, felzúdulás</em>).
+      A hangzó változatot a böngésző állítja elő
+      (<a href="https://tonejs.github.io/">Tone.js</a>, MIT): az erényszótár
+      mondatonkénti találatai adják a dallamot (a közbeszólók szavai nélkül),
+      a felszólalás BERTopic-témája az akkordot, a reakciók a
+      hangszereket. A leképezés választás, nem mérés.</p>
     <p><strong>Amit ez nem mér.</strong> A szótáralapú mérés minden pontszáma
       visszavezethető a konkrét szavakra, amelyek létrehozták — de a szótár nem
       olvas kontextust. Két korlátot érdemes fejben tartani. A szentimentszótár
@@ -546,12 +719,12 @@ details.table-view summary { cursor: pointer; color: var(--text-secondary); }
       saját gyűjtésének részei — folyamatban lévő munka, a szerző engedélyével
       használjuk. A szótárakat nem tesszük közzé.</p>
     <p><strong>Lefedettség.</strong> Minden képviselőhöz kötött pontszám a 43.
-      ciklusé, mert csak ehhez van beszédexport. A bekiabálás-hálózat 916 névvel
-      jelölt közbeszólásból épül; a ciklus közbeszólásainak további 41%-a
+      ciklusé, mert csak ehhez van beszédexport. A bekiabálás-hálózat 1115 névvel
+      jelölt közbeszólásból épül; a ciklus névvel jelölt közbeszólásainak további 17%-a
       felszólaláson kívül hangzott el (szavazás, ügyrend), ezekhez nincs kihez
       kötni őket.</p>
     <p><strong>Eszközök.</strong> emtsv · saphes · keyflux · BERTopic · networkx ·
-      D3 v7 · pandas. Az adatfeldolgozás kódja és a részletes módszertani
+      D3 v7 · Tone.js · pandas. Az adatfeldolgozás kódja és a részletes módszertani
       jegyzetek a repóban:
       <a href="https://github.com/crow-intelligence/parlamonitor-experiments">parlamonitor-experiments</a>
       (<code>data/derived/*/REPORT.md</code>).</p>
