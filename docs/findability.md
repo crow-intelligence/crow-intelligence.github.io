@@ -37,6 +37,11 @@ These need your accounts, your judgement, or your name. Ordered by impact for th
 
 There are 19 `TODO-DOI` markers in this repo, waiting for these steps.
 
+**A browser agent can do the clicking.** `docs/zenodo-deposit-spec.md` is a step-by-step spec
+for the Claude app on Haiku. It creates the five essay drafts with reserved DOIs and
+switches on the GitHub integration, and it never publishes. The cover-sheet PDFs come from
+`scripts/zenodo_cover_sheets.py`.
+
 - [ ] **Create a Zenodo account** and log in with ORCID (Zoltán: `0009-0009-6123-1703`).
 - [ ] **Packages:** in Zenodo → *GitHub*, switch on `chronowords`, `kenon`, `keyflux`,
       `lexograph` and `saphes`. Each already publishes on a GitHub release, so the **next
