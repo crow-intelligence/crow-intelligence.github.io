@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Independent research at the intersection of cognitive linguistics, NLP, and data analysis.{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{{ SITE_DESCRIPTION }}{% endblock %}">
     <meta name="author" content="{{ AUTHOR }}">
     <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}">
     <link rel="canonical" href="{% block canonical_url %}{{ SITEURL }}/{% endblock %}">
@@ -25,14 +25,14 @@
     <meta property="og:locale" content="{% if page is defined and page and page.lang == 'hu' %}hu_HU{% else %}{{ OG_LOCALE }}{% endif %}">
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:title" content="{% block og_title %}{{ SITENAME }}{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Independent research at the intersection of cognitive linguistics, NLP, and data analysis.{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ SITE_DESCRIPTION }}{% endblock %}">
     <meta property="og:image" content="{% block og_image %}{{ SITEURL }}/site/img/punctuation_spiral.png{% endblock %}">
     <meta property="og:url" content="{% block og_url %}{{ SITEURL }}/{% endblock %}">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{% block twitter_title %}{{ SITENAME }}{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Independent research at the intersection of cognitive linguistics, NLP, and data analysis.{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ SITE_DESCRIPTION }}{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{{ SITEURL }}/site/img/punctuation_spiral.png{% endblock %}">
 
     <!-- Schema.org JSON-LD.
@@ -63,8 +63,6 @@
         "Corpus linguistics",
         "Computational text analysis",
         "Network science",
-        "AI technical due diligence",
-        "EU AI Act compliance",
         "Data visualisation"
       ],
       "founder": [
@@ -109,9 +107,7 @@
         "https://www.linkedin.com/company/crow-intelligence/",
         "https://github.com/crow-intelligence",
         "https://x.com/crowintelligen1",
-        "https://bsky.app/profile/zoltanv.bsky.social",
-        "https://blog.crowintelligence.org/",
-        "https://mindtheminds.substack.com/"
+        "https://blog.crowintelligence.org/"
       ]
     }
     </script>

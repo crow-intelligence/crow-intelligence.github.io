@@ -16,6 +16,13 @@ SITENAME = 'Crow Intelligence'
 SITEURL = ''
 SITESUBTITLE = 'AI Consultancy & Strategy'
 
+# Default meta/og/twitter description. Only the homepage falls back to it; every
+# other page sets its own. It names the essays' subjects because those are what
+# people search for. Keep it at 160 characters or fewer (scripts/lint_html.py).
+SITE_DESCRIPTION = ('Computational essays on Homer, Wittgenstein and political speech, '
+                    'the open-source Python tools behind them, and language-data '
+                    'analysis from an independent lab.')
+
 
 def _rfc822(d):
     """Format a date as RFC-822, which RSS 2.0 requires for <pubDate>.

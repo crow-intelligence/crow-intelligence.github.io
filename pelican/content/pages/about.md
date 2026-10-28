@@ -161,8 +161,7 @@ cognitive theory — is still rare. That is the gap we are trying to fill.
         "Distributional semantics",
         "Semantic change",
         "Network science",
-        "Digital humanities",
-        "AI technical due diligence"
+        "Digital humanities"
       ],
       "sameAs": [
         "https://orcid.org/0009-0009-6123-1703",
