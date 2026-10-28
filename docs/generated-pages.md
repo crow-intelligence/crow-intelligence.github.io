@@ -38,6 +38,8 @@ As of 2026-09-21, for the essay:
   `author` as the Person `@id`, not the organisation
 - The Highwire `citation_*` meta tags after the canonical link (read by Google
   Scholar; added 2026-10-28)
+- The `Hivatkozás:` cite line at the top of `.site-footer`, and its
+  `.site-footer .cite-as` CSS rule (added 2026-10-28)
 
 ## Parlamonitor specifically
 
