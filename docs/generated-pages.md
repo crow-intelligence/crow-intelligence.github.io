@@ -36,6 +36,8 @@ As of 2026-09-21, for the essay:
 - The `.essay-byline` paragraph under the hero lede, and its CSS
 - In the JSON-LD: a full `datePublished` (the generator emits a bare year) and
   `author` as the Person `@id`, not the organisation
+- The Highwire `citation_*` meta tags after the canonical link (read by Google
+  Scholar; added 2026-10-28)
 
 ## Parlamonitor specifically
 
