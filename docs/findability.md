@@ -16,13 +16,17 @@ These need your accounts, your judgement, or your name. Ordered by impact for th
 
 ### A. Measure first (≈30 min)
 
-- [ ] **Bing Webmaster Tools**: add the site. You can import it from Google Search Console in
-      one click, so no new verification is needed. Then submit `sitemap.xml` and
-      `sitemap-projects.xml`. Bing's index feeds ChatGPT search and Copilot. IndexNow already
-      pings Bing on every deploy, but you can't see the results without an account.
-- [ ] **Google Search Console** (already verified via `google8f9e00ab937a5b17.html`): open
-      *Pages → Why pages aren't indexed* and send me the list. "Crawled – currently not
-      indexed" entries are the useful ones.
+- [x] **Bing Webmaster Tools** and **Google Search Console** are both set up (confirmed
+      2026-10-28). Bing's index feeds ChatGPT search and Copilot. IndexNow pings Bing on every
+      deploy.
+- [ ] Check that both `sitemap.xml` and `sitemap-projects.xml` are submitted in **both**
+      tools. The second holds the essays and projects, which is most of the site.
+- [ ] Send me the **"why pages aren't indexed"** list from each tool (Search Console:
+      *Pages*; Bing: *Search Console → Pages* or *Site Explorer*). The "Crawled – currently
+      not indexed" and "Discovered – currently not indexed" entries are the useful ones.
+- [ ] Send me the **top queries** from each tool's performance report for the last 3
+      months, ideally as a CSV export. It shows what people actually search for when they
+      find the site.
 - [ ] **Look at AI referrals in Google Analytics** (`G-3S8BY8VY3G`, loaded by `consent.js`
       only after opt-in). In *Reports → Acquisition → Traffic acquisition*, filter the session
       source for `chatgpt.com`, `perplexity.ai`, `copilot.microsoft.com`, `gemini.google.com`
